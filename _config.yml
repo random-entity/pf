@@ -4,9 +4,29 @@ theme: just-the-docs
 
 url: https://random-entity.github.io/pf
 
-# color_scheme: dark
-heading_anchors: true
+collections:
+  kr:
+    permalink: "/:collection/:path/"
+    output: true
+  en:
+    permalink: "/:collection/:path/"
+    output: true
+  jp:
+    permalink: "/:collection/:path/"
+    output: true
+just_the_docs:
+  collections:
+    kr:
+      name: Korean
+      nav_fold: true
+    en:
+      name: English
+      nav_fold: true
+    jp:
+      name: Japanese
+      nav_fold: true
 
+heading_anchors: true
 callouts:
   highlight:
     color: yellow
