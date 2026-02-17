@@ -1,0 +1,11 @@
+$serif-stack: "Noto Serif JP", "Noto Serif KR", "Noto Serif", serif;
+
+.main-content {
+  p, dd {
+    font-family: $serif-stack;
+  }
+
+  dl {
+    grid-template-columns: auto 1fr;
+  }
+}
