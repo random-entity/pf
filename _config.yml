@@ -1,7 +1,14 @@
-title: Portfolio
+title: ∀∃ Portfolio
 description: A collection of my works
 theme: just-the-docs
+
 url: https://random-entity.github.io/pf
+
+aux_links:
+  "GitHub":
+    - "https://github.com/random-entity"
+aux_links_new_tab: false
+
 collections:
   kr:
     permalink: "/:collection/:path/"
@@ -23,6 +30,7 @@ just_the_docs:
     jp:
       name: Japanese
       nav_fold: true
+
 heading_anchors: true
 callouts:
   highlight:
