@@ -3,3 +3,6 @@ description: A collection of my works
 theme: just-the-docs
 
 url: https://random-entity.github.io/pf
+
+# color_scheme: dark
+heading_anchors: true
