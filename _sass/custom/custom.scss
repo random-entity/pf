@@ -5,6 +5,11 @@ $serif-stack: "Noto Serif JP", "Noto Serif KR", "Noto Serif", serif;
     font-family: $serif-stack;
   }
 
+  // Prevent nested dt from inheriting from nesting dd
+  dt {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
   dl {
     grid-template-columns: auto 1fr;
   }
