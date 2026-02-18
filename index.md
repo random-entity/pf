@@ -6,7 +6,7 @@ nav_order: 0
 
 # This
 
-이 웹사이트는 **임의존재(∀∃)**의 포트폴리오입니다. 내비게이션 메뉴에서 희망하는 언어의 탭을 열어 열람해 주십시오. ≈ This website is **random-entity(∀∃)**'s portfolio. You might want to choose the tab for your language of choice from the navigation menu and read the documents. ≈ このWebサイトは**任意存在（∀∃）**のポートフォリオです。ナビゲーション・バーからご希望の言語のタブを選択しご覧頂けます。
+이 웹사이트는 **임의존재(∀∃)**의 포트폴리오입니다. 내비게이션 메뉴에서 희망하는 언어의 탭을 열어 열람해 주십시오. ≈ This website is **random-entity(∀∃)**'s portfolio. You might want to choose the tab for your language of choice from the navigation menu and read the documents. ≈ このWebサイトは**任意存在（∀∃）**のポートフォリオです。ナビゲーション・メニューからご希望の言語のタブを選択しご覧頂けます。
 
 ## What
 
@@ -15,24 +15,18 @@ nav_order: 0
 ## Social
 
 <dl>
-<dt>Email</dt>
-<dd><code><a href="mailto:randomentityemail@gmail.com" target="_blank">randomentityemail@gmail.com</a></code></dd>
-
-<dt>GitHub</dt>
-<dd><code><a href="https://github.com/random-entity" target="_blank">@random-entity</a></code></dd>
-
-<dt>YouTube</dt>
-<dd><a href="https://www.youtube.com/@public_random_entities" target="_blank">public random entities</a></dd>
-
-<dt>Bandcamp</dt>
-<dd><a href="https://tekjii.bandcamp.com/" target="_blank">tekjii</a></dd>
-
-<dt>SoundCloud</dt>
-<dd><a href="https://soundcloud.com/tekjii" target="_blank">tekjii</a></dd>
-
 <dt>Instagram</dt>
 <dd><code><a href="https://www.instagram.com/public_random_entities/" target="_blank">@public_random_entities</a></code></dd>
-
+<dt>Email</dt>
+<dd><code><a href="mailto:randomentityemail@gmail.com" target="_blank">randomentityemail@gmail.com</a></code></dd>
+<dt>GitHub</dt>
+<dd><code><a href="https://github.com/random-entity" target="_blank">@random-entity</a></code></dd>
+<dt>YouTube</dt>
+<dd><a href="https://www.youtube.com/@public_random_entities" target="_blank">public random entities</a></dd>
 <dt>itch.io</dt>
-<dd><code><a href="https://public-random-entities.itch.io/" target="_blank">@public-random-entities</a></code></dd>
+<dd><a href="https://public-random-entities.itch.io/" target="_blank">public-random-entities</a></dd>
+<dt>Bandcamp</dt>
+<dd><a href="https://tekjii.bandcamp.com/" target="_blank">tekjii</a></dd>
+<dt>SoundCloud</dt>
+<dd><a href="https://soundcloud.com/tekjii" target="_blank">tekjii</a></dd>
 </dl>

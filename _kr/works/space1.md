@@ -9,8 +9,12 @@ nav_order: -2021.10
 
 # 공간#1
 {: .no_toc .d-inline-block }
-video game
+Video game
 {: .label }
+CG
+{: .label .label-green }
+Shader
+{: .label .label-green }
 
 유한한 공간 속의 무한한 공간. 무한한 공간 속의 제자리걸음.
 {: .fs-5 .fw-300 }
@@ -40,10 +44,12 @@ video game
     <dl>
       <dt>상시</dt>
       <dd>
-        <ul>
-          <li><a href="https://public-random-entities.itch.io/space1" target="_blank">itch.io</a></li>
-          <li><a href="https://github.com/random-entity/proj.art.space1" target="_blank">GitHub</a></li>
-        </ul>
+      <dl>
+        <dt>소스 코드</dt>
+        <dd><a href="https://github.com/random-entity/proj.art.space1" target="_blank">GitHub</a></dd>
+        <dt>플레이</dt>
+        <dd><a href="https://public-random-entities.itch.io/space1" target="_blank">itch.io</a></dd>
+      </dl>
       </dd>
     </dl>
   </dd>

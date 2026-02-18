@@ -1,20 +1,17 @@
 ---
-title: 해당 언어의 작품 제목
+title: 기호가 아니고 기호가 아닌 것도 아닌 것
 parent: Works
 layout: default
-nav_order: -2000.0000
-# !!! Delete metadata below
-nav_exclude: true
-search_exclude: true
+nav_order: -2020.0000
 ---
 
 <!-- prettier-ignore-start -->
 
-# 해당 언어의 제목
+# 기호가 아니고 기호가 아닌 것도 아닌 것
 {: .no_toc .d-inline-block }
-Art genre
+Video
 {: .label }
-Tech
+CG
 {: .label .label-green }
 
 태그라인.

@@ -1,20 +1,31 @@
 ---
-title: 해당 언어의 작품 제목
+title: 병신EP
 parent: Works
 layout: default
-nav_order: -2000.0000
-# !!! Delete metadata below
-nav_exclude: true
-search_exclude: true
+nav_order: -2019.0300
 ---
 
 <!-- prettier-ignore-start -->
 
-# 해당 언어의 제목
+# 병신EP
 {: .no_toc .d-inline-block }
-Art genre
+Music album
 {: .label }
-Tech
+DAW composition
+{: .label }
+Electronic
+{: .label }
+Alternative hip-hop
+{: .label }
+Experimental
+{: .label }
+Sampling
+{: .label .label-green }
+Audio processing
+{: .label .label-green }
+Audio synthesis
+{: .label .label-green }
+Rap
 {: .label .label-green }
 
 태그라인.
@@ -44,9 +55,9 @@ Tech
   <dd>
     <dl>
       <dt>상시</dt>
-      <dd><a href="https://google.com" target="_blank">상시 공개 주소</a></dd>
-      <dt>전시</dt>
-      <dd><a href="https://google.com" target="_blank">전시 날짜 및 장소</a></dd>
+      <dd>
+        <a href="https://tekjii.bandcamp.com/album/ep" target="_blank">Bandcamp</a>, <a href="https://soundcloud.com/tekjii/sets/ep-1" target="_blank">SoundCloud</a>
+      </dd>
     </dl>
   </dd>
 </dl>
