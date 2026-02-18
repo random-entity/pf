@@ -9,7 +9,7 @@ aux_links:
     - "https://github.com/random-entity/pf"
 aux_links_new_tab: true
 back_to_top: true
-back_to_top_text: "Back to top"
+back_to_top_text: "Page top"
 search_enabled: true
 
 collections:
