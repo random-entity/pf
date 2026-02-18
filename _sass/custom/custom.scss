@@ -1,7 +1,9 @@
 $serif-stack: "Noto Serif JP", "Noto Serif KR", "Noto Serif", serif;
 
 .main-content {
-  h1, p, dd {
+  h1,
+  p,
+  dd {
     font-family: $serif-stack;
   }
 
@@ -10,7 +12,13 @@ $serif-stack: "Noto Serif JP", "Noto Serif KR", "Noto Serif", serif;
     font-family: Arial, Helvetica, sans-serif;
   }
 
+  // Make the dt column width hug content
   dl {
     grid-template-columns: auto 1fr;
+  }
+
+  // Set horizontal distance between dt and dd
+  dd {
+    margin-left: 0.65em;
   }
 }
