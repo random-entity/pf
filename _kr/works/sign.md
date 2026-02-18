@@ -8,8 +8,8 @@ nav_order: -2020.0000
 <!-- prettier-ignore-start -->
 
 # 기호가 아니고 기호가 아닌 것도 아닌 것
-{: .no_toc .d-inline-block }
-Video
+{: .no_toc }
+Video art
 {: .label }
 CG
 {: .label .label-green }

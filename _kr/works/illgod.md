@@ -2,13 +2,13 @@
 title: 병신EP
 parent: Works
 layout: default
-nav_order: -2019.0300
+nav_order: -2019.0319
 ---
 
 <!-- prettier-ignore-start -->
 
 # 병신EP
-{: .no_toc .d-inline-block }
+{: .no_toc }
 Music album
 {: .label }
 DAW composition
@@ -27,6 +27,8 @@ Audio synthesis
 {: .label .label-green }
 Rap
 {: .label .label-green }
+v2019-03-19
+{: .label .label-purple }
 
 태그라인.
 {: .fs-5 .fw-300 }
@@ -43,7 +45,7 @@ Rap
 
 <dl>
   <dt>형식</dt>   
-  <dd>작품 형식</dd>
+  <dd>음악 앨범 (스테레오 오디오, 21분 XX초)</dd>
   <dt>사용된 기술</dt>
   <dd>
     <dl>
