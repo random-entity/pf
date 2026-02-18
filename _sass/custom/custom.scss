@@ -14,7 +14,8 @@ body {
     }
 
     // Prevent nested dt from inheriting from nesting dd
-    dt {
+    dt,
+    .label {
       font-family: $sans-serif-stack;
     }
 
