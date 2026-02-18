@@ -30,3 +30,9 @@ nav_order: 0
 <dt>SoundCloud</dt>
 <dd><a href="https://soundcloud.com/tekjii" target="_blank">tekjii</a></dd>
 </dl>
+
+## Bye
+
+<canvas id="graphics_torus"></canvas><script src="./torus.js"></script>
+
+시간이 멈추면 이 형태는 대칭성을 잃는다. ≈ When the time stops, this shape loses its symmetry. ≈ 時間が止まるとこの形態は対称性を失う。
