@@ -19,6 +19,14 @@ body {
       font-family: $sans-serif-stack;
     }
 
+    h1 {
+      margin-right: 0.25em;
+    }
+
+    .label {
+      margin: 0;
+    }
+
     // Make the dt column width hug content
     dl {
       grid-template-columns: auto 1fr;
