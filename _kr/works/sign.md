@@ -41,9 +41,9 @@ CG
   <dd>
     <dl>
       <dt>상시</dt>
-      <dd><a href="https://google.com" target="_blank">상시 공개 주소</a></dd>
+      <dd><a href="https://google.com">상시 공개 주소</a></dd>
       <dt>전시</dt>
-      <dd><a href="https://google.com" target="_blank">전시 날짜 및 장소</a></dd>
+      <dd><a href="https://google.com">전시 날짜 및 장소</a></dd>
     </dl>
   </dd>
 </dl>

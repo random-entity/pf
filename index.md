@@ -18,19 +18,19 @@ nav_order: 0
 
 <dl>
   <dt>Instagram</dt>
-  <dd><code><a href="https://www.instagram.com/public_random_entities/" target="_blank">@public_random_entities</a></code></dd>
+  <dd><code><a href="https://www.instagram.com/public_random_entities/">@public_random_entities</a></code></dd>
   <dt>Email</dt>
-  <dd><code><a href="mailto:randomentityemail@gmail.com" target="_blank">randomentityemail@gmail.com</a></code></dd>
+  <dd><code><a href="mailto:randomentityemail@gmail.com">randomentityemail@gmail.com</a></code></dd>
   <dt>GitHub</dt>
-  <dd><code><a href="https://github.com/random-entity" target="_blank">@random-entity</a></code></dd>
+  <dd><code><a href="https://github.com/random-entity">@random-entity</a></code></dd>
   <dt>YouTube</dt>
-  <dd><a href="https://www.youtube.com/@public_random_entities" target="_blank">public random entities</a></dd>
+  <dd><a href="https://www.youtube.com/@public_random_entities">public random entities</a></dd>
   <dt>itch.io</dt>
-  <dd><a href="https://public-random-entities.itch.io/" target="_blank">public-random-entities</a></dd>
+  <dd><a href="https://public-random-entities.itch.io/">public-random-entities</a></dd>
   <dt>Bandcamp</dt>
-  <dd><a href="https://tekjii.bandcamp.com/" target="_blank">tekjii</a></dd>
+  <dd><a href="https://tekjii.bandcamp.com/">tekjii</a></dd>
   <dt>SoundCloud</dt>
-  <dd><a href="https://soundcloud.com/tekjii" target="_blank">tekjii</a></dd>
+  <dd><a href="https://soundcloud.com/tekjii">tekjii</a></dd>
 </dl>
 
 ## Bye

@@ -58,7 +58,7 @@ v2019-03-19
     <dl>
       <dt>상시</dt>
       <dd>
-        <a href="https://tekjii.bandcamp.com/album/ep" target="_blank">Bandcamp</a>, <a href="https://soundcloud.com/tekjii/sets/ep-1" target="_blank">SoundCloud</a>
+        <a href="https://tekjii.bandcamp.com/album/ep">Bandcamp</a>, <a href="https://soundcloud.com/tekjii/sets/ep-1">SoundCloud</a>
       </dd>
     </dl>
   </dd>

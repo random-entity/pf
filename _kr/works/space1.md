@@ -49,9 +49,9 @@ v2021-10-31
       <dd>
       <dl>
         <dt>소스 코드</dt>
-        <dd><a href="https://github.com/random-entity/proj.art.space1" target="_blank">GitHub</a></dd>
+        <dd><a href="https://github.com/random-entity/proj.art.space1">GitHub</a></dd>
         <dt>배포</dt>
-        <dd><a href="https://public-random-entities.itch.io/space1" target="_blank">itch.io</a></dd>
+        <dd><a href="https://public-random-entities.itch.io/space1">itch.io</a></dd>
       </dl>
       </dd>
     </dl>
