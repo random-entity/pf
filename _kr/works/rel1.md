@@ -43,7 +43,7 @@ v2019-
       <dt>2D 애니메이션</dt>
       <dd>After Effects</dd>
       <dt>어프로프리에이션</dt>
-      <dd>"Double Rainbow"</dd>
+      <dd><a href="https://youtu.be/DH1a5fw77KE" target="_blank">바이럴 영상 "Double Rainbow"</a></dd>
     </dl>
   </dd>
   <dt>공개된 곳</dt>
@@ -51,6 +51,8 @@ v2019-
     <dl>
       <dt>상시</dt>
       <dd><a href="https://youtu.be/jAFeja2erGU" target="_blank">YouTube</a></dd>
+      <dt>발표</dt>
+      <dd>2019년 2학기 서울대학교 시각디자인과 AV디자인 수업 기말과제 발표</dd>
     </dl>
   </dd>
 </dl>

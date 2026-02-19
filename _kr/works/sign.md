@@ -14,7 +14,7 @@ Video art
 CG
 {: .label .label-green }
 
-태그라인.
+보이지 않지만 확실히 존재하고 있는, 거대한 것.
 {: .fs-5 .fw-300 }
 
 ## Table of Contents

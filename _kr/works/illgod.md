@@ -30,7 +30,7 @@ Rap
 v2019-03-19
 {: .label .label-purple }
 
-태그라인.
+병인가 신성인가. 같은 거다.
 {: .fs-5 .fw-300 }
 
 ## Table of Contents
