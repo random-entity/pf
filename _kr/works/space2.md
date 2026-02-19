@@ -81,27 +81,39 @@ v2021-12-09
 
 ## 줄거리
 
-- 감상자가 암실에 들어가면 바닥에 직경과 깊이 약 3미터의 구멍이 보인다. 구멍 속에는 물이 차 있고, 물속에는 감상자 자신이 보인다. 바닥 밑의 공간 속 자신의 클론을 바닥 위의 현실 세계로부터 내려다 보는 것이다.
-- 프로젝션 영상은 감상자의 움직임에 반응하여 실시간으로 왜곡되어, 감상자의 시점에서 항상 바닥 밑의 공간이 입체적으로 보이도록 만든다.
-- 감상자가 움직이면 수면에 파동이 인다. 구멍의 중앙에 다가가면 물속의 감상자는 파편화 되어 흩어지고, 각 파편은 물고기로 변신하여 물속을 헤엄친다.
+- 감상자가 암실에 들어가면 바닥에 직경과 깊이 약 3미터의 구멍이 보인다. 구멍 속에는 물이 차 있고, 물속에는 감상자 자신이 보인다. 감상자는 바닥 밑의 공간 속 자신의 클론을 바닥 위의 현실 세계로부터 내려다 보게 되는 것이다.
+- 프로젝션 영상은 감상자의 움직임에 반응하여 실시간으로 왜곡되어, 감상자의 시점에서 항상 바닥 밑의 공간이 입체적으로 보이도록 구성되어 있다.
+- 감상자가 움직이면 수면에 파동이 퍼진다. 구멍의 중앙에 다가가면 물속의 감상자는 파편화 되어 흩어지고, 각 파편은 물고기로 변신하여 물속을 헤엄쳐 돌아다닌다.
 
 ## 이미지
 
 {% include scroll_gallery.html images="
-  ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png | 컨셉 다이어그램
+  ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png |
+  컨셉 다이어그램
   |||||
-  ../../../assets/images/works/space2/space2_viewer-none.jpg | 감상자가 없을 때의 암실 내부
+  ../../../assets/images/works/space2/space2_viewer-none.jpg |
+  감상자가 없을 때의 암실 내부
   |||||
-  ../../../assets/images/works/space2/space2_viewer.jpg | 감상자가 구멍 중앙에 있을 때 <br/> 앞의 사진과 비교했을 때, 영상이 변형되어 있음을 확인할 수 있다. 감상자의 시점에서 바닥 밑 공간이 입체적으로 보이도록 변형된 것이다.
+  ../../../assets/images/works/space2/space2_viewer.jpg |
+  감상자가 구멍 중앙에 있을 때 <br/> 앞의 사진과 비교했을 때, 영상이 변형되어 있음을 확인할 수 있다. 감상자의 시점에서 바닥 밑 공간이 입체적으로 보이도록 변형된 것이다.
+  |||||
+  ../../../assets/images/works/space2/space2_fish-walk.jpg |
+  감상자가 구멍 중앙에 근접하면 물밑의 감상자 클론이 파편화 되어 흩어지고 각 파편은 물고기로 변신한다.
+  |||||
+  ../../../assets/images/works/space2/space2_fish-stand.jpg |
+  감상자가 구멍 정중앙에 섰을 때 물고기들은 최대 사이즈가 된다.
+  |||||
+  ../../../assets/images/works/space2/space2_matome.jpg |
+  상기 데모 영상 스틸 모음
 " %}
 
 ## 해설
 
 - 본작은 심리적 중압감 및 그 해소의 감각을 감상자에게 불러일으키기 위해 디자인된 공간이다.
-- 바닥 밑의 공간은 내면을 비추는 가상의 공간으로서 작용한다. 이 가상의 공간은, 바닥 위의 현실 공간과 감상자의 신체를 공유하면서도, 감상자를 둘러싼 환경을 달리 한다.
-- 중압감은 바닥 밑 감상자의 클론이 폐쇄적 공간 속, 물속에 있음을 지각시킴으로써 전달된다. 땅에 파인 원통형의 깊은 구멍과, 감상자의 움직임에 반응하는 수면의 파동은, 이러한 지각을 가능케 하는 표현이다.
-- 중압감의 해소는 물속의 감상자 클론이 파편화 되어 물고기 떼로 변신하는 모션그래픽을 통해 전달된다. 인간에게 물속은 숨 막히는 공간이지만, 물고기들에게는 자유로이 헤엄칠 수 있는 공간이다. 또한 이 모션그래픽은, 신체가 분해되어 자연으로 돌아가는 생과 사의 순환 과정을 연상시킨다.
-- 감상자와 바닥 밑의 감상자 클론의 위치는 일정한 높이 차를 유지한 채, 수평 평면 상에서는 구멍의 중심을 기준으로 대칭을 유지한다. (즉 바닥 평면 상의 구멍의 중심을 원점으로 했을 때, 바닥 위 감상자의 위치가 $$(x,y,z)$$라면 클론의 위치는 $$(-x,-y,z-h)$$ ($$h$$는 상수)인 것이다.) 감상자와 클론이 수평 평면 상에서 겹치는 지점은 구멍의 중심이고 ($$(x,y)=(-x,-y) \iff (x,y)=(0,0)$$), 이 지점에 근접할 때 상술한 변신 모션그래픽이 작동한다. 이는 내면과의 통합이 자연으로의 귀화를 통해 이루어짐을 표현한다.
+- 바닥 밑의 공간은 내면을 비추는 가상의 공간으로서 작용한다. 이 가상의 공간은, 바닥 위의 현실 공간과 감상자의 신체를 공유하면서도, 그를 둘러싼 환경을 달리 한다.
+- 중압감은 바닥 밑 감상자의 클론이 폐쇄적인 수중 공간 속에 있음을 지각시킴으로써 전달된다. 땅에 파인 원통형의 깊은 구멍과, 감상자의 움직임에 반응하는 수면의 파동은, 이러한 지각을 가능케 한다.
+- 중압감의 해소는 물속의 감상자 클론이 파편화 되어 물고기 떼로 변신하는 모션그래픽을 통해 표현된다. 인간에게 물속은 숨 막히는 공간이지만, 물고기들에게는 자유로이 헤엄칠 수 있는 공간이다. 또한 이 변신은, 신체가 분해되어 자연으로 돌아가는 생과 사의 순환 과정을 연상시킨다.
+- 감상자와 바닥 밑의 감상자 클론의 위치는 일정한 높이 차를 유지한 채, 수평 평면 상에서는 구멍의 중심을 기준으로 대칭을 유지한다. (즉 바닥 평면 상의 구멍의 중심을 원점으로 했을 때, 바닥 위 감상자의 위치가 $$(x,y,z)$$라면 클론의 위치는 $$(-x,-y,z-h)$$ ($$h$$는 상수)인 것이다.) 감상자가 클론과 수평 평면 상에서 겹치는 지점은 구멍의 중심이고 ($$(x,y)=(-x,-y) \iff (x,y)=(0,0)$$), 이 지점에 근접할 때 변신 모션그래픽이 활성화 된다. 이는 내면과의 통합이 자연으로의 귀화를 통해 이루어짐을 표현한다.
 
 ## 기술
 
@@ -109,9 +121,11 @@ v2021-12-09
 - 감상자가 한 명 씩 외부와 격리된 환경에 들어와 차분히 감상할 수 있도록, 그리고 영상이 잘 보이도록 암실을 지었다.
 - 인터랙티브 CG 렌더링을 위해 Unity를 사용했다.
 - 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 활용한 poind cloud 렌더링을 통해 만들어졌다.
-- 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 모션 센서 Kinect와, Unity 상의 off-axis projection을 프로그래밍을 사용했다.
+- 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 Kinect와, Unity 상의 off-axis projection 프로그래밍을 사용했다.
 - [(소스 코드)](https://github.com/random-entity/proj.art.space2)
-- 참고 문헌:
-  - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
-  - [Cg Programming/Unity/Projection for Virtual Reality](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
-  - [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
+
+### 참고 자료
+
+- [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
+- [Cg Programming/Unity/Projection for Virtual Reality](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
+- [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
