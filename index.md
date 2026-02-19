@@ -35,7 +35,7 @@ nav_order: 0
 
 ## Bye
 
-<canvas id="graphics_torus"></canvas><script src="./torus.js"></script>
+<canvas id="graphics_torus"></canvas><script src="./assets/js/torus.js"></script>
 
 시간이 멈추면 이 형태는 대칭성을 잃는다.
 {: .fs-1 .lh-tight }
