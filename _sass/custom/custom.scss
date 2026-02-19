@@ -77,8 +77,6 @@ body {
         width: 0;
         min-width: 100%;
 
-        // line-height: 1.5;
-
         /* 2. 다국어 줄바꿈 최적화 */
         word-break: normal; /* 한국어/일본어는 글자 단위, 영어는 단어 단위 기본값 */
         overflow-wrap: break-word; /* 아주 긴 영어 단어(URL 등)가 있을 경우에만 강제 파괴 */
