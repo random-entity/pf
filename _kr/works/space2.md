@@ -90,7 +90,7 @@ v2021-12-08
 <!-- ![](../../../assets/images/works/space2/space2_front_empty.jpg) -->
 
 {% include scroll_gallery.html images="
-  ../../../assets/images/works/space2/space2_viewer-none.jpg | 日本語（にほんご、にっぽんご）は、日本国内や、かつての日本領だった国、そして国外移民や移住者を含む日本人同士の間asdfasaaああ워워워워ㅜ어ㅜ우어ㅝㅜ어ㅜ워ㅝで使用されている言asdfasd語。 日本は法令によって公用語を規定していないが、法令その他の公用文は全て日本語で記述され、各種<br/>法令において日本語を用いることが規定され、学校教育においては「国語」の教科として学習を行うなど、事実上日本国内において唯一の公用語となっている。 使用人口について正確な統計はないが、日本国内の人口、及び日本国外に住む日本人や日系人、日本がかつて統治した地域の一部住民など、約1億3,000万人, |||||
+  ../../../assets/images/works/space2/space2_viewer-none.jpg | 日本語（にほんご、にっぽんご）は、日本国内や、かつての日本領だった国、そして国外移民や移住者を含む日本人同士の間 asdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaaasdfasaa ああ워워워워ㅜ어ㅜ우어ㅝㅜ어ㅜ워ㅝで使用されている言asdfasd語。 日本は法令によって公用語を規定していないが、法令その他の公用文は全て日本語で記述され、各種<br/>法令において日本語を用いることが規定され、学校教育においては「国語」の教科として学習を行うなど、事実上日本国内において唯一の公用語となっている。 使用人口について正確な統計はないが、日本国内の人口、及び日本国外に住む日本人や日系人、日本がかつて統治した地域の一部住民など、約1億3,000万人, |||||
   ../../../assets/images/works/space2/space2_viewer.jpg | ㅇㄹㄹ
 " %}
 
