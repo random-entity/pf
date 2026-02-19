@@ -4,6 +4,7 @@ theme: just-the-docs
 color_scheme: dark
 url: https://random-entity.github.io/pf
 
+math: mathjax
 aux_links:
   "GitHub":
     - "https://github.com/random-entity/pf"

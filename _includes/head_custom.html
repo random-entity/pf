@@ -8,3 +8,10 @@
   href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
   rel="stylesheet"
 />
+
+{% assign math = page.math | default: layout.math | default: site.math %}
+
+{% case math %}
+  {% when "mathjax" %}
+    {% include mathjax.html %}
+{% endcase %}
