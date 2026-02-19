@@ -1,0 +1,16 @@
+<div class="horizontal-scroll-gallery">
+  {% assign items = include.images | split: '|||||' %}
+  {% for item in items %}
+    {% comment %} 구분자 | 를 기준으로 경로와 캡션을 분리 {% endcomment %}
+    {% assign parts = item | split: '|' %}
+    {% assign img_url = parts[0] | strip %}
+    {% assign caption = parts[1] | strip %}
+
+    <div class="gallery-item" style="flex: 0 0 auto; text-align: center;">
+      <img src="{{ img_url }}" alt="{{ caption }}" style="display: block; border-radius: 6px; height: 300px; width: auto;">
+      {% if caption %}
+        <p class="img_caption" style="margin-top: 8px; font-size: 0.9em; color: #d1d1d1;">{{ caption }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

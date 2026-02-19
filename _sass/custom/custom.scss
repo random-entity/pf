@@ -38,3 +38,64 @@ body {
     }
   }
 }
+
+.horizontal-scroll-gallery {
+  display: flex; /* 가로 정렬 */
+  overflow-x: auto; /* 내용이 넘치면 가로 스크롤 생성 */
+  gap: 16px; /* 이미지 사이 간격 */
+  padding: 10px 0 0 0; /* 위아래 여백 */
+  scrollbar-width: thin; /* Firefox 스크롤바 얇게 */
+  -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤 */
+
+  /* 스크롤바 스타일링 (Webkit 브라우저용 - Chrome, Safari) */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .gallery-item {
+    flex: 0 0 auto;
+    width: min-content; /* 컨테이너 너비를 내부 요소의 최소 너비에 맞춤 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      height: 300px;
+      width: auto; /* 비율 유지 */
+      max-width: none; /* Jekyll 기본 스타일 간섭 방지 */
+      display: block;
+      border-radius: 6px; /* 모서리 둥글게 */
+      transition: transform 0.2s;
+      &:hover {
+        transform: scale(1.02); /* 마우스 오버 시 살짝 확대 */
+      }
+    }
+
+    .img_caption {
+      /* 트릭: 부모의 너비 계산에는 기여하지 않으면서, 부모(이미지 너비)가 결정되면 그 너비를 100% 채우게 함 */
+      width: 0;
+      min-width: 100%;
+
+      line-height: 1.5;
+      text-align: left;
+
+      /* 2. 다국어 줄바꿈 최적화 */
+      word-break: normal; /* 한국어/일본어는 글자 단위, 영어는 단어 단위 기본값 */
+      overflow-wrap: break-word; /* 아주 긴 영어 단어(URL 등)가 있을 경우에만 강제 파괴 */
+
+      /* 3. 일본어 금칙 처리 (Punctuation rules) */
+      line-break: strict; /* 구두점이 줄 시작에 오지 않도록 엄격하게 제한 */
+
+      /* 4. 텍스트 정렬 및 가독성 */
+      text-align: justify; /* 양끝 정렬로 좁은 너비에서 박스 형태를 유지 (선택 사항) */
+      text-justify: inter-character; /* 글자 사이 간격을 조절해 양끝 정렬 완성 */
+    }
+  }
+}
