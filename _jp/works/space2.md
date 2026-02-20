@@ -138,7 +138,7 @@ v2021-12-09
 - 鑑賞者が動いても床下空間が常に立体的に見えるよう、Kinectが検出した頭部位置とUnity上でのoff-axis projectionプログラミングを用いた。
 - [(ソースコード)](https://github.com/random-entity/proj.o.art.space2)
 
-### 参考資料
+## 参考資料
 
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
