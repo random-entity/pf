@@ -123,7 +123,7 @@ v2021-12-09
 
 ## Commentary
 
-- This work is a space designed to allow the viewer to experience psychological pressure and the sensation of its release within a contemplative environment where one confronts oneself.
+- This work is an installation designed to allow the viewer to experience psychological pressure and the sensation of its release within a contemplative environment where one confronts oneself.
 - The underground space functions as a virtual space reflecting the inner self. Although it shares the same body and coordinates with the reality above, it constructs a different surrounding environment.
 - The sense of pressure is conveyed through the perception of the viewer’s clone trapped underwater in an enclosed space. The deep cylindrical hole carved into the ground and the rippling surface responding to the viewer’s motion enable this perception.
 - The release of pressure is expressed through motion graphics in which the underwater clone fragments and transforms into a school of fish.
