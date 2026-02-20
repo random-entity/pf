@@ -85,7 +85,7 @@ v2021-12-09
           <dt>デモ動画</dt>
           <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a>（一人称視点の観覧映像）</dd>
           <dt>ソースコード</dt>
-          <dd><a href="https://github.com/random-entity/proj.art.space2">GitHub</a></dd>
+          <dd><a href="https://github.com/random-entity/proj.o.art.space2">GitHub</a></dd>
         </dl>
       </dd>
     </dl>
@@ -136,7 +136,7 @@ v2021-12-09
 - インタラクティブCGレンダリングにはUnityを使用した。
 - 水中のクローンはKinectが取得した深度情報を用いたpoint cloudレンダリングによって生成された。
 - 鑑賞者が動いても床下空間が常に立体的に見えるよう、Kinectが検出した頭部位置とUnity上でのoff-axis projectionプログラミングを用いた。
-- [(ソースコード)](https://github.com/random-entity/proj.art.space2)
+- [(ソースコード)](https://github.com/random-entity/proj.o.art.space2)
 
 ### 参考資料
 

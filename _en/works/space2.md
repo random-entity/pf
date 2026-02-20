@@ -85,7 +85,7 @@ v2021-12-09
           <dt>Demo video</dt>
           <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (first-person viewing footage)</dd>
           <dt>Source code</dt>
-          <dd><a href="https://github.com/random-entity/proj.art.space2">GitHub</a></dd>
+          <dd><a href="https://github.com/random-entity/proj.o.art.space2">GitHub</a></dd>
         </dl>
       </dd>
     </dl>
@@ -141,7 +141,7 @@ v2021-12-09
 - Unity was used for interactive CG rendering.
 - The underwater clone was created through point cloud rendering using depth data captured by Kinect.
 - To ensure the underground space always appears stereoscopic from the viewer’s perspective even while moving, Kinect was used to track head position, combined with off-axis projection programming in Unity.
-- [(Source Code)](https://github.com/random-entity/proj.art.space2)
+- [(Source Code)](https://github.com/random-entity/proj.o.art.space2)
 
 ### References
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)

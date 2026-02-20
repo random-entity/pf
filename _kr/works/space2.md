@@ -85,7 +85,7 @@ v2021-12-09
           <dt>데모 영상</dt>
           <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람 영상)</dd>
           <dt>소스 코드</dt>
-          <dd><a href="https://github.com/random-entity/proj.art.space2">GitHub</a></dd>
+          <dd><a href="https://github.com/random-entity/proj.o.art.space2">GitHub</a></dd>
         </dl>
       </dd>
     </dl>
@@ -135,7 +135,7 @@ v2021-12-09
 - 인터랙티브 CG 렌더링을 위해 Unity를 사용했다.
 - 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 활용한 poind cloud 렌더링을 통해 만들어졌다.
 - 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 Kinect와, Unity 상의 off-axis projection 프로그래밍을 사용했다.
-- [(소스 코드)](https://github.com/random-entity/proj.art.space2)
+- [(소스 코드)](https://github.com/random-entity/proj.o.art.space2)
 
 ### 참고 자료
 
