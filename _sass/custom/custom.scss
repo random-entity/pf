@@ -17,12 +17,9 @@ body {
     // Prevent nested dt from inheriting from nesting dd
     dt,
     .label,
-    p.img_caption {
+    p.img_caption,
+    #markdown-toc li {
       font-family: $sans-serif-stack;
-    }
-
-    h1 {
-      margin-right: 0.25em;
     }
 
     .label {
