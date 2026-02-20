@@ -12,7 +12,7 @@ nav_order: -2021.1031
 
 Video game
 {: .label }
-Realtime CG
+Interactive CG
 {: .label .label-green }
 Shader
 {: .label .label-green }

@@ -137,7 +137,7 @@ v2021-12-09
 - 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 Kinect와, Unity 상의 off-axis projection 프로그래밍을 사용했다.
 - [(소스 코드)](https://github.com/random-entity/proj.o.art.space2)
 
-### 참고 자료
+## 참고 자료
 
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
