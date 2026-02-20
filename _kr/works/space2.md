@@ -21,6 +21,8 @@ Interactive CG
 {: .label .label-green }
 Off-axis projection
 {: .label .label-green }
+Shader
+{: .label .label-green }
 Point cloud
 {: .label .label-green }
 Motion sensor
@@ -42,7 +44,18 @@ v2021-12-09
 
 <dl>
   <dt>형식</dt>
-  <dd>인터랙티브 영상 설치</dd>
+  <dd>
+    <dl>
+      <dt>장르</dt>
+      <dd>인터랙티브 영상 설치</dd>
+      <dt>구성</dt>
+      <dd>실시간 디지털 영상 처리 시스템(Kinect, Unity), 채널 디지털 영상 프로젝션</dd>
+      <dt>재료</dt>
+      <dd>암실, PC, Kinect, 프로젝터</dd>
+      <dt>크기</dt>
+      <dd>가변</dd>
+    </dl>
+  </dd>
   <dt>사용된 기술</dt>
   <dd>
     <dl>
@@ -70,7 +83,7 @@ v2021-12-09
       <dd>
         <dl>
           <dt>데모 영상</dt>
-          <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 관람 영상)</dd>
+          <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람 영상)</dd>
           <dt>소스 코드</dt>
           <dd><a href="https://github.com/random-entity/proj.art.space2">GitHub</a></dd>
         </dl>
@@ -109,7 +122,7 @@ v2021-12-09
 
 ## 해설
 
-- 본작은 심리적 중압감 및 그 해소의 감각을 감상자에게 불러일으키기 위해 디자인된 공간이다.
+- 본작은 감상자가 스스로를 바라보는 명상적 공간 속에서, 심리적 중압감 및 그 해소의 감각을 체험할 수 있도록 디자인된 공간이다.
 - 바닥 밑의 공간은 내면을 비추는 가상의 공간으로서 작용한다. 이 가상의 공간은, 바닥 위의 현실 공간과 감상자의 신체를 공유하면서도, 그를 둘러싼 환경을 달리 한다.
 - 중압감은 바닥 밑 감상자의 클론이 폐쇄적인 수중 공간 속에 있음을 지각시킴으로써 전달된다. 땅에 파인 원통형의 깊은 구멍과, 감상자의 움직임에 반응하는 수면의 파동은, 이러한 지각을 가능케 한다.
 - 중압감의 해소는 물속의 감상자 클론이 파편화 되어 물고기 떼로 변신하는 모션그래픽을 통해 표현된다. 인간에게 물속은 숨 막히는 공간이지만, 물고기들에게는 자유로이 헤엄칠 수 있는 공간이다. 또한 이 변신은, 신체가 분해되어 자연으로 돌아가는 생과 사의 순환 과정을 연상시킨다.
@@ -129,3 +142,4 @@ v2021-12-09
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
 - [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
+- [Waves - Catlike Coding](https://catlikecoding.com/unity/tutorials/flow/waves/)

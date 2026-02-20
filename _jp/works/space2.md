@@ -21,6 +21,8 @@ Interactive CG
 {: .label .label-green }
 Off-axis projection
 {: .label .label-green }
+Shader
+{: .label .label-green }
 Point cloud
 {: .label .label-green }
 Motion sensor
@@ -42,7 +44,18 @@ v2021-12-09
 
 <dl>
   <dt>形式</dt>
-  <dd>インタラクティブ映像インスタレーション</dd>
+    <dd>
+    <dl>
+      <dt>ジャンル</dt>
+      <dd>インタラクティブ映像インスタレーション</dd>
+      <dt>構成</dt>
+      <dd>リアルタイム・デジタル・画像処理システム（Kinect, Unity）, １チャンエル・デジタル映像プロジェクション</dd>
+      <dt>素材</dt>
+      <dd>暗室、PC、Kinect、プロジェクター</dd>
+      <dt>サイズ</dt>
+      <dd>可変</dd>
+    </dl>
+  </dd>
   <dt>使用技術</dt>
   <dd>
     <dl>
@@ -70,7 +83,7 @@ v2021-12-09
       <dd>
         <dl>
           <dt>デモ動画</dt>
-          <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a>（一人称視点の鑑賞映像）</dd>
+          <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a>（一人称視点の観覧映像）</dd>
           <dt>ソースコード</dt>
           <dd><a href="https://github.com/random-entity/proj.art.space2">GitHub</a></dd>
         </dl>
@@ -110,7 +123,7 @@ v2021-12-09
 
 ## 解説
 
-- 本作は心理的な重圧と、その解放の感覚を鑑賞者に喚起するためにデザインされた空間である。
+- 本作は、鑑賞者が自己を眺める瞑想的な空間の中で、心理的な重圧とその解放の感覚を体験できるように設計された空間である。
 - 床下空間は内面を映し出す仮想空間として作用する。この仮想空間は床上の現実空間と鑑賞者の身体を共有しながらも、彼を取り巻く環境を異にする。
 - 重圧感は、床下の鑑賞者のクローンが閉鎖的な水中空間にいるという知覚によって伝達される。地面に穿たれた円筒状の深い穴と、鑑賞者の動きに反応する水面の波紋がその知覚を可能にする。
 - 重圧の解放は、水中のクローンが破片化し魚群へと変身するモーショングラフィックスによって表現される。人間にとって水中は息苦しい空間であるが、魚にとっては自由に泳げる空間である。またこの変身は、身体が分解され自然へ還る生と死の循環を想起させる。
@@ -130,3 +143,4 @@ v2021-12-09
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
 - [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
+- [Waves - Catlike Coding](https://catlikecoding.com/unity/tutorials/flow/waves/)

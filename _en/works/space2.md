@@ -21,6 +21,8 @@ Interactive CG
 {: .label .label-green }
 Off-axis projection
 {: .label .label-green }
+Shader
+{: .label .label-green }
 Point cloud
 {: .label .label-green }
 Motion sensor
@@ -42,7 +44,18 @@ v2021-12-09
 
 <dl>
   <dt>Format</dt>
-  <dd>Interactive video installation</dd>
+  <dd>
+    <dl>
+      <dt>Genre</dt>
+      <dd>Interactive video installation</dd>
+      <dt>Configuration</dt>
+      <dd>Realtime digital image processing system (Kinect, Unity), 1-channel digital video projection</dd>
+      <dt>Materials</dt>
+      <dd>Dark room, PC, Kinect, projector</dd>
+      <dt>Dimensions</dt>
+      <dd>Variable</dd>
+    </dl>
+  </dd>
   <dt>Technology Used</dt>
   <dd>
     <dl>
@@ -110,7 +123,7 @@ v2021-12-09
 
 ## Commentary
 
-- This work is a space designed to evoke the sensation of psychological pressure and its release.
+- This work is a space designed to allow the viewer to experience psychological pressure and the sensation of its release within a contemplative environment where one confronts oneself.
 - The underground space functions as a virtual space reflecting the inner self. Although it shares the same body and coordinates with the reality above, it constructs a different surrounding environment.
 - The sense of pressure is conveyed through the perception of the viewer’s clone trapped underwater in an enclosed space. The deep cylindrical hole carved into the ground and the rippling surface responding to the viewer’s motion enable this perception.
 - The release of pressure is expressed through motion graphics in which the underwater clone fragments and transforms into a school of fish.
@@ -134,3 +147,4 @@ v2021-12-09
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
 - [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
+- [Waves - Catlike Coding](https://catlikecoding.com/unity/tutorials/flow/waves/)
