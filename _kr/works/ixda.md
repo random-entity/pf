@@ -60,7 +60,7 @@ v2021-12-15
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (2021년 서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3Sn_PgB2/">Instagram</a>, <a href="https://vimeo.com/659521474">Vimeo</a>)</dd>
+      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3Sn_PgB2/">Instagram</a>, <a href="https://vimeo.com/659521474">Vimeo</a>)</dd>
       <dt>상시</dt>
       <dd><a href="https://youtu.be/7BlzhoJArZI">YouTube</a></dd>
     </dl>
