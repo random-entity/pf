@@ -49,7 +49,10 @@ v2021-12-09
       <dt>장르</dt>
       <dd>인터랙티브 영상 설치</dd>
       <dt>구성</dt>
-      <dd>실시간 디지털 영상 처리 시스템(Kinect, Unity), 1-채널 디지털 영상 프로젝션</dd>
+      <dd>
+        Kinect, Unity로 구동되는 실시간 디지털 영상 처리 시스템<br>
+        1-채널 디지털 영상 프로젝션
+      </dd>
       <dt>재료</dt>
       <dd>암실, PC, Kinect, 프로젝터</dd>
       <dt>크기</dt>
@@ -78,14 +81,14 @@ v2021-12-09
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (2021년 서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3XytvUHL/">Instagram</a>, <a href="https://vimeo.com/659521474#t=48.641">Vimeo</a>)</dd>
+      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3XytvUHL/">Instagram</a>, <a href="https://vimeo.com/659521474#t=48.641">Vimeo</a>)</dd>
       <dt>상시</dt>
       <dd>
         <dl>
           <dt>데모 영상</dt>
           <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람 영상)</dd>
           <dt>소스 코드</dt>
-          <dd><a href="https://github.com/random-entity/proj.o.art.space2">GitHub</a></dd>
+          <dd><a href="https://github.com/random-entity/o.art.space2">GitHub</a></dd>
         </dl>
       </dd>
     </dl>
@@ -135,7 +138,7 @@ v2021-12-09
 - 인터랙티브 CG 렌더링을 위해 Unity를 사용했다.
 - 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 활용한 poind cloud 렌더링을 통해 만들어졌다.
 - 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 Kinect와, Unity 상의 off-axis projection 프로그래밍을 사용했다.
-- [(소스 코드)](https://github.com/random-entity/proj.o.art.space2)
+- [(소스 코드)](https://github.com/random-entity/o.art.space2)
 
 ## 참고 자료
 
