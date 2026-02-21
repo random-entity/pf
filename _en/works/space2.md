@@ -152,3 +152,5 @@ v2021-12-09
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
 - [Generalized Perspective Projection - Robert Kooima](https://web.archive.org/web/20241230234113/http://160592857366.free.fr/joe/ebooks/ShareData/Generalized%20Perspective%20Projection.pdf)
 - [Waves - Catlike Coding](https://catlikecoding.com/unity/tutorials/flow/waves/)
+- [Kinect v2 のデプス画像をそのままの解像度で点群としてUnityで表示する - いずみはら あつし](https://izmiz.hateblo.jp/entry/2017/12/30/003542)
+- [Point cloud rendering with Unity - Ahmad Erfani](https://bootcamp.uxdesign.cc/point-cloud-rendering-with-unity-1a07345eb27a)
