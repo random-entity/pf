@@ -106,7 +106,7 @@ v2021-12-09
 
 {% include scroll_gallery.html images="
   ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png |
-  コンセプト図
+  コンセプト図（イラストレーション：LEE Hojeong）
   |||||
   ../../../assets/images/works/space2/space2_viewer-none.jpg |
   鑑賞者がいない暗室内部

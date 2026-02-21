@@ -106,7 +106,7 @@ v2021-12-09
 
 {% include scroll_gallery.html images="
   ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png |
-  Concept diagram
+  Concept diagram (Illustration by LEE Hojeong)
   |||||
   ../../../assets/images/works/space2/space2_viewer-none.jpg |
   Interior of the dark room without a viewer
