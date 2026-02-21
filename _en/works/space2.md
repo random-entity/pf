@@ -100,7 +100,7 @@ v2021-12-09
 - When the viewer enters the dark room, a hole about 3 meters in diameter and depth appears on the floor. The hole is filled with water, and beneath the surface, the viewer sees themself.
   The viewer looks down at their own clone inside the underground space from the reality above.
 - The projected image reacts to the viewer’s movement and is distorted in realtime, ensuring that the underground space always appears stereoscopic from the viewer’s perspective.
-- As the viewer moves, ripples spread across the water surface. When approaching the center of the hole, the underwater clone fragments and disperses, and each fragment transforms into a fish swimming around.
+- As the viewer moves, ripples spread across the water surface. When approaching the center of the hole, the underwater clone of the viewer fragments and disperses, and each fragment transforms into a fish swimming around.
 
 ## Images
 
@@ -132,9 +132,7 @@ v2021-12-09
 - The release of pressure is expressed through motion graphics in which the underwater clone fragments and transforms into a school of fish.
   For humans, water is a suffocating space, but for fish, it is a space of freedom.
   This transformation also evokes the cycle of life and death, where the body decomposes and returns to nature.
-- The positions of the viewer and the underground clone maintain a constant height difference, while remaining symmetric around the center of the hole on the horizontal plane.
-  (That is, if the viewer’s position is $$(x,y,z)$$, then the clone’s position is $$(-x,-y,z-h)$$ where $$h$$ is constant.)
-  The only point where they overlap horizontally is the center of the hole ($$(x,y)=(0,0)$$), and approaching this point triggers the transformation motion graphics.
+- The positions of the viewer and the underground clone maintain a constant height difference, while remaining symmetric around the center of the hole on the horizontal plane. (That is, if the floor is defined as the $$xy$$-plane and the center of the hole is set as the origin, then when the viewer’s position is $$(x,y,z)$$, the clone’s position is $$(-x,-y,z-h)$$ where $$h$$ is a constant.) The only point where they overlap horizontally is the center of the hole ($$(x,y)=(0,0)$$), and approaching this point triggers the transformation motion graphics.
   This expresses the integration of the inner self through a return to nature.
 
 ## Technology
