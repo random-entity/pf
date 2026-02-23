@@ -14,21 +14,27 @@ body {
       font-family: $serif-stack;
     }
 
-    // Prevent nested dt from inheriting from nesting dd
-    dt,
+    dt, // Prevent nested dt from inheriting from nesting dd
     .label,
     p.img_caption,
     #markdown-toc li {
       font-family: $sans-serif-stack;
     }
 
+    li ul {
+      margin-top: 0.25em;
+    }
+
     .label {
       margin: 0;
     }
 
-    // Make the dt column width hug content
     dl {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr; // Make the dt column width hug content
+    
+      dd dl {
+        margin-top: 0.035em;
+      }
     }
 
     // Set horizontal distance between dt and dd
