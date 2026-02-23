@@ -7,9 +7,14 @@ nav_order: -2021.1215
 
 <!-- prettier-ignore-start -->
 
-# 있다
+# 있다[^1]
 {: .no_toc }
+
 Short film
+{: .label }
+Art film
+{: .label }
+Experimental film
 {: .label }
 Video art
 {: .label }
@@ -33,7 +38,17 @@ v2021-12-15
 
 <dl>
   <dt>형식</dt>
-  <dd>단편 영화 (1채널 컬러 4K 비디오, 스테레오 오디오, 14분 33초)</dd>
+  <dd>
+    <dl>
+      <dt>장르</dt>
+      <dd>단편 영화, 예술 영화, 실험 영화, 영상 예술</dd>
+      <dt>구성</dt>
+      <dd>
+        1-채널 디지털 영상, 스테레오 오디오, 14분 33초<br>
+        실사 촬영 영상, CG 이펙트, CG 영상, 차용 영상
+      </dd>
+    </dl>
+  </dd>
   <dt>사용된 기술</dt>
   <dd>
     <dl>
@@ -72,3 +87,7 @@ v2021-12-15
 ## 해설
 
 ## 기술
+
+---
+
+[^1]: asdf

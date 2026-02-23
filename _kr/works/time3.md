@@ -1,33 +1,25 @@
 ---
-title: 공간#2
+title: 시간#3
 parent: Works
 layout: default
-nav_order: -2021.1209
+nav_order: -2021.1030
 ---
 
 <!-- prettier-ignore-start -->
 
-# 공간#2
+# 시간#3
 {: .no_toc }
 
-땅 밑, 물속에 또 하나의 내가 있다.
+...
 {: .fs-5 .fw-300 }
 
-![](../../../assets/images/works/space2/space2_viewer.jpg)
+![](../../../assets/images/works/time3/demo-video-stills/1.png)
 
 Interactive video installation
 {: .label }
-Interactive CG
+Real-time video processing
 {: .label .label-green }
-Shader programming
-{: .label .label-green }
-Off-axis projection
-{: .label .label-green }
-Point cloud
-{: .label .label-green }
-Motion sensor
-{: .label .label-green }
-Depth sensor
+Video feedback
 {: .label .label-green }
 v2021-12-09
 {: .label .label-purple }
@@ -50,9 +42,22 @@ v2021-12-09
       <dd>인터랙티브 영상 설치</dd>
       <dt>구성</dt>
       <dd>
-        모션/깊이 센서 데이터를 반영하는 인터랙티브 CG 렌더링 시스템(Kinect,
-        Unity)과 프로젝터에 의한 암실 바닥에의 영상 프로젝션
+        Kinect, Unity로 구동되는 실시간 디지털 영상 처리 시스템<br>
+        1-채널 디지털 영상 프로젝션
       </dd>
+      <dt>재료</dt>
+      <dd>암실, PC, Kinect, 프로젝터</dd>
+      <dt>크기</dt>
+      <dd>가변</dd>
+    </dl>
+  </dd>
+  <dt>사용된 기술</dt>
+  <dd>
+    <dl>
+      <dt>인터랙티브 CG,<br/>Off-axis projection,<br/>Point cloud</dt>
+      <dd>Unity 및 그 셰이더 프로그래밍</dd>
+      <dt>모션/깊이 센서</dt>
+      <dd>Kinect</dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
@@ -64,34 +69,18 @@ v2021-12-09
       <dd>김준영, 이호정</dd>
     </dl>
   </dd>
-  <dt>공개</dt>
+  <dt>공개된 곳</dt>
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd>
-        <a
-          href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/"
-          >SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a
-        >
-        (<a href="https://www.instagram.com/p/CXC3XytvUHL/">Instagram</a>,
-        <a href="https://vimeo.com/659521474#t=48.641">Vimeo</a>)
-      </dd>
+      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3XytvUHL/">Instagram</a>, <a href="https://vimeo.com/659521474#t=48.641">Vimeo</a>)</dd>
       <dt>상시</dt>
       <dd>
         <dl>
           <dt>데모 영상</dt>
-          <dd>
-            <a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람
-            영상)
-          </dd>
+          <dd><a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람 영상)</dd>
           <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.art.space2">GitHub</a>,
-            <a
-              href="https://drive.google.com/file/d/112Rpy9AwwKdn4x6iE0SvC2Z2Ior7JZGa"
-              >Google Drive</a
-            >
-          </dd>
+          <dd><a href="https://github.com/random-entity/o.art.space2">GitHub</a></dd>
         </dl>
       </dd>
     </dl>
@@ -128,7 +117,7 @@ v2021-12-09
 
 ## 해설
 
-- 본작은 감상자가 스스로를 바라보는 명상적 공간 속에서, 심리적 중압감 및 그 해소의 감각을 체험할 수 있도록 설계한 영상 설치 작품이다.
+- 본작은 감상자가 스스로를 바라보는 명상적 공간 속에서, 심리적 중압감 및 그 해소의 감각을 체험할 수 있도록 설계한 설치다.
 - 바닥 밑의 공간은 내면을 비추는 가상의 공간으로서 작용한다. 이 가상의 공간은, 바닥 위의 현실 공간과 감상자의 신체를 공유하면서도, 그를 둘러싼 환경을 달리 한다.
 - 중압감은 바닥 밑 감상자의 클론이 폐쇄적인 수중 공간 속에 있음을 지각시킴으로써 전달된다. 땅에 파인 원통형의 깊은 구멍과, 감상자의 움직임에 반응하는 수면의 파동은, 이러한 지각을 가능케 한다.
 - 중압감의 해소는 물속의 감상자 클론이 파편화 되어 물고기 떼로 변신하는 모션그래픽을 통해 표현된다. 인간에게 물속은 숨 막히는 공간이지만, 물고기들에게는 자유로이 헤엄칠 수 있는 공간이다. 또한 이 변신은, 신체가 분해되어 자연으로 돌아가는 생과 사의 순환 과정을 연상시킨다.
@@ -136,12 +125,12 @@ v2021-12-09
 
 ## 기술
 
-- 바닥에 영상을 투사하기 위해 프로젝터를 사용했다.
+- 바닥에 영상을 투사하기 위해 단초점 프로젝터를 사용했다.
 - 감상자가 한 명 씩 외부와 격리된 환경에 들어와 차분히 감상할 수 있도록, 그리고 영상이 잘 보이도록 암실을 지었다.
-- 모션/깊이 센서 데이터를 반영하는 인터랙티브 CG 렌더링 시스템에 Kinect와 Unity를 사용했다.
-  - 감상자의 움직임에 반응하여 그의 시점에서 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, Kinect SDK를 통해 추출한 감상자의 머리 위치 정보와, Unity 카메라 컴포넌트의 off-axis projection 프로그래밍을 사용했다.
-  - 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 이용해 Unity 및 그 셰이더 프로그래밍에 의한 point cloud 렌더링으로 만들었다.
-  - 클론에서 물고기 떼로의 연속적 변신 및 물고기 떼가 헤엄치는 모션그래픽 또한 Unity 및 그 셰이더 프로그래밍으로 만들었다.
+- 인터랙티브 CG 렌더링을 위해 Unity를 사용했다.
+- 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 활용한 poind cloud 렌더링을 통해 만들어졌다.
+- 감상자가 움직이더라도 그의 시점에서 봤을 때 바닥 밑 공간이 항상 입체적으로 보이게 하기 위해, 감상자의 머리 위치를 감지할 수 있는 Kinect와, Unity 상의 off-axis projection 프로그래밍을 사용했다.
+- [(소스 코드)](https://github.com/random-entity/o.art.space2)
 
 ## 참고 자료
 
