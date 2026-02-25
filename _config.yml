@@ -12,6 +12,7 @@ aux_links_new_tab: true
 back_to_top: true
 back_to_top_text: "Page top"
 search_enabled: true
+heading_anchors: true
 
 collections:
   kr:
@@ -35,7 +36,6 @@ just_the_docs:
       name: Japanese
       nav_fold: true
 
-heading_anchors: true
 callouts:
   highlight:
     color: yellow
@@ -47,7 +47,7 @@ callouts:
     color: green
   note:
     title: Note
-    color: purple
+    color: yellow
   warning:
     title: Warning
     color: red
