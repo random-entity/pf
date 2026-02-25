@@ -1,10 +1,10 @@
 ---
-title: About
+title: Home
 layout: default
 nav_order: 0
 ---
 
-# About
+# Home
 
 ## This
 
@@ -25,12 +25,12 @@ nav_order: 0
 ## Social
 
 <dl>
-  <dt>Instagram</dt>
-  <dd><code><a href="https://www.instagram.com/public_random_entities/">@public_random_entities</a></code></dd>
   <dt>Email</dt>
   <dd><code><a href="mailto:randomentityemail@gmail.com">randomentityemail@gmail.com</a></code></dd>
   <dt>GitHub</dt>
   <dd><code><a href="https://github.com/random-entity">@random-entity</a></code></dd>
+  <dt>Instagram</dt>
+  <dd><code><a href="https://www.instagram.com/public_random_entities/">@public_random_entities</a></code></dd>
   <dt>YouTube</dt>
   <dd><a href="https://www.youtube.com/@public_random_entities">public random entities</a></dd>
   <dt>itch.io</dt>
