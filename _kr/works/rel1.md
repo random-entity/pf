@@ -21,7 +21,7 @@ Fractal video
 v2019-
 {: .label .label-yellow }
 
-타락과 정화의 순환 속에서 인류는 달리고 있다.
+타락과 정화의 순환 속에서 인류는 여전히 달리고 있다.
 {: .fs-5 .fw-300 }
 
 ## Table of Contents

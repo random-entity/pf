@@ -15,25 +15,13 @@ nav_order: -2020.0000
 
 ![](../../../assets/images/works/ahe/live-stills/main.png)
 
-Robot dance
+Video art
 {: .label }
-Stage performance
-{: .label }
-Physical computing
+CG
 {: .label .label-green }
-Embedded system
-{: .label .label-green }
-Printed circuit board
-{: .label .label-green }
-Microcontroller
-{: .label .label-green }
-Servomotor
-{: .label .label-green }
-UDP network
-{: .label .label-green }
-3D printing
-{: .label .label-green }
-v2024-09-08
+After Effects
+{: .label .label-purple }
+v2020-00-00
 {: .label .label-yellow }
 
 ## Table of Contents

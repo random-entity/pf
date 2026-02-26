@@ -10,7 +10,7 @@ nav_order: -2022.0000
 # 유령극단 심각한 밤을 보내리
 {: .no_toc }
 
-유령
+유령이다!
 {: .fs-5 .fw-300 }
 
 ![](../../../assets/images/works/ahe/live-stills/main.png)
