@@ -21,7 +21,7 @@ Video art
 CG
 {: .label .label-green }
 v2021-12-15
-{: .label .label-purple }
+{: .label .label-yellow }
 
 시간을 초월해서라도 치유해 주고픈 상처.
 {: .fs-5 .fw-300 }

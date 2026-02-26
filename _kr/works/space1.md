@@ -24,7 +24,7 @@ Shader programming
 Unity
 {: .label .label-green }
 v2021-10-31
-{: .label .label-purple }
+{: .label .label-yellow }
 
 ## Table of Contents
 {: .no_toc .text-delta }

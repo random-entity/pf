@@ -30,7 +30,7 @@ Motion sensor
 Depth sensor
 {: .label .label-green }
 v2021-12-09
-{: .label .label-purple }
+{: .label .label-yellow }
 
 ## Table of Contents
 {: .no_toc .text-delta }

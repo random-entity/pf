@@ -19,7 +19,7 @@ Animation
 Fractal video
 {: .label .label-green }
 v2019-
-{: .label .label-purple }
+{: .label .label-yellow }
 
 타락과 정화의 순환 속에서 인류는 달리고 있다.
 {: .fs-5 .fw-300 }

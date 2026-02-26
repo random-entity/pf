@@ -28,7 +28,7 @@ Audio synthesis
 Rap
 {: .label .label-green }
 v2019-03-19
-{: .label .label-purple }
+{: .label .label-yellow }
 
 병인가 신성인가. 같은 거다.
 {: .fs-5 .fw-300 }

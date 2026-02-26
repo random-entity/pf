@@ -25,13 +25,11 @@ Physical computing
 {: .label .label-green }
 Collective robotics
 {: .label .label-green }
-Wireless network
-{: .label .label-green }
 Embedded system
 {: .label .label-green }
-Printed circuit board
-{: .label .label-green }
 Microcontroller
+{: .label .label-green }
+Printed circuit board
 {: .label .label-green }
 Servomotor
 {: .label .label-green }
@@ -39,16 +37,26 @@ Local positioning system
 {: .label .label-green }
 IMU sensor
 {: .label .label-green }
-C++
-{: .label .label-green }
-Pure Data
+Wireless network
 {: .label .label-green }
 3D printing
 {: .label .label-green }
+mjbots moteus
+{: .label .label-purple }
+PJRC Teensy
+{: .label .label-purple }
+Digi XBee
+{: .label .label-purple }
+C++
+{: .label .label-purple }
+Pure Data
+{: .label .label-purple }
+Processing
+{: .label .label-purple }
 v2024-10-12
-{: .label .label-purple }
+{: .label .label-yellow }
 v2024-11-03
-{: .label .label-purple }
+{: .label .label-yellow }
 
 ## Table of Contents
 {: .no_toc .text-delta }
@@ -68,7 +76,9 @@ v2024-11-03
       <dd>로봇 무용, 로봇 연극, 무대 공연</dd>
       <dt>구성</dt>
       <dd>
-        철판으로 덮인 무대 위의 아해<span markdown="1">[^1]</span> 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 프리셋 데이터에 의한 약 1시간의 무용 공연
+        철판으로 덮인 무대 위의 아해<span markdown="1">[^1]</span> 13대, 실시간
+        무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 프리셋 데이터에 의한 약
+        1시간의 무용 공연
       </dd>
     </dl>
   </dd>
@@ -76,19 +86,15 @@ v2024-11-03
   <dd>
     <dl>
       <dt>출품자</dt>
-      <dd>
-        Robot Theater Company (권병준, 이유진, 이주미, 임의존재)
-        <dl>
-          <dt>총괄 디렉터,<br />임베디드 시스템,<br />음악</dt>
-          <dd>권병준</dd>
-          <dt>로봇 안무,<br />무대 감독</dt>
-          <dd>이유진</dd>
-          <dt>로봇 디자인,<br />로봇 메인터넌스</dt>
-          <dd>이주미</dd>
-          <dt>소프트웨어 개발,<br />로봇 오퍼레이션</dt>
-          <dd>임의존재</dd>
-        </dl>
-      </dd>
+      <dd>Robot Theater Company (권병준, 이유진, 이주미, 임의존재)</dd>
+      <dt>총괄 디렉터,<br />로봇 디자인, <br />임베디드 시스템,<br />음악</dt>
+      <dd>권병준</dd>
+      <dt>로봇 안무,<br />무대 감독</dt>
+      <dd>이유진</dd>
+      <dt>로봇 디자인,<br />로봇 메인터넌스</dt>
+      <dd>이주미</dd>
+      <dt>소프트웨어 개발,<br />로봇 오퍼레이션</dt>
+      <dd>임의존재</dd>
       <dt>조명</dt>
       <dd>김현</dd>
       <dt>스태프</dt>
@@ -136,7 +142,7 @@ v2024-11-03
 <dl>
   <dt>씬 1</dt>
   <dd>
-    이족보행 로봇 “아해” 13대가 오와 열을 맞춰 가지런히 무대에 서 있다. 마치 날개처럼 팔랑거리는 긴 리본이 달린 깃발이 골반의 양쪽에서 하늘을 향해 높이 솟아 있다. 아해들은 오와 열을 유지한 채 제자리에서 발을 뻗었다가 무르거나 꺾으면서, 전자석이 바닥에 탈부착하는 소리를 구호 삼아 기계적인 군무를 추기 시작한다. 13대의 아해가 제자리에서 전자석을 빠른 속도로 바닥에 탈부착시키는 장면의 따닥따닥거리는 소리와 아해들의 요동은 무대를 감싼 긴장감을 증폭시킨다.
+    이족보행 로봇 “아해” 13대가 오와 열을 맞춰 무대에 서 있다. 날개처럼 팔랑거리는 긴 리본이 걸린 깃발이 골반의 양쪽에서 하늘을 향해 높이 솟아 있다. 아해들은 오와 열을 유지한 채 제자리에서 발을 뻗었다가 무르거나 꺾으면서, 전자석이 바닥에 탈부착하는 소리를 구호 삼아 기계적인 군무를 추기 시작한다. 13대의 아해가 제자리에서 전자석을 빠른 속도로 바닥에 탈부착시키는 장면의 따닥따닥거리는 소리와 아해들의 요동은 무대를 감싼 긴장감을 증폭시킨다.
   </dd>
   <dt>씬 2</dt>
   <dd>

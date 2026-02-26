@@ -23,7 +23,7 @@ Art genre
 Tech
 {: .label .label-green }
 Release date
-{: .label .label-purple }
+{: .label .label-yellow }
 
 
 ## Table of Contents
