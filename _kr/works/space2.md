@@ -107,9 +107,6 @@ v2021-12-09
 ## 이미지
 
 {% include scroll_gallery.html images="
-  ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png |
-  컨셉 다이어그램 (일러스트레이션: 이호정)
-  |||||
   ../../../assets/images/works/space2/space2_viewer-none.jpg |
   감상자가 없을 때의 암실 내부
   |||||
@@ -124,6 +121,9 @@ v2021-12-09
   |||||
   ../../../assets/images/works/space2/space2_matome.jpg |
   상기 데모 영상 스틸 모음
+  |||||
+  ../../../assets/images/works/space2/space2_diagram_fixed-symmetry.png |
+  컨셉 다이어그램 (일러스트레이션: 이호정)
 " %}
 
 ## 해설

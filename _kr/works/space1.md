@@ -21,6 +21,8 @@ Interactive CG
 {: .label .label-green }
 Shader programming
 {: .label .label-green }
+Unity
+{: .label .label-green }
 v2021-10-31
 {: .label .label-purple }
 
@@ -42,19 +44,18 @@ v2021-10-31
       <dd>비디오게임, 아트게임</dd>
       <dt>구성</dt>
       <dd>
-        PC, 모니터, 키보드, 마우스로 구동되는 1인칭 시점 비디오게임(Unity);<br>
-        키보드 상/하 또는 W/S 키로 이동, 마우스로 시선 조작
+        PC, 모니터, 키보드, 마우스로 구동되는 1인칭 시점 비디오게임; 키보드 상/하 또는 W/S 키로 이동, 마우스로 시선 조작
       </dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
   <dd>
     <dl>
-      <dt>연출/프로그래밍</dt>
+      <dt>연출,<br>프로그래밍</dt>
       <dd>임의존재</dd>
     </dl>
   </dd>
-  <dt>공개된 곳</dt>
+  <dt>공개</dt>
   <dd>
     <dl>
       <dt>상시</dt>
