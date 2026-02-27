@@ -17,10 +17,6 @@ nav_order: -2021.1209
 
 Interactive video installation
 {: .label }
-Unity
-{: .label .label-green }
-Kinect
-{: .label .label-green }
 Interactive CG
 {: .label .label-green }
 Shader programming
@@ -29,6 +25,10 @@ Off-axis projection
 {: .label .label-green }
 Point cloud rendering
 {: .label .label-green }
+Unity
+{: .label .label-purple }
+Kinect
+{: .label .label-purple }
 v2021-12-09
 {: .label .label-yellow }
 
