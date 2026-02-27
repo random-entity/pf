@@ -1,5 +1,5 @@
 ---
-title: 유령극단 심각한 밤을 보내리
+title: 유령극단 "심각한 밤을 보내리" (실내이식판)
 parent: Works
 layout: default
 nav_order: -2022.0000
@@ -7,10 +7,10 @@ nav_order: -2022.0000
 
 <!-- prettier-ignore-start -->
 
-# 유령극단 심각한 밤을 보내리
+# 유령극단 "심각한 밤을 보내리"
 {: .no_toc }
 
-유령이다!
+
 {: .fs-5 .fw-300 }
 
 ![](../../../assets/images/works/ahe/live-stills/main.png)
@@ -63,7 +63,7 @@ v2024-09-08
   <dd>
     <dl>
       <dt>출품자</dt>
-      <dd>권병준</dd>
+      <dd>서울오픈미디어 (권병준, 백주홍, 임의존재)</dd>
       <dt>총괄 디렉터,<br />임베디드 시스템,<br />음악</dt>
       <dd>권병준</dd>
       <dt>로봇 안무,<br />무대 감독</dt>
@@ -89,17 +89,8 @@ v2024-09-08
   <dt>공개</dt>
   <dd>
     <dl>
-      <dt>공연</dt>
-      <dd>
-        <a href="http://spaf.or.kr/2024/program/program_view06.php"
-          >2024 광주비엔날레 심포지엄 새로운 울림: 인류세 시대의 예술과 기술</a
-        >,
-        <a href="https://theatredeliege.be/en/evenement/on-the-birds-day/"
-          >Forum IMPACT 2024</a
-        >
-      </dd>
       <dt>전시</dt>
-      <dd>튜링 테스트: AI의 사랑고백 전</dd>
+      <dd><a href="http://www.snumoa.org/exhibitions_view.php?exh_id=151">튜링 테스트: AI의 사랑고백 전</a></dd>
       <dt>상시</dt>
       <dd>
         <dl>

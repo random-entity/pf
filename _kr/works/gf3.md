@@ -31,6 +31,8 @@ UDP network
 {: .label .label-green }
 3D printing
 {: .label .label-green }
+mjbots moteus
+{: .label .label-purple }
 Raspberry Pi
 {: .label .label-purple }
 C++
@@ -186,6 +188,10 @@ v2024-11-14
 
 - 필자(임의존재)가 담당한 부분은 GF3 동작 알고리즘 로직 및 상기한 모든 전자 시스템(통신 시스템, 커맨더/모니터 시스템, GF3의 임베디드 시스템)의 소프트웨어 개발 [(소스 코드)](https://github.com/random-entity/o.art.gf3), 그리고 공연 시의 실시간 로봇 오퍼레이션이다.
 - 상위 섹션에 작성한 리스트의 필자 담당 항목의 루트는 **볼드체 문자**로 되어 있다.
+
+## 외부 링크
+
+- [권병준 작가 홈페이지 - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
 
 ---
 
