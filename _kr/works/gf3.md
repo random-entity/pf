@@ -106,7 +106,7 @@ v2024-11-14
           <dt>소스 코드</dt>
           <dd>
             <a href="https://github.com/random-entity/o.art.gf3"
-              >GitHub (임의존재 담당 범위)</a
+              >GitHub (필자(임의존재) 담당 범위)</a
             >
           </dd>
         </dl>

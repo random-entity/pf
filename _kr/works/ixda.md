@@ -34,7 +34,7 @@ v2021-12-15
 
 <!-- prettier-ignore-end -->
 
-## 개요
+## 기본 정보
 
 <dl>
   <dt>형식</dt>

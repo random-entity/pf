@@ -2,7 +2,7 @@
 title: 유령극단 "심각한 밤을 보내리" (실내이식판)
 parent: Works
 layout: default
-nav_order: -2022.0000
+nav_order: -2022.0324
 ---
 
 <!-- prettier-ignore-start -->
@@ -10,30 +10,34 @@ nav_order: -2022.0000
 # 유령극단 "심각한 밤을 보내리"
 {: .no_toc }
 
-
+???
 {: .fs-5 .fw-300 }
 
-![](../../../assets/images/works/ahe/live-stills/main.png)
+![](../../../assets/images/works/ghost-theater/exhibition_2.jpg)
 
-Robot dance
+Interactive sound installation
 {: .label }
-Stage performance
-{: .label }
+Audio signal processing
+{: .label .label-green }
+3D audio rendering
+{: .label .label-green }
 Physical computing
 {: .label .label-green }
 Embedded system
 {: .label .label-green }
-Printed circuit board
-{: .label .label-green }
 Microcontroller
 {: .label .label-green }
-Servomotor
+Printed circuit board
 {: .label .label-green }
-UDP network
+Local positioning system
 {: .label .label-green }
-3D printing
+IMU sensor
 {: .label .label-green }
-v2024-09-08
+PJRC Teensy
+{: .label .label-purple }
+C++
+{: .label .label-purple }
+v2022--
 {: .label .label-yellow }
 
 ## Table of Contents
@@ -51,11 +55,10 @@ v2024-09-08
   <dd>
     <dl>
       <dt>장르</dt>
-      <dd>로봇 무용, 로봇 연극, 무대 공연</dd>
+      <dd>인터랙티브 사운드 설치</dd>
       <dt>구성</dt>
       <dd>
-        철판으로 덮인 무대 위 13대의 아해, 실시간 무선 로봇 제어 시스템, 로봇
-        안무 알고리즘 및 프리셋 데이터에 의한 약 1시간의 무대 공연
+        GLPS 헤드폰<span markdown="1">[^1]</span>과 전시 공간 속 스포트라이트로 표시되는 "존"들에 배치된 입체음향 씬으로 구성된 인터랙티브 사운드 설치
       </dd>
     </dl>
   </dd>
@@ -64,44 +67,26 @@ v2024-09-08
     <dl>
       <dt>출품자</dt>
       <dd>서울오픈미디어 (권병준, 백주홍, 임의존재)</dd>
-      <dt>총괄 디렉터,<br />임베디드 시스템,<br />음악</dt>
+      <dt>총괄 디렉터,<br />음향</dt>
       <dd>권병준</dd>
-      <dt>로봇 안무,<br />무대 감독</dt>
-      <dd>이유진</dd>
-      <dt>로봇 디자인,<br />로봇 메인터넌스</dt>
-      <dd>이주미</dd>
-      <dt>소프트웨어 개발,<br />로봇 오퍼레이션</dt>
+      <dt>하드웨어 설계</dt>
+      <dd>백주홍</dd>
+      <dt>소프트웨어 개발</dt>
       <dd>임의존재</dd>
-      <dt>조명감독</dt>
-      <dd>김현</dd>
-      <dt>스태프</dt>
-      <dd>윤수희, 이민호, 최가람</dd>
-      <dt>프로듀서</dt>
-      <dd>Producer Group DOT (박지선, 최봉민)</dd>
-      <dt>커미션</dt>
-      <dd>서울국제공연예술제</dd>
-      <dt>후원</dt>
-      <dd>아트코리아랩</dd>
-      <dt>극장</dt>
-      <dd>PLATFORM-L (한국), Théâtre de Liège (벨기에)</dd>
     </dl>
   </dd>
   <dt>공개</dt>
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd><a href="http://www.snumoa.org/exhibitions_view.php?exh_id=151">튜링 테스트: AI의 사랑고백 전</a></dd>
+      <dd><a href="http://www.snumoa.org/exhibitions_view.php?exh_id=151">서울대학교 미술관 ⟨튜링 테스트: AI의 사랑 고백⟩ 전 (2022년)</a></dd>
       <dt>상시</dt>
       <dd>
         <dl>
           <dt>소스 코드</dt>
           <dd>
-            <a href="https://github.com/random-entity/o.art.ahe"
-              >GitHub (임의존재 담당 범위)</a
-            >,
-            <a
-              href="https://github.com/seoul-open-media/OnTheBirdsDay_2024_PlatformL"
-              >GitHub (권병준 담당 범위)</a
+            <a href="https://github.com/random-entity/o.art.ghost-theater-snumoa"
+              >GitHub (필자(임의존재) 담당 범위)</a
             >
           </dd>
         </dl>
@@ -112,29 +97,40 @@ v2024-09-08
 
 ## 줄거리
 
+展示空間に入った観覧者はGLPS ヘッドホンを受け取る。Seoul Open
+Media が長い間開発してきたこのヘッドホンは、中に搭載された埋め込み
+システムを通じて着用者の頭の位置と向きを認識することができる。それ
+にAmbisonic 技術を用い、現実空間に音源が分布しているかのような錯
+覚を起こすAR音響を出力する。
+展示室内の各「ゾーン」に入ると、当ゾーンの周りに配置されている音
+源によるAR音響が流れる。音源には、シリア難民の民謡の音声記録やAI
+が作成したスクリプトに基づいた劇のナレーションや電子音楽などが含ま
+れており、分離されているように認識されがちな世界らを一つの空間に共
+存させる。
+
 ## 이미지
 
 {% include scroll_gallery.html images="
-  ../../../assets/images/works/ahe/live-stills/2.jpg |
-  PLATFORM-L 공연 리허설, 씬 2
+  ../../../assets/images/works/ghost-theater/exhibition_1.jpg |
+  GLPS Headphones
   |||||
-  ../../../assets/images/works/ahe/live-stills/3.jpg |
-  Théâtre de Liège 공연, 씬 2
-  |||||
-  ../../../assets/images/works/ahe/live-stills/4.jpg |
-  Théâtre de Liège 공연, 씬 3
-  |||||
-  ../../../assets/images/works/ahe/live-stills/6.jpg |
-  Théâtre de Liège 공연, 씬 5 초반
-  |||||
-  ../../../assets/images/works/ahe/live-stills/main2.png |
-  Théâtre de Liège 공연, 씬 5 후반
+  ../../../assets/images/works/ghost-theater/exhibition_1.jpg |
+  床の照明が明るい円形の領域それぞれが、サウンドの「ゾーン」である。
 " %}
 
 ## 해설
 
-- ㅏ
+- 전작을 서울대학교 미술관 실내에 옮긴 이식판.
+- 그냥 소리가 입체 씬 속에서 들린다, 그게 중요한 것. 이건 내 포트폴리오니까, 내가 어떤 역할을 했는지를 쓰면 된다. 그거면 됨. 원작자가 어떤 망상을 했는지 나는 밝힐 필요 없음.
 
 ## 기술
 
-- ㅇ
+- 앰비소닉
+- IMU 센서
+
+---
+
+[^1]:
+    특수 개조 헤드폰, KWON Byungjun氏の数々の作品に用いられる特殊制作ヘッドホン。Teensyプロセッサー、Ambisonic音響技術、ジャイロセンサー、GPSまたはLPS
+    （ローカル位置認識システム）技術などを用い、現実の空間にもう一つの音響環境を重ね合わせる、いわばAR音響を可能にする。
+    앰비소닉
