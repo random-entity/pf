@@ -62,7 +62,7 @@ v2024-11-14
       <dd>로봇 무용, 로봇 퍼포먼스</dd>
       <dt>구성</dt>
       <dd>
-        GF3<span markdown="1">[^1]</span> 1대의 무용, 신명숙<span markdown="1">[^2]</span> 선생의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품
+        GF3<span markdown="1">[^1]</span> 1대, 실시간 유선 로봇 제어 시스템, 로봇 안무 데이터, 신명숙<span markdown="1">[^2]</span>의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품
       </dd>
     </dl>
   </dd>
@@ -71,7 +71,7 @@ v2024-11-14
     <dl>
       <dt>출품자</dt>
       <dd>권병준</dd>
-      <dt>총괄 디렉터,<br />로봇 디자인,<br />음향</dt>
+      <dt>총괄 디렉터,<br />하드웨어 설계,<br />음향</dt>
       <dd>권병준</dd>
       <dt>로봇 안무</dt>
       <dd>이유진</dd>
@@ -79,8 +79,6 @@ v2024-11-14
       <dd>이주미</dd>
       <dt>소프트웨어 개발,<br />로봇 오퍼레이션</dt>
       <dd>임의존재</dd>
-      <dt>조명</dt>
-      <dd>김현</dd>
       <dt>스태프</dt>
       <dd>이민호, 최가람</dd>
     </dl>
@@ -91,8 +89,7 @@ v2024-11-14
       <dt>공연</dt>
       <dd>
         <a href="https://www.gwangjubiennale.org/gb/Board/11766/detailView.do"
-          >제15회 광주비엔날레 심포지엄 ⟨새로운 울림: 인류세 시대의 예술과 기술⟩
-          (2024년)</a
+          >제15회 광주비엔날레 심포지엄 ⟨새로운 울림: 인류세 시대의 예술과 기술⟩ (2024년)</a
         >
       </dd>
       <dt>전시</dt>
@@ -105,7 +102,7 @@ v2024-11-14
       <dd>
         <dl>
           <dt>공연 영상</dt>
-          <dd><a href="https://youtu.be/vXlX81ujGVM">YouTube</a></dd>
+          <dd><a href="https://youtu.be/vXlX81ujGVM">YouTube (재단법인 광주비엔날레)</a></dd>
           <dt>소스 코드</dt>
           <dd>
             <a href="https://github.com/random-entity/o.art.gf3"
