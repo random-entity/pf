@@ -109,8 +109,6 @@ v2022-03-24
 - 감상자가 "영역"에 들어있지 않을 때에는 그와 가장 가까운 "영역"으로부터 종소리가 들려와, 그를 "영역"으로 안내한다.
 - 감상자는 현실의 전시 공간에서는 보이지 않는 "유령극단"의 노래를, GLPS 헤드폰에 의해 펼쳐지는 AR 음향 영역들 속에서 감상한다.
 
-## 이미지
-
 {% include scroll_gallery.html images="
   ../../../assets/images/works/ghost-theater/exhibition_1.jpg |
   전시 공간의 벽에 걸린 GLPS 헤드폰

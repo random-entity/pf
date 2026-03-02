@@ -95,20 +95,12 @@ v2023-10-06
 - LED 큐브의 옆면 4면에 자개로 그린 전통 한국화의 디지털 일러스트레이션이 저녁의 어둠 속에서 영롱한 색채를 반짝이며 재생된다.
 - 관람객이 큐브에 접근하면 그림 속에서 매화포가 쏘아올려지고 터진다.
 
-## 이미지
-
 {% include scroll_gallery.html images="
   ../../../assets/images/works/suwonhwaseong/IMG_5496.JPG |
   2023 문화유산 미디어아트 수원화성 “미디어 그라운드” 전시 정경
   |||||
   ../../../assets/images/works/suwonhwaseong/IMG_5489.JPG |
   2023 문화유산 미디어아트 수원화성 “미디어 그라운드” 전시 정경
-  |||||
-  https://upload.wikimedia.org/wikipedia/commons/e/ea/Blue6-Haenghaeng-deugjungjeongeosa.jpg |
-  매화포가 묘사된 ⟨득중정어사도(得中亭御射圖)⟩
-  |||||
-  ../../../assets/images/works/suwonhwaseong/IMG_5381.jpeg |
-  LED 큐브 설치 중
 " %}
 
 ## 해설
@@ -116,6 +108,14 @@ v2023-10-06
 - 2023년 ⟨문화유산 미디어아트 수원화성⟩은 "수원화성으로 행차하던 정조대왕과 그를 반기던 백성들이 어우러졌던 [행행(行幸, 왕의 나들이)](https://encykorea.aks.ac.kr/Article/E0076462)을 현대의 다채로운 빛으로 그려낸다"는 컨셉으로 기획된, 수원화성의 문화유산을 활용한 공공 공연 및 전시 페스티벌이다.
 - 대한민국 보물 제 1430호 ⟨화성행행도 병풍 (華城行幸圖 屛風)⟩은 조선시대 가장 성대한 잔치였던 [정조의 1795년 화성행차](https://en.wikipedia.org/wiki/Hwaseong_Fortress#The_1795_Eight_Days_Parade)를 묘사한 8첩 병풍 그림이며, 이 중 [⟨득중정어사도(得中亭御射圖)⟩](https://en.wikipedia.org/wiki/Hwaseong_Fortress#/media/File:Blue6-Haenghaeng-deugjungjeongeosa.jpg)가 본작의 테마가 되었다.
 - [본작의 애니메이션](https://www.instagram.com/p/CySyq06LRCA/)은 ⟨득중정어사도⟩에 묘사된 득중정에서의 매화포를 자개 소재의 한국화 애니메이션으로 표현한 것이다. 관람객의 접근에 반응하여 매화포가 터지는 인터랙티브 애니메이션은 원작에 묘사된 것과 같이 광장에서 모두가 함께 모여 즐기던 매화포 풍습을 재현한다.
+
+{% include scroll_gallery.html images="
+  https://upload.wikimedia.org/wikipedia/commons/e/ea/Blue6-Haenghaeng-deugjungjeongeosa.jpg |
+  매화포가 묘사된 ⟨득중정어사도(得中亭御射圖)⟩
+  |||||
+  ../../../assets/images/works/suwonhwaseong/IMG_5381.jpeg |
+  LED 큐브 설치 중
+" %}
 
 ## 기술
 

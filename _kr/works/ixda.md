@@ -95,7 +95,12 @@ v2021-12-15
 
 강가에서 제사를 지내던 세 친구들은 인간과 자연의 중간자인 "요괴"의 출현에 현실과는 다른 시간으로 이행한다. 요괴 주위로 기묘하게 뒤틀리는 시공간 속을 여행하던 친구들은 한 명 씩 낙오되고, 구석기 동굴에 다다른 마지막 한 명은 자신의 가장 깊은 상처를 자연에 내맡긴다.
 
-### 상세
+{% include scroll_gallery.html images="
+  ../../../assets/images/works/ixda/main.png |
+  세 친구들을 산으로 인도하는 요괴
+" %}
+
+### 플롯
 
 - 인트로 (자막):
   - 두 사람(A, B)이 한강 다리에서 투신자살을 시도했다. B는 투신해 사망했지만, A는 도망쳐 터널을 통해 다른 세계로 가려 했다. 하지만 공사 현장이 터널을 막고 있었다. B는 '무한히 먼 미래와 무한히 먼 과거가 연결된 곳'에서 '건널 수 없는 다리를 건너온 요괴'에 의해 강물 속으로 끌려 들어갔다.
@@ -172,16 +177,6 @@ v2021-12-15
   - 깊이축의 움직임: 카메라에서 멀어질수록 과거로 거슬러 올라감을 의미한다.
   - 수직축의 상승 운동: 현실에서 극복하기 어려운 일에 대한 은유로 기능한다.
 
-## 기술
-
-- 영화 편집에 있어서는, 촬영감독이 촬영한 영상에 CG 이펙트를 입히는 데에 After Effects와 Unity를 사용했다.
-  - ([영상 오브젝트가 직사각형에서 웜홀로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.video-wormhole))
-  - ([지구가 구에서 토러스로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.sphere-to-torus))
-  - ([지구를 한 바퀴 돌아온 바위가 화면을 깨뜨리는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.mirror-shatter))
-- 전시실 상영의 양쪽 벽의 리얼타임 CG 렌더링에 있어서는, 왼쪽 벽의 딜레이 효과에는 TouchDesigner를, 오른쪽 벽의 웜홀 효과에는 Unity를 사용했다.
-
-## 스케치
-
 {% include scroll_gallery.html images="
   ../../../assets/images/works/ixda/drawing.JPG |
   로케이션 헌팅 당시 ‘이상적인 강가 촬영 장소’ 스케치
@@ -193,8 +188,16 @@ v2021-12-15
   ‘영정사진 프레임 속에 재생되는 전체 영상에 의한 프랙탈 영상’ 씬 스케치
   |||||
   ../../../assets/images/works/ixda/IMG_8083.jpeg |
-  ‘웜홀 씬’ 스케치
+  ‘등산 씬’, ‘공전 씬’, ‘웜홀 씬’ 흐름 스케치
 " %}
+
+## 기술
+
+- 영화 편집에 있어서는, 촬영감독이 촬영한 영상에 CG 이펙트를 입히는 데에 After Effects와 Unity를 사용했다.
+  - ([영상 오브젝트가 직사각형에서 웜홀로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.video-wormhole))
+  - ([지구가 구에서 토러스로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.sphere-to-torus))
+  - ([지구를 한 바퀴 돌아온 바위가 화면을 깨뜨리는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.mirror-shatter))
+- 전시실 상영의 양쪽 벽의 리얼타임 CG 렌더링에 있어서는, 왼쪽 벽의 딜레이 효과에는 TouchDesigner를, 오른쪽 벽의 웜홀 효과에는 Unity를 사용했다.
 
 ---
 

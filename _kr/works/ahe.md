@@ -155,8 +155,6 @@ v2024-11-03
   </dd>
 </dl>
 
-## 이미지
-
 {% include scroll_gallery.html images="
   ../../../assets/images/works/ahe/live-stills/2.jpg |
   서울국제공연예술제 PLATFORM-L 공연 리허설, 씬 2

@@ -126,12 +126,6 @@ v2024-11-14
 - 인터뷰 씬이 끝나면, 신명숙 선생이 연주하며 노래하는 가야금 음악에 맞추어 GF3는 춤을 추기 시작한다. 오디토리움 스크린에는 그 장면의 영상 피드백이 실시간으로 투사된다.
 - 춤사위가 격렬한 움직임으로 진행됨에 따라, GF3의 내부 부품은 파손되고, 몸동작은 엉켜 교착된다. 결국 전원이 꺼지며 퍼포먼스는 종료된다.
 
-### Forum IMPACT 2024 전시
-
-- GF3의 춤동작은 '파손과 교착에 의한 종료' 부분을 제외하고 Forum IMPACT 2024의 ⟨On The Birds' Day / Byungjun Kwon Solo Exhibition⟩ 전에서, 권병준 작가가 만들어 온 다양한 무용 로봇 작품들과 함께 전시되었다.
-
-## 이미지
-
 {% include scroll_gallery.html images="
   ../../../assets/images/works/gf3/live-stills/1.jpg |
   광주비엔날레 심포지엄 퍼포먼스
@@ -141,7 +135,13 @@ v2024-11-14
   |||||
   ../../../assets/images/works/gf3/live-stills/4.jpg |
   광주비엔날레 심포지엄 퍼포먼스
-  |||||
+" %}
+
+### Forum IMPACT 2024 전시
+
+- GF3의 춤동작은 '파손과 교착에 의한 종료' 부분을 제외하고 Forum IMPACT 2024의 ⟨On The Birds' Day / Byungjun Kwon Solo Exhibition⟩ 전에서, 권병준 작가가 만들어 온 다양한 무용 로봇 작품들과 함께 전시되었다.
+
+{% include scroll_gallery.html images="
   ../../../assets/images/works/gf3/live-stills/IMG_2964.jpeg |
   Forum IMPACT 전시 설치 중
   |||||
