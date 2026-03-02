@@ -37,6 +37,8 @@ Premiere Pro
 {: .label .label-purple }
 Unity
 {: .label .label-purple }
+TouchDesigner
+{: .label .label-purple }
 v2021-12-15
 {: .label .label-yellow }
 
@@ -172,10 +174,11 @@ v2021-12-15
 
 ## 기술
 
-- 촬영감독이 촬영한 영상에 CG 이펙트를 입히는 데에 After Effects와 Unity를 사용했다.
+- 영화 편집에 있어서는, 촬영감독이 촬영한 영상에 CG 이펙트를 입히는 데에 After Effects와 Unity를 사용했다.
   - ([영상 오브젝트가 직사각형에서 웜홀로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.video-wormhole))
   - ([지구가 구에서 토러스로 변형되는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.sphere-to-torus))
   - ([지구를 한 바퀴 돌아온 바위가 화면을 깨뜨리는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.mirror-shatter))
+- 전시실 상영의 양쪽 벽의 리얼타임 CG 렌더링에 있어서는, 왼쪽 벽의 딜레이 효과에는 TouchDesigner를, 오른쪽 벽의 웜홀 효과에는 Unity를 사용했다.
 
 ## 스케치
 
