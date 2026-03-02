@@ -25,6 +25,12 @@ Off-axis projection
 {: .label .label-green }
 Point cloud rendering
 {: .label .label-green }
+Video projection
+{: .label .label-green }
+Motion sensor
+{: .label .label-green }
+Depth sensor
+{: .label .label-green }
 Unity
 {: .label .label-purple }
 Kinect
@@ -50,15 +56,14 @@ v2021-12-09
       <dd>인터랙티브 영상 설치</dd>
       <dt>구성</dt>
       <dd>
-        모션/깊이 센서 데이터를 반영하는 인터랙티브 CG 렌더링 시스템(Kinect,
-        Unity)과 프로젝터에 의한 암실 바닥에의 영상 프로젝션
+        모션/깊이 센서 데이터를 반영하는 인터랙티브 CG 렌더링 시스템과 프로젝터에 의한 암실 바닥에의 인터랙티브 영상 프로젝션
       </dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
   <dd>
     <dl>
-      <dt>연출/프로그래밍</dt>
+      <dt>연출,<br />프로그래밍</dt>
       <dd>임의존재</dd>
       <dt>스태프</dt>
       <dd>김준영, 이호정</dd>
@@ -86,11 +91,11 @@ v2021-12-09
           </dd>
           <dt>소스 코드</dt>
           <dd>
-            <a href="https://github.com/random-entity/o.art.space2">GitHub</a>,
+            <a href="https://github.com/random-entity/o.art.space2">GitHub</a> (일부 애셋 미포함),
             <a
               href="https://drive.google.com/file/d/112Rpy9AwwKdn4x6iE0SvC2Z2Ior7JZGa"
               >Google Drive</a
-            >
+            > (모든 애셋 포함)
           </dd>
         </dl>
       </dd>

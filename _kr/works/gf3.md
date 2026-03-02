@@ -31,6 +31,8 @@ UDP network
 {: .label .label-green }
 3D printing
 {: .label .label-green }
+Video feedback
+{: .label .label-green }
 mjbots moteus
 {: .label .label-purple }
 Raspberry Pi

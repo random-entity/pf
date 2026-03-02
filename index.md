@@ -16,11 +16,11 @@ nav_order: 0
 
 ## Who
 
-저, **임의존재(∀∃)**는 임의의 존재이기를 바라지만 그러지 못 하는 존재입니다. 수학적 구조와 심리적 드라마를 연결짓고자 컴퓨팅 기술을 활용한 크리에이티브 표현에 종사합니다.
+저, **임의존재(∀∃)**는 심리에 의한 세계 인식을 얼터너티브 물리로 보고, 수학적 구조와 심리적 드라마를 연결짓고자 컴퓨팅 기술을 활용한 크리에이티브 표현에 종사합니다. 자연 속의 기계와 기계 속의 자연을 함께 인지할 때 비로소 가능해지는 마음의 유연성을 자극하고자 합니다.
 
-≈ I, **random-entity(∀∃)** is an entity that longs to be an arbitrary one, but cannot. To bridge mathematical structures and psychological drama, I work on creative expressions utilizing computing techonologies.
+≈ Regarding psychological cognitions of the world as alternative physics, I, **random-entity(∀∃)**, work on creative expressions utilizing computing techonologies to bridge mathematical structures and psychological drama. I seek to stimulate the mental fluidity that arises from recognizing the machine-ness in nature and the nature-ness in machines.
 
-≈ 私、**任意存在（∀∃）**は任意の存在であろうと望みつつ、そうはなれないモノです。数学的構造と心理的ドラマを結び付けるため、コンピューティング技術を用いるクリエイティブ表現に携わっております。
+≈ 私、**任意存在（∀∃）**は心理による世界認識をオルタナティブ物理と捉え、数学的構造と心理的ドラマを結び付けるため、コンピューティング技術を用いるクリエイティブ表現に携わっています。自然の中の機械、そして機械の中の自然を共に認識することで初めて得られる「心の柔軟性」を刺激したいと考えています。
 
 ## Social
 

@@ -22,7 +22,7 @@ Interactive CG
 Shader programming
 {: .label .label-green }
 Unity
-{: .label .label-green }
+{: .label .label-purple }
 v2021-10-31
 {: .label .label-yellow }
 
@@ -41,7 +41,7 @@ v2021-10-31
   <dd>
     <dl>
       <dt>장르</dt>
-      <dd>비디오게임, 아트게임</dd>
+      <dd>비디오게임, 아트 게임</dd>
       <dt>구성</dt>
       <dd>
         PC, 모니터, 키보드, 마우스로 구동되는 1인칭 시점 비디오게임; 키보드 상/하 또는 W/S 키로 이동, 마우스로 시선 조작
