@@ -98,11 +98,11 @@ v2023-10-06
 ## 이미지
 
 {% include scroll_gallery.html images="
-  ../../../assets/images/works/suwonhwaseong/IMG_5498.JPG |
-  |||||
   ../../../assets/images/works/suwonhwaseong/IMG_5496.JPG |
+  2023 문화유산 미디어아트 수원화성 “미디어 그라운드” 전시 정경
   |||||
   ../../../assets/images/works/suwonhwaseong/IMG_5489.JPG |
+  2023 문화유산 미디어아트 수원화성 “미디어 그라운드” 전시 정경
   |||||
   https://upload.wikimedia.org/wikipedia/commons/e/ea/Blue6-Haenghaeng-deugjungjeongeosa.jpg |
   매화포가 묘사된 ⟨득중정어사도(得中亭御射圖)⟩
@@ -119,7 +119,7 @@ v2023-10-06
 
 ## 기술
 
-- LED 큐브에 접근하는 관람객에 반응하여 매화포 애니메이션을 재생하는 인터랙티브 CG 시스템을 위해 LED 큐브의 옆면 4면 상단에 각각 설치된 4대의 웹캠과 Processing을 사용했다. Processing 스케치는 웹캠의 화상을 처리하여 화면 내 관람객의 움직임을 감지하고 이에 반응하여 매화포 애니메이션을 재생한다.
+- LED 큐브에 접근하는 관람객에 반응하여 매화포 애니메이션을 재생하는 인터랙티브 CG 시스템을 위해 LED 큐브의 옆면 4면 상단에 각각 설치된 4대의 웹캠과 [Processing]을 사용했다. [Processing] 스케치는 웹캠의 화상을 처리하여 화면 내 관람객의 움직임을 감지하고 이에 반응하여 매화포 애니메이션을 재생한다.
 
 ## 외부 링크
 
@@ -135,3 +135,5 @@ v2023-10-06
 [^1]: 조선 시대의 불꽃놀이의 일종. 매화와 같은 형태로 터지고 피어난다는 의미를 갖는 이름이다.
 
 [^2]: 디지털 포맷으로 전통 한국화를 그리는 일러스트레이터. ([Instagram](https://www.instagram.com/hyyekang))
+
+[Processing]: https://processing.org/
