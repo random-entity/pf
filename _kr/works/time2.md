@@ -3,6 +3,9 @@ title: 시간#2
 parent: Works
 layout: default
 nav_order: -2020.0000
+# Exclude for now
+nav_exclude: true
+search_exclude: true
 ---
 
 <!-- prettier-ignore-start -->
@@ -10,7 +13,7 @@ nav_order: -2020.0000
 # 시간#2
 {: .no_toc }
 
-유령
+...
 {: .fs-5 .fw-300 }
 
 ![](../../../assets/images/works/ahe/live-stills/main.png)
@@ -65,8 +68,6 @@ v2020-00-00
 </dl>
 
 ## 줄거리
-
-## 이미지
 
 {% include scroll_gallery.html images="
 " %}

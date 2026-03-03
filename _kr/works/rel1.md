@@ -3,12 +3,18 @@ title: 종교화#1
 parent: Works
 layout: default
 nav_order: -2019.1200
+# Exclude for now
+nav_exclude: true
+search_exclude: true
 ---
 
 <!-- prettier-ignore-start -->
 
 # 종교화#1
 {: .no_toc }
+
+타락과 정화의 순환 속에서 인류는 여전히 달리고 있다.
+{: .fs-5 .fw-300 }
 
 Short film
 {: .label }
@@ -18,11 +24,8 @@ Animation
 {: .label .label-green }
 Fractal video
 {: .label .label-green }
-v2019-
+v2019-00-00
 {: .label .label-yellow }
-
-타락과 정화의 순환 속에서 인류는 여전히 달리고 있다.
-{: .fs-5 .fw-300 }
 
 ## Table of Contents
 {: .no_toc .text-delta }

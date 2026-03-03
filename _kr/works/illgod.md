@@ -3,6 +3,9 @@ title: 병신EP
 parent: Works
 layout: default
 nav_order: -2019.0319
+# Exclude for now
+nav_exclude: true
+search_exclude: true
 ---
 
 <!-- prettier-ignore-start -->
