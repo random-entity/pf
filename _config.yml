@@ -27,13 +27,13 @@ collections:
 just_the_docs:
   collections:
     kr:
-      name: Korean
+      name: 한국어
       nav_fold: true
     en:
       name: English
       nav_fold: true
     jp:
-      name: Japanese
+      name: 日本語
       nav_fold: true
 
 callouts:
