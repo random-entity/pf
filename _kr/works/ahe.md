@@ -1,6 +1,6 @@
 ---
 title: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안"
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2024.1011
 ---

@@ -1,6 +1,6 @@
 ---
 title: 해당 언어의 제목
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2000.0000
 # !!! Delete metadata below !!!

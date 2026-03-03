@@ -1,6 +1,6 @@
 ---
 title: 유령극단 "심각한 밤을 보내리" (실내이식판)
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2022.0324
 ---

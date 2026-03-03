@@ -1,6 +1,6 @@
 ---
 title: 디지털 매화포
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2023.1006
 ---

@@ -1,6 +1,6 @@
 ---
 title: 기호가 아니고 기호가 아닌 것도 아닌 것
-parent: Works
+# parent: Selected works
 layout: default
 nav_order: -2020.0000
 # Exclude for now

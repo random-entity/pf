@@ -1,6 +1,6 @@
 ---
 title: 병신EP
-parent: Works
+# parent: Selected works
 layout: default
 nav_order: -2019.0319
 # Exclude for now

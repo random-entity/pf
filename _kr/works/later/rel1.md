@@ -1,6 +1,6 @@
 ---
 title: 종교화#1
-parent: Works
+# parent: Selected works
 layout: default
 nav_order: -2019.1200
 # Exclude for now

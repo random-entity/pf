@@ -1,6 +1,6 @@
 ---
 title: 시간#2
-parent: Works
+# parent: Selected works
 layout: default
 nav_order: -2020.0000
 # Exclude for now

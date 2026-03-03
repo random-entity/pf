@@ -1,6 +1,6 @@
 ---
 title: 空間#2
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2021.1209
 ---

@@ -1,6 +1,6 @@
 ---
 title: 신명숙의 가르침
-parent: Works
+parent: Selected works
 layout: default
 nav_order: -2024.0908
 ---
