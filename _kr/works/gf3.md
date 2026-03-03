@@ -63,9 +63,9 @@ v2024-11-14
       <dt>장르</dt>
       <dd>로봇 무용, 로봇 퍼포먼스</dd>
       <dt>구성</dt>
-      <dd>
-        GF3<span markdown="1">[^1]</span> 1대, 실시간 유선 로봇 제어 시스템, 로봇 안무 데이터, 신명숙<span markdown="1">[^2]</span>의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품
-      </dd>
+      <dd><span markdown="1">
+        GF3[^1] 1대, 실시간 유선 로봇 제어 시스템, 로봇 안무 데이터, 신명숙[^2]의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품
+      </span></dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
@@ -89,32 +89,23 @@ v2024-11-14
   <dd>
     <dl>
       <dt>공연</dt>
-      <dd>
-        <a href="https://www.gwangjubiennale.org/gb/Board/11766/detailView.do"
-          >제15회 광주비엔날레 심포지엄 ⟨새로운 울림: 인류세 시대의 예술과 기술⟩ (2024년)</a
-        >
-      </dd>
+      <dd><span markdown="1">
+        [2024년 광주비엔날레 심포지엄 ⟨새로운 울림: 인류세 시대의 예술과 기술⟩](https://www.gwangjubiennale.org/gb/Board/11766/detailView.do)
+      </span></dd>
       <dt>전시</dt>
-      <dd>
-        <a href="https://theatredeliege.be/en/evenement/on-the-birds-day-2/"
-          >Forum IMPACT 2024</a
-        >
-      </dd>
-      <dt>상시</dt>
-      <dd>
-        <dl>
-          <dt>공연 영상</dt>
-          <dd><a href="https://youtu.be/vXlX81ujGVM">YouTube (재단법인 광주비엔날레)</a></dd>
-          <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.art.gf3"
-              >GitHub (필자(임의존재) 담당 범위)</a
-            >
-          </dd>
-        </dl>
-      </dd>
+      <dd><span markdown="1">
+        [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day-2/)[^4]
+      </span></dd>
+      <dt>웹</dt>
+      <dd><span markdown="1">
+        [YouTube - 재단법인 광주비엔날레 - 공연 기록 영상](https://youtu.be/vXlX81ujGVM)
+      </span></dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+    [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.art.gf3)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -128,13 +119,13 @@ v2024-11-14
 
 {% include scroll_gallery.html images="
   ../../../assets/images/works/gf3/live-stills/1.jpg |
-  광주비엔날레 심포지엄 퍼포먼스
+  광주비엔날레 심포지엄 공연 기록 영상 스틸
   |||||
   ../../../assets/images/works/gf3/live-stills/2.jpg |
-  광주비엔날레 심포지엄 퍼포먼스
+  광주비엔날레 심포지엄 공연 기록 영상 스틸
   |||||
   ../../../assets/images/works/gf3/live-stills/4.jpg |
-  광주비엔날레 심포지엄 퍼포먼스
+  광주비엔날레 심포지엄 공연 기록 영상 스틸
 " %}
 
 ### Forum IMPACT 2024 전시
@@ -177,13 +168,13 @@ v2024-11-14
   - 기어 출력을 기준으로 목표하는 각위치에 도달하기 위해 각 서보모터가 어떤 속도로 회전해야 하는지는 각 기어의 내부적 성질을 바탕으로 계산된다.
 - **센서 시스템**:
   - 기어 출력을 기준으로 안무를 짜고 포즈를 커맨드할 수 있도록 기어 출력 회전축에 장착된 자석 및 외부 인코더를 사용했다.
-  - 서보모터 과열 혹은 배선 탈선 등 장해를 일으키는 상태를 실시간으로 모니터 할 수 있도록 [mjbot moteus SDK]에서 제공하는 값들을 사용했다.
+  - 서보모터 과열 혹은 배선 탈선 등 장해를 일으키는 상태를 실시간으로 모니터 할 수 있도록 [mjbots moteus SDK]에서 제공하는 값들을 사용했다.
 - **커맨더/모니터 시스템과 유선 통신 시스템**:
   - GF3는 홀로 무대에 서서 퍼포먼스를 하는 로봇으로서 기획되었기 때문에, 원격으로 GF3에게 커맨드를 송신하고 GF3의 상태를 모니터 할 수 있는 커맨더/모니터 시스템이 필요했다.
   - 커맨더/모니터 시스템으로는 GUI를 통한 실시간 제어를 지원하는 [Pure Data] 패치(C로 작성한 커스텀 오브젝트 포함)를 사용했다.
   - 커맨더/모니터 시스템과 GF3의 임베디드 시스템 사이의 유선 통신 시스템으로는 UDP 네트워크를 사용했다.
 - GF3의 임베디드 시스템 (하드웨어):
-  - GF3에 장착된 14개의 [mjbot moteus] 서보모터 컨트롤러 및 양손에 장착된 5개의 소형 서보모터를 제어하는 2개의 마이크로컨트롤러, 그리고 커맨더/모니터 시스템과의 통신을 종합적으로 관리하기 위해 GF3의 등에 라즈베리 파이를 부착해 사용했다.
+  - GF3에 장착된 14개의 [mjbots moteus] 서보모터 컨트롤러 및 양손에 장착된 5개의 소형 서보모터를 제어하는 2개의 마이크로컨트롤러, 그리고 커맨더/모니터 시스템과의 통신을 종합적으로 관리하기 위해 GF3의 등에 라즈베리 파이를 부착해 사용했다.
 - **GF3의 임베디드 시스템 (소프트웨어)**:
   - 상술한 라즈베리 파이가 모든 서보모터 컨트롤러와 마이크로컨트롤러 및 커맨더/모니터 시스템과 통신하면서 GF3를 구동시키도록 하는 C++ 스크립트를 작성했다.
 - 안무:
@@ -209,6 +200,8 @@ v2024-11-14
 [^2]: (1940–2018) 부산시 지정 무형문화재 제8호 ⟨강태홍류 가야금산조⟩ 예능보유자. 14세부터 강태홍 선생에게서 가야금을 사사했다. 강태홍의 마지막 제자로서, 전 생애에 걸쳐 강태홍류 가야금산조의 기술과 정신을 이어가고 알리는 데에 매진했다. [(참조: 부산일보)](https://www.busan.com/view/busan/view.php?code=20180323000141)
 
 [^3]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
+
+[^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 
 [mjbots mj5208]: https://mjbots.com/products/mj5208
 [mjbots moteus]: https://mjbots.com/products/moteus-r4-11

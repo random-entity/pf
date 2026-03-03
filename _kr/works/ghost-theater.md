@@ -63,9 +63,9 @@ v2022-03-24
       <dt>장르</dt>
       <dd>인터랙티브 사운드 설치</dd>
       <dt>구성</dt>
-      <dd>
-        감상자가 착용하는 GLPS 헤드폰<span markdown="1">[^1]</span>과, 전시 공간 속 스포트라이트로 표시되는 “영역”들 각각에 배치된 입체음향 씬들로 구성된 인터랙티브 사운드 설치
-      </dd>
+      <dd><span markdown="1">
+        감상자가 착용하는 GLPS 헤드폰[^1]과, 전시 공간 속 스포트라이트로 표시되는 “영역”들 각각에 배치된 입체음향 씬들로 구성된 인터랙티브 사운드 설치
+      </span></dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
@@ -85,20 +85,15 @@ v2022-03-24
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd><a href="http://www.snumoa.org/exhibitions_view.php?exh_id=151">서울대학교 미술관 ⟨튜링 테스트: AI의 사랑 고백⟩ 전 (2022년)</a></dd>
-      <dt>상시</dt>
-      <dd>
-        <dl>
-          <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.art.ghost-theater-snumoa"
-              >GitHub (필자(임의존재) 담당 범위)</a
-            >
-          </dd>
-        </dl>
-      </dd>
+      <dd><span markdown="1">
+        [서울대학교 미술관 ⟨튜링 테스트: AI의 사랑 고백⟩ 전](http://www.snumoa.org/exhibitions_view.php?exh_id=151) (2022년)
+      </span></dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+      [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.art.ghost-theater-snumoa)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -149,6 +144,11 @@ v2022-03-24
 
 - 필자(임의존재)가 담당한 부분은 GLPS 헤드폰의 임베디드 시스템을 위한 소프트웨어 개발[(소스 코드)](https://github.com/random-entity/o.art.ghost-theater-snumoa)이다.
 - 상세 섹션에 작성한 리스트의 필자 담당 항목 루트는 **볼드체 문자**로 되어 있다.
+
+## 외부 링크
+
+- [YouTube - 서울특별시미술관협의회 - 전시 소개 영상](https://youtu.be/euUhxTG8qOQ)
+- [권병준 작가 웹사이트 - 유령극단 "심각한 밤을 보내리" (홍동저수지)](https://byungjun.pe.kr/works/we-will-have-a-serious-night)
 
 ---
 

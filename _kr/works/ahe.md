@@ -75,9 +75,9 @@ v2024-11-03
       <dt>장르</dt>
       <dd>로봇 무용, 로봇 연극, 무대 공연</dd>
       <dt>구성</dt>
-      <dd>
-        철판으로 덮인 무대 위의 아해<span markdown="1">[^1]</span> 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품
-      </dd>
+      <dd><span markdown="1">
+        철판으로 덮인 무대 위의 아해[^1] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품
+      </span></dd>
     </dl>
   </dd>
   <dt>만든 사람들</dt>
@@ -107,27 +107,16 @@ v2024-11-03
   <dd>
     <dl>
       <dt>공연</dt>
-      <dd>
-        <a href="http://spaf.or.kr/2024/program/program_view06.php"
-          >2024 서울국제공연예술제 (PLATFORM-L (한국))</a
-        >,
-        <a href="https://theatredeliege.be/en/evenement/on-the-birds-day/"
-          >Forum IMPACT 2024 (Théâtre de Liège (벨기에))</a
-        ><span markdown="1">[^4]</span>
-      </dd>
-      <dt>상시</dt>
-      <dd>
-        <dl>
-          <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.art.ahe"
-              >GitHub (필자(임의존재) 담당 범위)</a
-            >
-          </dd>
-        </dl>
-      </dd>
+      <dd><span markdown="1">
+        [2024 서울국제공연예술제 - PLATFORM-L (한국)](http://spaf.or.kr/2024/program/program_view06.php),<br />
+        [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]
+      </span></dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+    [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.art.ahe)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -248,18 +237,18 @@ v2024-11-03
 ## 외부 링크
 
 - [권병준 작가 웹사이트 - 새들의 날에 (서울국제공연예술제) - 작품 소개](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
-- [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT) - Interview with Byungjun Kwon about "On the Bird’s Day"](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
+- [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 기사](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 
 ---
 
 [^1]: 일제강점기 조선의 문학 작가 이상(1910–1937)의 시 ⟨오감도 제 1호⟩의 등장인물 "아해"를 재해석한 이족보행 로봇. 본체는 두 다리와 골반으로 구성되어, 무대 바닥에 덮인 철판 위에 선다. 관절의 서보모터와 발바닥의 전자석의 제어를 통해 움직인다.
 
-[^2]: 권병준 작가가 아트코리아랩의 지원으로 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
+[^2]: 권병준 작가가 아트코리아랩의 지원으로 2024년 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
 
 [^3]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
 
-[^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트](https://theatredeliege.be/en/festival-archives/forum-impact/))
+[^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 
 [mjbots mj5208]: https://mjbots.com/products/mj5208
 [mjbots moteus]: https://mjbots.com/products/moteus-r4-11

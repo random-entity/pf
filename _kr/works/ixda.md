@@ -60,8 +60,8 @@ v2021-12-15
       <dd>단편 영화, 예술 영화, 실험 영화, 영상 예술</dd>
       <dt>구성</dt>
       <dd>
-        1-채널 디지털 영상, 스테레오 오디오, 14분 33초<br>
-        실사 촬영 영상, CG 이펙트, CG 영상, 차용 영상
+        1-채널 디지털 영상, 스테레오 오디오로 구성된 14분 33초 간의 영상;<br>
+        실사 촬영 영상, CG 영상, CG 이펙트, 차용 영상 사용
       </dd>
     </dl>
   </dd>
@@ -78,15 +78,21 @@ v2021-12-15
       <dd>김준영, 신예림, 안유민, 유재욱, 이명원, 이호정, 정상원, 정채훈, 조소영</dd>
     </dl>
   </dd>
-  <dt>공개된 곳</dt>
+  <dt>공개</dt>
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd><a href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/">SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a> (<a href="https://www.instagram.com/p/CXC3Sn_PgB2/">Instagram</a>, <a href="https://vimeo.com/659521474">Vimeo</a>)</dd>
-      <dt>상시</dt>
+      <dd><span markdown="1">
+        [SNU Design Week](https://snudesignweek.com/)[^2] 2021 (서울대학교 미술대학 디자인학부 졸업전시)
+      </span></dd>
+      <dt>웹</dt>
       <dd><a href="https://youtu.be/7BlzhoJArZI">YouTube</a></dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+    [GitHub - 웜홀 모듈](https://github.com/random-entity/o.mod.video-wormhole), [GitHub - 토러스 모듈](https://github.com/random-entity/o.mod.sphere-to-torus), [GitHub - 거울 깨뜨리기 모듈](https://github.com/random-entity/o.mod.mirror-shatter)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -200,6 +206,14 @@ v2021-12-15
   - ([지구를 한 바퀴 돌아온 바위가 화면을 깨뜨리는 장면에 사용된 Unity 프로젝트 소스 코드](https://github.com/random-entity/o.mod.mirror-shatter))
 - 전시실 상영의 양쪽 벽의 리얼타임 CG 렌더링에 있어서는, 왼쪽 벽의 딜레이 효과에는 TouchDesigner를, 오른쪽 벽의 웜홀 효과에는 Unity를 사용했다.
 
+## 외부 링크
+
+- [Vimeo - SNU Design - 전시 소개](https://vimeo.com/659521474)
+- [Instagram - SNU Design Week - 작품 소개](https://www.instagram.com/p/CXC3Sn_PgB2/)
+- [서울대학교 미술대학 웹사이트 - 졸업작품 정보](https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/)
+
 ---
 
 [^1]: 타이틀의 문서 상 표기는 "있다"지만, 디자인 상 표기는 동음의 세 단어 "있다", "잊다", "잇다"를 겹친 형태다.<br />![](../../../assets/images/works/ixda/title.jpg)
+
+[^2]: 2021년 에디션의 웹사이트는 현재 접근 불가하다. [Wayback Machine을 통해 당시 "온라인 전시 웹사이트"의 표지 화면은 볼 수 있다](https://web.archive.org/web/20220116184406/https://snudesignweek.com/).

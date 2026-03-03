@@ -68,25 +68,16 @@ v2023-10-06
   <dt>공개</dt>
   <dd>
     <dl>
-      <dt>전시</dt>
-      <dd><a href="https://www.swcf.or.kr/hlfl/?p=10">2023 문화유산 미디어아트 수원화성</a> - 미디어 그라운드</dd>
-      <dt>상시</dt>
-      <dd>
-        <dl>
-          <dt>소개 영상</dt>
-          <dd>
-            YouTube (<a href="https://youtu.be/SvUiZ4-Wfps">수원문화관광TV 트레일러 영상</a>,  <a href="https://youtu.be/kyW14W-CWt8?t=74">수원문화관광TV 하이라이트 영상</a>), <a href="https://www.instagram.com/p/CyP-OaOLp6w/">Instagram (혜강 작가 포스트)</a>
-          </dd>
-          <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.w.suwonhwaseong"
-              >GitHub</a
-            >
-          </dd>
-        </dl>
-      </dd>
+      <dt>이벤트</dt>
+      <dd><span markdown="1">
+        [2023 문화유산 미디어아트 수원화성](https://www.swcf.or.kr/hlfl/?p=10) - 미디어 그라운드
+      </span></dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+    [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.w.suwonhwaseong)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -123,7 +114,10 @@ v2023-10-06
 
 ## 외부 링크
 
-- [수원화성관광 웹사이트](https://www.visitsuwon.or.kr/base/board/read?boardManagementNo=12&boardNo=301&searchCategory=&page=1&searchType=&searchWord=&menuLevel=3&menuNo=38)
+- [Instagram - 혜강 작가 - 작품 소개 포스트](https://www.instagram.com/p/CyP-OaOLp6w)
+- [YouTube - 수원문화관광TV - 행사 트레일러](https://youtu.be/SvUiZ4-Wfps)
+- [YouTube - 수원문화관광TV - 행사 하이라이트](https://youtu.be/kyW14W-CWt8?t=74)
+- [수원화성관광 웹사이트 - 행사 소개](https://www.visitsuwon.or.kr/base/board/read?boardManagementNo=12&boardNo=301&searchCategory=&page=1&searchType=&searchWord=&menuLevel=3&menuNo=38)
 - [수원문화재단 보도자료](https://www.swcf.or.kr/?p=120&viewMode=view&idx=53614)
 - [수원특례시 보도자료](https://www.suwon.go.kr/web/board/BD_board.view.do?bbsCd=1043&seq=20231010101202464)
 - [수원특례시 공식 블로그](https://blog.naver.com/suwonloves/223227677322)

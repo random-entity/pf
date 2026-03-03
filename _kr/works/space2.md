@@ -73,34 +73,24 @@ v2021-12-09
   <dd>
     <dl>
       <dt>전시</dt>
-      <dd>
-        <a
-          href="https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/"
-          >SNU Design Week 2021 (서울대학교 미술대학 디자인학부 졸업전시)</a
-        >
-        (<a href="https://www.instagram.com/p/CXC3XytvUHL/">Instagram</a>,
-        <a href="https://vimeo.com/659521474#t=48.641">Vimeo</a>)
-      </dd>
-      <dt>상시</dt>
+      <dd><span markdown="1">
+        [SNU Design Week](https://snudesignweek.com/)[^1] 2021 (서울대학교 미술대학 디자인학부 졸업전시)
+      </span></dd>
+      <dt>웹</dt>
       <dd>
         <dl>
           <dt>데모 영상</dt>
-          <dd>
-            <a href="https://youtu.be/ftJX44qtPxQ">YouTube</a> (1인칭 시점 관람
-            영상)
-          </dd>
-          <dt>소스 코드</dt>
-          <dd>
-            <a href="https://github.com/random-entity/o.art.space2">GitHub</a> (일부 애셋 미포함),
-            <a
-              href="https://drive.google.com/file/d/112Rpy9AwwKdn4x6iE0SvC2Z2Ior7JZGa"
-              >Google Drive</a
-            > (모든 애셋 포함)
-          </dd>
+          <dd><span markdown="1">
+            [YouTube - 1인칭 시점 관람 영상](https://youtu.be/ftJX44qtPxQ)
+          </span></dd>
         </dl>
       </dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><span markdown="1">
+    [GitHub (고용량 애셋 미포함)](https://github.com/random-entity/o.art.space2), [Google Drive (모든 애셋 포함)](https://drive.google.com/file/d/112Rpy9AwwKdn4x6iE0SvC2Z2Ior7JZGa)
+  </span></dd>
 </dl>
 
 ## 줄거리
@@ -146,7 +136,7 @@ v2021-12-09
   - 구멍 속 감상자의 클론은 Kinect가 읽은 감상자의 깊이 정보를 이용해 Unity 및 그 셰이더 프로그래밍에 의한 point cloud 렌더링으로 만들었다.
   - 클론에서 물고기 떼로의 연속적 변신 및 물고기 떼가 헤엄치는 모션그래픽 또한 Unity 및 그 셰이더 프로그래밍으로 만들었다.
 
-## 참고 자료
+### 참고 자료
 
 - [Off-axis projection in Unity - Michel de Brisis](https://medium.com/try-creative-tech/off-axis-projection-in-unity-1572d826541e)
 - [Cg Programming/Unity/Projection for Virtual Reality - Wikibooks](https://en.wikibooks.org/wiki/Cg_Programming/Unity/Projection_for_Virtual_Reality)
@@ -154,3 +144,13 @@ v2021-12-09
 - [Waves - Catlike Coding](https://catlikecoding.com/unity/tutorials/flow/waves/)
 - [Kinect v2 のデプス画像をそのままの解像度で点群としてUnityで表示する - いずみはら あつし](https://izmiz.hateblo.jp/entry/2017/12/30/003542)
 - [Point cloud rendering with Unity - Ahmad Erfani](https://bootcamp.uxdesign.cc/point-cloud-rendering-with-unity-1a07345eb27a)
+
+## 외부 링크
+
+- [Vimeo - SNU Design - 전시 소개](https://vimeo.com/659521474#t=48.641)
+- [Instagram - SNU Design Week - 작품 소개](https://www.instagram.com/p/CXC3XytvUHL/)
+- [서울대학교 미술대학 웹사이트 - 졸업작품 정보](https://art.snu.ac.kr/exgallery/%ea%b9%80%ed%83%9d%eb%af%bc-%eb%94%94%ec%9e%90%ec%9d%b8-%ed%95%99%ec%82%ac/)
+
+---
+
+[^1]: 2021년 에디션의 웹사이트는 현재 접근 불가하다. [Wayback Machine을 통해 당시 "온라인 전시 웹사이트"의 표지 화면은 볼 수 있다](https://web.archive.org/web/20220116184406/https://snudesignweek.com/).
