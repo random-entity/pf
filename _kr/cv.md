@@ -22,9 +22,10 @@ nav_order: 3
 - 2021 – 2022년, 서울오픈미디어 인턴
 - 2022년, 서울대학교 미술관 전시 (서울오픈미디어)
 - 2024년, 서울대학교 자유전공학부 졸업 (시각디자인, 컴퓨터공학, 정보문화학 전공)
-- 2024년, Robot Theater Company 소속
+- 2024년, Robot Theater Company 근무
 - 2024년, 국립현대미술관 전시실 스태프 (Robot Theater Company)
 - 2024년, 광주비엔날레 심포지엄 공연 (Robot Theater Company)
 - 2024년, 서울국제공연예술제 공연 (Robot Theater Company)
 - 2024년, Forum IMPACT (벨기에) 공연 (Robot Theater Company)
+- 2025 – 2026년, 일본 워킹홀리데이
 - 2025년, JLPT N1 취득
