@@ -44,7 +44,7 @@ v2021-10-31
       <dd>비디오게임, 아트 게임</dd>
       <dt>구성</dt>
       <dd>
-        PC, 모니터, 키보드, 마우스로 구동되는 1인칭 시점 비디오게임; 키보드 상/하 또는 W/S 키로 이동, 마우스로 시선 조작
+        PC, 모니터, 키보드, 마우스로 구동되는 1인칭 시점 비디오게임;<br />키보드 상/하 또는 W/S 키로 이동, 마우스로 시선 조작
       </dd>
     </dl>
   </dd>
@@ -58,19 +58,19 @@ v2021-10-31
   <dt>공개</dt>
   <dd>
     <dl>
-      <dt>상시</dt>
+      <dt>웹</dt>
       <dd>
       <dl>
         <dt>배포</dt>
         <dd><a href="https://public-random-entities.itch.io/space1">itch.io</a></dd>
         <dt>데모 영상</dt>
         <dd><a href="https://youtu.be/KZ1KfgGF4T0">YouTube</a></dd>
-        <dt>소스 코드</dt>
-        <dd><a href="https://github.com/random-entity/o.art.space1">GitHub</a></dd>
       </dl>
       </dd>
     </dl>
   </dd>
+  <dt>소스 코드</dt>
+  <dd><a href="https://github.com/random-entity/o.art.space1">GitHub</a></dd>
 </dl>
 
 ## 줄거리

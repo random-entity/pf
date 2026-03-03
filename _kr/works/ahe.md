@@ -23,7 +23,7 @@ Stage performance
 {: .label }
 Physical computing
 {: .label .label-green }
-Collective robotics
+Automata
 {: .label .label-green }
 Embedded system
 {: .label .label-green }
