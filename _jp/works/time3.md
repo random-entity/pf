@@ -33,7 +33,6 @@ v2021-10-25
 {: .label .label-yellow }
 
 ## Table of Contents
-
 {: .no_toc .text-delta }
 
 - TOC
@@ -61,9 +60,9 @@ v2021-10-25
       <dt>出品者</dt>
       <dd>任意存在（チーム）（任意存在、イ・ホジョン、チョ・ミンギ）</dd>
       <dt>演出、<br />プログラミング</dt>
-      <dd>任意存在（Random Entity）</dd>
+      <dd>任意存在</dd>
       <dt>スタッフ</dt>
-      <dd>イ・ホジョン、チョ・ミンギ</dd>
+      <dd>LEE Hojeong、CHO Minki</dd>
     </dl>
   </dd>
   <dt>公開</dt>

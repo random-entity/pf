@@ -64,9 +64,9 @@ v2021-12-09
   <dd>
     <dl>
       <dt>演出、<br />プログラミング</dt>
-      <dd>任意存在（Random Entity）</dd>
+      <dd>任意存在</dd>
       <dt>スタッフ</dt>
-      <dd>キム・ジュニョン、イ・ホジョン</dd>
+      <dd>KIM Junyeong、LEE Hojeong</dd>
     </dl>
   </dd>
   <dt>公開</dt>

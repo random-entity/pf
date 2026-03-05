@@ -50,7 +50,7 @@ v2020-07-09
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/C2cIH_e47SI?si=bdQJbfaYls4OM9o0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## インタラクティブ・ロゴデザイン: 香港飯店0410
+## インタラクティブ・ロゴデザイン：香港飯店0410
 
 Interactive design
 {: .label }
@@ -63,13 +63,13 @@ Processing
 v2019
 {: .label .label-yellow }
 
-- 「香港飯店0410」のインタラクティブなロゴデザイン。スペースキーを押し続けると、マウスカーソルが紙幣になる。その紙幣で麺の束を切ると、下の器に落ちて盛り付けられ、うごめくムール貝チャンポンになる。
+- 韓国中華料理チェーン店「香港飯店0410」のインタラクティブなロゴデザイン。スペースキーを押し続けると、マウスカーソルが紙幣になる。その紙幣で麺の束を切ると、下の器に落ちて盛り付けられ、うごめくムール貝チャンポンになる。
 - Processingおよび[toxiclibs]ライブラリを使用。
 - [(ソースコード)](https://github.com/random-entity/o.des.hongkong)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/19lT80eVUAQ?si=T74MitCFMgZU2N4z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## サウンドインタラクションデザイン: 運動場とホイッスル
+## サウンドインタラクションデザイン：運動場とホイッスル
 
 Video game
 {: .label }
@@ -84,8 +84,8 @@ Processing
 v2019-11-12
 {: .label .label-yellow }
 
-- 子供たちが運動場に散らばり、グループを作って遊んでいる。（現実の）ホイッスルの音が鳴ると、子供たちは整然と隊列を組んで整列する。ホイッスルを一定の間隔で吹くと、そのリズムに合わせて子供たちは体操をする。体操が終わると、子供たちは再び散らばって遊びに行く。
-- グラフィックデザイン: キム・ヘイン; プログラミング: Random Entity
+- 子供たちが運動場に散らばり、グループを組んで遊んでいる。（現実の）ホイッスルの音が鳴ると、子供たちは整然と隊列を組んで整列する。ホイッスルを一定の間隔で吹くと、そのリズムに合わせて子供たちは体操をする。体操が終わると、子供たちは再び散らばって遊びに行く。
+- グラフィックデザイン：KIM Haein；プログラミング：任意存在
 - Processingおよび[toxiclibs]、Soundライブラリを使用。
 - [(ソースコード)](https://github.com/random-entity/o.des.horuragi)
 

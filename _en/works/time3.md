@@ -58,9 +58,9 @@ v2021-10-25
   <dd>
     <dl>
       <dt>Exhibitor</dt>
-      <dd>Random Entity (Team) (Random Entity, Hojeong Lee, Minki Cho)</dd>
+      <dd>Random Entity (team) (random-entity, Hojeong Lee, Minki Cho)</dd>
       <dt>Direction,<br />Programming</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Staff</dt>
       <dd>Hojeong Lee, Minki Cho</dd>
     </dl>

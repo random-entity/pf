@@ -86,7 +86,7 @@ v2024-11-03
   <dd>
     <dl>
       <dt>Presented by</dt>
-      <dd>Robot Theater Company<span markdown="1">[^2]</span> (Byungjun Kwon<span markdown="1">[^3]</span>, Yujin Lee, Jumi Lee, Random Entity)</dd>
+      <dd>Robot Theater Company<span markdown="1">[^2]</span> (Byungjun Kwon<span markdown="1">[^3]</span>, Yujin Lee, Jumi Lee, random-entity)</dd>
       <dt>General Director,<br />Hardware Design,<br />Music</dt>
       <dd>Byungjun Kwon</dd>
       <dt>Assistant Director,<br />Robot Choreography</dt>
@@ -94,7 +94,7 @@ v2024-11-03
       <dt>Robot Design,<br />Robot Maintenance</dt>
       <dd>Jumi Lee</dd>
       <dt>Software Development,<br />Robot Operation</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Lighting</dt>
       <dd>Hyun Kim</dd>
       <dt>Staff</dt>
@@ -117,7 +117,7 @@ v2024-11-03
   </dd>
   <dt>Source Code</dt>
   <dd><span markdown="1">
-    [GitHub - Scope handled by the author (Random Entity)](https://github.com/random-entity/o.art.ahe)
+    [GitHub - Scope handled by the author (random-entity)](https://github.com/random-entity/o.art.ahe)
   </span></dd>
 </dl>
 
@@ -232,9 +232,9 @@ v2024-11-03
 - **Real-time Robot Operation**:
   - Because some actions, like 'walking to a specific position while avoiding other units,' do not have a predetermined execution time, the entire sequence of actions cannot be programmed in advance. Moreover, unexpected variables occur during actual performances, requiring improvised responses. Therefore, human operators were needed behind the audience to control the robots in real-time according to the pre-agreed flow of the performance.
 
-### Scope Handled by the Author (Random Entity)
+### Scope Handled by the Author (random-entity)
 
-- The parts handled by the author (Random Entity) are the logic for Ahe's movement algorithms, the software development for all the aforementioned electronic systems (sensor system, wireless communication system, commander/monitor system (excluding the drum machine-style movement sequencer), and Ahe's embedded system) [(Source Code)](https://github.com/random-entity/o.art.ahe), and real-time robot operation during the performance.
+- The parts handled by the author (random-entity) are the logic for Ahe's movement algorithms, the software development for all the aforementioned electronic systems (sensor system, wireless communication system, commander/monitor system (excluding the drum machine-style movement sequencer), and Ahe's embedded system) [(Source Code)](https://github.com/random-entity/o.art.ahe), and real-time robot operation during the performance.
 - The items handled by the author listed in the Details section are in **bold text**.
 
 ## External Links

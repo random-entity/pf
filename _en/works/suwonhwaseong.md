@@ -56,11 +56,11 @@ v2023-10-06
   <dd>
     <dl>
       <dt>Exhibitor</dt>
-      <dd>Hyekang<span markdown="1">[^2]</span>, Random Entity</dd>
+      <dd>Hyekang<span markdown="1">[^2]</span>, random-entity</dd>
       <dt>Animation</dt>
       <dd>Hyekang</dd>
       <dt>Software Development</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Commission</dt>
       <dd>Suwon Cultural Foundation</dd>
     </dl>
@@ -76,7 +76,7 @@ v2023-10-06
   </dd>
   <dt>Source Code</dt>
   <dd><span markdown="1">
-    [GitHub - Scope in charge of the author (Random Entity)](https://github.com/random-entity/o.w.suwonhwaseong)
+    [GitHub - Scope in charge of the author (random-entity)](https://github.com/random-entity/o.w.suwonhwaseong)
   </span></dd>
 </dl>
 

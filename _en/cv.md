@@ -21,7 +21,7 @@ nav_order: 3
 - 2021, Seoul National University College of Fine Arts, Department of Design Graduation Exhibition
 - 2021 – 2022, Intern at Seoul Open Media
 - 2022, Exhibition at Seoul National University Museum of Art (Seoul Open Media)
-- 2024, Graduated from Seoul National University, College of Liberal Studies (Majors: Visual Communication Design, Computer Science and Engineering, Information and Culture Technology)
+- 2024, Graduated from Seoul National University, College of Liberal Studies (Majors: Computer Science and Engineering, Visual Communication Design, Information Science and Culture)
 - 2024, Worked at Robot Theater Company
 - 2024, Exhibition Staff at National Museum of Modern and Contemporary Art, Korea (Robot Theater Company)
 - 2024, Gwangju Biennale Symposium Performance (Robot Theater Company)

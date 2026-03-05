@@ -59,11 +59,11 @@ v2021-10-27
   <dd>
     <dl>
       <dt>出品者</dt>
-      <dd>イ・ホジョン</dd>
+      <dd>LEE Hojeong</dd>
       <dt>演出、<br>グラフィックデザイン</dt>
-      <dd>イ・ホジョン</dd>
+      <dd>LEE Hojeong</dd>
       <dt>プログラミング</dt>
-      <dd>任意存在（Random Entity）、チョ・ミンギ</dd>
+      <dd>任意存在、CHO Minki</dd>
     </dl>
   </dd>
   <dt>公開</dt>
@@ -102,7 +102,7 @@ v2021-10-27
 ## 解説
 
 - 私たちは大小さまざまなことを願い、そして叶えながら生きている。あることを願う人にとって、それをすでに叶えた人は羨望の対象になることもあれば、経験談を聞かせてくれる師匠になることもある。願いを媒介としたこのような人と人とのつながりは、私たちを生かし、共同体を結集させる力である。
-- イ・ホジョン作家のこのような考えは、生命体のように浮遊し、共同体のように結集する石たちと、私たちの文化においてよく願いを込めながら積まれる「石塔」の仮想世界に投影されている。
+- LEE Hojeong作家のこのような考えは、生命体のように浮遊し、共同体のように結集する石たちと、私たちの文化においてよく願いを込めながら積まれる「石塔」の仮想世界に投影されている。
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zFeyxBnuzAI?si=cctet2bwQ3TxLy65" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 

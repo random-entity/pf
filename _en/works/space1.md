@@ -52,7 +52,7 @@ v2021-10-31
   <dd>
     <dl>
       <dt>Direction,<br>Programming</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
     </dl>
   </dd>
   <dt>Release</dt>
@@ -105,7 +105,7 @@ v2021-10-31
 
 ## Commentary
 
-- This work implements the fractal/repetitive worldview frequently appearing in the author's (Random Entity's) works as a space within a game, allowing the player to independently explore its structure.
+- This work implements the fractal/repetitive worldview frequently appearing in the author's (random-entity's) works as a space within a game, allowing the player to independently explore its structure.
 - The only building rising in the empty game world is perceived by the player as a 'destination'. However, as the player approaches the building, it transforms into an unreachable background (sky), and another 'destination' (building) hidden within it appears. This expresses that moving forward toward a goal leads directly to the creation of the next goal, transitioning to the same phase of the next stage.
 - Thus, this work acts as a metaphor for humans constantly striving towards goals, and the structure of nature where all things return to a cycle of maintaining homeostasis, regardless of human goals or passing time.
 - By using minimalist forms and flat coloring, the player is encouraged to focus on the structure of the space in the game itself rather than the details of each element.

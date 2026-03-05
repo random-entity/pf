@@ -72,13 +72,13 @@ v2022-03-24
   <dd>
     <dl>
       <dt>Exhibitor</dt>
-      <dd>Seoul Open Media<span markdown="1">[^2]</span> (Byungjun Kwon<span markdown="1">[^3]</span>, Juhong Baek, Random Entity)</dd>
+      <dd>Seoul Open Media<span markdown="1">[^2]</span> (Byungjun Kwon<span markdown="1">[^3]</span>, Juhong Baek, random-entity)</dd>
       <dt>General Director,<br />Hardware Design,<br />Sound</dt>
       <dd>Byungjun Kwon</dd>
       <dt>Hardware Design</dt>
       <dd>Juhong Baek</dd>
       <dt>Software Development</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
     </dl>
   </dd>
   <dt>Release</dt>
@@ -92,7 +92,7 @@ v2022-03-24
   </dd>
   <dt>Source Code</dt>
   <dd><span markdown="1">
-      [GitHub - Scope in charge of the author (Random Entity)](https://github.com/random-entity/o.art.ghost-theater-snumoa)
+      [GitHub - Scope in charge of the author (random-entity)](https://github.com/random-entity/o.art.ghost-theater-snumoa)
   </span></dd>
 </dl>
 
@@ -140,9 +140,9 @@ v2022-03-24
   - To create a 3D audio effect based on the listener's head orientation obtained from the IMU sensor, audio signal processing was programmed to decode audio signals in the [Ambisonics] format according to the orientation, or to pan multiple mono audios so they sound like point sound sources distributed at specific locations.
   - The program performing the above functions was written in C++ utilizing the [Teensy SDK] and [Teensy Audio SDK], and was uploaded to the [Teensy] of the GLPS headphones' embedded system.
 
-### Scope in charge of the author (Random Entity)
+### Scope in charge of the author (random-entity)
 
-- The part the author (Random Entity) was in charge of is the software development for the embedded system of the GLPS headphones [(Source Code)](https://github.com/random-entity/o.art.ghost-theater-snumoa).
+- The part the author (random-entity) was in charge of is the software development for the embedded system of the GLPS headphones [(Source Code)](https://github.com/random-entity/o.art.ghost-theater-snumoa).
 - The root items in the list in the Details section that the author was in charge of are marked in **bold text**.
 
 ## External Links

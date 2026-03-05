@@ -63,7 +63,7 @@ v2021-10-27
       <dt>Direction,<br>Graphic Design</dt>
       <dd>Hojeong Lee</dd>
       <dt>Programming</dt>
-      <dd>Random Entity, Minki Cho</dd>
+      <dd>random-entity, Minki Cho</dd>
     </dl>
   </dd>
   <dt>Release</dt>

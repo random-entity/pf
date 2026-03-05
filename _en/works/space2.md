@@ -64,7 +64,7 @@ v2021-12-09
   <dd>
     <dl>
       <dt>Direction,<br />Programming</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Staff</dt>
       <dd>Junyoung Kim, Hojeong Lee</dd>
     </dl>

@@ -69,7 +69,7 @@ v2021-12-15
   <dd>
     <dl>
       <dt>Screenplay/Direction/Editing,<br />Programming</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Director of Photography</dt>
       <dd>Seungwoo Nam, Changsoo Maeng</dd>
       <dt>Cast</dt>

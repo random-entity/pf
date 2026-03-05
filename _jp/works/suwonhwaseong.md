@@ -56,7 +56,7 @@ v2023-10-06
   <dd>
     <dl>
       <dt>出品者</dt>
-      <dd>ヘガン<span markdown="1">[^2]</span>、任意存在（Random Entity）</dd>
+      <dd>ヘガン<span markdown="1">[^2]</span>、任意存在</dd>
       <dt>アニメーション</dt>
       <dd>ヘガン</dd>
       <dt>ソフトウェア開発</dt>
@@ -76,7 +76,7 @@ v2023-10-06
   </dd>
   <dt>ソースコード</dt>
   <dd><span markdown="1">
-    [GitHub - 筆者（任意存在）担当範囲](https://github.com/random-entity/o.w.suwonhwaseong)
+    [GitHub - 私（任意存在）担当範囲](https://github.com/random-entity/o.w.suwonhwaseong)
   </span></dd>
 </dl>
 

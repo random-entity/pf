@@ -80,7 +80,7 @@ v2024-11-14
       <dt>Robot Design,<br />Robot Maintenance</dt>
       <dd>Jumi Lee</dd>
       <dt>Software Development,<br />Robot Operation</dt>
-      <dd>Random Entity</dd>
+      <dd>random-entity</dd>
       <dt>Staff</dt>
       <dd>Minho Lee, Garam Choi</dd>
     </dl>
@@ -104,7 +104,7 @@ v2024-11-14
   </dd>
   <dt>Source Code</dt>
   <dd><span markdown="1">
-    [GitHub - Scope in charge of the author (Random Entity)](https://github.com/random-entity/o.art.gf3)
+    [GitHub - Scope in charge of the author (random-entity)](https://github.com/random-entity/o.art.gf3)
   </span></dd>
 </dl>
 
@@ -135,7 +135,7 @@ v2024-11-14
 
 - Artist Byungjun Kwon has been creating handmade robot works that reflect the social role of robots as human companions or as alienated beings. The unstable, trembling movements that emerge precisely because these robots are made by human hands—rather than being precise industrial robots—hold the power to subvert conventional ideas about the relationship between humans and robots.
 - GF3[^1] is the most human-like among the robots developed by Kwon's team. Its role in this work was as a medium for a traditional music master, someone who is being forgotten in modern society due to technological advancement and globalization. The status of the handmade robot GF3, an alienated existence in a society of modern robots boasting high technology, mirrors that of the traditional music master. For a brief moment, GF3 becomes Master Shin Myung-sook[^2], regurgitating the critique that the original sound and spirit of Gayageum Sanjo are disappearing due to the universalization of Western musical notation, and then dances to her playing and singing.
-- Unlike industrial robots that remain intact even after repeating the same movement tens of thousands of times, GF3, which contains many 3D-printed parts, is not robust and wears out easily. However, that non-mechanical nature is GF3's essence. Even so, the production team did not intend for GF3 to break down during the performance at the Gwangju Biennale Symposium. On the contrary, numerous tests and improvements were made beforehand to ensure GF3 would finish the performance without breaking down. When GF3 broke down during the performance, the author (Random Entity) was personally disappointed, but it also became a positive outcome in that it could be interpreted as expressing the mechanical limitations of the mediumship meant to revive a traditional music master through a machine. At Forum IMPACT about two months later, an upgraded version with improved mechanical stability was operated, allowing GF3's movements to be exhibited for over a week without major breakdowns.
+- Unlike industrial robots that remain intact even after repeating the same movement tens of thousands of times, GF3, which contains many 3D-printed parts, is not robust and wears out easily. However, that non-mechanical nature is GF3's essence. Even so, the production team did not intend for GF3 to break down during the performance at the Gwangju Biennale Symposium. On the contrary, numerous tests and improvements were made beforehand to ensure GF3 would finish the performance without breaking down. When GF3 broke down during the performance, the author (random-entity) was personally disappointed, but it also became a positive outcome in that it could be interpreted as expressing the mechanical limitations of the mediumship meant to revive a traditional music master through a machine. At Forum IMPACT about two months later, an upgraded version with improved mechanical stability was operated, allowing GF3's movements to be exhibited for over a week without major breakdowns.
 
 ## Technology
 
@@ -175,9 +175,9 @@ v2024-11-14
 - **Real-time robot operation**:
   - An operator personnel was needed to control the robot in real-time from behind the stage to monitor system failures such as servomotor overheating or wiring disconnections, and to improvise when GF3 became unable to operate.
 
-### Scope in charge of the author (Random Entity)
+### Scope in charge of the author (random-entity)
 
-- The parts handled by the author (Random Entity) are the GF3 operation algorithm logic, the software development of all the aforementioned electronic systems (communication system, commander/monitor system, GF3's embedded system) [(Source Code)](https://github.com/random-entity/o.art.gf3), and the real-time robot operation during the performance.
+- The parts handled by the author (random-entity) are the GF3 operation algorithm logic, the software development of all the aforementioned electronic systems (communication system, commander/monitor system, GF3's embedded system) [(Source Code)](https://github.com/random-entity/o.art.gf3), and the real-time robot operation during the performance.
 - The root items in the list in the Details section that the author was in charge of are marked in **bold text**.
 
 ## External Links

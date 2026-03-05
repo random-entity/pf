@@ -69,13 +69,13 @@ v2021-12-15
   <dd>
     <dl>
       <dt>脚本/演出/編集、<br />プログラミング</dt>
-      <dd>任意存在（Random Entity）</dd>
+      <dd>任意存在</dd>
       <dt>撮影監督</dt>
-      <dd>ナム・スンウ、メン・チャンス</dd>
+      <dd>NAM Seungwoo、MAENG Changsu</dd>
       <dt>演技</dt>
-      <dd>クォン・スヒョン、キム・スビン、ソル・ジョンファン、チュ・ヨンウン</dd>
+      <dd>KWON Suhyeon、KIM Subin、SEOL Jonghwan、JU Yeongeun</dd>
       <dt>スタッフ</dt>
-      <dd>キム・ジュニョン、シン・イェリム、アン・ユミン、ユ・ジェウク、イ・ミョンウォン、イ・ホジョン、チョン・サンウォン、チョン・チェフン、チョ・ソヨン</dd>
+      <dd>KIM Junyeong、SHIN Yerim、AN Yumin、YU Jaewook、LEE Myeongwon、LEE Hojeong、JEONG Sangwon、JEONG Chaehun、JO Soyeong</dd>
     </dl>
   </dd>
   <dt>公開</dt>
