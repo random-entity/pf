@@ -102,6 +102,8 @@ v2021-10-27
 - 우리는 크고 작은 것들을 희망하고 또 이루면서 살아간다. 어떤 일을 희망하는 사람에게, 그 일을 이미 이룬 사람은 부러움의 대상이 될 수도 있고, 경험담을 들려주는 스승이 될 수도 있다. 소망을 매개로 한 이러한 사람과 사람 간의 연결은 우리를 살아가게 하고 공동체를 결집하는 힘이다.
 - 이호정 작가의 이러한 생각은 생명체처럼 부유하고 공동체처럼 결집하는 돌멩이들과, 우리 문화에서 흔히 소원을 빌면서 쌓는 '돌탑'들의 가상 세계에 투영되어 있다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zFeyxBnuzAI?si=cctet2bwQ3TxLy65" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## 기술
 
 - 키보드/마우스/GUI를 통한 유저 인풋을 처리하고, 돌멩이들의 부유와 결집 알고리즘 등을 구현하기 위해 게임 엔진 Unity를 사용했다.

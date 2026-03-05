@@ -116,7 +116,7 @@ v2023-10-06
 
 - [Instagram - 혜강 작가 - 작품 소개 포스트](https://www.instagram.com/p/CyP-OaOLp6w)
 - [YouTube - 수원문화관광TV - 행사 트레일러](https://youtu.be/SvUiZ4-Wfps)
-- [YouTube - 수원문화관광TV - 행사 하이라이트](https://youtu.be/kyW14W-CWt8?t=74)
+- [YouTube - 수원문화관광TV - 행사 하이라이트](https://youtu.be/kyW14W-CWt8)
 - [수원화성관광 웹사이트 - 행사 소개](https://www.visitsuwon.or.kr/base/board/read?boardManagementNo=12&boardNo=301&searchCategory=&page=1&searchType=&searchWord=&menuLevel=3&menuNo=38)
 - [수원문화재단 보도자료](https://www.swcf.or.kr/?p=120&viewMode=view&idx=53614)
 - [수원특례시 보도자료](https://www.suwon.go.kr/web/board/BD_board.view.do?bbsCd=1043&seq=20231010101202464)

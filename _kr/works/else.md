@@ -62,6 +62,13 @@ Processing
 v2019-0-0
 {: .label .label-yellow }
 
+- "홍콩반점0410"의 인터랙티브 로고 디자인. 스페이스 키를 누르고 있으면 마우스 커서는 지폐가 되고, 그 지폐로 면 다발을 자르면 밑의 그릇에 떨어져 담겨, 꿈틀거리는 홍합짬뽕이 된다.
+- Processing 및 그 Box2D 라이브러리를 사용했다.
+
+中華料理店「香港飯店0410 」のインタラクティブ・ロゴ・デザイン Processing
+sketch 。スペース・キーを押すとマウス・ポインターは紙幣になり、そのまま
+画面を横切って麺を切ると下の皿に落ち、チャンポンが完成される。
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/19lT80eVUAQ?si=T74MitCFMgZU2N4z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 소리 인터랙션 디자인: 운동장과 호루라기

@@ -84,6 +84,8 @@ v2021-10-31
 - 후진을 해도 페이즈를 역순으로 순환할 뿐 구조는 동일하다.
 - 플레이어는 유한해 보이지만 부분과 전체의 유사성에 의해 무한히 확장하는 프랙탈적 공간 속에 영원히 갇히게 된다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KZ1KfgGF4T0?si=66SXqeOp1aMeS-ZY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 {% include scroll_gallery.html images="
   ../../../assets/images/works/space1/demo-video-stills/1.png |
   정오 페이즈

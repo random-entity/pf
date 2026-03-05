@@ -99,6 +99,8 @@ v2021-12-09
 - 프로젝션 영상은 감상자의 움직임에 반응하여 실시간으로 왜곡되어, 감상자의 시점에서 항상 바닥 밑의 공간이 입체적으로 보이도록 구성되어 있다.
 - 감상자가 움직이면 수면에 파동이 퍼진다. 구멍의 중앙에 다가가면 물속의 감상자 클론은 파편화 되어 흩어지고, 각 파편은 물고기로 변신하여 물속을 헤엄쳐 돌아다닌다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ftJX44qtPxQ?si=QPL5JpZo8lpI7RE-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 {% include scroll_gallery.html images="
   ../../../assets/images/works/space2/space2_viewer-none.jpg |
   감상자가 없을 때의 암실 내부

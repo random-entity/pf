@@ -91,18 +91,22 @@ v2021-10-25
 
 - 본작은 공공장소의 층계참에 설치되었다. 감상자는 벽의 프로젝션과 반대편의 카메라 사이를 지나간다. 그러면 벽의 프로젝션에 자신의 모습 및 피드백에 의한 연쇄되는 영상 속 영상 속 영상...으로 이어지는 그 메아리가 보인다.
 - 그 화상은 약 10초 후(감상자가 계단을 오르거나 내려가 재차 그 벽을 볼 수 있는 위치에 갔을 때 쯤), 영상 속 영상 속에서 또 한 번 나타난다. 20초 후에는 또 그 속의 영상에, 30초 후에는 또 그 속의 영상에 나타나는 과정이 반복됨과 함께 환영처럼 희미해져 간다.
+- 층계참에서 10초 이상을 보내게 되면, 현재와 과거가 중첩되어 서로 다른 시간의 레이어들이 어지럽게 얽히는 기묘한 시간적 감각을 체험할 수 있다.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/f-Nq-o2XEfk?si=n7x5RmhG44TpTGO0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen playbackrate=2></iframe>
 
 ## 해설
 
 - 본작은 '현재 속에도 환영처럼 존재하는 과거'를 영상 설치 작품으로서 구현한다.
-- 본작은 기본적으로 벽의 프로젝션을 카메라로 촬영하고, 그것을 다시 벽에 투영하는 피드백 시스템이지만, 벽에 투사되는 영상은 현재의 영상과 10초 전 영상의 평균(더해서 2로 나눈 것)이다. 그 결과 순간적 피드백에 의한 효과는 마치 음향의 리버브 (reverberation) 같은 효과를 내고, 그 결과에 추가된 과거와의 평균 효과는 마치 음향의 딜레이 (delay) 같은 효과를 낸다. 감상자는 현재의 1/2, 10초 전의 1/4, 20초 전의 1/8, 30초 전의 1/16, … 등이 겹쳐진 영상을 보게 되고, 특히 현재와 과거들이 동시에 나타나는 화상은 기묘한 시간 감각을 불러일으킨다.
+- 본작은 기본적으로 벽의 프로젝션을 카메라로 촬영하고, 그것을 다시 벽에 투영하는 피드백 시스템이지만, 벽에 투사되는 영상은 현재의 영상과 10초 전 영상의 평균(더해서 2로 나눈 것)이다. 그 결과 순간적 피드백에 의한 효과는 마치 음향의 리버브 (reverberation) 같은 효과를 내고, 그 결과에 추가된 과거와의 평균 효과는 마치 음향의 딜레이 (delay) 같은 효과를 낸다. 감상자는 현재의 1/2, 10초 전의 1/4, 20초 전의 1/8, 30초 전의 1/16, … 등이 겹쳐진 영상을 보게 된다.
+- 그럼으로써 현재와 과거가 한 화상 속에 겹치는 것은 물론, 그 겹침 자체가 미래에 다시 반복되어 가는 영상을 구현한다.
 - 이 시스템이 하는 일을 대략적으로 수식으로서 표현하면 다음과 같다. ($$p$$는 프로젝션 영상, $$c$$는 카메라 영상, $$s$$는 프로젝션 영상 원본을 카메라가 캡쳐한 영상으로 변환하는 축소 및 열화 변환, $$\oplus r$$은 감상자 등 현실의 사물에 의해 영상이 덮어씌워지는 것을 나타낸다.)
 
 $$p(t) = \frac{c(t-\epsilon) + c(t-\epsilon-d)}{2}$$
 
 $$c(t) = s(p(t-\epsilon')) \oplus r(t)$$
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/j2dVTcLCedA?si=vi41cvz9uFctsTUG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 기술
 

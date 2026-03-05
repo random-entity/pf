@@ -117,6 +117,8 @@ v2024-11-14
 - 인터뷰 씬이 끝나면, 신명숙 선생이 연주하며 노래하는 가야금 음악에 맞추어 GF3는 춤을 추기 시작한다. 오디토리움 스크린에는 그 장면의 영상 피드백이 실시간으로 투사된다.
 - 춤사위가 격렬한 움직임으로 진행됨에 따라, GF3의 내부 부품은 파손되고, 몸동작은 엉켜 교착된다. 결국 전원이 꺼지며 퍼포먼스는 종료된다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vXlX81ujGVM?si=xUrqv1lh1pUvN8Df" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 {% include scroll_gallery.html images="
   ../../../assets/images/works/gf3/live-stills/1.jpg |
   광주비엔날레 심포지엄 공연 기록 영상 스틸

@@ -101,10 +101,12 @@ v2021-12-15
 
 강가에서 제사를 지내던 세 친구들은 인간과 자연의 중간자인 "요괴"의 출현에 현실과는 다른 시간으로 이행한다. 요괴 주위로 기묘하게 뒤틀리는 시공간 속을 여행하던 친구들은 한 명 씩 낙오되고, 구석기 동굴에 다다른 마지막 한 명은 자신의 가장 깊은 상처를 자연에 내맡긴다.
 
-{% include scroll_gallery.html images="
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7BlzhoJArZI?si=vvBrG-0cjHeRNVUY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<!-- {% include scroll_gallery.html images="
   ../../../assets/images/works/ixda/main.png |
   세 친구들을 산으로 인도하는 요괴
-" %}
+" %} -->
 
 ### 플롯
 
