@@ -131,7 +131,7 @@ v2022-03-24
 ### Details
 
 - Hardware of the GLPS headphones:
-  - The GLPS headphones are made by additionally attaching a PCB with a [PJRC Teensy] as a microprocessor to the electronic circuit of off-the-shelf headphones.
+  - The GLPS headphones are made by additionally attaching a PCB with a [PJRC Teensy] as a microcontroller to the electronic circuit of off-the-shelf headphones.
   - An IMU sensor ([Adafruit BNO055]) was used to recognize the head orientation of the listener wearing the GLPS headphones.
   - A custom LPS system ([DW1000], etc.) was used to recognize the location of the GLPS headphones within the exhibition space. The LPS system measures the distance from the LPS module board ([DW1000]) embedded in the GLPS headphones to LPS module boards ([DW1000]) installed at 3 fixed points (anchors) in the exhibition space, calculating the listener's location through trilateration.
   - A microSD card was used to store and load sound source audio files.
