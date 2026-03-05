@@ -146,6 +146,8 @@ v2024-11-03
   </dd>
 </dl>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5EO3pT3txQk?si=P4IRCw7OlegCHgyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 {% include scroll_gallery.html images="
   ../../../assets/images/works/ahe/live-stills/2.jpg |
   ソウル国際舞台芸術祭(SPAF) PLATFORM-L 公演リハーサル、シーン 2
