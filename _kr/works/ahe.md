@@ -25,6 +25,8 @@ Physical computing
 {: .label .label-green }
 Automata
 {: .label .label-green }
+Artificial life
+{: .label .label-green }
 Embedded system
 {: .label .label-green }
 Microcontroller
@@ -237,6 +239,7 @@ v2024-11-03
 
 ## 외부 링크
 
+- [공연 기록 영상](https://youtube.com/playlist?list=PLHd0nQV4yFCuMWlChPpwjZxNmRSKD8dgT)
 - [권병준 작가 웹사이트 - 새들의 날에 (서울국제공연예술제) - 작품 소개](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
 - [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 기사](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)

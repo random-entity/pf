@@ -23,6 +23,8 @@ Public art
 {: .label }
 Interactive CG
 {: .label .label-green }
+Artificial life
+{: .label .label-green }
 Automata
 {: .label .label-green }
 Unity
