@@ -72,7 +72,7 @@ v2022-03-24
   <dd>
     <dl>
       <dt>出品者</dt>
-      <dd>ソウルオープンメディア<span markdown="1">[^2]</span> (KWON Byungjun<span markdown="1">[^3]</span>、BAEK Juhong、任意存在)</dd>
+      <dd>Seoul Open Media<span markdown="1">[^2]</span> (KWON Byungjun<span markdown="1">[^3]</span>、BAEK Juhong、任意存在)</dd>
       <dt>総括ディレクター、<br />ハードウェア設計、<br />音響</dt>
       <dd>KWON Byungjun</dd>
       <dt>ハードウェア設計</dt>
@@ -152,7 +152,7 @@ v2022-03-24
 
 ---
 
-[^1]: KWON Byungjun／ソウルオープンメディアの作品の多くに使用される特殊改造ヘッドホン。組み込みシステム内のPJRC TeensyマイクロコントローラやGPSまたはLPS（local positioning system）モジュールなどによって動作し、各作品の用途に合わせて部品が追加され、ソフトウェアがプログラミングされる。
+[^1]: KWON Byungjun／Seoul Open Mediaの作品の多くに使用される特殊改造ヘッドホン。組み込みシステム内のPJRC TeensyマイクロコントローラやGPSまたはLPS（local positioning system）モジュールなどによって動作し、各作品の用途に合わせて部品が追加され、ソフトウェアがプログラミングされる。
 
 [^2]: KWON Byungjun作家が主導するメディアアート作品制作チーム。
 
