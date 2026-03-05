@@ -33,7 +33,7 @@ body {
       grid-template-columns: auto 1fr; // Make the dt column width hug content
 
       dd dl {
-        margin-top: 0.0em;
+        margin-top: 0em;
       }
     }
 
@@ -94,5 +94,11 @@ body {
         text-justify: inter-character; /* 글자 사이 간격을 조절해 양끝 정렬 완성 */
       }
     }
+  }
+
+  iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 25rem;
   }
 }
