@@ -93,7 +93,7 @@ v2021-10-25
 - 그 화상은 약 10초 후(감상자가 계단을 오르거나 내려가 재차 그 벽을 볼 수 있는 위치에 갔을 때 쯤), 영상 속 영상 속에서 또 한 번 나타난다. 20초 후에는 또 그 속의 영상에, 30초 후에는 또 그 속의 영상에 나타나는 과정이 반복됨과 함께 환영처럼 희미해져 간다.
 - 층계참에서 10초 이상을 보내게 되면, 현재와 과거가 중첩되어 서로 다른 시간의 레이어들이 어지럽게 얽히는 기묘한 시간적 감각을 체험할 수 있다.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/f-Nq-o2XEfk?si=n7x5RmhG44TpTGO0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen playbackrate=2></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/D_rsLAvh-H0?si=NczS3TUO8Mb17WaG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 해설
 

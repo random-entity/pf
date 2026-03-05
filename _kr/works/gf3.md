@@ -119,7 +119,7 @@ v2024-11-14
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vXlX81ujGVM?si=xUrqv1lh1pUvN8Df" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-{% include scroll_gallery.html images="
+<!-- {% include scroll_gallery.html images="
   ../../../assets/images/works/gf3/live-stills/1.jpg |
   광주비엔날레 심포지엄 공연 기록 영상 스틸
   |||||
@@ -128,7 +128,7 @@ v2024-11-14
   |||||
   ../../../assets/images/works/gf3/live-stills/4.jpg |
   광주비엔날레 심포지엄 공연 기록 영상 스틸
-" %}
+" %} -->
 
 ### Forum IMPACT 2024 전시
 
