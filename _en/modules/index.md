@@ -5,5 +5,3 @@ nav_order: 2
 ---
 
 # Modules
-
-## What's that?
