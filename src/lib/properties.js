@@ -1,0 +1,111 @@
+import { artworks } from './content.js'
+import { loc, isLocalized } from '../i18n.jsx'
+
+// Read a (possibly nested) value out of a frontmatter object by dotted path.
+export function getValueAtPath(obj, path) {
+  return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj)
+}
+
+// Language-independent identity for an enum value, so the same value groups
+// across artworks and survives language switches.
+export function canonicalOf(v) {
+  if (v == null) return ''
+  if (v instanceof Date) return v.toISOString()
+  if (isLocalized(v)) return loc(v, 'en') || ''
+  return String(v)
+}
+
+// Human-facing label for an enum value in the active language.
+export function labelOf(v, lang) {
+  if (v == null) return ''
+  if (isLocalized(v)) return loc(v, lang)
+  return String(v)
+}
+
+// Decide how a property should behave from the set of values it takes across
+// all artworks. Returns one of: stringList | date | numeric | enumSingle |
+// nested, or null to ignore (e.g. lists of mixed/object values).
+function classify(values) {
+  if (values.length === 0) return null
+  if (values.some((v) => Array.isArray(v))) {
+    const allStrings = values.every((v) => Array.isArray(v) && v.every((x) => typeof x === 'string'))
+    return allStrings ? 'stringList' : null
+  }
+  if (values.every((v) => v instanceof Date)) return 'date'
+  if (values.every((v) => typeof v === 'number')) return 'numeric'
+  if (values.every((v) => typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || isLocalized(v))) {
+    return 'enumSingle'
+  }
+  if (values.every((v) => v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date))) {
+    return 'nested'
+  }
+  return null
+}
+
+// Distinct enum values (with occurrence counts), sorted by canonical id.
+function enumValues(values) {
+  const map = new Map()
+  const add = (v) => {
+    const id = canonicalOf(v)
+    if (id === '') return
+    if (!map.has(id)) map.set(id, { id, raw: v, count: 0 })
+    map.get(id).count++
+  }
+  for (const v of values) {
+    if (Array.isArray(v)) v.forEach(add)
+    else add(v)
+  }
+  return [...map.values()].sort((a, b) => a.id.localeCompare(b.id))
+}
+
+// Sorted distinct numeric options for a numeric/date facet (dates -> epoch ms).
+function numericOptions(values, isDate) {
+  const nums = values.map((v) => (v instanceof Date ? v.getTime() : v))
+  const uniq = [...new Set(nums)].sort((a, b) => a - b)
+  return { options: uniq, min: uniq[0], max: uniq[uniq.length - 1], isDate }
+}
+
+// Recursively build facets from a set of objects. `title` is skipped at the top
+// level (it is the page heading and gets a dedicated sort-only facet elsewhere).
+function facetsFrom(objs, base, depth) {
+  const keys = new Set()
+  for (const o of objs) {
+    for (const k of Object.keys(o || {})) {
+      if (depth === 0 && k === 'title') continue
+      keys.add(k)
+    }
+  }
+  const facets = []
+  for (const key of [...keys].sort()) {
+    const path = base ? `${base}.${key}` : key
+    const values = objs.map((o) => o && o[key]).filter((v) => v != null)
+    const kind = classify(values)
+    if (kind === 'nested') {
+      const children = facetsFrom(values, path, depth + 1)
+      if (children.length) facets.push({ path, key, kind, depth, children })
+    } else if (kind === 'stringList' || kind === 'enumSingle') {
+      const vals = enumValues(values)
+      if (vals.length) facets.push({ path, key, kind, depth, values: vals })
+    } else if (kind === 'numeric' || kind === 'date') {
+      const n = numericOptions(values, kind === 'date')
+      if (n.options.length > 1) facets.push({ path, key, kind, depth, ...n })
+    }
+  }
+  return facets
+}
+
+// Built once: content is static and loaded eagerly at build time.
+export const schema = facetsFrom(artworks.map((a) => a.data), '', 0)
+
+// Flat lookup of every facet (including nested children) by its path.
+export const facetByPath = (() => {
+  const m = new Map()
+  const walk = (fs) => fs.forEach((f) => { m.set(f.path, f); if (f.children) walk(f.children) })
+  walk(schema)
+  return m
+})()
+
+export function isEnumFacet(path) {
+  const f = facetByPath.get(path)
+  return f && (f.kind === 'stringList' || f.kind === 'enumSingle')
+}

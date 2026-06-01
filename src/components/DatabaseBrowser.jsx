@@ -1,24 +1,29 @@
 import { useMemo, useState } from 'react'
-import { Link, NavLink, useSearchParams } from 'react-router-dom'
-import { useLang, loc } from '../i18n.jsx'
-import { artworks, titleOf, dateOf, toArray, allTags } from '../lib/content.js'
+import { Link, NavLink } from 'react-router-dom'
+import { useLang } from '../i18n.jsx'
+import { artworks, titleOf } from '../lib/content.js'
 import { fuzzyScore } from '../lib/fuzzy.js'
 import { extractHeadings, buildHeadingTree } from '../lib/markdown.js'
+import {
+  schema,
+  facetByPath,
+  getValueAtPath,
+  canonicalOf,
+  labelOf,
+} from '../lib/properties.js'
+import { useFilters, TITLE_SORT } from '../filters.jsx'
+import FilterTree from './FilterTree.jsx'
 
 // Recursive renderer for an artwork's Markdown heading outline. Each heading
-// deep-links to its slugged id within the artwork page (see ArtworkPage's
-// scroll effect and rehype-slug in Markdown.jsx). `search` carries the active
-// filter query so navigating away does not reset the tag selection.
-function HeadingTree({ nodes, slug, search }) {
+// deep-links to its slugged id within the artwork page.
+function HeadingTree({ nodes, slug }) {
   if (nodes.length === 0) return null
   return (
     <ul>
       {nodes.map((n, i) => (
         <li key={i} data-level={n.level}>
-          <Link to={{ pathname: `/artwork/${slug}`, search, hash: `#${encodeURIComponent(n.id)}` }}>
-            {n.text}
-          </Link>
-          <HeadingTree nodes={n.children} slug={slug} search={search} />
+          <Link to={{ pathname: `/artwork/${slug}`, hash: `#${encodeURIComponent(n.id)}` }}>{n.text}</Link>
+          <HeadingTree nodes={n.children} slug={slug} />
         </li>
       ))}
     </ul>
@@ -26,8 +31,7 @@ function HeadingTree({ nodes, slug, search }) {
 }
 
 // One artwork: title links to the page; the caret expands a heading outline.
-// `search` preserves the current filter query (?tag=…) across navigation.
-function ArtworkItem({ artwork, search }) {
+function ArtworkItem({ artwork }) {
   const { lang, t } = useLang()
   const [open, setOpen] = useState(false)
   const tree = useMemo(
@@ -49,7 +53,7 @@ function ArtworkItem({ artwork, search }) {
           {hasHeadings ? (open ? '▾' : '▸') : '·'}
         </button>
         <NavLink
-          to={{ pathname: `/artwork/${artwork.slug}`, search }}
+          to={`/artwork/${artwork.slug}`}
           className={({ isActive }) => (isActive ? 'active' : undefined)}
         >
           {titleOf(artwork, lang)}
@@ -58,7 +62,7 @@ function ArtworkItem({ artwork, search }) {
       {open && (
         <div className="outline">
           {hasHeadings ? (
-            <HeadingTree nodes={tree} slug={artwork.slug} search={search} />
+            <HeadingTree nodes={tree} slug={artwork.slug} />
           ) : (
             <span className="muted">{t('noHeadings')}</span>
           )}
@@ -68,92 +72,99 @@ function ArtworkItem({ artwork, search }) {
   )
 }
 
-// Searchable / sortable / groupable database view of all artworks.
-// Selected tags live in the URL (?tag=) so Property tag links feed into it.
+// Canonical ids an artwork carries at a facet path (handles list & single).
+function idsAtPath(data, path) {
+  const v = getValueAtPath(data, path)
+  if (v == null) return []
+  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
+}
+
+function numberAtPath(data, path, isDate) {
+  const v = getValueAtPath(data, path)
+  if (v == null) return null
+  if (v instanceof Date) return v.getTime()
+  return isDate ? new Date(v).getTime() : v
+}
+
+// Single, fully generic database view driven by the property schema.
 export default function DatabaseBrowser() {
-  const { lang, t } = useLang()
-  const [params, setParams] = useSearchParams()
-  const selectedTags = params.getAll('tag')
-  const search = params.toString() // preserved on artwork links so filters survive navigation
+  const { lang, t, propLabel } = useLang()
+  const { enums, ranges, sort, reset, activeCount, isDefaultSort } = useFilters()
 
   const [q, setQ] = useState('')
-  const [sort, setSort] = useState('date') // 'date' | 'title'
-  const [dir, setDir] = useState('desc') // 'asc' | 'desc'
-  const [group, setGroup] = useState('none') // 'none' | 'genre'
-  const [tagMode, setTagMode] = useState('any') // 'any' (OR) | 'all' (AND)
+  const [group, setGroup] = useState('none') // 'none' | <enumSingle facet path>
 
-  const tags = useMemo(() => allTags(), [])
+  const groupable = useMemo(() => schema.filter((f) => f.kind === 'enumSingle'), [])
+
+  // Text searched by the fuzzy box: title, slug, and every enum value label.
+  const haystackOf = (a) => {
+    const parts = [titleOf(a, lang), a.slug]
+    for (const f of facetByPath.values()) {
+      if (f.kind !== 'stringList' && f.kind !== 'enumSingle') continue
+      const v = getValueAtPath(a.data, f.path)
+      if (Array.isArray(v)) parts.push(v.map((x) => labelOf(x, lang)).join(' '))
+      else if (v != null) parts.push(labelOf(v, lang))
+    }
+    return parts.join(' ')
+  }
+
+  const sortValue = (a) => {
+    if (sort.path === TITLE_SORT) return titleOf(a, lang)
+    const facet = facetByPath.get(sort.path)
+    if (!facet) return null
+    return numberAtPath(a.data, sort.path, facet.isDate)
+  }
 
   const results = useMemo(() => {
-    const lowerTags = selectedTags.map((x) => x.toLowerCase())
-
     let list = artworks.filter((a) => {
-      // Tag filter: 'any' keeps artworks with at least one selected tag (OR);
-      // 'all' requires every selected tag (AND).
-      if (lowerTags.length) {
-        const own = toArray(a.data.tags).map((x) => String(x).toLowerCase())
-        const match =
-          tagMode === 'all'
-            ? lowerTags.every((x) => own.includes(x))
-            : lowerTags.some((x) => own.includes(x))
-        if (!match) return false
+      if (q.trim() && fuzzyScore(q, haystackOf(a)) === 0) return false
+
+      for (const [path, sel] of Object.entries(enums)) {
+        if (!sel.ids.length) continue
+        const own = idsAtPath(a.data, path)
+        const facet = facetByPath.get(path)
+        const ok =
+          facet?.kind === 'stringList' && sel.mode === 'all'
+            ? sel.ids.every((id) => own.includes(id))
+            : sel.ids.some((id) => own.includes(id))
+        if (!ok) return false
       }
-      // Fuzzy text filter across title, genre, slug and tags.
-      if (q.trim()) {
-        const hay = [
-          titleOf(a, lang),
-          loc(a.data.genre, lang),
-          a.slug,
-          toArray(a.data.tags).join(' '),
-        ].join(' ')
-        if (fuzzyScore(q, hay) === 0) return false
+
+      for (const [path, r] of Object.entries(ranges)) {
+        const facet = facetByPath.get(path)
+        const num = numberAtPath(a.data, path, facet?.isDate)
+        if (num == null || num < r.min || num > r.max) return false
       }
+
       return true
     })
 
+    const dir = sort.dir === 'asc' ? 1 : -1
     list = [...list].sort((a, b) => {
-      const cmp =
-        sort === 'title'
-          ? titleOf(a, lang).localeCompare(titleOf(b, lang))
-          : dateOf(a) - dateOf(b)
-      return dir === 'asc' ? cmp : -cmp
+      const va = sortValue(a)
+      const vb = sortValue(b)
+      if (va == null && vb == null) return 0
+      if (va == null) return 1 // missing values sort last regardless of dir
+      if (vb == null) return -1
+      const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb
+      return cmp * dir
     })
     return list
-  }, [q, sort, dir, lang, tagMode, selectedTags.join(',')])
+  }, [q, lang, enums, ranges, sort])
 
   const groups = useMemo(() => {
-    if (group !== 'genre') return [['', results]]
+    if (group === 'none') return [['', results]]
     const map = new Map()
     for (const a of results) {
-      const g = loc(a.data.genre, lang) || '—'
-      if (!map.has(g)) map.set(g, [])
-      map.get(g).push(a)
+      const v = getValueAtPath(a.data, group)
+      const label = v == null ? '—' : labelOf(v, lang)
+      if (!map.has(label)) map.set(label, [])
+      map.get(label).push(a)
     }
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]))
   }, [results, group, lang])
 
-  function toggleTag(tag) {
-    const next = selectedTags.includes(tag)
-      ? selectedTags.filter((x) => x !== tag)
-      : [...selectedTags, tag]
-    const sp = new URLSearchParams(params)
-    sp.delete('tag')
-    for (const x of next) sp.append('tag', x)
-    setParams(sp, { replace: true })
-  }
-
-  function reset() {
-    setQ('')
-    setSort('date')
-    setDir('desc')
-    setGroup('none')
-    setTagMode('any')
-    const sp = new URLSearchParams(params)
-    sp.delete('tag')
-    setParams(sp, { replace: true })
-  }
-
-  const filtersActive = q.trim() !== '' || selectedTags.length > 0
+  const filtersActive = q.trim() !== '' || activeCount > 0 || !isDefaultSort || group !== 'none'
 
   return (
     <div className="database">
@@ -165,62 +176,33 @@ export default function DatabaseBrowser() {
           onChange={(e) => setQ(e.target.value)}
           aria-label={t('search')}
         />
-        <div className="row">
-          <div style={{ flex: 1 }}>
-            <label>{t('sortBy')}</label>
-            <select value={sort} onChange={(e) => setSort(e.target.value)}>
-              <option value="date">{t('date')}</option>
-              <option value="title">{t('title')}</option>
-            </select>
-          </div>
-          <div style={{ flex: 1 }}>
-            <label>&nbsp;</label>
-            <select value={dir} onChange={(e) => setDir(e.target.value)}>
-              <option value="desc">{t('desc')}</option>
-              <option value="asc">{t('asc')}</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label>{t('groupBy')}</label>
-          <select value={group} onChange={(e) => setGroup(e.target.value)}>
-            <option value="none">{t('none')}</option>
-            <option value="genre">{t('genre')}</option>
-          </select>
-        </div>
 
-        {tags.length > 0 && (
+        {groupable.length > 0 && (
           <div>
-            <div className="tagmode-row">
-              <label>{t('filterByTags')}</label>
-              <div className="tagmode" role="group" aria-label={t('filterByTags')}>
-                <button aria-pressed={tagMode === 'any'} onClick={() => setTagMode('any')}>
-                  {t('tagAny')}
-                </button>
-                <button aria-pressed={tagMode === 'all'} onClick={() => setTagMode('all')}>
-                  {t('tagAll')}
-                </button>
-              </div>
-            </div>
-            <div className="tagfilter">
-              {tags.map((tag) => (
-                <button
-                  key={tag}
-                  className="tag"
-                  aria-pressed={selectedTags.includes(tag)}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </button>
+            <label>{t('groupBy')}</label>
+            <select value={group} onChange={(e) => setGroup(e.target.value)}>
+              <option value="none">{t('none')}</option>
+              {groupable.map((f) => (
+                <option key={f.path} value={f.path}>{propLabel(f.key)}</option>
               ))}
-            </div>
+            </select>
           </div>
         )}
 
-        <button className="db-reset" onClick={reset} disabled={!filtersActive}>
+        <button
+          className="db-reset"
+          onClick={() => {
+            setQ('')
+            setGroup('none')
+            reset()
+          }}
+          disabled={!filtersActive}
+        >
           {t('reset')}
         </button>
       </div>
+
+      <FilterTree schema={schema} />
 
       <div className="count">
         {results.length} {t('items')}
@@ -230,10 +212,10 @@ export default function DatabaseBrowser() {
 
       {groups.map(([name, items]) => (
         <div key={name || '_'}>
-          {group === 'genre' && <div className="db-group-title">{name}</div>}
+          {group !== 'none' && <div className="db-group-title">{name}</div>}
           <ul className="db-list">
             {items.map((a) => (
-              <ArtworkItem key={a.slug} artwork={a} search={search} />
+              <ArtworkItem key={a.slug} artwork={a} />
             ))}
           </ul>
         </div>

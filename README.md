@@ -60,7 +60,39 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - **Quote values containing `,` or `:`** inside inline `{ ... }` objects, e.g.
   `{ en: "Harbour, Fog" }` — an unquoted comma is read by YAML as a separator.
 - `date` (or `created` / `year`) is used for sorting in the database.
-- `tags` become clickable filters.
+- Enum-like values (`tags`, `tools`, `genre`, …) become clickable filters.
+
+### Filtering & sorting
+
+The sidebar builds a **filter/sort tree** automatically from your frontmatter —
+every property is scanned and classified, no configuration needed:
+
+- **Numbers & dates** (incl. nested ones like `dimensions.width`, `duration.minutes`)
+  get an ascending/descending **sort** and a **min/max range** selector. Sorting is
+  single-key: picking a sort replaces the previous one.
+- **Lists of strings** (`tags`, `tools`) get a multi-select filter with an
+  **Any / All** (OR / AND) toggle.
+- **Single categorical values** (`genre`, `medium`, `status`) get a multi-select
+  (OR) filter.
+- **Nested objects** expand into their sub-properties.
+
+A fuzzy search box (typo- and gap-tolerant) sits on top, plus group-by and a
+reset. Clicking a value in an artwork's Properties block toggles that filter.
+
+### Renaming an enum value
+
+Enum values live inline in the Markdown files. To rename one everywhere at once:
+
+```sh
+node scripts/rename-value.mjs <key> <oldValue> <newValue> [--dry]
+# e.g.
+node scripts/rename-value.mjs tags oil "oil paint"
+node scripts/rename-value.mjs tools Csound Faust --dry
+```
+
+It only touches files that actually carry the value, scopes the edit to that key
+(preserving the rest of your formatting), and skips localized objects like
+`genre` (edit those by hand). Use `--dry` to preview.
 
 ### Language sections (`:::`)
 

@@ -143,6 +143,42 @@ input, select {
 .db-reset { width: 100%; }
 .db-reset:disabled { opacity: 0.4; cursor: default; }
 
+/* Filter / sort accordion tree */
+.filters { margin-bottom: 14px; }
+.filters-title {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 4px 0;
+}
+.filter-tree { list-style: none; margin: 0; padding-left: 14px; }
+.filter-tree > .filter-node > .facet-head,
+.filters > .filter-tree { padding-left: 0; }
+.filter-node { margin: 1px 0; }
+.facet-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  border: none;
+  padding: 2px 2px;
+  text-align: left;
+}
+.facet-head:hover { background: var(--hover); }
+.facet-head .caret { width: 12px; flex: 0 0 12px; color: var(--muted); }
+.facet-head .facet-label { flex: 1; min-width: 0; }
+.facet-head .marker { color: var(--fg); font-size: 9px; }
+.facet-body { padding: 4px 0 6px 16px; }
+
+.sort-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.sort-row button { flex: 1; font-size: 12px; }
+.sort-row button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+.range-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.range-row label { font-size: 12px; color: var(--muted); }
+.range-row select { width: auto; flex: 1; min-width: 0; }
+
 /* Accordion list of artworks with a Markdown heading outline */
 .db-list .acc-item { border-top: 1px solid var(--border); }
 .db-list .acc-item:first-child { border-top: none; }
