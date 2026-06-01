@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { artworks } from '../lib/content.js'
 import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
@@ -28,6 +28,7 @@ function RangeSelect({ facet }) {
   const unit = unitForPath(facet.path)
   const fmt = (n) =>
     facet.isDuration ? formatDuration(n) : facet.isDate ? formatDate(n) : unit ? `${n} ${unit}` : String(n)
+  const active = !!ranges[facet.path]
   const cur = ranges[facet.path] || { min: facet.min, max: facet.max }
 
   function update(min, max) {
@@ -50,6 +51,9 @@ function RangeSelect({ facet }) {
           <option key={o} value={o}>{fmt(o)}</option>
         ))}
       </select>
+      {active && (
+        <button className="clear-enum" onClick={() => clearRange(facet.path)}>{t('clear')}</button>
+      )}
     </div>
   )
 }
@@ -133,10 +137,10 @@ function markersFor(facet, f) {
   return m
 }
 
-function FacetNode({ facet }) {
+function FacetNode({ facet, openPaths, onToggle }) {
   const { t, propLabel } = useLang()
   const f = useFilters()
-  const [open, setOpen] = useState(false)
+  const open = openPaths.has(facet.path)
 
   const label =
     facet.path === TITLE_SORT
@@ -153,19 +157,19 @@ function FacetNode({ facet }) {
 
   return (
     <li className="filter-node">
-      <button className="facet-head" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+      <button className="facet-head" aria-expanded={open} onClick={() => onToggle(facet.path)}>
         <span className="caret">{open ? '▾' : '▸'}</span>
         <span className="facet-label">{label}</span>
         <span className="markers">
           {m.sort && <span className="mk mk-sort" title={t('markSort')}>{m.dir === 'asc' ? '↑' : '↓'}</span>}
-          {m.range && <span className="mk mk-range" title={t('markRange')}>⇔</span>}
+          {m.range && <span className="mk mk-range" title={t('markRange')}>↔</span>}
           {m.multi && <span className="mk mk-multi" title={t('markMulti')}>✓</span>}
           {m.missing && <span className="mk mk-missing" title={t('markMissing')}>∅</span>}
         </span>
       </button>
       {open && (
         <div className="facet-body">
-          {facet.kind === 'nested' && <FacetTree facets={facet.children} />}
+          {facet.kind === 'nested' && <FacetTree facets={facet.children} openPaths={openPaths} onToggle={onToggle} />}
           {sortable && <SortButtons path={facet.path} />}
           {isRange && <RangeSelect facet={facet} />}
           {isEnum && <EnumFilter facet={facet} />}
@@ -176,11 +180,11 @@ function FacetNode({ facet }) {
   )
 }
 
-function FacetTree({ facets }) {
+function FacetTree({ facets, openPaths, onToggle }) {
   return (
     <ul className="filter-tree">
       {facets.map((fac) => (
-        <FacetNode key={fac.path} facet={fac} />
+        <FacetNode key={fac.path} facet={fac} openPaths={openPaths} onToggle={onToggle} />
       ))}
     </ul>
   )
@@ -188,14 +192,45 @@ function FacetTree({ facets }) {
 
 // One row per key. Each key shows the controls its value type supports (Sort
 // and/or Range, or Multi-select), a per-key "show items without a value"
-// toggle, and marker symbols for whichever constraints are active.
+// toggle, and marker symbols for whichever constraints are active. The header
+// button collapses every open row, then reverts to the previous state.
 export default function FilterTree({ schema }) {
   const { t } = useLang()
+  const [openPaths, setOpenPaths] = useState(() => new Set())
+  const prevOpen = useRef(null)
+
+  const toggle = (path) =>
+    setOpenPaths((s) => {
+      const next = new Set(s)
+      next.has(path) ? next.delete(path) : next.add(path)
+      return next
+    })
+
+  const collapseOrRevert = () =>
+    setOpenPaths((s) => {
+      if (s.size > 0) {
+        prevOpen.current = s
+        return new Set()
+      }
+      return prevOpen.current && prevOpen.current.size ? new Set(prevOpen.current) : s
+    })
+
+  const anyOpen = openPaths.size > 0
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
   return (
     <div className="filters">
-      <div className="filters-title">{t('filters')}</div>
-      <FacetTree facets={[titleFacet, ...schema]} />
+      <div className="filters-title">
+        <span>{t('filters')}</span>
+        <button
+          className="collapse-all"
+          title={anyOpen ? t('collapseAll') : t('restoreState')}
+          aria-label={anyOpen ? t('collapseAll') : t('restoreState')}
+          onClick={collapseOrRevert}
+        >
+          {anyOpen ? '⊟' : '⊞'}
+        </button>
+      </div>
+      <FacetTree facets={[titleFacet, ...schema]} openPaths={openPaths} onToggle={toggle} />
     </div>
   )
 }

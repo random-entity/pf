@@ -68,6 +68,18 @@ input, select {
   top: 0;
 }
 
+/* Drag handle between the sidebar and content, to resize the sidebar. */
+.resizer {
+  flex: 0 0 5px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-left: -3px;
+  cursor: col-resize;
+  z-index: 2;
+}
+.resizer:hover, .resizer:active { background: var(--border); }
+
 .content {
   flex: 1 1 auto;
   min-width: 0;
@@ -161,12 +173,17 @@ input, select {
 /* Filter / sort accordion tree */
 .filters { margin-bottom: 14px; }
 .filters-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 12px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 4px 0;
 }
+.collapse-all { border: none; padding: 0 4px; font-size: 13px; color: var(--muted); }
+.collapse-all:hover { background: none; color: var(--fg); }
 .filter-tree { list-style: none; margin: 0; padding-left: 14px; }
 .filter-tree > .filter-node > .facet-head,
 .filters > .filter-tree { padding-left: 0; }
@@ -269,7 +286,7 @@ input, select {
 .properties .nested .nkey { color: var(--muted); }
 
 .taglist { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { border: 1px solid var(--border); padding: 0 6px; font-size: 12px; }
+.tag { border: 1px solid var(--border); padding: 0 6px; font-size: 12px; text-align: left; }
 
 /* ---------- Markdown article ---------- */
 .article { line-height: 1.7; }
@@ -311,6 +328,7 @@ input, select {
     border-right: none; border-bottom: 1px solid var(--border);
   }
   .sidebar.collapsed { display: none; }
+  .resizer { display: none; }
   .content { padding: 24px 18px; }
   .menu-toggle { display: inline-block; }
 }
