@@ -124,13 +124,14 @@ export default function DatabaseBrowser() {
   }
 
   const results = useMemo(() => {
-    // Keys that actively constrain results: a multi-select or a range. The
-    // per-key "include items without a value" toggle only modifies how these
-    // treat empties (off by default -> empties dropped).
+    // Keys that actively constrain results: a multi-select, a range, or the
+    // active sort key. The per-key "include items without a value" toggle only
+    // modifies how these treat empties (off by default -> empties dropped).
     const constrainedPaths = new Set([
       ...Object.keys(enums).filter((p) => enums[p].ids.length),
       ...Object.keys(ranges),
     ])
+    if (sort.path !== TITLE_SORT && facetByPath.has(sort.path)) constrainedPaths.add(sort.path)
 
     let list = artworks.filter((a) => {
       if (q.trim() && fuzzyScore(q, haystackOf(a)) === 0) return false

@@ -127,13 +127,27 @@ input, select {
 .db-list a.active { background: var(--hover); }
 .db-list .meta { color: var(--muted); font-size: 12px; }
 
-/* Tag filter: AND/OR mode toggle + toggle pills */
-.tagmode-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.tagmode { display: inline-flex; flex: 0 0 auto; }
-.tagmode button { border-radius: 0; padding: 0 8px; font-size: 12px; }
-.tagmode button + button { border-left: none; }
-.tagmode button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
-.tagmode button.struck { text-decoration: line-through; opacity: 0.5; }
+/* OR/AND mode: a borderless radio control, visually distinct from the
+   bordered value pills below it. */
+.tagmode-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.tagmode { display: inline-flex; gap: 10px; }
+.tagmode .radio {
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.tagmode .radio[aria-checked="true"] { color: var(--fg); font-weight: 600; }
+.tagmode .radio:hover { background: none; text-decoration: underline; }
+.tagmode .radio.struck { text-decoration: line-through; opacity: 0.5; font-weight: 400; }
+.tagmode .dot { font-size: 10px; }
+.clear-enum { margin-left: auto; border: none; padding: 0; font-size: 12px; color: var(--muted); }
+.clear-enum:hover { background: none; text-decoration: underline; }
+
+/* value selection: bordered square pills */
 .tagfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .tagfilter .tag { cursor: pointer; line-height: 1.4; }
 .tagfilter .tag[aria-pressed="true"] {

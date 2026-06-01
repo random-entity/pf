@@ -69,26 +69,37 @@ function MissingToggle({ path }) {
 // Multi-select enum pills, with an Any/All mode toggle for list-valued facets.
 function EnumFilter({ facet }) {
   const { lang, t } = useLang()
-  const { enums, toggleEnum, setEnumMode } = useFilters()
+  const { enums, toggleEnum, setEnumMode, clearEnum } = useFilters()
   const sel = enums[facet.path] || { ids: [], mode: 'any' }
 
-  // "All" (AND) is meaningless when the selected values never co-occur on a
-  // single artwork — strike it through to signal that.
-  const allMeaningless = !valuesCanCoexist(artworks, facet.path, sel.ids)
+  // AND is meaningless when the selected values never co-occur on a single
+  // artwork — strike it through to signal that.
+  const andMeaningless = !valuesCanCoexist(artworks, facet.path, sel.ids)
+  const isList = facet.kind === 'stringList'
 
   return (
     <div>
-      {facet.kind === 'stringList' && (
-        <div className="tagmode" role="group" aria-label={facet.path}>
-          <button aria-pressed={sel.mode === 'any'} onClick={() => setEnumMode(facet.path, 'any')}>{t('tagAny')}</button>
-          <button
-            className={allMeaningless ? 'struck' : undefined}
-            aria-pressed={sel.mode === 'all'}
-            title={allMeaningless ? t('allExclusive') : undefined}
-            onClick={() => setEnumMode(facet.path, 'all')}
-          >
-            {t('tagAll')}
-          </button>
+      {(isList || sel.ids.length > 0) && (
+        <div className="tagmode-row">
+          {isList && (
+            <div className="tagmode" role="radiogroup" aria-label={facet.path}>
+              <button className="radio" role="radio" aria-checked={sel.mode === 'any'} onClick={() => setEnumMode(facet.path, 'any')}>
+                <span className="dot">{sel.mode === 'any' ? '◉' : '○'}</span> {t('tagAny')}
+              </button>
+              <button
+                className={`radio${andMeaningless ? ' struck' : ''}`}
+                role="radio"
+                aria-checked={sel.mode === 'all'}
+                title={andMeaningless ? t('allExclusive') : undefined}
+                onClick={() => setEnumMode(facet.path, 'all')}
+              >
+                <span className="dot">{sel.mode === 'all' ? '◉' : '○'}</span> {t('tagAll')}
+              </button>
+            </div>
+          )}
+          {sel.ids.length > 0 && (
+            <button className="clear-enum" onClick={() => clearEnum(facet.path)}>{t('clear')}</button>
+          )}
         </div>
       )}
       <div className="tagfilter">

@@ -38,6 +38,13 @@ export function FilterProvider({ children }) {
       return { ...prev, [path]: { ...cur, mode } }
     })
 
+  const clearEnum = (path) =>
+    setEnums((prev) => {
+      const next = { ...prev }
+      delete next[path]
+      return next
+    })
+
   const setRange = (path, min, max) =>
     setRanges((prev) => ({ ...prev, [path]: { min, max } }))
 
@@ -83,6 +90,7 @@ export function FilterProvider({ children }) {
     sort,
     toggleEnum,
     setEnumMode,
+    clearEnum,
     setRange,
     clearRange,
     toggleMissing,
