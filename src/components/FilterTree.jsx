@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../i18n.jsx'
-import { labelOf, formatDuration, formatDate } from '../lib/properties.js'
+import { artworks } from '../lib/content.js'
+import { labelOf, formatDuration, formatDate, valuesCanCoexist } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 
 // Asc/desc sort buttons that drive the single global sort key.
@@ -70,12 +71,23 @@ function EnumFilter({ facet }) {
   const { enums, toggleEnum, setEnumMode } = useFilters()
   const sel = enums[facet.path] || { ids: [], mode: 'any' }
 
+  // "All" (AND) is meaningless when the selected values never co-occur on a
+  // single artwork — strike it through to signal that.
+  const allMeaningless = !valuesCanCoexist(artworks, facet.path, sel.ids)
+
   return (
     <div>
       {facet.kind === 'stringList' && (
         <div className="tagmode" role="group" aria-label={facet.path}>
           <button aria-pressed={sel.mode === 'any'} onClick={() => setEnumMode(facet.path, 'any')}>{t('tagAny')}</button>
-          <button aria-pressed={sel.mode === 'all'} onClick={() => setEnumMode(facet.path, 'all')}>{t('tagAll')}</button>
+          <button
+            className={allMeaningless ? 'struck' : undefined}
+            aria-pressed={sel.mode === 'all'}
+            title={allMeaningless ? t('allExclusive') : undefined}
+            onClick={() => setEnumMode(facet.path, 'all')}
+          >
+            {t('tagAll')}
+          </button>
         </div>
       )}
       <div className="tagfilter">

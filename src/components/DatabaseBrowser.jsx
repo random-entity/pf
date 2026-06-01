@@ -8,13 +8,12 @@ import {
   schema,
   facetByPath,
   getValueAtPath,
-  canonicalOf,
   labelOf,
   durationSeconds,
   dateEvents,
   dateSortValue,
   eventNamesOf,
-  EVENTS_PATH,
+  idsAtPath,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -75,14 +74,6 @@ function ArtworkItem({ artwork }) {
       )}
     </li>
   )
-}
-
-// Canonical ids an artwork carries at a facet path (handles list & single).
-function idsAtPath(data, path) {
-  if (path === EVENTS_PATH) return eventNamesOf(data)
-  const v = getValueAtPath(data, path)
-  if (v == null) return []
-  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
 }
 
 function numberAtPath(data, path, facet) {

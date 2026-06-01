@@ -86,6 +86,25 @@ export function eventNamesOf(data) {
   return dateEvents(data?.date).map((e) => e.event).filter(Boolean)
 }
 
+// Canonical ids an artwork carries at a facet path (handles lists, single
+// values, and the synthetic events facet).
+export function idsAtPath(data, path) {
+  if (path === EVENTS_PATH) return eventNamesOf(data)
+  const v = getValueAtPath(data, path)
+  if (v == null) return []
+  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
+}
+
+// Could any artwork carry every one of these values at `path` at once? If not,
+// the values are mutually exclusive and an AND ("All") filter is meaningless.
+export function valuesCanCoexist(artworks, path, ids) {
+  if (ids.length < 2) return true
+  return artworks.some((a) => {
+    const own = idsAtPath(a.data, path)
+    return ids.every((id) => own.includes(id))
+  })
+}
+
 // Earliest start used as the artwork's sort key; null if it has no date.
 export function dateSortValue(data) {
   const evs = dateEvents(data?.date)

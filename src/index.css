@@ -133,6 +133,7 @@ input, select {
 .tagmode button { border-radius: 0; padding: 0 8px; font-size: 12px; }
 .tagmode button + button { border-left: none; }
 .tagmode button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.tagmode button.struck { text-decoration: line-through; opacity: 0.5; }
 .tagfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .tagfilter .tag { cursor: pointer; line-height: 1.4; }
 .tagfilter .tag[aria-pressed="true"] {
