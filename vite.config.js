@@ -6,4 +6,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: './',
   plugins: [react()],
+  server: {
+    watch: {
+      // Don't watch VCS / editor / build dirs. The Visual Studio `.vs` folder
+      // holds files VS keeps locked, which otherwise crashes the watcher (EBUSY).
+      ignored: ['**/.vs/**', '**/.git/**', '**/dist/**'],
+    },
+  },
 })
