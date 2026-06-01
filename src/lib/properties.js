@@ -203,7 +203,10 @@ function facetsFrom(objs, base, depth) {
       if (children.length) facets.push({ path, key, kind, depth, children })
     } else if (kind === 'stringList' || kind === 'enumSingle') {
       const vals = enumValues(values)
-      if (vals.length) facets.push({ path, key, kind, depth, values: vals })
+      // Only keep it as a filter facet if some value is shared by 2+ artworks;
+      // all-unique keys (taglines, source URLs, …) can't group anything and are
+      // left to render as plain text in the Properties block.
+      if (vals.some((v) => v.count > 1)) facets.push({ path, key, kind, depth, values: vals })
     } else if (kind === 'numeric' || kind === 'date') {
       const n = numericOptions(values, kind === 'date')
       if (n.options.length > 1) facets.push({ path, key, kind, depth, minOptions: n.options, maxOptions: n.options, ...n })

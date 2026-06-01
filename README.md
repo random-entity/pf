@@ -139,6 +139,11 @@ Put images in `public/` and reference them by relative path, e.g.
 `![](images/sunset.jpg)` for `public/images/sunset.jpg`. The site's base path is
 applied automatically.
 
+### Videos
+
+A Markdown link to a YouTube URL (`[caption](https://youtu.be/ID)`) renders as an
+embedded, responsive player. Any other link stays a normal link.
+
 The home page intro lives in `src/content/home.md` (also supports `:::` fences).
 
 ## Deploy to GitHub Pages
