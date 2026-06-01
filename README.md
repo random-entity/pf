@@ -7,12 +7,18 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
 
 - **Minimal, monochrome UI** with automatic light/dark mode. No ornamentation.
 - **Three languages** (English / 한국어 / 日本語) via an always-visible switcher.
-- **Two navigators**: a file-browser **tree** mirroring the folder structure,
-  and a searchable **database** (search text, sort by date/title, group by genre,
-  filter by tag).
+- **Schema-driven sidebar**: the filter/sort tree is built automatically from
+  whatever frontmatter keys exist — numeric/date keys get sort + range, enum
+  keys get OR/AND multi-select, nested objects expand. Plus fuzzy search,
+  group-by, and a resizable panel.
 - **Properties block** (like Obsidian) rendered from frontmatter, supporting
   scalars, localized values, lists, and nested JSON objects.
-- **Markdown** with GFM, footnotes, and `[[wikilinks]]` between artworks.
+- **Markdown** with GFM, footnotes, `[[wikilinks]]`, and a heading outline that
+  deep-links into each artwork.
+
+> Changing the code? See [ARCHITECTURE.md](ARCHITECTURE.md) for how content is
+> loaded, how the filter/sort schema is derived from frontmatter, and how the
+> pieces fit together.
 
 ## Develop
 

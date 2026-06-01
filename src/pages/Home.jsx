@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
-import { artworks, titleOf, dateOf } from '../lib/content.js'
+import { artworks, titleOf } from '../lib/content.js'
+import { dateSortValue } from '../lib/properties.js'
 import { prepare } from '../lib/markdown.js'
 import Markdown from '../components/Markdown.jsx'
 
@@ -14,7 +15,7 @@ const intro = Object.values(introFiles)[0] || ''
 
 export default function Home() {
   const { lang } = useLang()
-  const recent = [...artworks].sort((a, b) => dateOf(b) - dateOf(a))
+  const recent = [...artworks].sort((a, b) => (dateSortValue(b.data) ?? 0) - (dateSortValue(a.data) ?? 0))
 
   return (
     <div>
