@@ -53,14 +53,15 @@ function RangeSelect({ facet }) {
   )
 }
 
-// Toggle whether artworks that have no value for this facet appear in results.
+// Toggle whether artworks that have no value for this facet are included when
+// this key is filtered. Off by default; checking it keeps the empties.
 function MissingToggle({ path }) {
   const { t } = useLang()
   const { showMissing, toggleMissing } = useFilters()
-  const showing = showMissing[path] !== false
+  const checked = showMissing[path] === true
   return (
-    <button className="missing-toggle" aria-pressed={showing} onClick={() => toggleMissing(path)}>
-      <span className="box">{showing ? '☑' : '☐'}</span> {t('showWithoutKey')}
+    <button className="missing-toggle" aria-pressed={checked} onClick={() => toggleMissing(path)}>
+      <span className="box">{checked ? '☑' : '☐'}</span> {t('showWithoutKey')}
     </button>
   )
 }
@@ -117,7 +118,7 @@ function markersFor(facet, f) {
     }
     if (f.ranges[fac.path]) m.range = true
     if (f.enums[fac.path]?.ids.length) m.multi = true
-    if (f.showMissing[fac.path] === false) m.missing = true
+    if (f.showMissing[fac.path] === true) m.missing = true
     fac.children?.forEach(visit)
   }
   visit(facet)

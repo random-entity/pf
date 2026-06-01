@@ -90,8 +90,9 @@ every property is scanned and classified, no configuration needed:
   (OR) filter.
 - **Nested objects** expand into their sub-properties.
 
-Each numeric/date facet also has a **"Show items without a value"** toggle (on
-by default) to control whether artworks lacking that property appear.
+Each key has a **"Show items without a value"** toggle (off by default). When a
+key is being filtered, artworks lacking that value are dropped unless this is
+checked — checking it keeps them and shows an `∅` marker on the row.
 
 A fuzzy search box (typo- and gap-tolerant) sits on top, plus group-by and a
 reset. Clicking a value in an artwork's Properties block toggles that filter.

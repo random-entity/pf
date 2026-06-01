@@ -124,12 +124,12 @@ export default function DatabaseBrowser() {
   }
 
   const results = useMemo(() => {
-    // Every key that currently constrains the result: a multi-select, a range,
-    // or a "hide items without a value".
+    // Keys that actively constrain results: a multi-select or a range. The
+    // per-key "include items without a value" toggle only modifies how these
+    // treat empties (off by default -> empties dropped).
     const constrainedPaths = new Set([
       ...Object.keys(enums).filter((p) => enums[p].ids.length),
       ...Object.keys(ranges),
-      ...Object.keys(showMissing).filter((p) => showMissing[p] === false),
     ])
 
     let list = artworks.filter((a) => {
@@ -140,8 +140,8 @@ export default function DatabaseBrowser() {
         if (!facet) continue
 
         if (!hasValueAtPath(a.data, facet)) {
-          if (showMissing[path] === false) return false
-          continue // missing but allowed -> nothing else to check
+          if (showMissing[path] === true) continue // include empties when checked
+          return false // default: drop items without a value
         }
 
         const sel = enums[path]
