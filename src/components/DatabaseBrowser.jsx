@@ -14,6 +14,7 @@ import {
   dateSortValue,
   eventNamesOf,
   idsAtPath,
+  EVENTS_PATH,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -100,7 +101,10 @@ export default function DatabaseBrowser() {
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('none') // 'none' | <enumSingle facet path>
 
-  const groupable = useMemo(() => schema.filter((f) => f.kind === 'enumSingle'), [])
+  const groupable = useMemo(
+    () => schema.filter((f) => (f.kind === 'enumSingle' || f.kind === 'stringList') && f.path !== EVENTS_PATH),
+    [],
+  )
 
   // Text searched by the fuzzy box: title, slug, and every enum value label.
   const haystackOf = (a) => {
@@ -149,7 +153,7 @@ export default function DatabaseBrowser() {
         if (sel?.ids.length) {
           const own = idsAtPath(a.data, path)
           const ok =
-            facet.kind === 'stringList' && sel.mode === 'all'
+            sel.mode === 'all'
               ? sel.ids.every((id) => own.includes(id))
               : sel.ids.some((id) => own.includes(id))
           if (!ok) return false
@@ -188,9 +192,12 @@ export default function DatabaseBrowser() {
     const map = new Map()
     for (const a of results) {
       const v = getValueAtPath(a.data, group)
-      const label = v == null ? '—' : labelOf(v, lang)
-      if (!map.has(label)) map.set(label, [])
-      map.get(label).push(a)
+      const vals = v == null ? [null] : Array.isArray(v) ? v : [v]
+      for (const one of vals) {
+        const label = one == null ? '—' : labelOf(one, lang)
+        if (!map.has(label)) map.set(label, [])
+        map.get(label).push(a)
+      }
     }
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]))
   }, [results, group, lang])

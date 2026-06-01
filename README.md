@@ -72,7 +72,9 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   Event names are collected into an **Events** filter, and the Properties block
   links each date to its event. In the Date range filter, **Min** lists all
   start dates and **Max** all end dates; the match is an inclusive overlap.
-- Enum-like values (`tags`, `tools`, `genre`, …) become clickable filters.
+- Enum-like values (`tags`, `tools`, `genre`, `medium`, …) become clickable
+  filters with **OR / AND** modes. Any categorical key may hold a single value
+  or a **list** (e.g. two genres) — AND becomes meaningful once values co-occur.
 - A `{ hours, minutes, seconds }` object is treated as a single duration value
   (sorted/ranged as one number, shown as `HH:MM:SS`).
 

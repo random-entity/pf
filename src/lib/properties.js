@@ -116,9 +116,13 @@ export function dateSortValue(data) {
 // nested, or null to ignore (e.g. lists of mixed/object values).
 function classify(values) {
   if (values.length === 0) return null
+  // A categorical value is a plain string or a localized object. A key counts
+  // as a multi-select list if any artwork carries an array of them (and the
+  // rest are arrays or single categorical values).
+  const categorical = (x) => typeof x === 'string' || isLocalized(x)
   if (values.some((v) => Array.isArray(v))) {
-    const allStrings = values.every((v) => Array.isArray(v) && v.every((x) => typeof x === 'string'))
-    return allStrings ? 'stringList' : null
+    const ok = values.every((v) => (Array.isArray(v) ? v.every(categorical) : categorical(v)))
+    return ok ? 'stringList' : null
   }
   if (values.every((v) => v instanceof Date)) return 'date'
   if (values.every((v) => typeof v === 'number')) return 'numeric'
