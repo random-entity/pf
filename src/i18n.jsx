@@ -103,10 +103,14 @@ export function useLang() {
 // Accepts plain strings/numbers or objects like { en, ko, ja }.
 export function loc(value, lang) {
   if (value == null) return ''
-  if (typeof value === 'object' && !Array.isArray(value) && isLocalized(value)) {
-    return value[lang] ?? value.en ?? Object.values(value)[0] ?? ''
+  // Always return a string. For any object, prefer the current language, then
+  // English, then the first scalar — so a malformed frontmatter value degrades
+  // gracefully instead of crashing the render.
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    const picked = value[lang] ?? value.en ?? Object.values(value).find((v) => v != null && typeof v !== 'object')
+    return picked == null ? '' : String(picked)
   }
-  return value
+  return String(value)
 }
 
 export function isLocalized(obj) {

@@ -1,5 +1,5 @@
 ---
-title: { en: Harbour, Fog, ko: 항구, 안개, ja: 港、霧 }
+title: { en: "Harbour, Fog", ko: "항구, 안개", ja: "港、霧" }
 date: 2024-11-22
 genre: { en: Photography, ko: 사진, ja: 写真 }
 medium: { en: Archival pigment print, ko: 아카이벌 안료 프린트, ja: 顔料プリント }
