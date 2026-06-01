@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../i18n.jsx'
-import { labelOf } from '../lib/properties.js'
+import { labelOf, formatDuration } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 
 // Asc/desc sort buttons that drive the single global sort key.
@@ -23,7 +23,8 @@ function SortButtons({ path }) {
 function RangeSelect({ facet }) {
   const { lang, t } = useLang()
   const { ranges, setRange, clearRange } = useFilters()
-  const fmt = (n) => (facet.isDate ? new Date(n).toLocaleDateString(lang) : String(n))
+  const fmt = (n) =>
+    facet.isDuration ? formatDuration(n) : facet.isDate ? new Date(n).toLocaleDateString(lang) : String(n)
   const cur = ranges[facet.path] || { min: facet.min, max: facet.max }
 
   function update(min, max) {

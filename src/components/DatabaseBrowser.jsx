@@ -10,6 +10,7 @@ import {
   getValueAtPath,
   canonicalOf,
   labelOf,
+  durationSeconds,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -79,11 +80,12 @@ function idsAtPath(data, path) {
   return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
 }
 
-function numberAtPath(data, path, isDate) {
+function numberAtPath(data, path, facet) {
   const v = getValueAtPath(data, path)
   if (v == null) return null
+  if (facet?.isDuration) return durationSeconds(v)
   if (v instanceof Date) return v.getTime()
-  return isDate ? new Date(v).getTime() : v
+  return facet?.isDate ? new Date(v).getTime() : v
 }
 
 // Single, fully generic database view driven by the property schema.
@@ -112,7 +114,7 @@ export default function DatabaseBrowser() {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)
     const facet = facetByPath.get(sort.path)
     if (!facet) return null
-    return numberAtPath(a.data, sort.path, facet.isDate)
+    return numberAtPath(a.data, sort.path, facet)
   }
 
   const results = useMemo(() => {
@@ -132,7 +134,7 @@ export default function DatabaseBrowser() {
 
       for (const [path, r] of Object.entries(ranges)) {
         const facet = facetByPath.get(path)
-        const num = numberAtPath(a.data, path, facet?.isDate)
+        const num = numberAtPath(a.data, path, facet)
         if (num == null || num < r.min || num > r.max) return false
       }
 

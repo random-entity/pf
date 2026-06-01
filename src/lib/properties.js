@@ -22,6 +22,24 @@ export function labelOf(v, lang) {
   return String(v)
 }
 
+// A duration is an object whose keys are a subset of {hours, minutes, seconds}
+// with numeric values. Such objects are treated as a single 1-D numeric value
+// (total seconds) rather than as a nested group of sub-properties.
+const TIME_KEYS = new Set(['hours', 'minutes', 'seconds'])
+export function durationSeconds(v) {
+  if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date) return null
+  const keys = Object.keys(v)
+  if (keys.length === 0 || !keys.every((k) => TIME_KEYS.has(k))) return null
+  if (!keys.every((k) => typeof v[k] === 'number')) return null
+  return (v.hours || 0) * 3600 + (v.minutes || 0) * 60 + (v.seconds || 0)
+}
+
+export function formatDuration(total) {
+  const s = Math.max(0, Math.round(total))
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`
+}
+
 // Decide how a property should behave from the set of values it takes across
 // all artworks. Returns one of: stringList | date | numeric | enumSingle |
 // nested, or null to ignore (e.g. lists of mixed/object values).
@@ -36,6 +54,7 @@ function classify(values) {
   if (values.every((v) => typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || isLocalized(v))) {
     return 'enumSingle'
   }
+  if (values.every((v) => durationSeconds(v) != null)) return 'duration'
   if (values.every((v) => v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date))) {
     return 'nested'
   }
@@ -89,6 +108,9 @@ function facetsFrom(objs, base, depth) {
     } else if (kind === 'numeric' || kind === 'date') {
       const n = numericOptions(values, kind === 'date')
       if (n.options.length > 1) facets.push({ path, key, kind, depth, ...n })
+    } else if (kind === 'duration') {
+      const n = numericOptions(values.map((v) => durationSeconds(v)), false)
+      if (n.options.length > 1) facets.push({ path, key, kind: 'numeric', depth, isDuration: true, ...n })
     }
   }
   return facets

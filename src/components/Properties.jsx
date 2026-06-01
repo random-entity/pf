@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
-import { isEnumFacet, canonicalOf, labelOf } from '../lib/properties.js'
+import { isEnumFacet, canonicalOf, labelOf, durationSeconds, formatDuration } from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
 
 // A single enum value rendered as a pill that toggles its facet filter and
@@ -54,6 +54,11 @@ function Value({ value, path }) {
   // dates (YAML parses ISO dates into Date objects)
   if (value instanceof Date) {
     return <span>{value.toLocaleDateString(lang)}</span>
+  }
+
+  // duration objects render as a single HH:MM:SS value
+  if (durationSeconds(value) != null) {
+    return <span>{formatDuration(durationSeconds(value))}</span>
   }
 
   // localized object -> single string
