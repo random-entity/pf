@@ -85,17 +85,20 @@ function idsAtPath(data, path) {
   return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
 }
 
-// Numeric / date facets that support a range + "show missing" constraint.
-const rangeFacets = [...facetByPath.values()].filter(
-  (f) => f.kind === 'numeric' || f.kind === 'date' || f.kind === 'dateEvents',
-)
-
 function numberAtPath(data, path, facet) {
   const v = getValueAtPath(data, path)
   if (v == null) return null
   if (facet?.isDuration) return durationSeconds(v)
   if (v instanceof Date) return v.getTime()
   return facet?.isDate ? new Date(v).getTime() : v
+}
+
+// Does the artwork carry any value for this facet? Used by the per-key
+// "show items without a value" toggle.
+function hasValueAtPath(data, facet) {
+  if (facet.kind === 'dateEvents') return dateEvents(data.date).length > 0
+  if (facet.kind === 'stringList' || facet.kind === 'enumSingle') return idsAtPath(data, facet.path).length > 0
+  return numberAtPath(data, facet.path, facet) != null
 }
 
 // Single, fully generic database view driven by the property schema.
@@ -130,39 +133,46 @@ export default function DatabaseBrowser() {
   }
 
   const results = useMemo(() => {
+    // Every key that currently constrains the result: a multi-select, a range,
+    // or a "hide items without a value".
+    const constrainedPaths = new Set([
+      ...Object.keys(enums).filter((p) => enums[p].ids.length),
+      ...Object.keys(ranges),
+      ...Object.keys(showMissing).filter((p) => showMissing[p] === false),
+    ])
+
     let list = artworks.filter((a) => {
       if (q.trim() && fuzzyScore(q, haystackOf(a)) === 0) return false
 
-      for (const [path, sel] of Object.entries(enums)) {
-        if (!sel.ids.length) continue
-        const own = idsAtPath(a.data, path)
+      for (const path of constrainedPaths) {
         const facet = facetByPath.get(path)
-        const ok =
-          facet?.kind === 'stringList' && sel.mode === 'all'
-            ? sel.ids.every((id) => own.includes(id))
-            : sel.ids.some((id) => own.includes(id))
-        if (!ok) return false
-      }
+        if (!facet) continue
 
-      for (const facet of rangeFacets) {
-        const r = ranges[facet.path]
-        const showMiss = showMissing[facet.path] !== false
-        if (!r && showMiss) continue // no constraint from this facet
-        let hasValue, inRange
-        if (facet.kind === 'dateEvents') {
-          const evs = dateEvents(a.data.date)
-          hasValue = evs.length > 0
-          inRange = r ? evs.some((e) => e.start <= r.max && e.end >= r.min) : true
-        } else {
-          const num = numberAtPath(a.data, facet.path, facet)
-          hasValue = num != null
-          inRange = r ? num >= r.min && num <= r.max : true
+        if (!hasValueAtPath(a.data, facet)) {
+          if (showMissing[path] === false) return false
+          continue // missing but allowed -> nothing else to check
         }
-        if (!hasValue) {
-          if (!showMiss) return false
-          continue
+
+        const sel = enums[path]
+        if (sel?.ids.length) {
+          const own = idsAtPath(a.data, path)
+          const ok =
+            facet.kind === 'stringList' && sel.mode === 'all'
+              ? sel.ids.every((id) => own.includes(id))
+              : sel.ids.some((id) => own.includes(id))
+          if (!ok) return false
         }
-        if (!inRange) return false
+
+        const r = ranges[path]
+        if (r) {
+          if (facet.kind === 'dateEvents') {
+            const evs = dateEvents(a.data.date)
+            if (!evs.some((e) => e.start <= r.max && e.end >= r.min)) return false
+          } else {
+            const num = numberAtPath(a.data, path, facet)
+            if (num < r.min || num > r.max) return false
+          }
+        }
       }
 
       return true

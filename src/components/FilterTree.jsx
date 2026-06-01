@@ -94,32 +94,26 @@ function EnumFilter({ facet }) {
   )
 }
 
-// Which facets belong in each section. A numeric/date key is both sortable and
-// filterable; enums are filter-only; the Title key is sort-only.
-const SORTABLE = new Set(['text', 'numeric', 'date', 'dateEvents'])
-const FILTERABLE = new Set(['stringList', 'enumSingle', 'numeric', 'date', 'dateEvents'])
-
-function relevant(facet, mode) {
-  if (facet.kind === 'nested') return (facet.children || []).some((c) => relevant(c, mode))
-  return (mode === 'sort' ? SORTABLE : FILTERABLE).has(facet.kind)
-}
-
-// Is anything selected/sorted under this facet (or its descendants), for the
-// given section?
-function facetActive(facet, f, mode) {
-  if (mode === 'sort') {
-    if (f.sort.path === facet.path) return true
-  } else {
-    if (f.enums[facet.path]?.ids.length) return true
-    if (f.ranges[facet.path]) return true
-    if (f.showMissing[facet.path] === false) return true
+// Which active constraints exist on this key (aggregated over descendants),
+// surfaced as marker symbols on the key's row.
+function markersFor(facet, f) {
+  const m = { sort: false, dir: null, range: false, multi: false, missing: false }
+  const visit = (fac) => {
+    if (f.sort.path === fac.path) {
+      m.sort = true
+      m.dir = f.sort.dir
+    }
+    if (f.ranges[fac.path]) m.range = true
+    if (f.enums[fac.path]?.ids.length) m.multi = true
+    if (f.showMissing[fac.path] === false) m.missing = true
+    fac.children?.forEach(visit)
   }
-  if (facet.children) return facet.children.some((c) => facetActive(c, f, mode))
-  return false
+  visit(facet)
+  return m
 }
 
-function FacetNode({ facet, mode }) {
-  const { propLabel } = useLang()
+function FacetNode({ facet }) {
+  const { t, propLabel } = useLang()
   const f = useFilters()
   const [open, setOpen] = useState(false)
 
@@ -129,63 +123,58 @@ function FacetNode({ facet, mode }) {
       : facet.depth === 0
         ? propLabel(facet.key)
         : facet.key
-  const active = facetActive(facet, f, mode)
+  const m = markersFor(facet, f)
+  const sortable =
+    facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
   const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
+  const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle'
+  const hasMissing = facet.kind !== 'nested' && facet.kind !== 'text'
 
   return (
     <li className="filter-node">
       <button className="facet-head" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
         <span className="caret">{open ? '▾' : '▸'}</span>
         <span className="facet-label">{label}</span>
-        {active && <span className="marker" aria-hidden="true">●</span>}
+        <span className="markers">
+          {m.sort && <span className="mk mk-sort" title={t('markSort')}>{m.dir === 'asc' ? '↑' : '↓'}</span>}
+          {m.range && <span className="mk mk-range" title={t('markRange')}>⇔</span>}
+          {m.multi && <span className="mk mk-multi" title={t('markMulti')}>✓</span>}
+          {m.missing && <span className="mk mk-missing" title={t('markMissing')}>∅</span>}
+        </span>
       </button>
       {open && (
         <div className="facet-body">
-          {facet.kind === 'nested' && <FacetTree facets={facet.children} mode={mode} />}
-          {mode === 'sort' && facet.kind !== 'nested' && <SortButtons path={facet.path} />}
-          {mode === 'filter' && isRange && (
-            <>
-              <RangeSelect facet={facet} />
-              <MissingToggle path={facet.path} />
-            </>
-          )}
-          {mode === 'filter' && (facet.kind === 'stringList' || facet.kind === 'enumSingle') && (
-            <EnumFilter facet={facet} />
-          )}
+          {facet.kind === 'nested' && <FacetTree facets={facet.children} />}
+          {sortable && <SortButtons path={facet.path} />}
+          {isRange && <RangeSelect facet={facet} />}
+          {isEnum && <EnumFilter facet={facet} />}
+          {hasMissing && <MissingToggle path={facet.path} />}
         </div>
       )}
     </li>
   )
 }
 
-// Renders the facets relevant to one section ('sort' or 'filter'), pruning
-// nested branches that contain nothing for that section.
-function FacetTree({ facets, mode }) {
-  const visible = facets.filter((fac) => relevant(fac, mode))
-  if (!visible.length) return null
+function FacetTree({ facets }) {
   return (
     <ul className="filter-tree">
-      {visible.map((fac) => (
-        <FacetNode key={fac.path} facet={fac} mode={mode} />
+      {facets.map((fac) => (
+        <FacetNode key={fac.path} facet={fac} />
       ))}
     </ul>
   )
 }
 
-// Two separate sections: sort keys and filter keys.
+// One row per key. Each key shows the controls its value type supports (Sort
+// and/or Range, or Multi-select), a per-key "show items without a value"
+// toggle, and marker symbols for whichever constraints are active.
 export default function FilterTree({ schema }) {
   const { t } = useLang()
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
   return (
-    <>
-      <div className="filters">
-        <div className="filters-title">{t('sortBy')}</div>
-        <FacetTree facets={[titleFacet, ...schema]} mode="sort" />
-      </div>
-      <div className="filters">
-        <div className="filters-title">{t('filters')}</div>
-        <FacetTree facets={schema} mode="filter" />
-      </div>
-    </>
+    <div className="filters">
+      <div className="filters-title">{t('filters')}</div>
+      <FacetTree facets={[titleFacet, ...schema]} />
+    </div>
   )
 }
