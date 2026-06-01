@@ -22,12 +22,30 @@ function parse(raw) {
   return { data, body: m[2] }
 }
 
+// Conversion factors to meters for `dimensions`. Authors may write any of
+// these units; the app normalizes everything to meters.
+const UNIT_TO_M = { m: 1, cm: 0.01, mm: 0.001, km: 1000, in: 0.0254, ft: 0.3048 }
+
+// Convert a `{ width, height, …, unit }` object to plain meters, dropping the
+// `unit` key (so it is never surfaced as its own property/facet).
+function dimensionsToMeters(dim) {
+  if (!dim || typeof dim !== 'object' || Array.isArray(dim)) return dim
+  const factor = UNIT_TO_M[String(dim.unit).toLowerCase()] ?? 1
+  const out = {}
+  for (const [k, v] of Object.entries(dim)) {
+    if (k === 'unit') continue
+    out[k] = typeof v === 'number' ? Math.round(v * factor * 1e4) / 1e4 : v
+  }
+  return out
+}
+
 export const artworks = Object.entries(files)
   .map(([path, raw]) => {
     const slug = path
       .replace('../content/artworks/', '')
       .replace(/\.md$/, '')
     const { data, body } = parse(raw)
+    if (data.dimensions) data.dimensions = dimensionsToMeters(data.dimensions)
     return {
       slug,
       name: slug.split('/').pop(),

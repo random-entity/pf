@@ -8,6 +8,7 @@ import {
   formatDuration,
   dateEvents,
   formatDate,
+  unitForPath,
   EVENTS_PATH,
 } from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
@@ -131,7 +132,11 @@ function Value({ value, path }) {
     )
   }
 
-  // scalar
+  // scalar (numbers under a unit-bearing key, e.g. dimensions, get a unit)
+  if (typeof value === 'number' && path) {
+    const unit = unitForPath(path)
+    if (unit) return <span>{value} {unit}</span>
+  }
   return <span>{String(value)}</span>
 }
 

@@ -34,7 +34,7 @@ becomes the tree structure; the file name (minus `.md`) becomes the slug used by
 title: { en: Sunset Study, ko: 노을 습작, ja: 夕焼けの習作 }
 date: 2023-09-14
 genre: { en: Painting, ko: 회화, ja: 絵画 }
-dimensions: { width: 60, height: 90, unit: cm }   # nested JSON shows as key/value
+dimensions: { width: 60, height: 90, unit: cm }   # normalized to meters; unit dropped
 tags: [oil, landscape]                            # arrays show as a list / tag pills
 ---
 ::: en

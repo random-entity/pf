@@ -226,3 +226,10 @@ export function isEnumFacet(path) {
   const f = facetByPath.get(path)
   return f && (f.kind === 'stringList' || f.kind === 'enumSingle')
 }
+
+// Display unit appended to numeric values under certain keys (dimensions are
+// normalized to meters in content.js).
+const UNIT_BY_KEY = { dimensions: 'm' }
+export function unitForPath(path) {
+  return UNIT_BY_KEY[path.split('.')[0]] || ''
+}
