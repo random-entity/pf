@@ -57,6 +57,8 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
   a **list** `[a, b]`, or a **nested object** `{ k: v }` — all render automatically.
 - `title` is used as the page heading and is not repeated in the block.
+- **Quote values containing `,` or `:`** inside inline `{ ... }` objects, e.g.
+  `{ en: "Harbour, Fog" }` — an unquoted comma is read by YAML as a separator.
 - `date` (or `created` / `year`) is used for sorting in the database.
 - `tags` become clickable filters.
 
