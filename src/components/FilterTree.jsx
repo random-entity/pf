@@ -94,17 +94,31 @@ function EnumFilter({ facet }) {
   )
 }
 
-// Is anything selected/sorted under this facet (or its descendants)?
-function facetActive(facet, f) {
-  if (f.sort.path === facet.path) return true
-  if (f.enums[facet.path]?.ids.length) return true
-  if (f.ranges[facet.path]) return true
-  if (f.showMissing[facet.path] === false) return true
-  if (facet.children) return facet.children.some((c) => facetActive(c, f))
+// Which facets belong in each section. A numeric/date key is both sortable and
+// filterable; enums are filter-only; the Title key is sort-only.
+const SORTABLE = new Set(['text', 'numeric', 'date', 'dateEvents'])
+const FILTERABLE = new Set(['stringList', 'enumSingle', 'numeric', 'date', 'dateEvents'])
+
+function relevant(facet, mode) {
+  if (facet.kind === 'nested') return (facet.children || []).some((c) => relevant(c, mode))
+  return (mode === 'sort' ? SORTABLE : FILTERABLE).has(facet.kind)
+}
+
+// Is anything selected/sorted under this facet (or its descendants), for the
+// given section?
+function facetActive(facet, f, mode) {
+  if (mode === 'sort') {
+    if (f.sort.path === facet.path) return true
+  } else {
+    if (f.enums[facet.path]?.ids.length) return true
+    if (f.ranges[facet.path]) return true
+    if (f.showMissing[facet.path] === false) return true
+  }
+  if (facet.children) return facet.children.some((c) => facetActive(c, f, mode))
   return false
 }
 
-function FacetNode({ facet }) {
+function FacetNode({ facet, mode }) {
   const { propLabel } = useLang()
   const f = useFilters()
   const [open, setOpen] = useState(false)
@@ -115,7 +129,7 @@ function FacetNode({ facet }) {
       : facet.depth === 0
         ? propLabel(facet.key)
         : facet.key
-  const active = facetActive(facet, f)
+  const active = facetActive(facet, f, mode)
   const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
 
   return (
@@ -127,42 +141,51 @@ function FacetNode({ facet }) {
       </button>
       {open && (
         <div className="facet-body">
-          {facet.kind === 'nested' && (
-            <ul className="filter-tree">
-              {facet.children.map((c) => (
-                <FacetNode key={c.path} facet={c} />
-              ))}
-            </ul>
-          )}
-          {isRange && (
+          {facet.kind === 'nested' && <FacetTree facets={facet.children} mode={mode} />}
+          {mode === 'sort' && facet.kind !== 'nested' && <SortButtons path={facet.path} />}
+          {mode === 'filter' && isRange && (
             <>
-              <SortButtons path={facet.path} />
               <RangeSelect facet={facet} />
               <MissingToggle path={facet.path} />
             </>
           )}
-          {facet.kind === 'text' && <SortButtons path={facet.path} />}
-          {(facet.kind === 'stringList' || facet.kind === 'enumSingle') && <EnumFilter facet={facet} />}
+          {mode === 'filter' && (facet.kind === 'stringList' || facet.kind === 'enumSingle') && (
+            <EnumFilter facet={facet} />
+          )}
         </div>
       )}
     </li>
   )
 }
 
-// The full search/sort/filter tree: a sort-only Title facet, then every
-// property facet derived from frontmatter.
+// Renders the facets relevant to one section ('sort' or 'filter'), pruning
+// nested branches that contain nothing for that section.
+function FacetTree({ facets, mode }) {
+  const visible = facets.filter((fac) => relevant(fac, mode))
+  if (!visible.length) return null
+  return (
+    <ul className="filter-tree">
+      {visible.map((fac) => (
+        <FacetNode key={fac.path} facet={fac} mode={mode} />
+      ))}
+    </ul>
+  )
+}
+
+// Two separate sections: sort keys and filter keys.
 export default function FilterTree({ schema }) {
   const { t } = useLang()
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
   return (
-    <div className="filters">
-      <div className="filters-title">{t('filters')}</div>
-      <ul className="filter-tree">
-        <FacetNode facet={titleFacet} />
-        {schema.map((f) => (
-          <FacetNode key={f.path} facet={f} />
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className="filters">
+        <div className="filters-title">{t('sortBy')}</div>
+        <FacetTree facets={[titleFacet, ...schema]} mode="sort" />
+      </div>
+      <div className="filters">
+        <div className="filters-title">{t('filters')}</div>
+        <FacetTree facets={schema} mode="filter" />
+      </div>
+    </>
   )
 }
