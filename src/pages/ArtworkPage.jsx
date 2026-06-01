@@ -1,4 +1,5 @@
-import { useParams, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useParams, useLocation, Link } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
 import { prepare } from '../lib/markdown.js'
@@ -11,6 +12,20 @@ export default function ArtworkPage() {
   const params = useParams()
   const slug = decodeURI(params['*'] || '')
   const artwork = bySlug[slug]
+  const { hash } = useLocation()
+
+  // Deep-link: scroll to the heading named in the URL hash once the article
+  // (with rehype-slug ids) has rendered. Re-runs when the target, artwork, or
+  // language changes.
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return
+    }
+    const id = decodeURIComponent(hash.replace(/^#/, ''))
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [hash, slug, lang])
 
   if (!artwork) {
     return (
