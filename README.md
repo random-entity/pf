@@ -59,8 +59,22 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - `title` is used as the page heading and is not repeated in the block.
 - **Quote values containing `,` or `:`** inside inline `{ ... }` objects, e.g.
   `{ en: "Harbour, Fog" }` — an unquoted comma is read by YAML as a separator.
-- `date` (or `created` / `year`) is used for sorting in the database.
+- `date` is used for sorting and is always shown as `YYYY-MM-DD`. It may be a
+  single date, **or a list of events** — each a date or date range plus an
+  optional name (quote the whole string, since it contains `:`):
+
+  ```yaml
+  date:
+    - "2024-08-31 : Premiere online"
+    - "2024-11-01 ~ 2024-11-05 : Seoul Performing Arts Festival"
+  ```
+
+  Event names are collected into an **Events** filter, and the Properties block
+  links each date to its event. In the Date range filter, **Min** lists all
+  start dates and **Max** all end dates; the match is an inclusive overlap.
 - Enum-like values (`tags`, `tools`, `genre`, …) become clickable filters.
+- A `{ hours, minutes, seconds }` object is treated as a single duration value
+  (sorted/ranged as one number, shown as `HH:MM:SS`).
 
 ### Filtering & sorting
 
@@ -75,6 +89,9 @@ every property is scanned and classified, no configuration needed:
 - **Single categorical values** (`genre`, `medium`, `status`) get a multi-select
   (OR) filter.
 - **Nested objects** expand into their sub-properties.
+
+Each numeric/date facet also has a **"Show items without a value"** toggle (on
+by default) to control whether artworks lacking that property appear.
 
 A fuzzy search box (typo- and gap-tolerant) sits on top, plus group-by and a
 reset. Clicking a value in an artwork's Properties block toggles that filter.

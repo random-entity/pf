@@ -11,6 +11,10 @@ import {
   canonicalOf,
   labelOf,
   durationSeconds,
+  dateEvents,
+  dateSortValue,
+  eventNamesOf,
+  EVENTS_PATH,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -75,10 +79,16 @@ function ArtworkItem({ artwork }) {
 
 // Canonical ids an artwork carries at a facet path (handles list & single).
 function idsAtPath(data, path) {
+  if (path === EVENTS_PATH) return eventNamesOf(data)
   const v = getValueAtPath(data, path)
   if (v == null) return []
   return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
 }
+
+// Numeric / date facets that support a range + "show missing" constraint.
+const rangeFacets = [...facetByPath.values()].filter(
+  (f) => f.kind === 'numeric' || f.kind === 'date' || f.kind === 'dateEvents',
+)
 
 function numberAtPath(data, path, facet) {
   const v = getValueAtPath(data, path)
@@ -91,7 +101,7 @@ function numberAtPath(data, path, facet) {
 // Single, fully generic database view driven by the property schema.
 export default function DatabaseBrowser() {
   const { lang, t, propLabel } = useLang()
-  const { enums, ranges, sort, reset, activeCount, isDefaultSort } = useFilters()
+  const { enums, ranges, showMissing, sort, reset, activeCount, isDefaultSort } = useFilters()
 
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('none') // 'none' | <enumSingle facet path>
@@ -107,6 +117,7 @@ export default function DatabaseBrowser() {
       if (Array.isArray(v)) parts.push(v.map((x) => labelOf(x, lang)).join(' '))
       else if (v != null) parts.push(labelOf(v, lang))
     }
+    parts.push(eventNamesOf(a.data).join(' '))
     return parts.join(' ')
   }
 
@@ -114,6 +125,7 @@ export default function DatabaseBrowser() {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)
     const facet = facetByPath.get(sort.path)
     if (!facet) return null
+    if (facet.kind === 'dateEvents') return dateSortValue(a.data)
     return numberAtPath(a.data, sort.path, facet)
   }
 
@@ -132,10 +144,25 @@ export default function DatabaseBrowser() {
         if (!ok) return false
       }
 
-      for (const [path, r] of Object.entries(ranges)) {
-        const facet = facetByPath.get(path)
-        const num = numberAtPath(a.data, path, facet)
-        if (num == null || num < r.min || num > r.max) return false
+      for (const facet of rangeFacets) {
+        const r = ranges[facet.path]
+        const showMiss = showMissing[facet.path] !== false
+        if (!r && showMiss) continue // no constraint from this facet
+        let hasValue, inRange
+        if (facet.kind === 'dateEvents') {
+          const evs = dateEvents(a.data.date)
+          hasValue = evs.length > 0
+          inRange = r ? evs.some((e) => e.start <= r.max && e.end >= r.min) : true
+        } else {
+          const num = numberAtPath(a.data, facet.path, facet)
+          hasValue = num != null
+          inRange = r ? num >= r.min && num <= r.max : true
+        }
+        if (!hasValue) {
+          if (!showMiss) return false
+          continue
+        }
+        if (!inRange) return false
       }
 
       return true
@@ -152,7 +179,7 @@ export default function DatabaseBrowser() {
       return cmp * dir
     })
     return list
-  }, [q, lang, enums, ranges, sort])
+  }, [q, lang, enums, ranges, showMissing, sort])
 
   const groups = useMemo(() => {
     if (group === 'none') return [['', results]]

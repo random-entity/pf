@@ -1,6 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
-import { isEnumFacet, canonicalOf, labelOf, durationSeconds, formatDuration } from '../lib/properties.js'
+import {
+  isEnumFacet,
+  canonicalOf,
+  labelOf,
+  durationSeconds,
+  formatDuration,
+  dateEvents,
+  formatDate,
+  EVENTS_PATH,
+} from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
 
 // A single enum value rendered as a pill that toggles its facet filter and
@@ -25,6 +34,34 @@ function EnumPill({ path, value }) {
   )
 }
 
+// The `date` property: each date (or date range) shown as YYYY-MM-DD, paired
+// with its event name (a clickable filter pill) so date and event are linked.
+function DateValue({ value }) {
+  const evs = dateEvents(value)
+  if (evs.length === 0) return <span className="muted">—</span>
+  if (evs.length === 1 && !evs[0].event && evs[0].start === evs[0].end) {
+    return <span>{formatDate(evs[0].start)}</span>
+  }
+  return (
+    <ul className="date-events">
+      {evs.map((e, i) => (
+        <li key={i}>
+          <span className="date-range">
+            {formatDate(e.start)}
+            {e.end !== e.start ? ` ~ ${formatDate(e.end)}` : ''}
+          </span>
+          {e.event && (
+            <>
+              {' — '}
+              <EnumPill path={EVENTS_PATH} value={e.event} />
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 // Renders any frontmatter value: localized strings, plain scalars, arrays
 // (as lists), and nested JSON objects (as key/value grids). Values that map to
 // an enum facet become clickable filter pills. `path` is the dotted facet path.
@@ -32,6 +69,9 @@ function Value({ value, path }) {
   const { lang } = useLang()
 
   if (value == null || value === '') return <span className="muted">—</span>
+
+  // `date` gets dedicated rendering (single date or list of events).
+  if (path === 'date') return <DateValue value={value} />
 
   // Enum-backed values become clickable filter pills.
   if (path && isEnumFacet(path)) {
@@ -53,7 +93,7 @@ function Value({ value, path }) {
 
   // dates (YAML parses ISO dates into Date objects)
   if (value instanceof Date) {
-    return <span>{value.toLocaleDateString(lang)}</span>
+    return <span>{formatDate(value.getTime())}</span>
   }
 
   // duration objects render as a single HH:MM:SS value

@@ -17,6 +17,7 @@ const Ctx = createContext(null)
 export function FilterProvider({ children }) {
   const [enums, setEnums] = useState({}) // path -> { ids: string[], mode: 'any'|'all' }
   const [ranges, setRanges] = useState({}) // path -> { min, max }
+  const [showMissing, setShowMissing] = useState({}) // path -> false to HIDE items lacking the value
   const [sort, setSortState] = useState(DEFAULT_SORT) // { path, dir }
 
   const toggleEnum = (path, id) =>
@@ -47,29 +48,43 @@ export function FilterProvider({ children }) {
       return next
     })
 
+  // Toggle whether items lacking a value for `path` are shown. Default is shown;
+  // toggling off (false) hides them, independent of any range on the facet.
+  const toggleMissing = (path) =>
+    setShowMissing((prev) => {
+      const next = { ...prev }
+      if (next[path] === false) delete next[path]
+      else next[path] = false
+      return next
+    })
+
   const setSort = (path, dir) => setSortState({ path, dir })
 
   const reset = () => {
     setEnums({})
     setRanges({})
+    setShowMissing({})
     setSortState(DEFAULT_SORT)
   }
 
   const activeCount = useMemo(
     () =>
       Object.values(enums).filter((e) => e.ids.length).length +
-      Object.keys(ranges).length,
-    [enums, ranges],
+      Object.keys(ranges).length +
+      Object.values(showMissing).filter((v) => v === false).length,
+    [enums, ranges, showMissing],
   )
 
   const value = {
     enums,
     ranges,
+    showMissing,
     sort,
     toggleEnum,
     setEnumMode,
     setRange,
     clearRange,
+    toggleMissing,
     setSort,
     reset,
     activeCount,

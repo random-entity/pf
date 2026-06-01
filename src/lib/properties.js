@@ -40,6 +40,58 @@ export function formatDuration(total) {
   return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`
 }
 
+// ---- Dates & events ----------------------------------------------------
+// `date` may be a single date, or a list of events. Each event is a string:
+//   "YYYY-MM-DD : Event name"
+//   "YYYY-MM-DD ~ YYYY-MM-DD : Event name"   (inclusive range)
+// the event name (and the range end) are optional.
+
+export const EVENTS_PATH = '__events__'
+
+const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/
+const EVENT_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*(?::\s*(.+?))?\s*$/
+
+function toMs(s) {
+  if (s instanceof Date) return s.getTime()
+  const m = DATE_RE.exec(String(s).trim())
+  if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]) // UTC so the calendar date is stable
+  const t = new Date(s).getTime()
+  return Number.isNaN(t) ? null : t
+}
+
+export function formatDate(ms) {
+  const d = new Date(ms)
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`
+}
+
+function parseEvent(item) {
+  if (item instanceof Date) return { start: item.getTime(), end: item.getTime(), event: null }
+  const m = EVENT_RE.exec(String(item))
+  if (!m) return null
+  const start = toMs(m[1])
+  if (start == null) return null
+  const end = m[2] ? toMs(m[2]) : start
+  return { start, end, event: m[3] ? m[3].trim() : null }
+}
+
+// Normalize an artwork's `date` field into a list of { start, end, event }.
+export function dateEvents(v) {
+  if (v == null) return []
+  const items = Array.isArray(v) ? v : [v]
+  return items.map(parseEvent).filter(Boolean)
+}
+
+export function eventNamesOf(data) {
+  return dateEvents(data?.date).map((e) => e.event).filter(Boolean)
+}
+
+// Earliest start used as the artwork's sort key; null if it has no date.
+export function dateSortValue(data) {
+  const evs = dateEvents(data?.date)
+  return evs.length ? Math.min(...evs.map((e) => e.start)) : null
+}
+
 // Decide how a property should behave from the set of values it takes across
 // all artworks. Returns one of: stringList | date | numeric | enumSingle |
 // nested, or null to ignore (e.g. lists of mixed/object values).
@@ -97,6 +149,30 @@ function facetsFrom(objs, base, depth) {
   const facets = []
   for (const key of [...keys].sort()) {
     const path = base ? `${base}.${key}` : key
+
+    // Top-level `date`: single dates and/or a list of (possibly ranged) events.
+    // Min = all start dates, Max = all end dates; event names become their own
+    // filterable facet.
+    if (depth === 0 && key === 'date') {
+      const evs = objs.flatMap((o) => dateEvents(o?.date))
+      if (evs.length) {
+        const starts = [...new Set(evs.map((e) => e.start))].sort((a, b) => a - b)
+        const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b)
+        facets.push({
+          path: 'date', key: 'date', kind: 'dateEvents', depth, isDate: true,
+          minOptions: starts, maxOptions: ends, min: starts[0], max: ends[ends.length - 1],
+        })
+        const names = [...new Set(evs.map((e) => e.event).filter(Boolean))].sort((a, b) => a.localeCompare(b))
+        if (names.length) {
+          facets.push({
+            path: EVENTS_PATH, key: 'events', kind: 'stringList', depth,
+            values: names.map((n) => ({ id: n, raw: n, count: 0 })),
+          })
+        }
+      }
+      continue
+    }
+
     const values = objs.map((o) => o && o[key]).filter((v) => v != null)
     const kind = classify(values)
     if (kind === 'nested') {
@@ -107,10 +183,10 @@ function facetsFrom(objs, base, depth) {
       if (vals.length) facets.push({ path, key, kind, depth, values: vals })
     } else if (kind === 'numeric' || kind === 'date') {
       const n = numericOptions(values, kind === 'date')
-      if (n.options.length > 1) facets.push({ path, key, kind, depth, ...n })
+      if (n.options.length > 1) facets.push({ path, key, kind, depth, minOptions: n.options, maxOptions: n.options, ...n })
     } else if (kind === 'duration') {
       const n = numericOptions(values.map((v) => durationSeconds(v)), false)
-      if (n.options.length > 1) facets.push({ path, key, kind: 'numeric', depth, isDuration: true, ...n })
+      if (n.options.length > 1) facets.push({ path, key, kind: 'numeric', depth, isDuration: true, minOptions: n.options, maxOptions: n.options, ...n })
     }
   }
   return facets

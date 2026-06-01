@@ -179,6 +179,21 @@ input, select {
 .range-row label { font-size: 12px; color: var(--muted); }
 .range-row select { width: auto; flex: 1; min-width: 0; }
 
+.missing-toggle {
+  border: none;
+  padding: 4px 2px 2px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: left;
+}
+.missing-toggle:hover { background: none; text-decoration: underline; }
+.missing-toggle .box { font-size: 13px; }
+
+/* date + event list in the Properties block */
+.date-events { list-style: none; margin: 0; padding: 0; }
+.date-events li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; margin: 1px 0; }
+.date-events .date-range { font-variant-numeric: tabular-nums; }
+
 /* Accordion list of artworks with a Markdown heading outline */
 .db-list .acc-item { border-top: 1px solid var(--border); }
 .db-list .acc-item:first-child { border-top: none; }

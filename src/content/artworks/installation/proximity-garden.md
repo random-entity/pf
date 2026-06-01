@@ -1,6 +1,8 @@
 ---
 title: { en: Proximity Garden, ko: 근접의 정원, ja: 近接の庭 }
-date: 2025-02-14
+date:
+  - "2025-02-14 ~ 2025-02-28 : MMCA Seoul"
+  - "2025-05-10 : Ars Electronica Preview"
 genre: { en: Interactive Installation, ko: 인터랙티브 설치, ja: インタラクティブ・インスタレーション }
 medium: { en: "Capacitive sensors, motors, sound", ko: "정전식 센서, 모터, 사운드", ja: "静電容量センサー、モーター、サウンド" }
 hardware: { boards: 6, sensors: 24 }

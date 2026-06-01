@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../i18n.jsx'
-import { labelOf, formatDuration } from '../lib/properties.js'
+import { labelOf, formatDuration, formatDate } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 
 // Asc/desc sort buttons that drive the single global sort key.
@@ -19,12 +19,13 @@ function SortButtons({ path }) {
   )
 }
 
-// Min/max dropdowns over a numeric (or date) facet's distinct values.
+// Min/max dropdowns over a numeric/date facet. For event dates, Min lists all
+// start dates and Max all end dates.
 function RangeSelect({ facet }) {
-  const { lang, t } = useLang()
+  const { t } = useLang()
   const { ranges, setRange, clearRange } = useFilters()
   const fmt = (n) =>
-    facet.isDuration ? formatDuration(n) : facet.isDate ? new Date(n).toLocaleDateString(lang) : String(n)
+    facet.isDuration ? formatDuration(n) : facet.isDate ? formatDate(n) : String(n)
   const cur = ranges[facet.path] || { min: facet.min, max: facet.max }
 
   function update(min, max) {
@@ -37,17 +38,29 @@ function RangeSelect({ facet }) {
     <div className="range-row">
       <label>{t('min')}</label>
       <select value={cur.min} onChange={(e) => update(Number(e.target.value), cur.max)}>
-        {facet.options.map((o) => (
+        {facet.minOptions.map((o) => (
           <option key={o} value={o}>{fmt(o)}</option>
         ))}
       </select>
       <label>{t('max')}</label>
       <select value={cur.max} onChange={(e) => update(cur.min, Number(e.target.value))}>
-        {facet.options.map((o) => (
+        {facet.maxOptions.map((o) => (
           <option key={o} value={o}>{fmt(o)}</option>
         ))}
       </select>
     </div>
+  )
+}
+
+// Toggle whether artworks that have no value for this facet appear in results.
+function MissingToggle({ path }) {
+  const { t } = useLang()
+  const { showMissing, toggleMissing } = useFilters()
+  const showing = showMissing[path] !== false
+  return (
+    <button className="missing-toggle" aria-pressed={showing} onClick={() => toggleMissing(path)}>
+      <span className="box">{showing ? '☑' : '☐'}</span> {t('showWithoutKey')}
+    </button>
   )
 }
 
@@ -82,17 +95,18 @@ function EnumFilter({ facet }) {
 }
 
 // Is anything selected/sorted under this facet (or its descendants)?
-function facetActive(facet, enums, ranges, sort) {
-  if (sort.path === facet.path) return true
-  if (enums[facet.path]?.ids.length) return true
-  if (ranges[facet.path]) return true
-  if (facet.children) return facet.children.some((c) => facetActive(c, enums, ranges, sort))
+function facetActive(facet, f) {
+  if (f.sort.path === facet.path) return true
+  if (f.enums[facet.path]?.ids.length) return true
+  if (f.ranges[facet.path]) return true
+  if (f.showMissing[facet.path] === false) return true
+  if (facet.children) return facet.children.some((c) => facetActive(c, f))
   return false
 }
 
 function FacetNode({ facet }) {
   const { propLabel } = useLang()
-  const { enums, ranges, sort } = useFilters()
+  const f = useFilters()
   const [open, setOpen] = useState(false)
 
   const label =
@@ -101,7 +115,8 @@ function FacetNode({ facet }) {
       : facet.depth === 0
         ? propLabel(facet.key)
         : facet.key
-  const active = facetActive(facet, enums, ranges, sort)
+  const active = facetActive(facet, f)
+  const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
 
   return (
     <li className="filter-node">
@@ -119,10 +134,11 @@ function FacetNode({ facet }) {
               ))}
             </ul>
           )}
-          {(facet.kind === 'numeric' || facet.kind === 'date') && (
+          {isRange && (
             <>
               <SortButtons path={facet.path} />
               <RangeSelect facet={facet} />
+              <MissingToggle path={facet.path} />
             </>
           )}
           {facet.kind === 'text' && <SortButtons path={facet.path} />}

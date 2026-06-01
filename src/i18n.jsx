@@ -27,6 +27,7 @@ const UI = {
     sortDesc: 'Sort ↓',
     min: 'Min',
     max: 'Max',
+    showWithoutKey: 'Show items without a value',
     filterByTags: 'Filter by tags',
     tagAny: 'Any',
     tagAll: 'All',
@@ -36,7 +37,7 @@ const UI = {
     notFound: 'Artwork not found.',
     menu: 'Menu',
     items: 'items',
-    props: { title: 'Title', date: 'Date', created: 'Created', genre: 'Genre', medium: 'Medium', dimensions: 'Dimensions', duration: 'Duration', edition: 'Edition', hardware: 'Hardware', tools: 'Tools', year: 'Year', tags: 'Tags', location: 'Location', status: 'Status' },
+    props: { title: 'Title', date: 'Date', events: 'Events', created: 'Created', genre: 'Genre', medium: 'Medium', dimensions: 'Dimensions', duration: 'Duration', edition: 'Edition', hardware: 'Hardware', tools: 'Tools', year: 'Year', tags: 'Tags', location: 'Location', status: 'Status' },
   },
   ko: {
     siteTitle: '포트폴리오',
@@ -59,6 +60,7 @@ const UI = {
     sortDesc: '정렬 ↓',
     min: '최소',
     max: '최대',
+    showWithoutKey: '값이 없는 항목 표시',
     filterByTags: '태그로 필터',
     tagAny: '하나라도',
     tagAll: '모두',
@@ -68,7 +70,7 @@ const UI = {
     notFound: '작품을 찾을 수 없습니다.',
     menu: '메뉴',
     items: '개',
-    props: { title: '제목', date: '날짜', created: '제작일', genre: '장르', medium: '재료', dimensions: '크기', duration: '재생 시간', edition: '에디션', hardware: '하드웨어', tools: '도구', year: '연도', tags: '태그', location: '위치', status: '상태' },
+    props: { title: '제목', date: '날짜', events: '이벤트', created: '제작일', genre: '장르', medium: '재료', dimensions: '크기', duration: '재생 시간', edition: '에디션', hardware: '하드웨어', tools: '도구', year: '연도', tags: '태그', location: '위치', status: '상태' },
   },
   ja: {
     siteTitle: 'ポートフォリオ',
@@ -91,6 +93,7 @@ const UI = {
     sortDesc: '並び替え ↓',
     min: '最小',
     max: '最大',
+    showWithoutKey: '値なしの項目を表示',
     filterByTags: 'タグで絞り込み',
     tagAny: 'いずれか',
     tagAll: 'すべて',
@@ -100,7 +103,7 @@ const UI = {
     notFound: '作品が見つかりません。',
     menu: 'メニュー',
     items: '件',
-    props: { title: 'タイトル', date: '日付', created: '制作日', genre: 'ジャンル', medium: '素材', dimensions: 'サイズ', duration: '長さ', edition: 'エディション', hardware: 'ハードウェア', tools: 'ツール', year: '年', tags: 'タグ', location: '場所', status: 'ステータス' },
+    props: { title: 'タイトル', date: '日付', events: 'イベント', created: '制作日', genre: 'ジャンル', medium: '素材', dimensions: 'サイズ', duration: '長さ', edition: 'エディション', hardware: 'ハードウェア', tools: 'ツール', year: '年', tags: 'タグ', location: '場所', status: 'ステータス' },
   },
 }
 

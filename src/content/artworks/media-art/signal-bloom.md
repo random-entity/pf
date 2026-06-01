@@ -1,6 +1,9 @@
 ---
 title: { en: Signal Bloom, ko: 시그널 블룸, ja: シグナル・ブルーム }
-date: 2024-07-18
+date:
+  - "2024-08-31 : Premiere online"
+  - "2024-11-01 ~ 2024-11-05 : Seoul Performing Arts Festival"
+  - "2024-12-01 ~ 2024-12-05 : FORUM IMPACT 2024"
 genre: { en: Media Art, ko: 미디어 아트, ja: メディアアート }
 medium: { en: "Audio-reactive projection, two channels", ko: "오디오 반응형 영상, 2채널", ja: "オーディオ反応型プロジェクション、2チャンネル" }
 dimensions: { width: 600, height: 240, unit: cm }
