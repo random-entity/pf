@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useLang } from './i18n.jsx'
 import Sidebar from './components/Sidebar.jsx'
-import LangSwitch from './components/LangSwitch.jsx'
 
 const MIN_W = 200
 const MAX_W = 520
@@ -54,17 +53,13 @@ export default function App() {
       <main className="content">
         <div className="content-inner">
           <div className="topbar">
-            <h1>
-              <button
-                className="menu-toggle"
-                onClick={() => setOpen((v) => !v)}
-                aria-label={t('menu')}
-              >
-                ☰
-              </button>{' '}
-              <Link to="/">{t('siteTitle')}</Link>
-            </h1>
-            <LangSwitch />
+            <button
+              className="menu-toggle"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={t('menu')}
+            >
+              Menu
+            </button>
           </div>
           <Outlet />
         </div>
