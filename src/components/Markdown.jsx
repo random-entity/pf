@@ -91,7 +91,7 @@ export default function Markdown({ children }) {
 
     const setExpanded = (button, expanded) => {
       button.setAttribute('aria-expanded', String(expanded))
-      button.textContent = expanded ? '•' : '⊙'
+      button.textContent = expanded ? '•' : '◉'
     }
 
     for (const heading of root.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
