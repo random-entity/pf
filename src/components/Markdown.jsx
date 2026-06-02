@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
+import { remarkGallery } from '../lib/remarkGallery.js'
 
 // Prefix relative asset URLs with Vite's base so images resolve correctly
 // on GitHub Pages. Absolute URLs and hash routes are left untouched.
@@ -50,7 +51,7 @@ const components = {
 export default function Markdown({ children }) {
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkGallery]}
       rehypePlugins={[rehypeSlug]}
       components={components}
     >
