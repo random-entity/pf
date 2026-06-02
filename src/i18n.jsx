@@ -7,10 +7,10 @@ export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' }
 // unknown keys fall back to the raw key name.
 const UI = {
   en: {
-    siteTitle: '∀∃Portfolio',
+    siteTitle: '∀∃portfolio',
     files: 'Files',
     database: 'Database',
-    search: 'Search…',
+    search: 'Search',
     sortBy: 'Sort by',
     groupBy: 'Group by',
     date: 'Date',
@@ -38,6 +38,9 @@ const UI = {
     more: 'more',
     sortAsc: 'Sort ↑',
     sortDesc: 'Sort ↓',
+	sortByDate: "Sort by date",
+	sortByDateAsc: "Sort by date ↑",
+	sortByDateDesc: "Sort by date ↓",
     min: 'Min',
     max: 'Max',
     showWithoutKey: 'Show items without a value',
@@ -62,7 +65,7 @@ const UI = {
     siteTitle: '포트폴리오',
     files: '파일',
     database: '데이터베이스',
-    search: '검색…',
+    search: '검색',
     sortBy: '정렬',
     groupBy: '그룹',
     date: '날짜',
@@ -90,6 +93,9 @@ const UI = {
     more: '개 더',
     sortAsc: '정렬 ↑',
     sortDesc: '정렬 ↓',
+	sortByDate: "날짜 정렬",
+	sortByDateAsc: "날짜 정렬 ↑",
+	sortByDateDesc: "날짜 정렬 ↓",
     min: '최소',
     max: '최대',
     showWithoutKey: '값이 없는 항목 표시',
@@ -114,7 +120,7 @@ const UI = {
     siteTitle: 'ポートフォリオ',
     files: 'ファイル',
     database: 'データベース',
-    search: '検索…',
+    search: '検索',
     sortBy: '並び替え',
     groupBy: 'グループ',
     date: '日付',
@@ -142,6 +148,9 @@ const UI = {
     more: '件以上',
     sortAsc: '並び替え ↑',
     sortDesc: '並び替え ↓',
+	sortByDate: "日付並び替え ↓",
+	sortByDateAsc: "日付並び替え ↑",
+	sortByDateDesc: "日付並び替え ↓",
     min: '最小',
     max: '最大',
     showWithoutKey: '値なしの項目を表示',
@@ -181,7 +190,7 @@ export function LanguageProvider({ children }) {
   }, [lang])
 
   const t = (key) => {
-    if (key === 'siteTitle') return '∀∃Portfolio'
+    if (key === 'siteTitle') return '∀∃portfolio'
     if (key === 'filters') return 'SORT/FILTER/GROUP'
     return UI[lang][key] ?? UI.en[key] ?? key
   }

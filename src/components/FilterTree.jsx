@@ -123,7 +123,12 @@ function SortIcon({ path }) {
     else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
   }
 
-  const label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
+  let label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
+
+  if (path === 'releases') {
+    label = state === 'asc' ? t('sortByDateAsc') : state === 'desc' ? t('sortByDateDesc') : t('sortByDate')
+  }
+  
   return (
     <button
       className={`facet-icon sort-icon${state ? ' icon-on' : ''}`}
@@ -162,20 +167,6 @@ function GroupIcon({ path }) {
       onClick={(e) => { e.stopPropagation(); setGroup(active ? 'none' : path) }}
     >
       {t('group')}
-    </button>
-  )
-}
-
-function RangeIcon({ path, onToggle }) {
-  const { t } = useLang()
-  const { ranges } = useFilters()
-  const active = !!ranges[path]
-  return (
-    <button
-      className={`facet-icon range-icon${active ? ' icon-on' : ' icon-off'}`}
-      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
-    >
-      {t('range')}
     </button>
   )
 }
@@ -222,11 +213,10 @@ function FacetNode({ facet, openPaths, onToggle }) {
           <span className="facet-label">{label}</span>
         </button>
         <div className="facet-icons">
-          {isGroupable && <GroupIcon path={facet.path} />}
-          {isTitleRow && <TitleSearchIcon path={facet.path} onToggle={onToggle} openPaths={openPaths} />}
           {sortable && <SortIcon path={facet.path} />}
-          {isRange && <RangeIcon path={facet.path} onToggle={onToggle} />}
+          {isTitleRow && <TitleSearchIcon path={facet.path} onToggle={onToggle} openPaths={openPaths} />}
           {isEnum && <EnumIcon path={facet.path} onToggle={onToggle} />}
+          {isGroupable && <GroupIcon path={facet.path} />}
         </div>
       </div>
       {open && (

@@ -9,7 +9,7 @@ export default function Sidebar() {
   return (
     <nav>
       <div className="sidebar-topbar">
-        <Link className="sidebar-site-title" to="/">{t('siteTitle')}</Link>
+        <Link className="sidebar-site-title" to="/" lang="ko">{t('siteTitle')}</Link>
         <LangSwitch />
       </div>
       <DatabaseBrowser />
