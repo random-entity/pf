@@ -423,12 +423,17 @@ input, select {
   background: none;
   color: var(--muted);
   font: inherit;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 400;
   line-height: 1;
+  width: 1.2em;
+  height: 1.2em;
   padding: 0;
   margin: 0 6px 0 0;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .article .md-collapse-toggle:hover { color: var(--fg); }
 .article .md-heading-marker {
@@ -437,7 +442,7 @@ input, select {
   margin-right: 6px;
 }
 .article li > .md-collapse-toggle {
-  width: 1em;
+  width: 1.2em;
   margin: 0 4px 0 -1.2em;
   text-align: center;
   vertical-align: baseline;
