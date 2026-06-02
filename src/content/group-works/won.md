@@ -4,7 +4,8 @@ tagline:
   en: "The chain of our wishes and achievements completes the stone tower."
   ko: "우리들의 소원과 성취의 사슬이 돌탑을 완성한다."
   ja: "私たちの願いと成就の鎖が石塔を完成させる。"
-date: "2021-10-27 : ArtSpace@SNU 2021"
+releases:
+  - { "ArtSpace@SNU 2021": "2021-10-27" }
 type: Group work
 genre: ["Video game", "Art game", "Public art"]
 tags: ["Interactive CG", "Artificial life", "Automata"]

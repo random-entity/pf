@@ -94,10 +94,10 @@ Two keys are handled specially, before the generic classifier:
 
 - **`dimensions`** is pre-normalized to meters in `content.js`, so it classifies
   as a `nested` object of numeric children (`width`, `height`).
-- **`date`** is intercepted entirely: it becomes a `dateEvents` facet (Min = all
-  event **start** dates, Max = all **end** dates), and the event *names* are spun
-  off into a synthetic **Events** facet (`stringList`). A plain single date is
-  just an event with `start === end` and no name.
+- **`releases`** is intercepted entirely: it becomes a `releases` facet with
+  date behavior (Min = all release **start** dates, Max = all **end** dates) and
+  enum behavior (the object keys become release/event names for filtering and
+  grouping).
 
 `title` is excluded from the schema and re-added by `FilterTree` as a synthetic
 sort-only facet (`kind: 'text'`).
@@ -112,7 +112,7 @@ enum facets need ≥1 value; nested facets need at least one usable child.
 `schema` is the facet tree; `facetByPath` is a flat lookup (including nested
 children) used by the filter pipeline. Helpers: `canonicalOf` (language-stable
 identity for an enum value), `labelOf` (localized display), `getValueAtPath`,
-`idsAtPath`, `valuesCanCoexist`, `dateEvents` / `dateSortValue` / `eventNamesOf`,
+`idsAtPath`, `valuesCanCoexist`, `releaseEvents` / `releaseSortValue`,
 `durationSeconds` / `formatDuration`, `formatDate`, `unitForPath`.
 
 ## Filter/sort state (`filters.jsx`)
@@ -139,9 +139,9 @@ For the current state, results are computed (memoized) as:
    - if the artwork has **no value** for the key: keep it only if
      `showMissing[path]` is true, else drop it;
    - else apply the multi-select (`every` for AND, `some` for OR) and/or the
-     range (numeric in `[min,max]`; for events, any event interval overlapping
+     range (numeric in `[min,max]`; for releases, any release interval overlapping
      `[min,max]`).
-3. **Sort** — by the single sort key (`dateSortValue` for events, `titleOf` for
+3. **Sort** — by the single sort key (`releaseSortValue` for releases, `titleOf` for
    title, the numeric value otherwise); missing values sort last.
 4. **Group-by** — optional, over a categorical key; a multi-valued artwork lands
    in each of its groups.
@@ -153,7 +153,8 @@ One accordion row per facet. The body renders the controls the kind allows:
 | Kind | Sort | Range | Multi-select | "Show without value" |
 |---|---|---|---|---|
 | `text` (Title) | ✓ | | | |
-| `numeric` / `date` / `dateEvents` | ✓ | ✓ | | ✓ |
+| `numeric` / `date` | ✓ | ✓ | | ✓ |
+| `releases` | ✓ | ✓ | ✓ | ✓ |
 | `stringList` / `enumSingle` | | | ✓ | ✓ |
 | `nested` | | | | (expands to children) |
 

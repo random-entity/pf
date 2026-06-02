@@ -4,7 +4,8 @@ tagline:
   en: "Am I moving forward, or am I walking in place?"
   ko: "앞으로 가고 있는 것인가, 제자리걸음 하고 있는 것인가."
   ja: "前へ進んでいるのか、それとも足踏みをしているのか。"
-date: 2021-10-31
+releases:
+  - { "Release": "2021-10-31" }
 type: Personal work
 genre: ["Video game"]
 tags: ["Interactive CG", "Shader programming"]

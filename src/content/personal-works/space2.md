@@ -4,7 +4,8 @@ tagline:
   en: "Beneath the ground, underwater, there is another me."
   ko: "땅 밑, 물속에 또 하나의 내가 있다."
   ja: "地下、水の中にもう一人の私がいる。"
-date: "2021-12-09 : SNU Design Week 2021"
+releases:
+  - { "SNU Design Week 2021": "2021-12-09" }
 type: Personal work
 genre: ["Interactive video installation"]
 tags: ["Interactive CG", "Shader programming", "Off-axis projection", "Point cloud rendering", "Video projection", "Motion sensor", "Depth sensor"]

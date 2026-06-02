@@ -5,8 +5,8 @@ import { facetByPath } from './lib/properties.js'
 // is not part of the property schema.
 export const TITLE_SORT = '__title__'
 
-export const DEFAULT_SORT = facetByPath.has('date')
-  ? { path: 'date', dir: 'desc' }
+export const DEFAULT_SORT = facetByPath.has('releases')
+  ? { path: 'releases', dir: 'desc' }
   : { path: TITLE_SORT, dir: 'asc' }
 
 const Ctx = createContext(null)

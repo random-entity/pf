@@ -40,16 +40,18 @@ export function formatDuration(total) {
   return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`
 }
 
-// ---- Dates & events ----------------------------------------------------
-// `date` may be a single date, or a list of events. Each event is a string:
-//   "YYYY-MM-DD : Event name"
-//   "YYYY-MM-DD ~ YYYY-MM-DD : Event name"   (inclusive range)
-// the event name (and the range end) are optional.
+// ---- Releases ----------------------------------------------------------
+// `releases` is an array of single-key objects:
+//   [{ "Event name": "YYYY-MM-DD" }]
+//   [{ "Event name": "YYYY-MM-DD ~ YYYY-MM-DD" }]
+// The object key is the release/event name. The value is a date or inclusive
+// date range. The old date string shape is still parsed as a fallback.
 
-export const EVENTS_PATH = '__events__'
+export const RELEASES_PATH = 'releases'
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/
 const EVENT_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*(?::\s*(.+?))?\s*$/
+const RANGE_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*$/
 
 function toMs(s) {
   if (s instanceof Date) return s.getTime()
@@ -65,31 +67,55 @@ export function formatDate(ms) {
   return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`
 }
 
-function parseEvent(item) {
-  if (item instanceof Date) return { start: item.getTime(), end: item.getTime(), event: null }
-  const m = EVENT_RE.exec(String(item))
+function parseDateRange(value) {
+  if (value instanceof Date) {
+    const ms = value.getTime()
+    return { start: ms, end: ms }
+  }
+  const m = RANGE_RE.exec(String(value))
   if (!m) return null
   const start = toMs(m[1])
   if (start == null) return null
   const end = m[2] ? toMs(m[2]) : start
-  return { start, end, event: m[3] ? m[3].trim() : null }
+  return { start, end }
 }
 
-// Normalize an artwork's `date` field into a list of { start, end, event }.
-export function dateEvents(v) {
+function parseRelease(item) {
+  if (item instanceof Date) {
+    const ms = item.getTime()
+    return [{ start: ms, end: ms, event: 'Release' }]
+  }
+  if (item && typeof item === 'object' && !Array.isArray(item)) {
+    return Object.entries(item)
+      .map(([event, value]) => {
+        const range = parseDateRange(value)
+        return range ? { ...range, event: event.trim() || 'Release' } : null
+      })
+      .filter(Boolean)
+  }
+  const m = EVENT_RE.exec(String(item))
+  if (!m) return []
+  const start = toMs(m[1])
+  if (start == null) return []
+  const end = m[2] ? toMs(m[2]) : start
+  return [{ start, end, event: m[3] ? m[3].trim() : 'Release' }]
+}
+
+// Normalize an artwork's `releases` field into { start, end, event } entries.
+export function releaseEvents(v) {
   if (v == null) return []
   const items = Array.isArray(v) ? v : [v]
-  return items.map(parseEvent).filter(Boolean)
+  return items.flatMap(parseRelease).filter(Boolean)
 }
 
-export function eventNamesOf(data) {
-  return dateEvents(data?.date).map((e) => e.event).filter(Boolean)
+export function releaseNamesOf(data) {
+  return releaseEvents(data?.releases).map((e) => e.event).filter(Boolean)
 }
 
 // Canonical ids an artwork carries at a facet path (handles lists, single
-// values, and the synthetic events facet).
+// values, and release/event names).
 export function idsAtPath(data, path) {
-  if (path === EVENTS_PATH) return eventNamesOf(data)
+  if (path === RELEASES_PATH) return releaseNamesOf(data)
   const v = getValueAtPath(data, path)
   if (v == null) return []
   return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
@@ -105,9 +131,9 @@ export function valuesCanCoexist(artworks, path, ids) {
   })
 }
 
-// Earliest start used as the artwork's sort key; null if it has no date.
-export function dateSortValue(data) {
-  const evs = dateEvents(data?.date)
+// Earliest start used as the artwork's sort key; null if it has no release.
+export function releaseSortValue(data) {
+  const evs = releaseEvents(data?.releases)
   return evs.length ? Math.min(...evs.map((e) => e.start)) : null
 }
 
@@ -173,25 +199,19 @@ function facetsFrom(objs, base, depth) {
   for (const key of [...keys].sort()) {
     const path = base ? `${base}.${key}` : key
 
-    // Top-level `date`: single dates and/or a list of (possibly ranged) events.
-    // Min = all start dates, Max = all end dates; event names become their own
-    // filterable facet.
-    if (depth === 0 && key === 'date') {
-      const evs = objs.flatMap((o) => dateEvents(o?.date))
+    // Top-level `releases`: date/range sort and filtering, plus release/event
+    // name filtering/grouping, all on one property row.
+    if (depth === 0 && key === RELEASES_PATH) {
+      const evs = objs.flatMap((o) => releaseEvents(o?.releases))
       if (evs.length) {
         const starts = [...new Set(evs.map((e) => e.start))].sort((a, b) => a - b)
         const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b)
-        facets.push({
-          path: 'date', key: 'date', kind: 'dateEvents', depth, isDate: true,
-          minOptions: starts, maxOptions: ends, min: starts[0], max: ends[ends.length - 1],
-        })
         const names = [...new Set(evs.map((e) => e.event).filter(Boolean))].sort((a, b) => a.localeCompare(b))
-        if (names.length) {
-          facets.push({
-            path: EVENTS_PATH, key: 'events', kind: 'stringList', depth,
-            values: names.map((n) => ({ id: n, raw: n, count: 0 })),
-          })
-        }
+        facets.push({
+          path: RELEASES_PATH, key: RELEASES_PATH, kind: 'releases', depth, isDate: true,
+          minOptions: starts, maxOptions: ends, min: starts[0], max: ends[ends.length - 1],
+          values: names.map((n) => ({ id: n, raw: n, count: 0 })),
+        })
       }
       continue
     }
@@ -231,7 +251,7 @@ export const facetByPath = (() => {
 
 export function isEnumFacet(path) {
   const f = facetByPath.get(path)
-  return f && (f.kind === 'stringList' || f.kind === 'enumSingle')
+  return f && (f.kind === 'stringList' || f.kind === 'enumSingle' || f.kind === 'releases')
 }
 
 // Display unit appended to numeric values under certain keys (dimensions are

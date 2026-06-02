@@ -62,7 +62,7 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 
 ### Frontmatter / Properties
 
-- Any key is shown in the Properties block. Known keys (`title`, `date`, `genre`,
+- Any key is shown in the Properties block. Known keys (`title`, `releases`, `genre`,
   `medium`, `dimensions`, `tags`, …) get translated labels; unknown keys show the
   raw key name (add labels in `src/i18n.jsx`).
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
@@ -74,19 +74,19 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   `{ en: "Harbour, Fog" }`, `tags: ["Interactive CG", "Video feedback"]`.
 - Plain top-level string values like `type: Personal work` may stay unquoted
   unless they contain `:`, `,`, brackets, or quote marks.
-- `date` is used for sorting and is always shown as `YYYY-MM-DD`. It may be a
-  single date, **or a list of events** — each a date or date range plus an
-  optional name (quote the whole string, since it contains `:`):
+- `releases` is used for release/event sorting, grouping, name filtering, and
+  date-range filtering. It is an array of single-key objects: the object key is
+  the release/event name, and the value is a date or inclusive date range.
 
   ```yaml
-  date:
-    - "2024-08-31 : Premiere online"
-    - "2024-11-01 ~ 2024-11-05 : Seoul Performing Arts Festival"
+  releases:
+    - { "Premiere online": "2024-08-31" }
+    - { "Seoul Performing Arts Festival": "2024-11-01 ~ 2024-11-05" }
   ```
 
-  Event names are collected into an **Events** filter, and the Properties block
-  links each date to its event. In the Date range filter, **Min** lists all
-  start dates and **Max** all end dates; the match is an inclusive overlap.
+  The Properties block links each date/date range to its release/event name. In
+  the Releases range filter, **Min** lists all start dates and **Max** all end
+  dates; the match is an inclusive overlap.
 - Enum-like values (`tags`, `tools`, `genre`, `medium`, …) become clickable
   filters with **OR / AND** modes. Any categorical key may hold a single value
   or a **list** (e.g. two genres) — AND becomes meaningful once values co-occur.

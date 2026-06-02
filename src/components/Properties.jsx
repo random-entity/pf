@@ -6,10 +6,10 @@ import {
   labelOf,
   durationSeconds,
   formatDuration,
-  dateEvents,
+  releaseEvents,
   formatDate,
   unitForPath,
-  EVENTS_PATH,
+  RELEASES_PATH,
 } from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
 
@@ -35,16 +35,13 @@ function EnumPill({ path, value }) {
   )
 }
 
-// The `date` property: each date (or date range) shown as YYYY-MM-DD, paired
-// with its event name (a clickable filter pill) so date and event are linked.
-function DateValue({ value }) {
-  const evs = dateEvents(value)
+// The `releases` property: each release/event name is paired with its parsed
+// date or inclusive date range.
+function ReleasesValue({ value }) {
+  const evs = releaseEvents(value)
   if (evs.length === 0) return <span className="muted">—</span>
-  if (evs.length === 1 && !evs[0].event && evs[0].start === evs[0].end) {
-    return <span>{formatDate(evs[0].start)}</span>
-  }
   return (
-    <ul className="date-events">
+    <ul className="release-events">
       {evs.map((e, i) => (
         <li key={i}>
           <span className="date-range">
@@ -53,8 +50,8 @@ function DateValue({ value }) {
           </span>
           {e.event && (
             <>
-              {' — '}
-              <EnumPill path={EVENTS_PATH} value={e.event} />
+              {' – '}
+              <EnumPill path={RELEASES_PATH} value={e.event} />
             </>
           )}
         </li>
@@ -71,8 +68,8 @@ function Value({ value, path }) {
 
   if (value == null || value === '') return <span className="muted">—</span>
 
-  // `date` gets dedicated rendering (single date or list of events).
-  if (path === 'date') return <DateValue value={value} />
+  // `releases` gets dedicated rendering (date/range + release/event name).
+  if (path === RELEASES_PATH) return <ReleasesValue value={value} />
 
   // Enum-backed values become clickable filter pills.
   if (path && isEnumFacet(path)) {

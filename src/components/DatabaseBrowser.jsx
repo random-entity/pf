@@ -10,11 +10,9 @@ import {
   getValueAtPath,
   labelOf,
   durationSeconds,
-  dateEvents,
-  dateSortValue,
-  eventNamesOf,
+  releaseEvents,
+  releaseSortValue,
   idsAtPath,
-  EVENTS_PATH,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -144,7 +142,7 @@ function numberAtPath(data, path, facet) {
 }
 
 function hasValueAtPath(data, facet) {
-  if (facet.kind === 'dateEvents') return dateEvents(data.date).length > 0
+  if (facet.kind === 'releases') return releaseEvents(data.releases).length > 0
   if (facet.kind === 'stringList' || facet.kind === 'enumSingle') return idsAtPath(data, facet.path).length > 0
   return numberAtPath(data, facet.path, facet) != null
 }
@@ -157,7 +155,11 @@ function exactMetaMatch(artwork, q) {
     if (titleOf(artwork, l).toLowerCase().includes(qLo)) return true
   }
   for (const f of facetByPath.values()) {
-    if (f.kind !== 'stringList' && f.kind !== 'enumSingle') continue
+    if (f.kind !== 'stringList' && f.kind !== 'enumSingle' && f.kind !== 'releases') continue
+    if (f.kind === 'releases') {
+      if (idsAtPath(artwork.data, f.path).some((id) => id.toLowerCase().includes(qLo))) return true
+      continue
+    }
     const v = getValueAtPath(artwork.data, f.path)
     if (v == null) continue
     const vals = Array.isArray(v) ? v : [v]
@@ -178,7 +180,7 @@ export default function DatabaseBrowser() {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)
     const facet = facetByPath.get(sort.path)
     if (!facet) return null
-    if (facet.kind === 'dateEvents') return dateSortValue(a.data)
+    if (facet.kind === 'releases') return releaseSortValue(a.data)
     return numberAtPath(a.data, sort.path, facet)
   }
 
@@ -234,8 +236,8 @@ export default function DatabaseBrowser() {
         }
         const r = ranges[path]
         if (r) {
-          if (facet.kind === 'dateEvents') {
-            const evs = dateEvents(a.data.date)
+          if (facet.kind === 'releases') {
+            const evs = releaseEvents(a.data.releases)
             if (!evs.some((e) => e.start <= r.max && e.end >= r.min)) return false
           } else {
             const num = numberAtPath(a.data, path, facet)
@@ -262,9 +264,14 @@ export default function DatabaseBrowser() {
   const groups = useMemo(() => {
     if (group === 'none') return [['', results]]
     const map = new Map()
+    const facet = facetByPath.get(group)
     for (const a of results) {
-      const v = getValueAtPath(a.data, group)
-      const vals = v == null ? [null] : Array.isArray(v) ? v : [v]
+      const vals = facet?.kind === 'releases'
+        ? idsAtPath(a.data, group)
+        : (() => {
+            const v = getValueAtPath(a.data, group)
+            return v == null ? [null] : Array.isArray(v) ? v : [v]
+          })()
       for (const one of vals) {
         const label = one == null ? '—' : labelOf(one, lang)
         if (!map.has(label)) map.set(label, [])

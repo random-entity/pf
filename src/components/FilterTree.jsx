@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { artworks } from '../lib/content.js'
-import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath, EVENTS_PATH } from '../lib/properties.js'
+import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
 import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
 // Min/max dropdowns for a numeric/date facet.
@@ -208,10 +208,10 @@ function FacetNode({ facet, openPaths, onToggle }) {
         : facet.key
 
   const isTitleRow = facet.path === TITLE_SORT
-  const sortable = facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
-  const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
-  const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle'
-  const isGroupable = isEnum && facet.path !== EVENTS_PATH
+  const sortable = facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'releases'
+  const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'releases'
+  const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle' || facet.kind === 'releases'
+  const isGroupable = isEnum
   const hasMissing = facet.kind !== 'nested' && facet.kind !== 'text'
 
   return (

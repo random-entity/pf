@@ -1,6 +1,7 @@
 ---
 title: { en: "Birdwatcher", ko: "Birdwatcher", ja: "Birdwatcher" }
-date: 2019-01-01
+releases:
+  - { "Release": "2019-01-01" }
 type: Module
 genre: ["Synthesizer", "Generative music"]
 tags: ["FM synthesis", "Random number generator"]

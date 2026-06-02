@@ -4,9 +4,9 @@ tagline:
   en: "The anxiety of our time reflected in the toddling of machines."
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
-date:
-  - "2024-10-12 : 2024 Seoul Performing Arts Festival (SPAF)"
-  - "2024-11-03 : Forum IMPACT 2024 – Théâtre de Liège"
+releases:
+  - { "2024 Seoul Performing Arts Festival (SPAF)": "2024-10-12" }
+  - { "Forum IMPACT 2024 – Théâtre de Liège": "2024-11-03" }
 type: Group work
 genre: ["Robot dance", "Mechanical theater", "Stage performance"]
 tags: ["Physical computing", "Automata", "Artificial life", "Embedded system", "Microcontroller", "Printed circuit board", "Servomotor", "Local positioning system", "IMU sensor", "Wireless network", "3D printing"]
