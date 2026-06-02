@@ -436,7 +436,7 @@ input, select {
   margin: 0;
 }
 /* Caption: width trick keeps it exactly as wide as the image above it. */
-.gallery-item em {
+.article .gallery-item em {
   display: block;
   width: 0;
   min-width: 100%;
@@ -445,6 +445,7 @@ input, select {
   font-style: normal;
   text-align: center;
   margin-top: 6px;
+  line-height: 1.2;
   word-break: normal;
   overflow-wrap: break-word;
 }
