@@ -8,6 +8,7 @@ const MAX_W = 520
 
 export default function App() {
   const { t } = useLang()
+  const [pageTitle, setPageTitle] = useState('')
   const [open, setOpen] = useState(false)
   const [width, setWidth] = useState(() => {
     const saved = Number(localStorage.getItem('sidebarWidth'))
@@ -51,17 +52,24 @@ export default function App() {
       />
 
       <main className="content">
-        <div className="content-inner">
-          <div className="topbar">
-            <button
-              className="menu-toggle"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={t('menu')}
-            >
-              Menu
-            </button>
+        <div className="topbar">
+          <div className="topbar-inner">
+            <div className="topbar-left">
+              <button
+                className="menu-toggle"
+                onClick={() => setOpen((v) => !v)}
+                aria-label={t('menu')}
+              >
+                Menu
+              </button>
+            </div>
+            <div className="topbar-page-title">
+              {pageTitle}
+            </div>
           </div>
-          <Outlet />
+        </div>
+        <div className="content-inner">
+          <Outlet context={{ setPageTitle }} />
         </div>
       </main>
     </div>

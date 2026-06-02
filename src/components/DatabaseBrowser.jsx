@@ -25,7 +25,7 @@ function HeadingTree({ nodes, slug }) {
     <ul>
       {nodes.map((n, i) => (
         <li key={i} data-level={n.level}>
-          <Link to={{ pathname: `/artwork/${slug}`, hash: `#${encodeURIComponent(n.id)}` }}>{n.text}</Link>
+          <Link to={{ pathname: `/${slug}`, hash: `#${encodeURIComponent(n.id)}` }}>{n.text}</Link>
           <HeadingTree nodes={n.children} slug={slug} />
         </li>
       ))}
@@ -62,13 +62,13 @@ function ArtworkItem({ artwork, bodyHits, titleHits }) {
   const shown = expanded ? hits : hits.slice(0, SNIPPET_DEFAULT_SHOW)
 
   const handleBodySnippetClick = (hit) => {
-    navigate(`/artwork/${artwork.slug}`, {
+    navigate(`/${artwork.slug}`, {
       state: { jumpTo: hit.matchText, jumpOcc: hit.occ, jumpLang: hit.lang, _t: Date.now() },
     })
   }
 
   const handleTitleSnippetClick = (hit) => {
-    navigate(`/artwork/${artwork.slug}`, {
+    navigate(`/${artwork.slug}`, {
       state: { jumpLang: hit.lang, _t: Date.now() },
     })
   }
@@ -86,7 +86,7 @@ function ArtworkItem({ artwork, bodyHits, titleHits }) {
           {hasHeadings ? (open ? '▾' : '▸') : '·'}
         </button>
         <NavLink
-          to={`/artwork/${artwork.slug}`}
+          to={`/${artwork.slug}`}
           className={({ isActive }) => (isActive ? 'active' : undefined)}
         >
           {titleOf(artwork, lang)}

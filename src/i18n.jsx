@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 export const LANGS = ['en', 'ko', 'ja']
-export const LANG_LABELS = { en: 'EN', ko: '한국어', ja: '日本語' }
+export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' }
 
 // UI strings. `props` holds localized labels for known frontmatter keys;
 // unknown keys fall back to the raw key name.

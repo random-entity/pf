@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useOutletContext } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
 import { artworks, titleOf } from '../lib/content.js'
 import { dateSortValue } from '../lib/properties.js'
@@ -15,19 +16,26 @@ const intro = Object.values(introFiles)[0] || ''
 
 export default function Home() {
   const { lang } = useLang()
+  const { setPageTitle } = useOutletContext()
+  const preparedIntro = intro ? prepare(intro, lang) : ''
   const recent = [...artworks].sort((a, b) => (dateSortValue(b.data) ?? 0) - (dateSortValue(a.data) ?? 0))
+
+  useEffect(() => {
+    const h1 = /^#\s+(.+)$/m.exec(preparedIntro)
+    setPageTitle(h1 ? h1[1].trim() : '')
+  }, [preparedIntro, setPageTitle])
 
   return (
     <div>
       {intro && (
         <div className="article" style={{ marginBottom: 32 }}>
-          <Markdown>{prepare(intro, lang)}</Markdown>
+          <Markdown>{preparedIntro}</Markdown>
         </div>
       )}
       <ul className="db-list">
         {recent.map((a) => (
           <li key={a.slug}>
-            <Link to={`/artwork/${a.slug}`}>{titleOf(a, lang)}</Link>
+            <Link to={`/${a.slug}`}>{titleOf(a, lang)}</Link>
           </li>
         ))}
       </ul>

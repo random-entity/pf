@@ -8,8 +8,8 @@ export default function Sidebar() {
   const { t } = useLang()
   return (
     <nav>
-      <div className="sidebar-header">
-        <Link className="sidebar-title" to="/">{t('siteTitle')}</Link>
+      <div className="sidebar-topbar">
+        <Link className="sidebar-site-title" to="/">{t('siteTitle')}</Link>
         <LangSwitch />
       </div>
       <DatabaseBrowser />

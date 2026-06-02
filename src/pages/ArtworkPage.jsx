@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import { useParams, useLocation, Link, useOutletContext } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
 import { prepare } from '../lib/markdown.js'
@@ -58,11 +58,17 @@ function buildRange(container, query, occ) {
 
 export default function ArtworkPage() {
   const { lang, t, setLang } = useLang()
+  const { setPageTitle } = useOutletContext()
   const params = useParams()
   const slug = decodeURI(params['*'] || '')
   const artwork = bySlug[slug]
   const { hash, state } = useLocation()
   const hlTimer = useRef(null)
+
+  useEffect(() => {
+    setPageTitle(artwork ? titleOf(artwork, lang) : '')
+    return () => setPageTitle('')
+  }, [artwork, lang, setPageTitle])
 
   // Heading deep-link via URL hash.
   useEffect(() => {
@@ -140,7 +146,6 @@ export default function ArtworkPage() {
 
   return (
     <article>
-      <h2 className="page-title">{titleOf(artwork, lang)}</h2>
       <Properties data={artwork.data} />
       <div className="article">
         <Markdown>{prepare(artwork.body, lang)}</Markdown>

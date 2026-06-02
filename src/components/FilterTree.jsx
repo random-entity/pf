@@ -119,7 +119,7 @@ function SortIcon({ path }) {
     e.stopPropagation()
     if (state === null) setSort(path, 'asc')
     else if (state === 'asc') setSort(path, 'desc')
-    else if (isDefaultPath) setSort(path, 'asc')
+    else if (isDefaultPath) setSort(TITLE_SORT, 'asc')
     else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
   }
 

@@ -49,7 +49,7 @@ export function wikiLinks(body) {
     const label = (alias ?? target).trim()
     const slug = resolveSlug(target)
     if (!slug) return label
-    return `[${label}](#/artwork/${encodeURI(slug)})`
+    return `[${label}](#/${encodeURI(slug)})`
   })
 }
 
