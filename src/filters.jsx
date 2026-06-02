@@ -5,7 +5,7 @@ import { facetByPath } from './lib/properties.js'
 // is not part of the property schema.
 export const TITLE_SORT = '__title__'
 
-const DEFAULT_SORT = facetByPath.has('date')
+export const DEFAULT_SORT = facetByPath.has('date')
   ? { path: 'date', dir: 'desc' }
   : { path: TITLE_SORT, dir: 'asc' }
 
@@ -19,6 +19,7 @@ export function FilterProvider({ children }) {
   const [ranges, setRanges] = useState({}) // path -> { min, max }
   const [showMissing, setShowMissing] = useState({}) // path -> true to INCLUDE items lacking the value
   const [sort, setSortState] = useState(DEFAULT_SORT) // { path, dir }
+  const [group, setGroupState] = useState('none') // 'none' | facet path
 
   const toggleEnum = (path, id) =>
     setEnums((prev) => {
@@ -68,11 +69,14 @@ export function FilterProvider({ children }) {
 
   const setSort = (path, dir) => setSortState({ path, dir })
 
+  const setGroup = (path) => setGroupState(path)
+
   const reset = () => {
     setEnums({})
     setRanges({})
     setShowMissing({})
     setSortState(DEFAULT_SORT)
+    setGroupState('none')
   }
 
   const activeCount = useMemo(
@@ -88,6 +92,7 @@ export function FilterProvider({ children }) {
     ranges,
     showMissing,
     sort,
+    group,
     toggleEnum,
     setEnumMode,
     clearEnum,
@@ -95,6 +100,7 @@ export function FilterProvider({ children }) {
     clearRange,
     toggleMissing,
     setSort,
+    setGroup,
     reset,
     activeCount,
     isDefaultSort: sort.path === DEFAULT_SORT.path && sort.dir === DEFAULT_SORT.dir,

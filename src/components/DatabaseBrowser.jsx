@@ -95,16 +95,10 @@ function hasValueAtPath(data, facet) {
 
 // Single, fully generic database view driven by the property schema.
 export default function DatabaseBrowser() {
-  const { lang, t, propLabel } = useLang()
-  const { enums, ranges, showMissing, sort, reset, activeCount, isDefaultSort } = useFilters()
+  const { lang, t } = useLang()
+  const { enums, ranges, showMissing, sort, group, setGroup, reset, activeCount, isDefaultSort } = useFilters()
 
   const [q, setQ] = useState('')
-  const [group, setGroup] = useState('none') // 'none' | <enumSingle facet path>
-
-  const groupable = useMemo(
-    () => schema.filter((f) => (f.kind === 'enumSingle' || f.kind === 'stringList') && f.path !== EVENTS_PATH),
-    [],
-  )
 
   // Text searched by the fuzzy box: title, slug, and every enum value label.
   const haystackOf = (a) => {
@@ -215,23 +209,10 @@ export default function DatabaseBrowser() {
           aria-label={t('search')}
         />
 
-        {groupable.length > 0 && (
-          <div>
-            <label>{t('groupBy')}</label>
-            <select value={group} onChange={(e) => setGroup(e.target.value)}>
-              <option value="none">{t('none')}</option>
-              {groupable.map((f) => (
-                <option key={f.path} value={f.path}>{propLabel(f.key)}</option>
-              ))}
-            </select>
-          </div>
-        )}
-
         <button
           className="db-reset"
           onClick={() => {
             setQ('')
-            setGroup('none')
             reset()
           }}
           disabled={!filtersActive}

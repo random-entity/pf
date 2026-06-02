@@ -1,27 +1,10 @@
 import { useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { artworks } from '../lib/content.js'
-import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
-import { useFilters, TITLE_SORT } from '../filters.jsx'
+import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath, EVENTS_PATH } from '../lib/properties.js'
+import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
-// Asc/desc sort buttons that drive the single global sort key.
-function SortButtons({ path }) {
-  const { t } = useLang()
-  const { sort, setSort } = useFilters()
-  return (
-    <div className="sort-row">
-      <button aria-pressed={sort.path === path && sort.dir === 'asc'} onClick={() => setSort(path, 'asc')}>
-        {t('sortAsc')}
-      </button>
-      <button aria-pressed={sort.path === path && sort.dir === 'desc'} onClick={() => setSort(path, 'desc')}>
-        {t('sortDesc')}
-      </button>
-    </div>
-  )
-}
-
-// Min/max dropdowns over a numeric/date facet. For event dates, Min lists all
-// start dates and Max all end dates.
+// Min/max dropdowns for a numeric/date facet.
 function RangeSelect({ facet }) {
   const { t } = useLang()
   const { ranges, setRange, clearRange } = useFilters()
@@ -58,8 +41,7 @@ function RangeSelect({ facet }) {
   )
 }
 
-// Toggle whether artworks that have no value for this facet are included when
-// this key is filtered. Off by default; checking it keeps the empties.
+// "Show items without a value" toggle.
 function MissingToggle({ path }) {
   const { t } = useLang()
   const { showMissing, toggleMissing } = useFilters()
@@ -71,15 +53,11 @@ function MissingToggle({ path }) {
   )
 }
 
-// Multi-select enum pills, with an Any/All mode toggle for list-valued facets.
+// OR/AND multi-select enum pills.
 function EnumFilter({ facet }) {
   const { lang, t } = useLang()
   const { enums, toggleEnum, setEnumMode, clearEnum } = useFilters()
   const sel = enums[facet.path] || { ids: [], mode: 'any' }
-
-  // AND is meaningless when the selected values never co-occur on a single
-  // artwork — strike it through to signal that. (For keys that only ever hold
-  // one value per artwork, this strikes whenever 2+ are selected.)
   const andMeaningless = !valuesCanCoexist(artworks, facet.path, sel.ids)
 
   return (
@@ -119,27 +97,91 @@ function EnumFilter({ facet }) {
   )
 }
 
-// Which active constraints exist on this key (aggregated over descendants),
-// surfaced as marker symbols on the key's row.
-function markersFor(facet, f) {
-  const m = { sort: false, dir: null, range: false, multi: false, missing: false }
-  const visit = (fac) => {
-    if (f.sort.path === fac.path) {
-      m.sort = true
-      m.dir = f.sort.dir
+// --- Icon buttons ---------------------------------------------------------
+
+// Sort icon: cycles asc → desc → off. For the default sort key, cycles
+// asc → desc → asc (no "off" — it always stays sorted).
+function SortIcon({ path }) {
+  const { t } = useLang()
+  const { sort, setSort } = useFilters()
+  const state = sort.path === path ? sort.dir : null
+  const isDefaultPath = path === DEFAULT_SORT.path
+
+  const handleClick = (e) => {
+    e.stopPropagation()
+    if (state === null) {
+      setSort(path, 'asc')
+    } else if (state === 'asc') {
+      setSort(path, 'desc')
+    } else {
+      // desc → off (restore default), unless this IS the default key → cycle back to asc
+      if (isDefaultPath) setSort(path, 'asc')
+      else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
     }
-    if (f.ranges[fac.path]) m.range = true
-    if (f.enums[fac.path]?.ids.length) m.multi = true
-    if (f.showMissing[fac.path] === true) m.missing = true
-    fac.children?.forEach(visit)
   }
-  visit(facet)
-  return m
+
+  const label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
+  return (
+    <button
+      className={`facet-icon sort-icon${state ? ' icon-on' : ''}`}
+      onClick={handleClick}
+      aria-label={label}
+    >
+      {label}
+    </button>
+  )
 }
 
+// Group icon: toggles on/off. Strikethrough via CSS when off.
+function GroupIcon({ path }) {
+  const { t } = useLang()
+  const { group, setGroup } = useFilters()
+  const active = group === path
+  return (
+    <button
+      className={`facet-icon group-icon${active ? ' icon-on' : ' icon-off'}`}
+      aria-pressed={active}
+      onClick={(e) => { e.stopPropagation(); setGroup(active ? 'none' : path) }}
+    >
+      {t('group')}
+    </button>
+  )
+}
+
+// Range icon: clicking opens accordion. Strikethrough when no active constraint.
+function RangeIcon({ path, onToggle }) {
+  const { t } = useLang()
+  const { ranges } = useFilters()
+  const active = !!ranges[path]
+  return (
+    <button
+      className={`facet-icon range-icon${active ? ' icon-on' : ' icon-off'}`}
+      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
+    >
+      {t('range')}
+    </button>
+  )
+}
+
+// Enum filter icon: clicking opens accordion. Strikethrough when no selections.
+function EnumIcon({ path, onToggle }) {
+  const { t } = useLang()
+  const { enums } = useFilters()
+  const active = (enums[path]?.ids.length ?? 0) > 0
+  return (
+    <button
+      className={`facet-icon enum-icon${active ? ' icon-on' : ' icon-off'}`}
+      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
+    >
+      {t('filter')}
+    </button>
+  )
+}
+
+// --- FacetNode ------------------------------------------------------------
+
 function FacetNode({ facet, openPaths, onToggle }) {
-  const { t, propLabel } = useLang()
-  const f = useFilters()
+  const { propLabel } = useLang()
   const open = openPaths.has(facet.path)
 
   const label =
@@ -148,29 +190,30 @@ function FacetNode({ facet, openPaths, onToggle }) {
       : facet.depth === 0
         ? propLabel(facet.key)
         : facet.key
-  const m = markersFor(facet, f)
-  const sortable =
-    facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
+
+  const sortable = facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
   const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
   const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle'
+  const isGroupable = isEnum && facet.path !== EVENTS_PATH
   const hasMissing = facet.kind !== 'nested' && facet.kind !== 'text'
 
   return (
     <li className="filter-node">
-      <button className="facet-head" aria-expanded={open} onClick={() => onToggle(facet.path)}>
-        <span className="caret">{open ? '▾' : '▸'}</span>
-        <span className="facet-label">{label}</span>
-        <span className="markers">
-          {m.sort && <span className="mk mk-sort" title={t('markSort')}>{m.dir === 'asc' ? '↑' : '↓'}</span>}
-          {m.range && <span className="mk mk-range" title={t('markRange')}>↔</span>}
-          {m.multi && <span className="mk mk-multi" title={t('markMulti')}>✓</span>}
-          {m.missing && <span className="mk mk-missing" title={t('markMissing')}>∅</span>}
-        </span>
-      </button>
+      <div className="facet-head">
+        <button className="facet-expand" aria-expanded={open} onClick={() => onToggle(facet.path)}>
+          <span className="caret">{open ? '▾' : '▸'}</span>
+          <span className="facet-label">{label}</span>
+        </button>
+        <div className="facet-icons">
+          {isGroupable && <GroupIcon path={facet.path} />}
+          {sortable && <SortIcon path={facet.path} />}
+          {isRange && <RangeIcon path={facet.path} onToggle={onToggle} />}
+          {isEnum && <EnumIcon path={facet.path} onToggle={onToggle} />}
+        </div>
+      </div>
       {open && (
         <div className="facet-body">
           {facet.kind === 'nested' && <FacetTree facets={facet.children} openPaths={openPaths} onToggle={onToggle} />}
-          {sortable && <SortButtons path={facet.path} />}
           {isRange && <RangeSelect facet={facet} />}
           {isEnum && <EnumFilter facet={facet} />}
           {hasMissing && <MissingToggle path={facet.path} />}
@@ -190,10 +233,6 @@ function FacetTree({ facets, openPaths, onToggle }) {
   )
 }
 
-// One row per key. Each key shows the controls its value type supports (Sort
-// and/or Range, or Multi-select), a per-key "show items without a value"
-// toggle, and marker symbols for whichever constraints are active. The header
-// button collapses every open row, then reverts to the previous state.
 export default function FilterTree({ schema }) {
   const { t } = useLang()
   const [openPaths, setOpenPaths] = useState(() => new Set())
