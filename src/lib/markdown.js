@@ -63,7 +63,7 @@ export function firstH1Text(body) {
 }
 
 export function stripFirstH1(body) {
-  return body.replace(/^#\s+.+?\s*#*\s*(?:\r?\n)?/m, '')
+  return body.replace(/^#\s+.+?\s*#*\s*$(?:\r?\n)?/m, '')
 }
 
 // Strip inline markdown so a heading reads cleanly in an outline.
