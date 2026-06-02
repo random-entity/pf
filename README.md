@@ -31,9 +31,14 @@ Requires [Node.js](https://nodejs.org) (LTS / v20+). Open the printed local URL.
 
 ## Add or edit an artwork
 
-Create a Markdown file anywhere under `src/content/artworks/`. The folder path
-becomes the tree structure; the file name (minus `.md`) becomes the slug used by
-`[[wikilinks]]`.
+Create a Markdown file under the folder matching its `type`:
+
+- `src/content/personal-works/`
+- `src/content/group-works/`
+- `src/content/modules/`
+
+The folder path becomes the tree structure; the file name (minus `.md`) becomes
+the slug used by `[[wikilinks]]`.
 
 ```markdown
 ---
@@ -63,8 +68,12 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
   a **list** `[a, b]`, or a **nested object** `{ k: v }` — all render automatically.
 - `title` is used as the page heading and is not repeated in the block.
-- **Quote values containing `,` or `:`** inside inline `{ ... }` objects, e.g.
-  `{ en: "Harbour, Fog" }` — an unquoted comma is read by YAML as a separator.
+- **Quote all string values inside inline `{ ... }` objects and `[ ... ]`
+  arrays.** This keeps frontmatter consistent and avoids YAML treating commas,
+  colons, brackets, or quote marks as syntax. For example:
+  `{ en: "Harbour, Fog" }`, `tags: ["Interactive CG", "Video feedback"]`.
+- Plain top-level string values like `type: Personal work` may stay unquoted
+  unless they contain `:`, `,`, brackets, or quote marks.
 - `date` is used for sorting and is always shown as `YYYY-MM-DD`. It may be a
   single date, **or a list of events** — each a date or date range plus an
   optional name (quote the whole string, since it contains `:`):

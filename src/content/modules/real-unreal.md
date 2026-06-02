@@ -1,9 +1,10 @@
 ---
-title: { en: "Real-unreal continuum", ko: 현실-비현실 연속체, ja: 現実-非現実連続体 }
+title: { en: "Real-unreal continuum", ko: "현실-비현실 연속체", ja: "現実-非現実連続体" }
 date: 2019-01-01
-genre: [Audio effect]
-tags: [Spectral warping, FFT]
-tools: [Max/MSP]
+type: Module
+genre: ["Audio effect"]
+tags: ["Spectral warping", "FFT"]
+tools: ["Max/MSP"]
 source: https://github.com/random-entity/o.mod.real-unreal-continuum
 ---
 ::: en

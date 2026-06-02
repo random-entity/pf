@@ -1,9 +1,10 @@
 ---
-title: { en: Birdwatcher, ko: Birdwatcher, ja: Birdwatcher }
+title: { en: "Birdwatcher", ko: "Birdwatcher", ja: "Birdwatcher" }
 date: 2019-01-01
-genre: [Synthesizer, Generative music]
-tags: [FM synthesis, Random number generator]
-tools: [Max/MSP]
+type: Module
+genre: ["Synthesizer", "Generative music"]
+tags: ["FM synthesis", "Random number generator"]
+tools: ["Max/MSP"]
 source: https://github.com/random-entity/o.mod.birdwatcher
 ---
 ::: en

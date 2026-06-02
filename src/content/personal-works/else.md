@@ -1,9 +1,10 @@
 ---
-title: { en: (Design projects at college), ko: (대학 디자인 과제), ja: (大学デザイン課題) }
+title: { en: "(Design projects at college)", ko: "(대학 디자인 과제)", ja: "(大学デザイン課題)" }
 date: 2020-07-09
-genre: [Video game, Interactive design]
-tags: ["Tangible interaction", "Physical computing", "Interactive CG", "Brightness sensor", "Touch sensor", "Physics simulation", "Sound interaction", Automata]
-tools: [Unity, Arduino, Blender, Processing]
+type: Personal work
+genre: ["Video game", "Interactive design"]
+tags: ["Tangible interaction", "Physical computing", "Interactive CG", "Brightness sensor", "Touch sensor", "Physics simulation", "Sound interaction", "Automata"]
+tools: ["Unity", "Arduino", "Blender", "Processing"]
 ---
 ::: en
 ## Religious Painting #5 (Prototype)

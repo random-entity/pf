@@ -7,9 +7,10 @@ tagline:
 date:
   - "2024-10-12 : 2024 Seoul Performing Arts Festival (SPAF)"
   - "2024-11-03 : Forum IMPACT 2024 – Théâtre de Liège"
-genre: [Robot dance, Mechanical theater, Stage performance]
-tags: [Physical computing, Automata, Artificial life, Embedded system, Microcontroller, Printed circuit board, Servomotor, Local positioning system, IMU sensor, Wireless network, 3D printing]
-tools: [mjbots moteus, PJRC Teensy, Digi XBee, "C++", Pure Data, Processing]
+type: Group work
+genre: ["Robot dance", "Mechanical theater", "Stage performance"]
+tags: ["Physical computing", "Automata", "Artificial life", "Embedded system", "Microcontroller", "Printed circuit board", "Servomotor", "Local positioning system", "IMU sensor", "Wireless network", "3D printing"]
+tools: ["mjbots moteus", "PJRC Teensy", "Digi XBee", "C++", "Pure Data", "Processing"]
 source: https://github.com/random-entity/o.art.ahe
 ---
 ::: en

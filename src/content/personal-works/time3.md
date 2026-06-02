@@ -1,13 +1,14 @@
 ---
-title: { en: Time#3, ko: 시간#3, ja: 時間#3 }
+title: { en: "Time#3", ko: "시간#3", ja: "時間#3" }
 tagline:
   en: "The present and the past overlap, and that overlap overlaps again with the future."
   ko: "현재와 과거가 중첩되고, 그 중첩이 다시 미래와 중첩된다."
   ja: "現在と過去が重なり合い、その重なりが再び未来と重なり合う。"
 date: "2021-10-25 : ArtSpace@SNU 2021"
-genre: [Interactive video installation]
-tags: ["Real-time video processing", Video feedback, Fractal video, Video projection]
-tools: [TouchDesigner, EOS Camera Utility]
+type: Personal work
+genre: ["Interactive video installation"]
+tags: ["Real-time video processing", "Video feedback", "Fractal video", "Video projection"]
+tools: ["TouchDesigner", "EOS Camera Utility"]
 source: https://github.com/random-entity/o.art.time3
 ---
 ::: en

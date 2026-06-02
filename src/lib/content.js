@@ -1,8 +1,12 @@
 import yaml from 'js-yaml'
 import { loc } from '../i18n.jsx'
 
-// Eagerly load every artwork markdown file as a raw string at build time.
-const files = import.meta.glob('../content/artworks/**/*.md', {
+// Eagerly load every artwork/module markdown file as a raw string at build time.
+// Content is organized by the `type` frontmatter value:
+//   src/content/personal-works/
+//   src/content/group-works/
+//   src/content/modules/
+const files = import.meta.glob('../content/{personal-works,group-works,modules}/**/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,
@@ -41,9 +45,7 @@ function dimensionsToMeters(dim) {
 
 export const artworks = Object.entries(files)
   .map(([path, raw]) => {
-    const slug = path
-      .replace('../content/artworks/', '')
-      .replace(/\.md$/, '')
+    const slug = path.replace('../content/', '').replace(/\.md$/, '')
     const { data, body } = parse(raw)
     if (data.dimensions) data.dimensions = dimensionsToMeters(data.dimensions)
     return {
@@ -56,7 +58,16 @@ export const artworks = Object.entries(files)
   })
   .sort((a, b) => a.slug.localeCompare(b.slug))
 
-export const bySlug = Object.fromEntries(artworks.map((a) => [a.slug, a]))
+export const bySlug = Object.fromEntries(
+  artworks.flatMap((a) => {
+    const legacyDir = a.data.type === 'Module' ? 'modules' : 'works'
+    return [
+      [a.slug, a],
+      // Backward compatibility for routes from the pre-refactor structure.
+      [`${legacyDir}/${a.name}`, a],
+    ]
+  }),
+)
 
 // Resolve a wikilink target to an artwork slug. Matches by exact slug,
 // by trailing path segment, or by basename (case-insensitive).

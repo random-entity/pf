@@ -5,9 +5,10 @@ tagline:
   ko: "기계 속 유령들이 노래하는 인간과 사랑에 대한 시."
   ja: "機械の中の幽霊たちが歌う、人間と愛についての詩。"
 date: "2022-03-24 : SNUMOA – Turing Test: AI's Declaration of Love"
-genre: [Interactive sound installation]
-tags: [Audio signal processing, 3D audio effect, Ambisonics, AR audio rendering, Physical computing, Embedded system, Microcontroller, Printed circuit board, Local positioning system, IMU sensor]
-tools: [BNO055, PJRC Teensy, "C++"]
+type: Group work
+genre: ["Interactive sound installation"]
+tags: ["Audio signal processing", "3D audio effect", "Ambisonics", "AR audio rendering", "Physical computing", "Embedded system", "Microcontroller", "Printed circuit board", "Local positioning system", "IMU sensor"]
+tools: ["BNO055", "PJRC Teensy", "C++"]
 source: https://github.com/random-entity/o.art.ghost-theater-snumoa
 ---
 ::: en

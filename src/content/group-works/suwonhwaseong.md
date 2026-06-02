@@ -1,13 +1,14 @@
 ---
-title: { en: Digital Maehwapo, ko: 디지털 매화포, ja: デジタル梅花砲 }
+title: { en: "Digital Maehwapo", ko: "디지털 매화포", ja: "デジタル梅花砲" }
 tagline:
   en: "The Maehwapo from King Jeongjo's procession to Hwaseong, recreated before everyone's eyes as digital art."
   ko: "디지털 아트로 모두의 눈앞에 재현된 정조의 화성행차 당시의 매화포."
   ja: "デジタルアートとして皆の目の前に再現された、正祖（チョンジョ）の華城行幸当時の梅花砲。"
 date: "2023-10-06 : 2023 Suwon Hwaseong Media Art – Media Ground"
-genre: [Interactive video installation]
-tags: ["Interactive CG", Webcam, "Real-time video processing", "LED cube display"]
-tools: [Processing]
+type: Group work
+genre: ["Interactive video installation"]
+tags: ["Interactive CG", "Webcam", "Real-time video processing", "LED cube display"]
+tools: ["Processing"]
 source: https://github.com/random-entity/o.w.suwonhwaseong
 ---
 ::: en

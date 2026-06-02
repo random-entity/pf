@@ -48,7 +48,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 
 ## Content pipeline (`content.js`)
 
-1. `import.meta.glob('../content/artworks/**/*.md', { eager: true, query: '?raw' })`
+1. `import.meta.glob('../content/{personal-works,group-works,modules}/**/*.md', { eager: true, query: '?raw' })`
    pulls every file in as a raw string at build time.
 2. Frontmatter is split with a regex and parsed with `js-yaml`. A parse error is
    caught and logged, never thrown — malformed frontmatter degrades, it doesn't

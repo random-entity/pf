@@ -1,9 +1,10 @@
 ---
-title: { en: Flocking sound, ko: 새떼의 소리, ja: 群れの音 }
+title: { en: "Flocking sound", ko: "새떼의 소리", ja: "群れの音" }
 date: 2025-09-29
-genre: [Synthesizer, Generative music]
-tags: [Additive synthesis, Boids, Artificial life, Automata]
-tools: [Processing]
+type: Module
+genre: ["Synthesizer", "Generative music"]
+tags: ["Additive synthesis", "Boids", "Artificial life", "Automata"]
+tools: ["Processing"]
 source: https://github.com/random-entity/o.mod.flocking-sound_processing
 ---
 ::: en

@@ -5,9 +5,10 @@ tagline:
   ko: "땅 밑, 물속에 또 하나의 내가 있다."
   ja: "地下、水の中にもう一人の私がいる。"
 date: "2021-12-09 : SNU Design Week 2021"
-genre: [Interactive video installation]
-tags: [Interactive CG, Shader programming, Off-axis projection, Point cloud rendering, Video projection, Motion sensor, Depth sensor]
-tools: [Unity, Kinect]
+type: Personal work
+genre: ["Interactive video installation"]
+tags: ["Interactive CG", "Shader programming", "Off-axis projection", "Point cloud rendering", "Video projection", "Motion sensor", "Depth sensor"]
+tools: ["Unity", "Kinect"]
 ---
 ::: en
 ![](images/works/space2/space2_viewer.jpg)

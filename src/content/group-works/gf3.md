@@ -1,5 +1,5 @@
 ---
-title: { en: The Lessons of Shin Myung-Sook, ko: 신명숙의 가르침, ja: シン・ミョンスクの教え }
+title: { en: "The Lessons of Shin Myung-Sook", ko: "신명숙의 가르침", ja: "シン・ミョンスクの教え" }
 tagline:
   en: "The gestures of a traditional music master revived through humanoid mediumship, and its mechanical limitations."
   ko: "휴머노이드 영매술로 되살린 전통 음악 명인의 몸짓과 그 기계적 한계."
@@ -7,9 +7,10 @@ tagline:
 date:
   - "2024-09-07 : 2024 Gwangju Biennale Symposium"
   - "2024-11-14 : Forum IMPACT 2024 – Théâtre de Liège"
-genre: [Robot dance, Mechanical theater, Stage performance]
-tags: [Physical computing, Servomotor, Differential joint, UDP network, 3D printing, Video feedback]
-tools: [mjbots moteus, Raspberry Pi, "C++", Pure Data]
+type: Group work
+genre: ["Robot dance", "Mechanical theater", "Stage performance"]
+tags: ["Physical computing", "Servomotor", "Differential joint", "UDP network", "3D printing", "Video feedback"]
+tools: ["mjbots moteus", "Raspberry Pi", "C++", "Pure Data"]
 source: https://github.com/random-entity/o.art.gf3
 ---
 ::: en
