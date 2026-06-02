@@ -252,11 +252,21 @@ function FacetTree({ facets, openPaths, onToggle }) {
   )
 }
 
+function collectFacetPaths(facets) {
+  return facets.flatMap((facet) => [
+    facet.path,
+    ...(facet.children ? collectFacetPaths(facet.children) : []),
+  ])
+}
+
 // isAnyActive and onReset come from DatabaseBrowser (include q state).
 export default function FilterTree({ schema, isAnyActive, onReset }) {
   const { t } = useLang()
   const [openPaths, setOpenPaths] = useState(() => new Set())
   const prevOpen = useRef(null)
+  const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
+  const allFacets = [titleFacet, ...schema]
+  const allPaths = collectFacetPaths(allFacets)
 
   const toggle = (path) =>
     setOpenPaths((s) => {
@@ -268,14 +278,15 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
   const collapseOrRevert = () =>
     setOpenPaths((s) => {
       if (s.size > 0) {
-        prevOpen.current = s
+        prevOpen.current = new Set(s)
         return new Set()
       }
-      return prevOpen.current && prevOpen.current.size ? new Set(prevOpen.current) : s
+      return prevOpen.current && prevOpen.current.size
+        ? new Set(prevOpen.current)
+        : new Set(allPaths)
     })
 
   const anyOpen = openPaths.size > 0
-  const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
 
   return (
     <div className="filters">
@@ -299,7 +310,7 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
           </button>
         </div>
       </div>
-      <FacetTree facets={[titleFacet, ...schema]} openPaths={openPaths} onToggle={toggle} />
+      <FacetTree facets={allFacets} openPaths={openPaths} onToggle={toggle} />
     </div>
   )
 }
