@@ -51,10 +51,28 @@ const components = {
 // upstream (see lib/markdown.js).
 export default function Markdown({ children }) {
   const ref = useRef(null)
+  const highlightTimer = useRef(null)
 
   useEffect(() => {
     const root = ref.current
     if (!root) return
+
+    const findLocalTarget = (href) => {
+      if (!href?.startsWith('#') || href.startsWith('#/')) return null
+      const id = decodeURIComponent(href.slice(1))
+      return document.getElementById(id) || document.getElementById(id.replace(/^user-content-/, ''))
+    }
+
+    const highlightTarget = (target) => {
+      const highlight = target.closest('.footnotes li') || target.closest('sup') || target
+      root.querySelectorAll('.md-jump-highlight').forEach((el) => el.classList.remove('md-jump-highlight'))
+      if (highlightTimer.current) clearTimeout(highlightTimer.current)
+      highlight.classList.add('md-jump-highlight')
+      highlightTimer.current = setTimeout(() => {
+        highlight.classList.remove('md-jump-highlight')
+        highlightTimer.current = null
+      }, 2600)
+    }
 
     // React StrictMode runs effects twice in development. Remove previously
     // injected controls before rebuilding them so they never become inert.
@@ -105,6 +123,20 @@ export default function Markdown({ children }) {
 
     const onClick = (event) => {
       if (!(event.target instanceof Element)) return
+
+      const localLink = event.target.closest('a[href^="#"]')
+      if (localLink && root.contains(localLink) && !localLink.getAttribute('href')?.startsWith('#/')) {
+        const target = findLocalTarget(localLink.getAttribute('href'))
+        if (target) {
+          event.preventDefault()
+          event.stopPropagation()
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          target.focus?.({ preventScroll: true })
+          highlightTarget(target)
+        }
+        return
+      }
+
       const button = event.target.closest('.md-collapse-toggle')
       if (!button || !root.contains(button)) return
 
@@ -140,6 +172,8 @@ export default function Markdown({ children }) {
     root.addEventListener('click', onClick)
     return () => {
       root.removeEventListener('click', onClick)
+      if (highlightTimer.current) clearTimeout(highlightTimer.current)
+      root.querySelectorAll('.md-jump-highlight').forEach((el) => el.classList.remove('md-jump-highlight'))
       for (const el of root.querySelectorAll('[data-md-collapsed="true"]')) {
         el.hidden = false
         delete el.dataset.mdCollapsed
