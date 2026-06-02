@@ -20,6 +20,8 @@ export function FilterProvider({ children }) {
   const [showMissing, setShowMissing] = useState({}) // path -> true to INCLUDE items lacking the value
   const [sort, setSortState] = useState(DEFAULT_SORT) // { path, dir }
   const [group, setGroupState] = useState('none') // 'none' | facet path
+  const [q, setQ] = useState('')       // main full-text search
+  const [titleQ, setTitleQ] = useState('') // title-only search (Title accordion)
 
   const toggleEnum = (path, id) =>
     setEnums((prev) => {
@@ -77,6 +79,8 @@ export function FilterProvider({ children }) {
     setShowMissing({})
     setSortState(DEFAULT_SORT)
     setGroupState('none')
+    setQ('')
+    setTitleQ('')
   }
 
   const activeCount = useMemo(
@@ -87,12 +91,17 @@ export function FilterProvider({ children }) {
     [enums, ranges, showMissing],
   )
 
+  const isDefaultSort = sort.path === DEFAULT_SORT.path && sort.dir === DEFAULT_SORT.dir
+  const isAnyActive = q.trim() !== '' || titleQ.trim() !== '' || activeCount > 0 || !isDefaultSort || group !== 'none'
+
   const value = {
     enums,
     ranges,
     showMissing,
     sort,
     group,
+    q,
+    titleQ,
     toggleEnum,
     setEnumMode,
     clearEnum,
@@ -101,9 +110,12 @@ export function FilterProvider({ children }) {
     toggleMissing,
     setSort,
     setGroup,
+    setQ,
+    setTitleQ,
     reset,
     activeCount,
-    isDefaultSort: sort.path === DEFAULT_SORT.path && sort.dir === DEFAULT_SORT.dir,
+    isDefaultSort,
+    isAnyActive,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

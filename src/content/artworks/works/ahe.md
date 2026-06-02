@@ -1,5 +1,5 @@
 ---
-title: { en: "⟨On the Bird’s Day⟩ First Edisode – Fear of the 13 Ahae", ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안", ja: "「鳥たちの日に」第一話：13人のアヘの不安" }
+title: { en: "⟨On the Bird’s Day⟩ First Episode – Fear of the 13 Ahae", ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안", ja: "「鳥たちの日に」第一話：13人のアヘの不安" }
 tagline:
   en: "The anxiety of our time reflected in the toddling of machines."
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."

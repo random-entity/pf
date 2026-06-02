@@ -24,19 +24,13 @@ function RangeSelect({ facet }) {
     <div className="range-row">
       <label>{t('min')}</label>
       <select value={cur.min} onChange={(e) => update(Number(e.target.value), cur.max)}>
-        {facet.minOptions.map((o) => (
-          <option key={o} value={o}>{fmt(o)}</option>
-        ))}
+        {facet.minOptions.map((o) => <option key={o} value={o}>{fmt(o)}</option>)}
       </select>
       <label>{t('max')}</label>
       <select value={cur.max} onChange={(e) => update(cur.min, Number(e.target.value))}>
-        {facet.maxOptions.map((o) => (
-          <option key={o} value={o}>{fmt(o)}</option>
-        ))}
+        {facet.maxOptions.map((o) => <option key={o} value={o}>{fmt(o)}</option>)}
       </select>
-      {active && (
-        <button className="clear-enum" onClick={() => clearRange(facet.path)}>{t('clear')}</button>
-      )}
+      {active && <button className="clear-enum" onClick={() => clearRange(facet.path)}>{t('clear')}</button>}
     </div>
   )
 }
@@ -97,10 +91,24 @@ function EnumFilter({ facet }) {
   )
 }
 
+// Title-specific fuzzy search input (rendered inside the Title accordion).
+function TitleSearch() {
+  const { t } = useLang()
+  const { titleQ, setTitleQ } = useFilters()
+  return (
+    <input
+      type="search"
+      className="title-search-input"
+      placeholder={t('search')}
+      value={titleQ}
+      onChange={(e) => setTitleQ(e.target.value)}
+      aria-label={t('search')}
+    />
+  )
+}
+
 // --- Icon buttons ---------------------------------------------------------
 
-// Sort icon: cycles asc → desc → off. For the default sort key, cycles
-// asc → desc → asc (no "off" — it always stays sorted).
 function SortIcon({ path }) {
   const { t } = useLang()
   const { sort, setSort } = useFilters()
@@ -109,15 +117,10 @@ function SortIcon({ path }) {
 
   const handleClick = (e) => {
     e.stopPropagation()
-    if (state === null) {
-      setSort(path, 'asc')
-    } else if (state === 'asc') {
-      setSort(path, 'desc')
-    } else {
-      // desc → off (restore default), unless this IS the default key → cycle back to asc
-      if (isDefaultPath) setSort(path, 'asc')
-      else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
-    }
+    if (state === null) setSort(path, 'asc')
+    else if (state === 'asc') setSort(path, 'desc')
+    else if (isDefaultPath) setSort(path, 'asc')
+    else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
   }
 
   const label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
@@ -132,7 +135,22 @@ function SortIcon({ path }) {
   )
 }
 
-// Group icon: toggles on/off. Strikethrough via CSS when off.
+// "Search" icon on the Title row — opens accordion to show title search input.
+function TitleSearchIcon({ path, onToggle, openPaths }) {
+  const { t } = useLang()
+  const { titleQ } = useFilters()
+  const active = titleQ.trim() !== ''
+  return (
+    <button
+      className={`facet-icon title-search-icon${active ? ' icon-on' : ''}`}
+      onClick={(e) => { e.stopPropagation(); if (!openPaths.has(path)) onToggle(path) }}
+      aria-label={t('search')}
+    >
+      {t('search')}
+    </button>
+  )
+}
+
 function GroupIcon({ path }) {
   const { t } = useLang()
   const { group, setGroup } = useFilters()
@@ -148,7 +166,6 @@ function GroupIcon({ path }) {
   )
 }
 
-// Range icon: clicking opens accordion. Strikethrough when no active constraint.
 function RangeIcon({ path, onToggle }) {
   const { t } = useLang()
   const { ranges } = useFilters()
@@ -163,7 +180,6 @@ function RangeIcon({ path, onToggle }) {
   )
 }
 
-// Enum filter icon: clicking opens accordion. Strikethrough when no selections.
 function EnumIcon({ path, onToggle }) {
   const { t } = useLang()
   const { enums } = useFilters()
@@ -191,6 +207,7 @@ function FacetNode({ facet, openPaths, onToggle }) {
         ? propLabel(facet.key)
         : facet.key
 
+  const isTitleRow = facet.path === TITLE_SORT
   const sortable = facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
   const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'dateEvents'
   const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle'
@@ -206,6 +223,7 @@ function FacetNode({ facet, openPaths, onToggle }) {
         </button>
         <div className="facet-icons">
           {isGroupable && <GroupIcon path={facet.path} />}
+          {isTitleRow && <TitleSearchIcon path={facet.path} onToggle={onToggle} openPaths={openPaths} />}
           {sortable && <SortIcon path={facet.path} />}
           {isRange && <RangeIcon path={facet.path} onToggle={onToggle} />}
           {isEnum && <EnumIcon path={facet.path} onToggle={onToggle} />}
@@ -214,6 +232,7 @@ function FacetNode({ facet, openPaths, onToggle }) {
       {open && (
         <div className="facet-body">
           {facet.kind === 'nested' && <FacetTree facets={facet.children} openPaths={openPaths} onToggle={onToggle} />}
+          {isTitleRow && <TitleSearch />}
           {isRange && <RangeSelect facet={facet} />}
           {isEnum && <EnumFilter facet={facet} />}
           {hasMissing && <MissingToggle path={facet.path} />}
@@ -233,7 +252,8 @@ function FacetTree({ facets, openPaths, onToggle }) {
   )
 }
 
-export default function FilterTree({ schema }) {
+// isAnyActive and onReset come from DatabaseBrowser (include q state).
+export default function FilterTree({ schema, isAnyActive, onReset }) {
   const { t } = useLang()
   const [openPaths, setOpenPaths] = useState(() => new Set())
   const prevOpen = useRef(null)
@@ -256,18 +276,28 @@ export default function FilterTree({ schema }) {
 
   const anyOpen = openPaths.size > 0
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
+
   return (
     <div className="filters">
       <div className="filters-title">
         <span>{t('filters')}</span>
-        <button
-          className="collapse-all"
-          title={anyOpen ? t('collapseAll') : t('restoreState')}
-          aria-label={anyOpen ? t('collapseAll') : t('restoreState')}
-          onClick={collapseOrRevert}
-        >
-          {anyOpen ? '⊟' : '⊞'}
-        </button>
+        <div className="filters-title-actions">
+          <button
+            className="filters-action-btn"
+            onClick={collapseOrRevert}
+            aria-label={anyOpen ? t('collapse') : t('expand')}
+          >
+            {anyOpen ? t('collapse') : t('expand')}
+          </button>
+          <button
+            className="filters-action-btn"
+            onClick={onReset}
+            disabled={!isAnyActive}
+            aria-label={t('resetShort')}
+          >
+            {t('resetShort')}
+          </button>
+        </div>
       </div>
       <FacetTree facets={[titleFacet, ...schema]} openPaths={openPaths} onToggle={toggle} />
     </div>

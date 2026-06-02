@@ -122,9 +122,79 @@ input, select {
 .tree a { display: block; padding: 1px 2px; }
 .tree a.active { background: var(--hover); }
 
-.dbcontrols { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-.dbcontrols label { font-size: 12px; color: var(--muted); display: block; }
-.dbcontrols .row { display: flex; gap: 6px; }
+/* Search section */
+.section-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 4px 0;
+}
+.main-search {
+  width: 100%;
+  margin-bottom: 14px;
+}
+.title-search-input {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* Search result snippets */
+.search-snippets {
+  padding: 2px 0 4px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.snippet-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 3px 4px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.snippet-item:hover { background: var(--hover); color: var(--fg); }
+.snippet-lang {
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 5px;
+  color: var(--muted);
+  border: 1px solid currentColor;
+  padding: 0 3px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.snippet-mark {
+  background: none;
+  color: var(--fg);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Transient highlight for a search-jump target (Custom Highlight API —
+   non-destructive, no DOM mutation). Removed after ~2.6s by the page. */
+::highlight(search-jump) {
+  background-color: rgba(255, 200, 0, 0.85);
+  color: inherit;
+}
+.snippet-more {
+  border: none;
+  background: none;
+  padding: 2px 4px;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+}
+.snippet-more:hover { color: var(--fg); background: none; }
 
 .db-group-title {
   font-size: 12px;
@@ -167,8 +237,19 @@ input, select {
   color: var(--bg);
   border-color: var(--fg);
 }
-.db-reset { width: 100%; }
-.db-reset:disabled { opacity: 0.4; cursor: default; }
+/* filters-title header actions (Collapse/Expand + Reset) */
+.filters-title-actions { display: flex; gap: 6px; align-items: center; }
+.filters-action-btn {
+  border: none;
+  background: none;
+  padding: 0 4px;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filters-action-btn:hover { color: var(--fg); background: none; }
+.filters-action-btn:disabled { opacity: 0.35; cursor: default; }
 
 /* Filter / sort accordion tree */
 .filters { margin-bottom: 14px; }
@@ -182,8 +263,7 @@ input, select {
   letter-spacing: 0.05em;
   margin: 4px 0;
 }
-.collapse-all { border: none; padding: 0 4px; font-size: 13px; color: var(--muted); }
-.collapse-all:hover { background: none; color: var(--fg); }
+/* .collapse-all replaced by .filters-action-btn */
 .filter-tree { list-style: none; margin: 0; padding-left: 14px; }
 .filter-tree > .filter-node > .facet-head,
 .filters > .filter-tree { padding-left: 0; }
