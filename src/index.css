@@ -7,6 +7,7 @@
   --hover: #f4f4f4;
   --max: 760px;
   --sidebar: 280px;
+  --topbar-height: 40px;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -92,7 +93,8 @@ input, select {
   top: 0;
   z-index: 3;
   margin: 0 -32px 32px;
-  padding: 8px 32px;
+  height: var(--topbar-height);
+  padding: 0 32px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
@@ -101,6 +103,7 @@ input, select {
   grid-template-columns: minmax(0, 1fr) minmax(0, var(--max)) minmax(0, 1fr);
   align-items: center;
   gap: 12px;
+  height: 100%;
 }
 .topbar-left {
   min-width: 0;
@@ -132,7 +135,8 @@ input, select {
   justify-content: space-between;
   gap: 10px;
   margin: -16px -16px 16px;
-  padding: 12px 16px 10px;
+  height: var(--topbar-height);
+  padding: 0 16px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
@@ -558,7 +562,7 @@ input, select {
   .sidebar.collapsed { display: none; }
   .resizer { display: none; }
   .content { padding: 0 18px 24px; }
-  .topbar { margin: 0 -18px 24px; padding: 8px 18px; }
+  .topbar { margin: 0 -18px 24px; padding: 0 18px; }
   .topbar-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
   .menu-toggle { display: inline-block; }
 }
