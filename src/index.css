@@ -61,6 +61,7 @@ input, select {
 .sidebar {
   width: var(--sidebar);
   flex: 0 0 var(--sidebar);
+  min-width: 280px;
   border-right: 1px solid var(--border);
   padding: 16px;
   overflow-y: auto;
