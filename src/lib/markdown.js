@@ -57,6 +57,15 @@ export function prepare(body, lang) {
   return wikiLinks(pickLanguage(body, lang))
 }
 
+export function firstH1Text(body) {
+  const m = /^#\s+(.+?)\s*#*\s*$/m.exec(body)
+  return m ? plainText(m[1]) : ''
+}
+
+export function stripFirstH1(body) {
+  return body.replace(/^#\s+.+?\s*#*\s*(?:\r?\n)?/m, '')
+}
+
 // Strip inline markdown so a heading reads cleanly in an outline.
 function plainText(s) {
   return s

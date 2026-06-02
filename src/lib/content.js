@@ -13,6 +13,8 @@ const files = import.meta.glob('../content/{personal-works,group-works,modules}/
 })
 
 const FM = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/
+const OPEN = /^:::\s*([a-z]{2})\s*$/
+const CLOSE = /^:::\s*$/
 
 function parse(raw) {
   const m = FM.exec(raw)
@@ -24,6 +26,42 @@ function parse(raw) {
     console.warn('Frontmatter parse error:', e)
   }
   return { data, body: m[2] }
+}
+
+function pickLanguage(body, lang) {
+  const lines = body.split('\n')
+  const hasFences = lines.some((l) => OPEN.test(l.trim()))
+  if (!hasFences) return body
+
+  const out = []
+  let current = null
+  for (const line of lines) {
+    const trimmed = line.trim()
+    const open = OPEN.exec(trimmed)
+    if (open) {
+      current = open[1]
+      continue
+    }
+    if (current !== null && CLOSE.test(trimmed)) {
+      current = null
+      continue
+    }
+    if (current === null || current === lang) out.push(line)
+  }
+  return out.join('\n').trim()
+}
+
+function plainText(s) {
+  return s
+    .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, t, a) => (a ?? t))
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/[*_`~]/g, '')
+    .trim()
+}
+
+function firstH1Text(body, lang) {
+  const m = /^#\s+(.+?)\s*#*\s*$/m.exec(pickLanguage(body, lang))
+  return m ? plainText(m[1]) : ''
 }
 
 // Conversion factors to meters for `dimensions`. Authors may write any of
@@ -86,5 +124,5 @@ export function resolveSlug(target) {
 
 // Display title for an artwork in the given language.
 export function titleOf(a, lang) {
-  return loc(a.data.title, lang) || a.name
+  return loc(a.data.title, lang) || firstH1Text(a.body, lang) || a.name
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useParams, useLocation, Link, useOutletContext } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
-import { prepare } from '../lib/markdown.js'
+import { prepare, stripFirstH1 } from '../lib/markdown.js'
 import Properties from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
 
@@ -148,7 +148,7 @@ export default function ArtworkPage() {
     <article>
       <Properties data={artwork.data} />
       <div className="article">
-        <Markdown>{prepare(artwork.body, lang)}</Markdown>
+        <Markdown>{artwork.data.title ? prepare(artwork.body, lang) : stripFirstH1(prepare(artwork.body, lang))}</Markdown>
       </div>
     </article>
   )

@@ -3,7 +3,7 @@ import { Link, useOutletContext } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
 import { artworks, titleOf } from '../lib/content.js'
 import { dateSortValue } from '../lib/properties.js'
-import { prepare } from '../lib/markdown.js'
+import { firstH1Text, prepare, stripFirstH1 } from '../lib/markdown.js'
 import Markdown from '../components/Markdown.jsx'
 
 // Optional intro text. Edit src/content/home.md (supports language fences).
@@ -18,18 +18,18 @@ export default function Home() {
   const { lang } = useLang()
   const { setPageTitle } = useOutletContext()
   const preparedIntro = intro ? prepare(intro, lang) : ''
+  const bodyIntro = stripFirstH1(preparedIntro)
   const recent = [...artworks].sort((a, b) => (dateSortValue(b.data) ?? 0) - (dateSortValue(a.data) ?? 0))
 
   useEffect(() => {
-    const h1 = /^#\s+(.+)$/m.exec(preparedIntro)
-    setPageTitle(h1 ? h1[1].trim() : '')
+    setPageTitle(firstH1Text(preparedIntro))
   }, [preparedIntro, setPageTitle])
 
   return (
     <div>
       {intro && (
         <div className="article" style={{ marginBottom: 32 }}>
-          <Markdown>{preparedIntro}</Markdown>
+          <Markdown>{bodyIntro}</Markdown>
         </div>
       )}
       <ul className="db-list">

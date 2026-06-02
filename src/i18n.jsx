@@ -7,7 +7,7 @@ export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' }
 // unknown keys fall back to the raw key name.
 const UI = {
   en: {
-    siteTitle: 'Portfolio',
+    siteTitle: '∀∃Portfolio',
     files: 'Files',
     database: 'Database',
     search: 'Search…',
@@ -22,7 +22,7 @@ const UI = {
     asc: 'Ascending',
     desc: 'Descending',
     reset: 'Reset filters',
-    filters: 'Sort & filter',
+    filters: 'SORT/FILTER/GROUP',
     collapseAll: 'Collapse all',
     restoreState: 'Restore',
     resize: 'Resize sidebar',
@@ -177,9 +177,14 @@ export function LanguageProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('lang', lang)
     document.documentElement.lang = lang
+    document.title = '∀∃'
   }, [lang])
 
-  const t = (key) => UI[lang][key] ?? UI.en[key] ?? key
+  const t = (key) => {
+    if (key === 'siteTitle') return '∀∃Portfolio'
+    if (key === 'filters') return 'SORT/FILTER/GROUP'
+    return UI[lang][key] ?? UI.en[key] ?? key
+  }
   const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? key
 
   return <Ctx.Provider value={{ lang, setLang, t, propLabel }}>{children}</Ctx.Provider>

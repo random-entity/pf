@@ -147,6 +147,11 @@ input, select {
 }
 .sidebar-topbar .langswitch {
   flex: 0 0 auto;
+  align-items: center;
+  font-size: 90%;
+}
+.sidebar-topbar .langswitch button {
+  padding: 1px 6px;
 }
 
 .tabs { display: flex; margin-bottom: 12px; }
@@ -380,8 +385,13 @@ input, select {
 .missing-toggle .box { font-size: 13px; }
 
 /* date + event list in the Properties block */
-.date-events { list-style: none; margin: 0; padding: 0; }
-.date-events li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; margin: 1px 0; }
+.date-events {
+  list-style: disc;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+.date-events li { display: list-item; margin: 1px 0; }
 .date-events .date-range { font-variant-numeric: tabular-nums; }
 
 /* Accordion list of artworks with a Markdown heading outline */
