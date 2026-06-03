@@ -143,7 +143,10 @@ export default function Markdown({ children }) {
 
     const setExpanded = (button, expanded) => {
       button.setAttribute('aria-expanded', String(expanded))
-      button.textContent = expanded ? '•' : '◉'
+      // Heading markers keep their # text; list toggles use bullet symbols
+      if (!button.classList.contains('md-collapse-heading')) {
+        button.textContent = expanded ? '•' : '◉'
+      }
     }
 
     for (const heading of root.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
@@ -157,12 +160,14 @@ export default function Markdown({ children }) {
       }
       if (!hasSection) continue
 
-      const button = makeToggle({ label: 'Collapse section', kind: 'heading' })
-      const marker = document.createElement('span')
-      marker.className = 'md-heading-marker'
+      // The ## marker itself is the toggle button
+      const marker = document.createElement('button')
+      marker.type = 'button'
+      marker.className = 'md-heading-marker md-collapse-toggle md-collapse-heading'
+      marker.setAttribute('aria-label', 'Collapse section')
+      marker.setAttribute('aria-expanded', 'true')
       marker.textContent = '#'.repeat(level)
-      heading.prepend(button)
-      heading.insertBefore(marker, button.nextSibling)
+      heading.prepend(marker)
     }
 
     for (const item of root.querySelectorAll('li')) {

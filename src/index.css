@@ -484,25 +484,36 @@ input, select {
   width: 1.2em;
   height: 1.2em;
   padding: 0;
-  margin: 0 6px 0 0;
+  margin: 0;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .article .md-collapse-toggle:hover { color: var(--fg); }
+/* ## markers double as the collapse toggle: inline, muted, bold when folded */
 .article .md-heading-marker {
+  border: none;
+  background: none;
+  font: inherit;
   color: var(--muted);
   font-weight: 400;
+  padding: 0;
   margin-right: 6px;
+  cursor: pointer;
 }
+.article .md-heading-marker:hover { color: var(--fg); }
+.article .md-heading-marker[aria-expanded="false"] { font-weight: 700; color: var(--fg); }
+/* List toggles: absolute so they don't shift text vs. non-foldable siblings */
+.article li:has(> .md-collapse-toggle) { list-style: none; position: relative; }
 .article li > .md-collapse-toggle {
+  position: absolute;
+  left: -1.4em; /* sits at roughly the same x as the normal disc bullet */
+  top: 0.25em;
   width: 1.2em;
-  margin: 0 4px 0 -1.2em;
-  text-align: center;
-  vertical-align: baseline;
+  height: 1.2em;
+  margin: 0;
 }
-.article li:has(> .md-collapse-toggle) { list-style: none; }
 .article img { max-width: 100%; height: auto; display: block; margin: 16px 0; }
 .article img + em { display: block; text-align: center; color: var(--muted); font-size: 13px; margin-top: -8px; }
 
