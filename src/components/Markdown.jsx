@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
+import rehypeRaw from 'rehype-raw'
 import { remarkGallery } from '../lib/remarkGallery.js'
 
 // Prefix relative asset URLs with Vite's base so images resolve correctly
@@ -20,6 +21,51 @@ function youTubeId(href = '') {
 
 const components = {
   img: ({ src, alt, ...rest }) => <img src={asset(src)} alt={alt ?? ''} loading="lazy" {...rest} />,
+  // Canvas elements with animation initialization
+  canvas: ({ id, ...props }) => {
+    const canvasRef = useRef(null)
+    useEffect(() => {
+      const canvas = canvasRef.current
+      if (!canvas) return
+
+      const ctx = canvas.getContext('2d')
+      let size = 20
+      let rx = 8
+      let ry = 2
+
+      let posX = canvas.width / 2
+      let posY = canvas.height / 2 - size
+      let angle = 0
+
+      const FPS = 24
+      const FRAME_INTERVAL = 1000 / FPS
+
+      function drawFlower() {
+        ctx.fillStyle = 'gray'
+        ctx.strokeStyle = 'white'
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.arc(posX, posY, size, 0, Math.PI * 2)
+        ctx.closePath()
+        ctx.fill()
+        ctx.stroke()
+      }
+
+      function animate() {
+        drawFlower()
+        posX += rx * Math.cos(angle)
+        posY += ry * Math.sin(angle)
+        angle += 0.1
+      }
+
+      const intervalId = setInterval(animate, FRAME_INTERVAL)
+      animate()
+
+      return () => clearInterval(intervalId)
+    }, [])
+
+    return <canvas ref={canvasRef} id={id} {...props} />
+  },
   // A link to YouTube becomes a responsive embedded player; everything else
   // stays a normal link (external links open in new tab).
   a: ({ href, children, ...rest }) => {
@@ -193,7 +239,7 @@ export default function Markdown({ children }) {
     <div ref={ref} className="markdown-render">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkGallery]}
-        rehypePlugins={[rehypeSlug]}
+        rehypePlugins={[rehypeRaw, rehypeSlug]}
         components={components}
       >
         {children}

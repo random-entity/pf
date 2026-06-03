@@ -32,13 +32,6 @@ export default function Home() {
           <Markdown>{bodyIntro}</Markdown>
         </div>
       )}
-      <ul className="db-list">
-        {recent.map((a) => (
-          <li key={a.slug}>
-            <Link to={`/${a.slug}`}>{titleOf(a, lang)}</Link>
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
