@@ -131,7 +131,7 @@ function ReleasesValue({ value }) {
           {/* 2. Venue (Only rendered if it exists) */}
           {e.venue && (
             <>
-              {'@'}
+              {' @'}
               <span className="venue"><InlineMarkdown>{e.venue}</InlineMarkdown></span>
             </>
           )}
