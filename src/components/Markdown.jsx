@@ -1,9 +1,38 @@
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import rehypeSlug from 'rehype-slug'
 import rehypeRaw from 'rehype-raw'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
+import { visit } from 'unist-util-visit'
 import { remarkGallery } from '../lib/remarkGallery.js'
+
+// remark-math v6 treats single-line $$...$$ as inline math even in a standalone
+// paragraph. This rehype plugin runs before rehype-katex and promotes any <p>
+// whose only child is a <code class="math math-inline"> element into a
+// <div class="math math-display"> so rehype-katex renders it in display mode.
+function rehypeMathDisplay() {
+  return (tree) => {
+    visit(tree, 'element', (node, index, parent) => {
+      if (
+        node.tagName === 'p' &&
+        node.children.length === 1 &&
+        node.children[0].type === 'element' &&
+        node.children[0].tagName === 'code' &&
+        node.children[0].properties?.className?.includes('math-inline')
+      ) {
+        parent.children[index] = {
+          type: 'element',
+          tagName: 'div',
+          properties: { className: ['math', 'math-display'] },
+          children: node.children[0].children,
+        }
+      }
+    })
+  }
+}
 
 // Prefix relative asset URLs with Vite's base so images resolve correctly
 // on GitHub Pages. Absolute URLs and hash routes are left untouched.
@@ -252,8 +281,8 @@ export default function Markdown({ children }) {
   return (
     <div ref={ref} className="markdown-render">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkGallery]}
-        rehypePlugins={[rehypeRaw, rehypeSlug]}
+        remarkPlugins={[remarkGfm, remarkMath, remarkGallery]}
+        rehypePlugins={[rehypeMathDisplay, rehypeKatex, rehypeRaw, rehypeSlug]}
         components={components}
       >
         {children}
