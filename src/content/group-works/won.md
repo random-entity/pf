@@ -18,7 +18,7 @@ credit:
     出品者、演出、グラフィックデザイン: LEE Hojeong
     プログラミング: 任意存在、CHO Minki
 releases:
-  - event: "[ArtSpace@SNU](https://www.youtube.com/playlist?list=PLgNFPgW62NTpf5pz3uc8G5gad4CtXSaFN)"
+  - event: "[ArtSpace@SNU](https://www.youtube.com/playlist?list=PLgNFPgW62NTpf5pz3uc8G5gad4CtXSaFN)(https://google.com)(https://youtube.com)"
     date: "2021-10-25 ~ 2021-10-29"
 type: Group work
 genre: ["Video game", "Art game", "Public art", "Installation"]

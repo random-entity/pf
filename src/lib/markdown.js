@@ -53,8 +53,27 @@ export function wikiLinks(body) {
   });
 }
 
+// Expand [text](url1)(url2)... multi-link syntax: two or more consecutive URL
+// groups after a link label are converted to plain text followed by individual
+// ↗ links, one per URL. Single-URL links are left unchanged for normal rendering.
+const MULTI_LINK = /\[([^\]]+)\]((?:\([^)]+\)){2,})/g;
+
+export function expandMultiLinks(str) {
+  return str.replace(MULTI_LINK, (_, text, urlPart) => {
+    const urls = [...urlPart.matchAll(/\(([^)]+)\)/g)].map((m) => m[1]);
+    return text + ' ' + urls.map((u) => `[↗](${u})`).join(' ');
+  });
+}
+
+// Extract all URLs from [text](url1)(url2)... syntax. Returns [] if no match.
+export function mdLinkUrls(s) {
+  const m = String(s ?? '').match(/^\[([^\]]+)\]((?:\([^)]+\))+)$/);
+  if (!m) return [];
+  return [...m[2].matchAll(/\(([^)]+)\)/g)].map((g) => g[1]);
+}
+
 export function prepare(body, lang) {
-  return wikiLinks(pickLanguage(body, lang));
+  return expandMultiLinks(wikiLinks(pickLanguage(body, lang)));
 }
 
 export function firstH1Text(body) {

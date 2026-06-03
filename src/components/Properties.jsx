@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useLang, isLocalized } from '../i18n.jsx'
-import { wikiLinks } from '../lib/markdown.js'
+import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
 import {
   isEnumFacet,
   canonicalOf,
@@ -38,27 +38,21 @@ function InlineMarkdown({ children }) {
       unwrapDisallowed
       components={components}
     >
-      {wikiLinks(String(children))}
+      {expandMultiLinks(wikiLinks(String(children)))}
     </ReactMarkdown>
   )
 }
 
-// Extract the URL from markdown link syntax "[text](url)", or null if absent.
-function mdLinkUrl(s) {
-  const m = String(s ?? '').match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-  return m ? m[2] : null
-}
-
 // A single enum value rendered as a pill that toggles its facet filter and
 // expands the corresponding accordion in the sidebar. If the value is a markdown
-// link, an external link icon is appended after a separator.
+// link (or multi-link), external link ↗ icons are appended after a separator.
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()
   const id = canonicalOf(value)
   const active = enums[path]?.ids.includes(id)
   const displayText = String(labelOf(value, lang) ?? '')
-  const externalUrl = mdLinkUrl(String(value ?? ''))
+  const externalUrls = mdLinkUrls(String(value ?? ''))
 
   return (
     <button
@@ -67,19 +61,22 @@ function EnumPill({ path, value }) {
       onClick={() => { toggleEnum(path, id); requestExpand(path) }}
     >
       <span className="tag-label">{displayText}</span>
-      {externalUrl && (
+      {externalUrls.length > 0 && (
         <>
           <span className="tag-link-sep" aria-hidden="true" />
-          <a
-            href={externalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="tag-ext-link"
-            title={externalUrl}
-          >
-            ↗
-          </a>
+          {externalUrls.map((url, i) => (
+            <a
+              key={i}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="tag-ext-link"
+              title={url}
+            >
+              ↗
+            </a>
+          ))}
         </>
       )}
     </button>

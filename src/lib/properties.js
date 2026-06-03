@@ -16,8 +16,9 @@ export function canonicalOf(v) {
 }
 
 // Strip markdown link syntax from a string, returning just the display text.
+// Handles both [text](url) and [text](url1)(url2)... forms.
 function stripMdLink(s) {
-  const m = s.match(/^\[([^\]]+)\]\([^)]+\)$/);
+  const m = s.match(/^\[([^\]]+)\](?:\([^)]+\))+$/);
   return m ? m[1] : s;
 }
 
