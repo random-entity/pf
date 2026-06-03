@@ -4,33 +4,29 @@ tagline:
   en: "The chain of our wishes and achievements completes the stone tower."
   ko: "우리들의 소원과 성취의 사슬이 돌탑을 완성한다."
   ja: "私たちの願いと成就の鎖が石塔を完成させる。"
+format:
+  - A video game installed in a public space where anyone can participate.
+  - Operated with a PC, a monitor, a keyboard, and a mouse.
+goo:
+  - asdf
+Credit:
+  - presented by, director, graphic design: LEE Hojeong
+  - programming: random-entity, CHO Minki
 releases:
-  - { "ArtSpace@SNU 2021": "2021-10-27" }
+  - event: "[ArtSpace@SNU](https://www.youtube.com/playlist?list=PLgNFPgW62NTpf5pz3uc8G5gad4CtXSaFN)"
+    date: "2021-10-25 ~ 2021-10-29"
 type: Group work
-genre: ["Video game", "Art game", "Public art"]
-tags: ["Interactive CG", "Artificial life", "Automata"]
-tools: ["Unity"]
+genre: ["Video game", "Art game", "Public art", "Installation"]
+tags: ["Interactive CG", "Alternative physics", "Artificial life", "Automata"]
+tools: ["Unity", "C#"]
 source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibition-end)"
 ---
-::: en
 ![](images/works/won/exh/IMG_9390.jpeg)
 
-## Basic information
-
-- **Format**
-  - Genre: Public video game, Art game
-  - Composition: A video game installed in a public space where anyone can participate; operated with a PC, monitor, keyboard, and mouse.
-- **Creators**
-  - Exhibitor: LEE Hojeong
-  - Direction, Graphic Design: LEE Hojeong
-  - Programming: random-entity, CHO Minki
-- **Release**
-  - Exhibition: [2021 Seoul National University Art Week: ArtSpace@SNU 2021](https://art.snu.ac.kr/notice/2021-%EC%98%88%EC%88%A0%EC%A3%BC%EA%B0%84-art-spacesnu-%ED%96%89%EC%82%AC-%EC%95%8C%EB%A6%BC/)
-- **Source code**: [GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibition-end)
-
+::: en
 ## Synopsis
 
-- A PC (including a monitor, keyboard, and mouse) is installed in a plaza, allowing passersby to use the keyboard to enter a nickname and the mouse to select an emoji for their current wish and a wish they have already achieved. Once the selection is complete, a stone with the current wish attached to its head, the nickname in the center, and the achieved wish attached to its tail floats in the sky.
+- A PC (including a monitor, a keyboard, and a mouse) is installed in a plaza, allowing passersby to use the keyboard to enter a nickname and the mouse to select an emoji for their current wish and a wish they have already achieved. Once the selection is complete, a stone with the current wish attached to its head, the nickname in the center, and the achieved wish attached to its tail floats in the sky.
 - Among the increasing number of stones as people participate, if the head emoji of one stone matches the tail emoji of another, they are attracted to each other and stick together. As this repeats, the stones form a chain.
 - In this way, when the very first head and the very last tail of a chain match, the chain sinks to the ground and a stone tower is completed.
 
@@ -64,8 +60,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
 - [Facebook — ArtSpace@SNU](https://www.facebook.com/snuartspace)
 :::
 ::: ko
-![](images/works/won/exh/IMG_9390.jpeg)
-
 ## 기본 정보
 
 - **형식**
@@ -115,8 +109,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
 - [Facebook — ArtSpace@SNU](https://www.facebook.com/snuartspace)
 :::
 ::: ja
-![](images/works/won/exh/IMG_9390.jpeg)
-
 ## 基本情報
 
 - **形式**

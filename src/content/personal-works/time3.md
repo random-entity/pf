@@ -5,7 +5,7 @@ tagline:
   ko: "현재와 과거가 중첩되고, 그 중첩이 다시 미래와 중첩된다."
   ja: "現在と過去が重なり合い、その重なりが再び未来と重なり合う。"
 releases:
-  - { "ArtSpace@SNU 2021": "2021-10-25" }
+  - { "ArtSpace@SNU": "2021-10-25 ~ 2021-10-29" }
 type: Personal work
 genre: ["Interactive video installation"]
 tags: ["Real-time video processing", "Video feedback", "Fractal video", "Video projection"]

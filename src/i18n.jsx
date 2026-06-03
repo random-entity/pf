@@ -259,7 +259,7 @@ export function LanguageProvider({ children }) {
     if (key === 'filters') return 'SORT/FILTER/GROUP';
     return UI[lang][key] ?? UI.en[key] ?? key;
   };
-  const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? key;
+  const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? (key.charAt(0).toUpperCase() + key.slice(1));
 
   return (
     <Ctx.Provider value={{ lang, setLang, t, propLabel }}>

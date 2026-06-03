@@ -3,7 +3,7 @@ title: { en: "(Design projects at college)", ko: "(대학 디자인 과제)", ja
 releases:
   - { "Religious Painting #5 (Prototype)": "2020-07-09" }
   - { "Sound Interaction Design: Playground and Whistle": "2019-11-12" }
-type: Personal work
+type: Toy
 genre: ["Video game", "Interactive design"]
 tags: ["Tangible interaction", "Physical computing", "Interactive CG", "Brightness sensor", "Touch sensor", "Physics simulation", "Sound interaction", "Automata"]
 tools: ["Unity", "Arduino", "Blender", "Processing"]
