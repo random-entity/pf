@@ -1,8 +1,15 @@
 ---
 title: { en: "Flocking sound", ko: "새떼의 소리", ja: "群れの音" }
 credits:
-  - base code: "[\"Flocking\" by Daniel Shiffman](https://processing.org/examples/flocking.html)"
-  - base algorithm: "[Craig Reynolds' \"Boids\" algorithm](https://en.wikipedia.org/wiki/Boids)"
+  en:
+    - base code: "[\"Flocking\" by Daniel Shiffman](https://processing.org/examples/flocking.html)"
+    - base algorithm: "[Craig Reynolds' \"Boids\" algorithm](https://en.wikipedia.org/wiki/Boids)"
+  ko:
+    - 기반 코드: "[Daniel Shiffman의 \"Flocking\"](https://processing.org/examples/flocking.html)"
+    - 기반 알고리즘: "[Craig Reynolds의 \"Boids\" 알고리즘](https://en.wikipedia.org/wiki/Boids)"
+  ja:
+    - ベースコード: "[Daniel ShiffmanによるFlocking](https://processing.org/examples/flocking.html)"
+    - ベースアルゴリズム: "[Craig Reynolds' \"Boids\" アルゴリズム](https://en.wikipedia.org/wiki/Boids)"
 releases:
   - { event: "[GitHub public repository](https://github.com/random-entity/o.mod.flocking-sound_processing)", date: "2025-09-29", version: "v.0" }
   - { event: "[YouTube Live](https://youtu.be/MBg5GFYua7Y)", date: "2025-09-29", version: "v.0" }
