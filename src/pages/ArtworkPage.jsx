@@ -133,6 +133,39 @@ export default function ArtworkPage() {
     }
   }, [state?._t, state?.jumpTo, state?.jumpOcc, state?.jumpLang, lang, slug])
 
+  // Wire frontmatter footnote refs ([^N] in property values) into the article's
+  // footnote definition backlinks. Stamps a unique id on each frontmatter <sup>
+  // Inject ↩ backlinks into article footnote definitions for any [^N] refs
+  // in frontmatter property values. The <sup> id is set directly in Properties
+  // JSX so it is available immediately; this effect only appends the <a> link.
+  useEffect(() => {
+    document.querySelectorAll('.properties sup[id][data-fn-ref]').forEach(sup => {
+      const backId = sup.id  // set in Properties JSX, e.g. user-content-fnref-2-fm
+      const fnRef = sup.getAttribute('data-fn-ref')
+
+      const fnLi = document.getElementById(`user-content-fn-${fnRef}`)
+      if (!fnLi) return
+      const p = fnLi.querySelector('p')
+      if (!p || p.querySelector(`[href="#${backId}"]`)) return
+
+      const refNum = p.querySelectorAll('[data-footnote-backref]').length + 1
+      const a = document.createElement('a')
+      a.href = `#${backId}`
+      a.setAttribute('data-footnote-backref', '')
+      a.setAttribute('aria-label', `Back to reference ${refNum}`)
+      a.className = 'data-footnote-backref'
+      a.textContent = '↩'
+      if (refNum > 1) {
+        const s = document.createElement('sup')
+        s.textContent = String(refNum)
+        a.appendChild(s)
+      }
+      // No click handler — HashRouter ignores non-"/" hashes so native
+      // browser anchor scrolling handles the jump (same as body backlinks).
+      p.append(' ', a)
+    })
+  }, [artwork, lang])
+
   // Drop the highlight on unmount.
   useEffect(() => () => { clearHighlight(); if (hlTimer.current) clearTimeout(hlTimer.current) }, [])
 

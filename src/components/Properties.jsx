@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
 import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
 import {
@@ -16,7 +17,9 @@ import {
 import { useFilters } from '../filters.jsx'
 
 // Renders a string value with inline markdown (links, bold, italic, code,
-// wikilinks). Block-level elements are unwrapped to keep properties inline.
+// wikilinks, footnote refs). Always returns a single <span> so it is safe
+// inside grid/flex contexts (avoids sibling bleed in display:contents grids).
+// Footnote references [^N] scroll to the definition in the article body.
 function InlineMarkdown({ children }) {
   if (!children) return null
   const components = {
@@ -30,16 +33,34 @@ function InlineMarkdown({ children }) {
         {linkChildren}
       </a>
     ),
+    sup: ({ 'data-fn-ref': fnRef, children: supChildren }) => (
+      <sup
+        id={fnRef ? `user-content-fnref-${fnRef}-fm` : undefined}
+        data-fn-ref={fnRef || undefined}
+        style={{ cursor: fnRef ? 'pointer' : undefined }}
+        onClick={fnRef ? () => {
+          document.getElementById(`user-content-fn-${fnRef}`)
+            ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } : undefined}
+      >
+        {supChildren}
+      </sup>
+    ),
   }
+  const content = expandMultiLinks(wikiLinks(String(children)))
+    .replace(/\[\^([^\]]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      allowedElements={['a', 'strong', 'em', 'code', 'del']}
-      unwrapDisallowed
-      components={components}
-    >
-      {expandMultiLinks(wikiLinks(String(children)))}
-    </ReactMarkdown>
+    <span>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        allowedElements={['a', 'strong', 'em', 'code', 'del', 'sup']}
+        unwrapDisallowed
+        components={components}
+      >
+        {content}
+      </ReactMarkdown>
+    </span>
   )
 }
 
