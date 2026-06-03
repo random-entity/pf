@@ -119,7 +119,6 @@ function ReleasesValue({ value }) {
             {formatDate(e.start)}
             {e.end !== e.start ? ` → ${formatDate(e.end)}` : ''}
           </span>
-          {' : '}
 
           {/* 1. Event (Clickable EnumPill) */}
           {e.event ? (

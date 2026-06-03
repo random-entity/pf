@@ -590,17 +590,25 @@ select {
 
 /* release/event list in the Properties block */
 .release-events {
-  list-style: disc;
-  list-style-position: inside;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 .release-events li {
-  display: list-item;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   margin: 1px 0;
 }
+.release-events li::before {
+  content: '•';
+  flex-shrink: 0;
+}
 .release-events .date-range {
+  color: var(--muted);
+  font-size: 0.85em;
   font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
 }
 .release-events .version {
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -700,9 +708,23 @@ select {
   align-items: center;
   flex-wrap: wrap;
 }
-.properties .val ul {
+.properties .val ul:not(.release-events) {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 0;
+  list-style: none;
+}
+.properties .val ul:not(.release-events) li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.properties .val ul:not(.release-events) li::before {
+  content: '•';
+  flex-shrink: 0;
+}
+.properties .val ul:not(.release-events) li > .nested {
+  flex: 1;
+  min-width: 0;
 }
 .properties .nested {
   display: grid;
