@@ -10,7 +10,7 @@ type: Group work
 genre: ["Interactive video installation"]
 tags: ["Interactive CG", "Webcam", "Real-time video processing", "LED cube display"]
 tools: ["Processing"]
-source: https://github.com/random-entity/o.w.suwonhwaseong
+source: "[GitHub](https://github.com/random-entity/o.w.suwonhwaseong)"
 ---
 ::: en
 ![](images/works/suwonhwaseong/main_name-cut.jpg)

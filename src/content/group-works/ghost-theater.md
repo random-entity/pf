@@ -10,7 +10,7 @@ type: Group work
 genre: ["Interactive sound installation"]
 tags: ["Audio signal processing", "3D audio effect", "Ambisonics", "AR audio rendering", "Physical computing", "Embedded system", "Microcontroller", "Printed circuit board", "Local positioning system", "IMU sensor"]
 tools: ["BNO055", "PJRC Teensy", "C++"]
-source: https://github.com/random-entity/o.art.ghost-theater-snumoa
+source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
 ---
 ::: en
 ![](images/works/ghost-theater/zones.jpg)

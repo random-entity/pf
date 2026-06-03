@@ -11,7 +11,7 @@ type: Group work
 genre: ["Robot dance", "Mechanical theater", "Stage performance"]
 tags: ["Physical computing", "Servomotor", "Differential joint", "UDP network", "3D printing", "Video feedback"]
 tools: ["mjbots moteus", "Raspberry Pi", "C++", "Pure Data"]
-source: https://github.com/random-entity/o.art.gf3
+source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ---
 ::: en
 ![](images/works/gf3/live-stills/3.jpg)

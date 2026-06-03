@@ -1,13 +1,13 @@
 ---
 title: { en: "Flocking sound", ko: "새떼의 소리", ja: "群れの音" }
 releases:
-  - { event: "GitHub public repository", date: "2025-09-29", version: "v.0" }
+  - { event: "[GitHub public repository](https://github.com/random-entity/o.mod.flocking-sound_processing)", date: "2025-09-29", version: "v.0" }
   - { event: "YouTube Live", date: "2025-09-29", version: "v.0" }
 type: Module
 genre: ["Synthesizer", "Generative music"]
 tags: ["Additive synthesis", "Boids", "Artificial life", "Automata"]
 tools: ["Processing"]
-source: https://github.com/random-entity/o.mod.flocking-sound_processing
+source: "[GitHub](https://github.com/random-entity/o.mod.flocking-sound_processing)"
 ---
 ::: en
 [Video](https://youtu.be/MBg5GFYua7Y)

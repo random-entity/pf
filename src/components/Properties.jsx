@@ -1,4 +1,7 @@
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
+import { wikiLinks } from '../lib/markdown.js'
 import {
   isEnumFacet,
   canonicalOf,
@@ -12,23 +15,73 @@ import {
 } from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
 
+// Renders a string value with inline markdown (links, bold, italic, code,
+// wikilinks). Block-level elements are unwrapped to keep properties inline.
+function InlineMarkdown({ children }) {
+  if (!children) return null
+  const components = {
+    a: ({ href, children: linkChildren }) => (
+      <a
+        href={href}
+        target={href?.startsWith('#') ? undefined : '_blank'}
+        rel={href?.startsWith('#') ? undefined : 'noopener noreferrer'}
+        style={{ textDecoration: 'underline' }}
+      >
+        {linkChildren}
+      </a>
+    ),
+  }
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      allowedElements={['a', 'strong', 'em', 'code', 'del']}
+      unwrapDisallowed
+      components={components}
+    >
+      {wikiLinks(String(children))}
+    </ReactMarkdown>
+  )
+}
+
+// Extract the URL from markdown link syntax "[text](url)", or null if absent.
+function mdLinkUrl(s) {
+  const m = String(s ?? '').match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+  return m ? m[2] : null
+}
+
 // A single enum value rendered as a pill that toggles its facet filter and
-// expands the corresponding accordion in the sidebar.
+// expands the corresponding accordion in the sidebar. If the value is a markdown
+// link, an external link icon is appended after a separator.
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()
   const id = canonicalOf(value)
   const active = enums[path]?.ids.includes(id)
+  const displayText = String(labelOf(value, lang) ?? '')
+  const externalUrl = mdLinkUrl(String(value ?? ''))
+
   return (
     <button
       className="tag"
       aria-pressed={!!active}
-      onClick={() => {
-        toggleEnum(path, id)
-        requestExpand(path)
-      }}
+      onClick={() => { toggleEnum(path, id); requestExpand(path) }}
     >
-      {labelOf(value, lang)}
+      <span className="tag-label">{displayText}</span>
+      {externalUrl && (
+        <>
+          <span className="tag-link-sep" aria-hidden="true" />
+          <a
+            href={externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="tag-ext-link"
+            title={externalUrl}
+          >
+            ↗
+          </a>
+        </>
+      )}
     </button>
   )
 }
@@ -116,8 +169,8 @@ function Value({ value, path }) {
     return <span>{formatDuration(durationSeconds(value))}</span>
   }
 
-  // localized object -> single string
-  if (isLocalized(value)) return <span>{loc(value, lang)}</span>
+  // localized object -> single string (inline markdown)
+  if (isLocalized(value)) return <InlineMarkdown>{loc(value, lang)}</InlineMarkdown>
 
   // arrays -> list
   if (Array.isArray(value)) {
@@ -146,11 +199,13 @@ function Value({ value, path }) {
     )
   }
 
-  // scalar (numbers under a unit-bearing key, e.g. dimensions, get a unit)
+  // scalar number under a unit-bearing key (e.g. dimensions)
   if (typeof value === 'number' && path) {
     const unit = unitForPath(path)
     if (unit) return <span>{value} {unit}</span>
   }
+  // plain string: render inline markdown (links, wikilinks, bold, etc.)
+  if (typeof value === 'string') return <InlineMarkdown>{value}</InlineMarkdown>
   return <span>{String(value)}</span>
 }
 

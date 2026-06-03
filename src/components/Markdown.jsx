@@ -21,7 +21,7 @@ function youTubeId(href = '') {
 const components = {
   img: ({ src, alt, ...rest }) => <img src={asset(src)} alt={alt ?? ''} loading="lazy" {...rest} />,
   // A link to YouTube becomes a responsive embedded player; everything else
-  // stays a normal link.
+  // stays a normal link (external links open in new tab).
   a: ({ href, children, ...rest }) => {
     const id = youTubeId(href || '')
     if (id) {
@@ -37,8 +37,14 @@ const components = {
         </span>
       )
     }
+    const isExternal = href && !href.startsWith('#') && !href.startsWith('/')
     return (
-      <a href={href} {...rest}>
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        {...rest}
+      >
         {children}
       </a>
     )

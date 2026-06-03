@@ -10,7 +10,7 @@ type: Personal work
 genre: ["Interactive video installation"]
 tags: ["Real-time video processing", "Video feedback", "Fractal video", "Video projection"]
 tools: ["TouchDesigner", "EOS Camera Utility"]
-source: https://github.com/random-entity/o.art.time3
+source: "[GitHub](https://github.com/random-entity/o.art.time3)"
 ---
 ::: en
 ![](images/works/time3/demo-video-stills/1.png)

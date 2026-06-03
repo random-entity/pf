@@ -10,7 +10,7 @@ type: Personal work
 genre: ["Video game"]
 tags: ["Interactive CG", "Shader programming"]
 tools: ["Unity"]
-source: https://github.com/random-entity/o.art.space1
+source: "[GitHub](https://github.com/random-entity/o.art.space1)"
 ---
 ::: en
 ![](images/works/space1/demo-video-stills/main.png)

@@ -6,7 +6,7 @@ type: Module
 genre: ["Synthesizer", "Generative music"]
 tags: ["FM synthesis", "Random number generator"]
 tools: ["Max/MSP"]
-source: https://github.com/random-entity/o.mod.birdwatcher
+source: "[GitHub](https://github.com/random-entity/o.mod.birdwatcher)"
 ---
 ::: en
 [Video](https://youtu.be/l5oGVmwtssM)

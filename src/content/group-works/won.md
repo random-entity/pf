@@ -10,7 +10,7 @@ type: Group work
 genre: ["Video game", "Art game", "Public art"]
 tags: ["Interactive CG", "Artificial life", "Automata"]
 tools: ["Unity"]
-source: https://github.com/random-entity/o.art.won/tree/after-exhibition-end
+source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibition-end)"
 ---
 ::: en
 ![](images/works/won/exh/IMG_9390.jpeg)

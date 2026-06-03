@@ -15,11 +15,18 @@ export function canonicalOf(v) {
   return String(v)
 }
 
+// Strip markdown link syntax from a string, returning just the display text.
+function stripMdLink(s) {
+  const m = s.match(/^\[([^\]]+)\]\([^)]+\)$/)
+  return m ? m[1] : s
+}
+
 // Human-facing label for an enum value in the active language.
+// Markdown link syntax "[text](url)" is stripped to just "text".
 export function labelOf(v, lang) {
   if (v == null) return ''
   if (isLocalized(v)) return loc(v, lang)
-  return String(v)
+  return stripMdLink(String(v))
 }
 
 // A duration is an object whose keys are a subset of {hours, minutes, seconds}

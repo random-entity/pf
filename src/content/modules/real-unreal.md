@@ -6,7 +6,7 @@ type: Module
 genre: ["Audio effect"]
 tags: ["Spectral warping", "FFT"]
 tools: ["Max/MSP"]
-source: https://github.com/random-entity/o.mod.real-unreal-continuum
+source: "[GitHub](https://github.com/random-entity/o.mod.real-unreal-continuum)"
 ---
 ::: en
 [Video](https://youtu.be/YdwL-U4VsLM)
