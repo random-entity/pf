@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react';
 
-export const LANGS = ['en', 'ko', 'ja']
-export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' }
+export const LANGS = ['en', 'ko', 'ja'];
+export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' };
 
 // UI strings. `props` holds localized labels for known frontmatter keys;
 // unknown keys fall back to the raw key name.
@@ -52,14 +52,36 @@ const UI = {
     tagAny: 'OR',
     tagAll: 'AND',
     clear: 'Clear',
-    allExclusive: 'These values never occur together — “AND” would match nothing',
+    allExclusive:
+      'These values never occur together — “AND” would match nothing',
     noResults: 'No results.',
     noHeadings: 'No headings.',
     home: 'Home',
     notFound: 'Artwork not found.',
     menu: 'Menu',
     items: 'items',
-    props: { title: 'Title', tagline: 'Tagline', date: 'Releases', releases: 'Releases', events: 'Events', type: 'Type', created: 'Created', genre: 'Genre', medium: 'Medium', dimensions: 'Dimensions', duration: 'Duration', edition: 'Edition', hardware: 'Hardware', tools: 'Tools', tech: 'Tech', source: 'Source', year: 'Year', tags: 'Tags', location: 'Location', status: 'Status' },
+    props: {
+      title: 'Title',
+      tagline: 'Tagline',
+      date: 'Releases',
+      releases: 'Releases',
+      events: 'Events',
+      type: 'Type',
+      created: 'Created',
+      genre: 'Genre',
+      medium: 'Medium',
+      dimensions: 'Dimensions',
+      duration: 'Duration',
+      edition: 'Edition',
+      hardware: 'Hardware',
+      tools: 'Tools',
+      tech: 'Tech',
+      source: 'Source',
+      year: 'Year',
+      tags: 'Tags',
+      location: 'Location',
+      status: 'Status',
+    },
   },
   ko: {
     siteTitle: '포트폴리오',
@@ -114,7 +136,28 @@ const UI = {
     notFound: '작품을 찾을 수 없습니다.',
     menu: '메뉴',
     items: '개',
-    props: { title: '제목', tagline: '태그라인', date: '릴리스', releases: '릴리스', events: '이벤트', type: '유형', created: '제작일', genre: '장르', medium: '재료', dimensions: '크기', duration: '재생 시간', edition: '에디션', hardware: '하드웨어', tools: '도구', tech: '기술', source: '소스', year: '연도', tags: '태그', location: '위치', status: '상태' },
+    props: {
+      title: '제목',
+      tagline: '태그라인',
+      date: '릴리스',
+      releases: '릴리스',
+      events: '이벤트',
+      type: '유형',
+      created: '제작일',
+      genre: '장르',
+      medium: '재료',
+      dimensions: '크기',
+      duration: '재생 시간',
+      edition: '에디션',
+      hardware: '하드웨어',
+      tools: '도구',
+      tech: '기술',
+      source: '소스',
+      year: '연도',
+      tags: '태그',
+      location: '위치',
+      status: '상태',
+    },
   },
   ja: {
     siteTitle: 'ポートフォリオ',
@@ -162,63 +205,93 @@ const UI = {
     tagAny: 'OR',
     tagAll: 'AND',
     clear: 'クリア',
-    allExclusive: 'これらの値は同時に存在しません — 「AND」は該当なしになります',
+    allExclusive:
+      'これらの値は同時に存在しません — 「AND」は該当なしになります',
     noResults: '結果なし。',
     noHeadings: '見出しなし。',
     home: 'ホーム',
     notFound: '作品が見つかりません。',
     menu: 'メニュー',
     items: '件',
-    props: { title: 'タイトル', tagline: 'タグライン', date: 'リリース', releases: 'リリース', events: 'イベント', type: 'タイプ', created: '制作日', genre: 'ジャンル', medium: '素材', dimensions: 'サイズ', duration: '長さ', edition: 'エディション', hardware: 'ハードウェア', tools: 'ツール', tech: '技術', source: 'ソース', year: '年', tags: 'タグ', location: '場所', status: 'ステータス' },
+    props: {
+      title: 'タイトル',
+      tagline: 'タグライン',
+      date: 'リリース',
+      releases: 'リリース',
+      events: 'イベント',
+      type: 'タイプ',
+      created: '制作日',
+      genre: 'ジャンル',
+      medium: '素材',
+      dimensions: 'サイズ',
+      duration: '長さ',
+      edition: 'エディション',
+      hardware: 'ハードウェア',
+      tools: 'ツール',
+      tech: '技術',
+      source: 'ソース',
+      year: '年',
+      tags: 'タグ',
+      location: '場所',
+      status: 'ステータス',
+    },
   },
-}
+};
 
-const Ctx = createContext(null)
+const Ctx = createContext(null);
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(() => {
-    const saved = localStorage.getItem('lang')
-    if (LANGS.includes(saved)) return saved
-    const nav = navigator.language?.slice(0, 2)
-    return LANGS.includes(nav) ? nav : 'en'
-  })
+    const saved = localStorage.getItem('lang');
+    if (LANGS.includes(saved)) return saved;
+    const nav = navigator.language?.slice(0, 2);
+    return LANGS.includes(nav) ? nav : 'en';
+  });
 
   useEffect(() => {
-    localStorage.setItem('lang', lang)
-    document.documentElement.lang = lang
-    document.title = '∀∃'
-  }, [lang])
+    localStorage.setItem('lang', lang);
+    document.documentElement.lang = lang;
+    document.title = '∀∃';
+  }, [lang]);
 
   const t = (key) => {
-    if (key === 'siteTitle') return '∀∃portfolio'
-    if (key === 'filters') return 'SORT/FILTER/GROUP'
-    return UI[lang][key] ?? UI.en[key] ?? key
-  }
-  const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? key
+    if (key === 'siteTitle') return '∀∃portfolio';
+    if (key === 'filters') return 'SORT/FILTER/GROUP';
+    return UI[lang][key] ?? UI.en[key] ?? key;
+  };
+  const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? key;
 
-  return <Ctx.Provider value={{ lang, setLang, t, propLabel }}>{children}</Ctx.Provider>
+  return (
+    <Ctx.Provider value={{ lang, setLang, t, propLabel }}>
+      {children}
+    </Ctx.Provider>
+  );
 }
 
 export function useLang() {
-  return useContext(Ctx)
+  return useContext(Ctx);
 }
 
 // Resolve a possibly-localized value to a string for the current language.
 // Accepts plain strings/numbers or objects like { en, ko, ja }.
 export function loc(value, lang) {
-  if (value == null) return ''
+  if (value == null) return '';
   // Always return a string. For any object, prefer the current language, then
   // English, then the first scalar — so a malformed frontmatter value degrades
   // gracefully instead of crashing the render.
   if (typeof value === 'object' && !Array.isArray(value)) {
-    const picked = value[lang] ?? value.en ?? Object.values(value).find((v) => v != null && typeof v !== 'object')
-    return picked == null ? '' : String(picked)
+    const picked =
+      value[lang] ??
+      value.en ??
+      Object.values(value).find((v) => v != null && typeof v !== 'object');
+    return picked == null ? '' : String(picked);
   }
-  return String(value)
+  return String(value);
 }
 
 export function isLocalized(obj) {
-  if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) return false
-  const keys = Object.keys(obj)
-  return keys.length > 0 && keys.every((k) => LANGS.includes(k))
+  if (typeof obj !== 'object' || obj === null || Array.isArray(obj))
+    return false;
+  const keys = Object.keys(obj);
+  return keys.length > 0 && keys.every((k) => LANGS.includes(k));
 }

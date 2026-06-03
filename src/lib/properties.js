@@ -1,50 +1,51 @@
-import { artworks } from './content.js'
-import { loc, isLocalized } from '../i18n.jsx'
+import { artworks } from './content.js';
+import { loc, isLocalized } from '../i18n.jsx';
 
 // Read a (possibly nested) value out of a frontmatter object by dotted path.
 export function getValueAtPath(obj, path) {
-  return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj)
+  return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
 }
 
 // Language-independent identity for an enum value, so the same value groups
 // across artworks and survives language switches.
 export function canonicalOf(v) {
-  if (v == null) return ''
-  if (v instanceof Date) return v.toISOString()
-  if (isLocalized(v)) return loc(v, 'en') || ''
-  return String(v)
+  if (v == null) return '';
+  if (v instanceof Date) return v.toISOString();
+  if (isLocalized(v)) return loc(v, 'en') || '';
+  return String(v);
 }
 
 // Strip markdown link syntax from a string, returning just the display text.
 function stripMdLink(s) {
-  const m = s.match(/^\[([^\]]+)\]\([^)]+\)$/)
-  return m ? m[1] : s
+  const m = s.match(/^\[([^\]]+)\]\([^)]+\)$/);
+  return m ? m[1] : s;
 }
 
 // Human-facing label for an enum value in the active language.
 // Markdown link syntax "[text](url)" is stripped to just "text".
 export function labelOf(v, lang) {
-  if (v == null) return ''
-  if (isLocalized(v)) return loc(v, lang)
-  return stripMdLink(String(v))
+  if (v == null) return '';
+  if (isLocalized(v)) return loc(v, lang);
+  return stripMdLink(String(v));
 }
 
 // A duration is an object whose keys are a subset of {hours, minutes, seconds}
 // with numeric values. Such objects are treated as a single 1-D numeric value
 // (total seconds) rather than as a nested group of sub-properties.
-const TIME_KEYS = new Set(['hours', 'minutes', 'seconds'])
+const TIME_KEYS = new Set(['hours', 'minutes', 'seconds']);
 export function durationSeconds(v) {
-  if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date) return null
-  const keys = Object.keys(v)
-  if (keys.length === 0 || !keys.every((k) => TIME_KEYS.has(k))) return null
-  if (!keys.every((k) => typeof v[k] === 'number')) return null
-  return (v.hours || 0) * 3600 + (v.minutes || 0) * 60 + (v.seconds || 0)
+  if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date)
+    return null;
+  const keys = Object.keys(v);
+  if (keys.length === 0 || !keys.every((k) => TIME_KEYS.has(k))) return null;
+  if (!keys.every((k) => typeof v[k] === 'number')) return null;
+  return (v.hours || 0) * 3600 + (v.minutes || 0) * 60 + (v.seconds || 0);
 }
 
 export function formatDuration(total) {
-  const s = Math.max(0, Math.round(total))
-  const pad = (n) => String(n).padStart(2, '0')
-  return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`
+  const s = Math.max(0, Math.round(total));
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
 }
 
 // ---- Releases ----------------------------------------------------------
@@ -54,258 +55,327 @@ export function formatDuration(total) {
 // The object key is the release/event name. The value is a date or inclusive
 // date range. The old date string shape is still parsed as a fallback.
 
-export const RELEASES_PATH = 'releases'
+export const RELEASES_PATH = 'releases';
 
-const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/
-const EVENT_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*(?::\s*(.+?))?\s*$/
-const RANGE_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*$/
+const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+const EVENT_RE =
+  /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*(?::\s*(.+?))?\s*$/;
+const RANGE_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*$/;
 
 function toMs(s) {
-  if (s instanceof Date) return s.getTime()
-  const m = DATE_RE.exec(String(s).trim())
-  if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]) // UTC so the calendar date is stable
-  const t = new Date(s).getTime()
-  return Number.isNaN(t) ? null : t
+  if (s instanceof Date) return s.getTime();
+  const m = DATE_RE.exec(String(s).trim());
+  if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]); // UTC so the calendar date is stable
+  const t = new Date(s).getTime();
+  return Number.isNaN(t) ? null : t;
 }
 
 export function formatDate(ms) {
-  const d = new Date(ms)
-  const pad = (n) => String(n).padStart(2, '0')
-  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`
+  const d = new Date(ms);
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
 }
 
 function parseDateRange(value) {
   if (value instanceof Date) {
-    const ms = value.getTime()
-    return { start: ms, end: ms }
+    const ms = value.getTime();
+    return { start: ms, end: ms };
   }
-  const m = RANGE_RE.exec(String(value))
-  if (!m) return null
-  const start = toMs(m[1])
-  if (start == null) return null
-  const end = m[2] ? toMs(m[2]) : start
-  return { start, end }
+  const m = RANGE_RE.exec(String(value));
+  if (!m) return null;
+  const start = toMs(m[1]);
+  if (start == null) return null;
+  const end = m[2] ? toMs(m[2]) : start;
+  return { start, end };
 }
 
 // Normalize the `event` field: accepts a plain string, a localized object
 // { en, ko, ja }, or a YAML block-sequence of single-key objects
 // (- en: "..." / - ko: "..." / - ja: "...") which YAML parses as an array.
 function normalizeEvent(ev) {
-  if (!ev) return null
-  if (typeof ev === 'string') return ev.trim() || null
+  if (!ev) return null;
+  if (typeof ev === 'string') return ev.trim() || null;
   if (Array.isArray(ev)) {
     // Merge [{en: "..."}, {ko: "..."}, ...] → {en: "...", ko: "...", ...}
-    const merged = {}
+    const merged = {};
     for (const item of ev) {
-      if (item && typeof item === 'object' && !Array.isArray(item)) Object.assign(merged, item)
+      if (item && typeof item === 'object' && !Array.isArray(item))
+        Object.assign(merged, item);
     }
-    return Object.keys(merged).length ? merged : null
+    return Object.keys(merged).length ? merged : null;
   }
-  if (typeof ev === 'object') return ev // already {en, ko, ja}
-  return null
+  if (typeof ev === 'object') return ev; // already {en, ko, ja}
+  return null;
 }
 
 function parseRelease(item) {
   if (item instanceof Date) {
-    const ms = item.getTime()
-    return [{ start: ms, end: ms, event: 'Release' }]
+    const ms = item.getTime();
+    return [{ start: ms, end: ms, event: 'Release' }];
   }
 
   if (item && typeof item === 'object' && !Array.isArray(item)) {
     // NEW FORMAT: { event: "...", date: "...", version: "...", venue: "..." }
     if ('event' in item && 'date' in item) {
-      const range = parseDateRange(item.date)
-      if (!range) return []
-      return [{
-        ...range,
-        event: normalizeEvent(item.event) ?? 'Release',
-        version: item.version,
-        venue: item.venue,
-      }]
+      const range = parseDateRange(item.date);
+      if (!range) return [];
+      return [
+        {
+          ...range,
+          event: normalizeEvent(item.event) ?? 'Release',
+          version: item.version,
+          venue: item.venue,
+        },
+      ];
     }
 
     // OLD FORMAT FALLBACK: { "Event name": "YYYY-MM-DD" }
     return Object.entries(item)
       .map(([event, value]) => {
-        const range = parseDateRange(value)
-        return range ? { ...range, event: event.trim() || 'Release' } : null
+        const range = parseDateRange(value);
+        return range ? { ...range, event: event.trim() || 'Release' } : null;
       })
-      .filter(Boolean)
+      .filter(Boolean);
   }
 
-  const m = EVENT_RE.exec(String(item))
-  if (!m) return []
-  const start = toMs(m[1])
-  if (start == null) return []
-  const end = m[2] ? toMs(m[2]) : start
-  return [{ start, end, event: m[3] ? m[3].trim() : 'Release' }]
+  const m = EVENT_RE.exec(String(item));
+  if (!m) return [];
+  const start = toMs(m[1]);
+  if (start == null) return [];
+  const end = m[2] ? toMs(m[2]) : start;
+  return [{ start, end, event: m[3] ? m[3].trim() : 'Release' }];
 }
 
 // Normalize an artwork's `releases` field into { start, end, event } entries.
 export function releaseEvents(v) {
-  if (v == null) return []
-  const items = Array.isArray(v) ? v : [v]
-  return items.flatMap(parseRelease).filter(Boolean)
+  if (v == null) return [];
+  const items = Array.isArray(v) ? v : [v];
+  return items.flatMap(parseRelease).filter(Boolean);
 }
 
 export function releaseNamesOf(data) {
-  return releaseEvents(data?.releases).map((e) => canonicalOf(e.event)).filter(Boolean)
+  return releaseEvents(data?.releases)
+    .map((e) => canonicalOf(e.event))
+    .filter(Boolean);
 }
 
 // Canonical ids an artwork carries at a facet path (handles lists, single
 // values, and release/event names).
 export function idsAtPath(data, path) {
-  if (path === RELEASES_PATH) return releaseNamesOf(data)
-  const v = getValueAtPath(data, path)
-  if (v == null) return []
-  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)]
+  if (path === RELEASES_PATH) return releaseNamesOf(data);
+  const v = getValueAtPath(data, path);
+  if (v == null) return [];
+  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)];
 }
 
 // Could any artwork carry every one of these values at `path` at once? If not,
 // the values are mutually exclusive and an AND ("All") filter is meaningless.
 export function valuesCanCoexist(artworks, path, ids) {
-  if (ids.length < 2) return true
+  if (ids.length < 2) return true;
   return artworks.some((a) => {
-    const own = idsAtPath(a.data, path)
-    return ids.every((id) => own.includes(id))
-  })
+    const own = idsAtPath(a.data, path);
+    return ids.every((id) => own.includes(id));
+  });
 }
 
 // Earliest start used as the artwork's sort key; null if it has no release.
 export function releaseSortValue(data) {
-  const evs = releaseEvents(data?.releases)
-  return evs.length ? Math.min(...evs.map((e) => e.start)) : null
+  const evs = releaseEvents(data?.releases);
+  return evs.length ? Math.min(...evs.map((e) => e.start)) : null;
 }
 
 // Decide how a property should behave from the set of values it takes across
 // all artworks. Returns one of: stringList | date | numeric | enumSingle |
 // nested, or null to ignore (e.g. lists of mixed/object values).
 function classify(values) {
-  if (values.length === 0) return null
+  if (values.length === 0) return null;
   // A categorical value is a plain string or a localized object. A key counts
   // as a multi-select list if any artwork carries an array of them (and the
   // rest are arrays or single categorical values).
-  const categorical = (x) => typeof x === 'string' || isLocalized(x)
+  const categorical = (x) => typeof x === 'string' || isLocalized(x);
   if (values.some((v) => Array.isArray(v))) {
-    const ok = values.every((v) => (Array.isArray(v) ? v.every(categorical) : categorical(v)))
-    return ok ? 'stringList' : null
+    const ok = values.every((v) =>
+      Array.isArray(v) ? v.every(categorical) : categorical(v),
+    );
+    return ok ? 'stringList' : null;
   }
-  if (values.every((v) => v instanceof Date)) return 'date'
-  if (values.every((v) => typeof v === 'number')) return 'numeric'
-  if (values.every((v) => typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || isLocalized(v))) {
-    return 'enumSingle'
+  if (values.every((v) => v instanceof Date)) return 'date';
+  if (values.every((v) => typeof v === 'number')) return 'numeric';
+  if (
+    values.every(
+      (v) =>
+        typeof v === 'string' ||
+        typeof v === 'number' ||
+        typeof v === 'boolean' ||
+        isLocalized(v),
+    )
+  ) {
+    return 'enumSingle';
   }
-  if (values.every((v) => durationSeconds(v) != null)) return 'duration'
-  if (values.every((v) => v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date))) {
-    return 'nested'
+  if (values.every((v) => durationSeconds(v) != null)) return 'duration';
+  if (
+    values.every(
+      (v) =>
+        v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date),
+    )
+  ) {
+    return 'nested';
   }
-  return null
+  return null;
 }
 
 // Distinct enum values (with occurrence counts), sorted by canonical id.
 function enumValues(values) {
-  const map = new Map()
+  const map = new Map();
   const add = (v) => {
-    const id = canonicalOf(v)
-    if (id === '') return
-    if (!map.has(id)) map.set(id, { id, raw: v, count: 0 })
-    map.get(id).count++
-  }
+    const id = canonicalOf(v);
+    if (id === '') return;
+    if (!map.has(id)) map.set(id, { id, raw: v, count: 0 });
+    map.get(id).count++;
+  };
   for (const v of values) {
-    if (Array.isArray(v)) v.forEach(add)
-    else add(v)
+    if (Array.isArray(v)) v.forEach(add);
+    else add(v);
   }
-  return [...map.values()].sort((a, b) => a.id.localeCompare(b.id))
+  return [...map.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
 // Sorted distinct numeric options for a numeric/date facet (dates -> epoch ms).
 function numericOptions(values, isDate) {
-  const nums = values.map((v) => (v instanceof Date ? v.getTime() : v))
-  const uniq = [...new Set(nums)].sort((a, b) => a - b)
-  return { options: uniq, min: uniq[0], max: uniq[uniq.length - 1], isDate }
+  const nums = values.map((v) => (v instanceof Date ? v.getTime() : v));
+  const uniq = [...new Set(nums)].sort((a, b) => a - b);
+  return { options: uniq, min: uniq[0], max: uniq[uniq.length - 1], isDate };
 }
 
 // Recursively build facets from a set of objects. `title` is skipped at the top
 // level (it is the page heading and gets a dedicated sort-only facet elsewhere).
 function facetsFrom(objs, base, depth) {
-  const keys = new Set()
+  const keys = new Set();
   for (const o of objs) {
     for (const k of Object.keys(o || {})) {
-      if (depth === 0 && k === 'title') continue
-      keys.add(k)
+      if (depth === 0 && k === 'title') continue;
+      keys.add(k);
     }
   }
-  const facets = []
+  const facets = [];
   for (const key of [...keys].sort()) {
-    const path = base ? `${base}.${key}` : key
+    const path = base ? `${base}.${key}` : key;
 
     // Top-level `releases`: date/range sort and filtering, plus release/event
     // name filtering/grouping, all on one property row.
     if (depth === 0 && key === RELEASES_PATH) {
-      const evs = objs.flatMap((o) => releaseEvents(o?.releases))
+      const evs = objs.flatMap((o) => releaseEvents(o?.releases));
       if (evs.length) {
-        const starts = [...new Set(evs.map((e) => e.start))].sort((a, b) => a - b)
-        const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b)
+        const starts = [...new Set(evs.map((e) => e.start))].sort(
+          (a, b) => a - b,
+        );
+        const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b);
         // Deduplicate by canonical ID; keep original (possibly localized) as raw for display.
-        const eventMap = new Map()
+        const eventMap = new Map();
         for (const e of evs) {
-          if (!e.event) continue
-          const id = canonicalOf(e.event)
-          if (!id) continue
-          if (!eventMap.has(id)) eventMap.set(id, { id, raw: e.event, count: 0 })
-          eventMap.get(id).count++
+          if (!e.event) continue;
+          const id = canonicalOf(e.event);
+          if (!id) continue;
+          if (!eventMap.has(id))
+            eventMap.set(id, { id, raw: e.event, count: 0 });
+          eventMap.get(id).count++;
         }
-        const values = [...eventMap.values()].sort((a, b) => a.id.localeCompare(b.id))
+        const values = [...eventMap.values()].sort((a, b) =>
+          a.id.localeCompare(b.id),
+        );
         facets.push({
-          path: RELEASES_PATH, key: RELEASES_PATH, kind: 'releases', depth, isDate: true,
-          minOptions: starts, maxOptions: ends, min: starts[0], max: ends[ends.length - 1],
+          path: RELEASES_PATH,
+          key: RELEASES_PATH,
+          kind: 'releases',
+          depth,
+          isDate: true,
+          minOptions: starts,
+          maxOptions: ends,
+          min: starts[0],
+          max: ends[ends.length - 1],
           values,
-        })
+        });
       }
-      continue
+      continue;
     }
 
-    const values = objs.map((o) => o && o[key]).filter((v) => v != null)
-    const kind = classify(values)
+    const values = objs.map((o) => o && o[key]).filter((v) => v != null);
+    const kind = classify(values);
     if (kind === 'nested') {
-      const children = facetsFrom(values, path, depth + 1)
-      if (children.length) facets.push({ path, key, kind, depth, children })
+      const children = facetsFrom(values, path, depth + 1);
+      if (children.length) facets.push({ path, key, kind, depth, children });
     } else if (kind === 'stringList' || kind === 'enumSingle') {
-      const vals = enumValues(values)
+      const vals = enumValues(values);
       // Only keep it as a filter facet if some value is shared by 2+ artworks;
       // all-unique keys (taglines, source URLs, …) can't group anything and are
       // left to render as plain text in the Properties block.
-      if (vals.some((v) => v.count > 1)) facets.push({ path, key, kind, depth, values: vals })
+      if (vals.some((v) => v.count > 1))
+        facets.push({ path, key, kind, depth, values: vals });
     } else if (kind === 'numeric' || kind === 'date') {
-      const n = numericOptions(values, kind === 'date')
-      if (n.options.length > 1) facets.push({ path, key, kind, depth, minOptions: n.options, maxOptions: n.options, ...n })
+      const n = numericOptions(values, kind === 'date');
+      if (n.options.length > 1)
+        facets.push({
+          path,
+          key,
+          kind,
+          depth,
+          minOptions: n.options,
+          maxOptions: n.options,
+          ...n,
+        });
     } else if (kind === 'duration') {
-      const n = numericOptions(values.map((v) => durationSeconds(v)), false)
-      if (n.options.length > 1) facets.push({ path, key, kind: 'numeric', depth, isDuration: true, minOptions: n.options, maxOptions: n.options, ...n })
+      const n = numericOptions(
+        values.map((v) => durationSeconds(v)),
+        false,
+      );
+      if (n.options.length > 1)
+        facets.push({
+          path,
+          key,
+          kind: 'numeric',
+          depth,
+          isDuration: true,
+          minOptions: n.options,
+          maxOptions: n.options,
+          ...n,
+        });
     }
   }
-  return facets
+  return facets;
 }
 
 // Built once: content is static and loaded eagerly at build time.
-export const schema = facetsFrom(artworks.map((a) => a.data), '', 0)
+export const schema = facetsFrom(
+  artworks.map((a) => a.data),
+  '',
+  0,
+);
 
 // Flat lookup of every facet (including nested children) by its path.
 export const facetByPath = (() => {
-  const m = new Map()
-  const walk = (fs) => fs.forEach((f) => { m.set(f.path, f); if (f.children) walk(f.children) })
-  walk(schema)
-  return m
-})()
+  const m = new Map();
+  const walk = (fs) =>
+    fs.forEach((f) => {
+      m.set(f.path, f);
+      if (f.children) walk(f.children);
+    });
+  walk(schema);
+  return m;
+})();
 
 export function isEnumFacet(path) {
-  const f = facetByPath.get(path)
-  return f && (f.kind === 'stringList' || f.kind === 'enumSingle' || f.kind === 'releases')
+  const f = facetByPath.get(path);
+  return (
+    f &&
+    (f.kind === 'stringList' ||
+      f.kind === 'enumSingle' ||
+      f.kind === 'releases')
+  );
 }
 
 // Display unit appended to numeric values under certain keys (dimensions are
 // normalized to meters in content.js).
-const UNIT_BY_KEY = { dimensions: 'm' }
+const UNIT_BY_KEY = { dimensions: 'm' };
 export function unitForPath(path) {
-  return UNIT_BY_KEY[path.split('.')[0]] || ''
+  return UNIT_BY_KEY[path.split('.')[0]] || '';
 }

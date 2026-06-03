@@ -1,16 +1,23 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import { HashRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
-import { LanguageProvider } from './i18n.jsx'
-import { FilterProvider } from './filters.jsx'
-import App from './App.jsx'
-import Home from './pages/Home.jsx'
-import ArtworkPage from './pages/ArtworkPage.jsx'
-import './index.css'
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import {
+  HashRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
+import { LanguageProvider } from './i18n.jsx';
+import { FilterProvider } from './filters.jsx';
+import App from './App.jsx';
+import Home from './pages/Home.jsx';
+import ArtworkPage from './pages/ArtworkPage.jsx';
+import './index.css';
 
 function LegacyArtworkRedirect() {
-  const params = useParams()
-  const location = useLocation()
+  const params = useParams();
+  const location = useLocation();
   return (
     <Navigate
       to={{
@@ -20,7 +27,7 @@ function LegacyArtworkRedirect() {
       state={location.state}
       replace
     />
-  )
+  );
 }
 
 // HashRouter keeps client-side routing working on GitHub Pages
@@ -41,4 +48,4 @@ createRoot(document.getElementById('root')).render(
       </FilterProvider>
     </LanguageProvider>
   </React.StrictMode>,
-)
+);

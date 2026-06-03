@@ -6,8 +6,8 @@
 // Single image paragraphs are left untouched (full-width layout).
 export function remarkGallery() {
   return (tree) => {
-    processChildren(tree)
-  }
+    processChildren(tree);
+  };
 }
 
 function isImageParagraph(node) {
@@ -15,25 +15,25 @@ function isImageParagraph(node) {
     node.type === 'paragraph' &&
     node.children?.length > 0 &&
     node.children[0].type === 'image'
-  )
+  );
 }
 
 function processChildren(parent) {
-  if (!parent.children) return
+  if (!parent.children) return;
 
-  const next = []
-  let i = 0
+  const next = [];
+  let i = 0;
   while (i < parent.children.length) {
-    const node = parent.children[i]
+    const node = parent.children[i];
 
     if (isImageParagraph(node)) {
       // Collect the full consecutive run.
-      const run = [node]
+      const run = [node];
       while (
         i + 1 < parent.children.length &&
         isImageParagraph(parent.children[i + 1])
       ) {
-        run.push(parent.children[++i])
+        run.push(parent.children[++i]);
       }
 
       if (run.length >= 2) {
@@ -52,19 +52,19 @@ function processChildren(parent) {
             },
             children: p.children,
           })),
-        })
+        });
       } else {
         // Single image — leave as-is (full-width).
-        next.push(run[0])
+        next.push(run[0]);
       }
     } else {
       // Recurse so images inside blockquotes/lists are also handled.
-      processChildren(node)
-      next.push(node)
+      processChildren(node);
+      next.push(node);
     }
 
-    i++
+    i++;
   }
 
-  parent.children = next
+  parent.children = next;
 }

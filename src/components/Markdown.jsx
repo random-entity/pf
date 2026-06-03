@@ -143,8 +143,10 @@ export default function Markdown({ children }) {
 
     const setExpanded = (button, expanded) => {
       button.setAttribute('aria-expanded', String(expanded))
-      // Heading markers keep their # text; list toggles use bullet symbols
-      if (!button.classList.contains('md-collapse-heading')) {
+      if (button.classList.contains('md-collapse-heading')) {
+        const hashes = button.dataset.hashes || ''
+        button.textContent = `${expanded ? '▾' : '▸'} ${hashes}`
+      } else {
         button.textContent = expanded ? '•' : '◉'
       }
     }
@@ -160,13 +162,14 @@ export default function Markdown({ children }) {
       }
       if (!hasSection) continue
 
-      // The ## marker itself is the toggle button
+      const hashes = '#'.repeat(level)
       const marker = document.createElement('button')
       marker.type = 'button'
       marker.className = 'md-heading-marker md-collapse-toggle md-collapse-heading'
       marker.setAttribute('aria-label', 'Collapse section')
       marker.setAttribute('aria-expanded', 'true')
-      marker.textContent = '#'.repeat(level)
+      marker.dataset.hashes = hashes
+      marker.textContent = `▾ ${hashes}`
       heading.prepend(marker)
     }
 
@@ -194,7 +197,13 @@ export default function Markdown({ children }) {
         return
       }
 
-      const button = event.target.closest('.md-collapse-toggle')
+      // Direct click on a toggle, or click anywhere on a collapsible heading
+      let button = event.target.closest('.md-collapse-toggle')
+      if (!button) {
+        const heading = event.target.closest('h1, h2, h3, h4, h5, h6')
+        if (heading && root.contains(heading))
+          button = heading.querySelector('.md-collapse-heading')
+      }
       if (!button || !root.contains(button)) return
 
       event.preventDefault()
