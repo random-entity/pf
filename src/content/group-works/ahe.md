@@ -9,10 +9,10 @@ tagline:
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
 releases:
   - event:
-      - en: "Seoul Performing Arts Festival"
-      - ko: "서울국제공연예술제"
-      - ja: "ソウル国際公演芸術祭"
-    venue: "PLATFORM-L"
+    - en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/program/program_view06.php)"
+    - ko: "[서울국제공연예술제](http://spaf.or.kr/2024/program/program_view06.php#)"
+    - ja: "[ソウル国際公演芸術祭](http://spaf.or.kr/2024_eng/program/program_view06.php)"
+    venue: "[PLATFORM-L](https://platform-l.org/)"
     date: "2024-10-11 ~ 2024-10-13"
     version: "v.SPAF_DayN"
   - event: "Forum IMPACT"
@@ -21,7 +21,7 @@ releases:
     version: "v.IMPACT_DayN"
 type: Group work
 genre:
-  - "Robot dance"
+  - "[Robot dance](http://spaf.or.kr/2024/program/program_view06.php#)"
   - "Mechanical theater"
   - "Electroacoustic music"
   - "Live performance"

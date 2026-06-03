@@ -26,7 +26,7 @@ function stripMdLink(s) {
 // Markdown link syntax "[text](url)" is stripped to just "text".
 export function labelOf(v, lang) {
   if (v == null) return '';
-  if (isLocalized(v)) return loc(v, lang);
+  if (isLocalized(v)) return stripMdLink(loc(v, lang));
   return stripMdLink(String(v));
 }
 

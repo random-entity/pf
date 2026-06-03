@@ -207,23 +207,39 @@ One accordion row per facet. The body renders the controls the kind allows:
 
 ## Properties block (`Properties.jsx`)
 
-`Value` dispatches on the type of the frontmatter value:
+### Unified value rendering rules
 
-- **`releases` path** → `ReleasesValue`: renders `DATE : EVENT @VENUE (VERSION)`,
-  with the event name as an `EnumPill`.
-- **Enum facet path** → `EnumPill`: a `<button>` with an inner `.tag-label` span
-  that owns the padding. Clicking toggles the filter *and* calls `requestExpand`
-  to open the sidebar accordion. If the value is a markdown link `[text](url)`,
-  the link text becomes the pill label and a `↗` icon (with a vertical separator)
-  appends an external link. Selection is indicated by stroke highlight only
-  (`border-color: var(--fg)`).
-- **Localized object** → `InlineMarkdown` on `loc(value, lang)`.
-- **Plain string** → `InlineMarkdown`: renders `[text](url)` links (external
-  opens new tab), `[[wikilinks]]`, bold, italic, inline code.
-- **Date object** → `formatDate`.
-- **Duration object** → `formatDuration`.
-- **Array** → `<ul>` of `Value` children.
-- **Nested object** → key/value grid (CSS `display: contents`).
+All frontmatter values — at any depth — follow one consistent pipeline in the
+`Value` component. The rules are applied in priority order:
+
+| Condition | Rendering |
+|---|---|
+| `releases` path | `ReleasesValue` — `DATE : EVENT @VENUE (VERSION)` |
+| Enum facet path | `EnumPill` — clickable filter button (see below) |
+| `Date` object | `formatDate` |
+| `{hours?,minutes?,seconds?}` (duration) | `formatDuration` |
+| **Localized object** `{en,ko,ja}` | Pick current-language value → re-enter pipeline |
+| **Array** | `<ul>` — each item re-enters the pipeline |
+| **Nested object** | Key/value grid — each value re-enters the pipeline |
+| **String** (final rule) | `InlineMarkdown` (see below) |
+
+**Key principle**: every string value, anywhere in the tree (including inside
+localized objects, arrays, nested objects, and `ReleasesValue` sub-fields like
+`venue` and `version`), is always rendered through `InlineMarkdown`. This means
+`[text](url)` links, wikilinks, and emphasis work uniformly everywhere.
+
+**`InlineMarkdown`** renders a string with:
+- `[text](url)` → external link (new tab); `[[slug]]` → internal hash-route link
+- `[text](url1)(url2)` (multi-link) → plain text + one `↗` per URL
+- `**bold**`, `*italic*`, `` `code` `` → inline formatting
+
+**`EnumPill`**: a `<button>` whose click toggles the filter and expands the
+sidebar accordion. The label is the display text (markdown link syntax is
+stripped). If the value is `[text](url)` or `[text](url1)(url2)`, a vertical
+separator and one `↗` icon per URL are appended. Localized enum values (`{en,
+ko, ja}` where each language string may itself be a markdown link) are supported:
+the label and URLs are resolved from the current language's string.
+Selection is indicated by stroke highlight (`border-color: var(--fg)`).
 
 ## Markdown, headings & deep-links
 

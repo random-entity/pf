@@ -69,10 +69,15 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   raw key name (add labels in `src/i18n.jsx`).
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
   a **list** `[a, b]`, or a **nested object** `{ k: v }` — all render automatically.
-- String values support inline markdown: `[text](url)` renders as a link (external
-  links open in a new tab), `[[wikilink]]` links to another artwork, `**bold**`,
-  `_italic_`, `` `code` `` work inline. On enum pills, an inline `[text](url)` value
-  shows the text as the pill label and appends a `↗` icon that opens the URL.
+- **All string values** support inline markdown — this applies uniformly to every
+  scalar anywhere in frontmatter (plain strings, localized object values, array
+  items, nested object values, and release sub-fields like `venue` and `version`):
+  - `[text](url)` → clickable link (external opens in a new tab)
+  - `[text](url1)(url2)` → plain text with one `↗` icon per URL (multi-link)
+  - `[[wikilink]]` → link to another artwork by slug
+  - `**bold**`, `_italic_`, `` `code` `` → inline formatting
+  - On **enum pills**, the link text becomes the pill label and a `↗` icon is
+    appended after a separator; multi-link values add one `↗` per URL.
 - `title` is used as the page heading and is not repeated in the block.
 - **Quote all string values inside inline `{ ... }` objects and `[ ... ]`
   arrays.** This keeps frontmatter consistent and avoids YAML treating commas,
@@ -108,6 +113,7 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   ```
 
   The Properties block renders each release as `DATE : EVENT @VENUE (VERSION)`.
+  All string sub-fields (`event`, `venue`, `version`) support inline markdown.
   In the Releases range filter, **Min** lists all start dates and **Max** all end
   dates; the match is an inclusive overlap. The old single-key object format
   (`{ "Event name": "YYYY-MM-DD" }`) is still accepted as a fallback.

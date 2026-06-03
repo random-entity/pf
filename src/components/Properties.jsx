@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { useLang, isLocalized } from '../i18n.jsx'
+import { useLang, loc, isLocalized } from '../i18n.jsx'
 import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
 import {
   isEnumFacet,
@@ -52,7 +52,8 @@ function EnumPill({ path, value }) {
   const id = canonicalOf(value)
   const active = enums[path]?.ids.includes(id)
   const displayText = String(labelOf(value, lang) ?? '')
-  const externalUrls = mdLinkUrls(String(value ?? ''))
+  const valueStr = isLocalized(value) ? loc(value, lang) : String(value ?? '')
+  const externalUrls = mdLinkUrls(valueStr)
 
   return (
     <button
@@ -106,19 +107,19 @@ function ReleasesValue({ value }) {
             <span>* Release</span>
           )}
           
-		  {/* 2. Venue (Only rendered if it exists) */}
+          {/* 2. Venue (Only rendered if it exists) */}
           {e.venue && (
             <>
               {'@'}
-              <span className="venue">{e.venue}</span>
+              <span className="venue"><InlineMarkdown>{e.venue}</InlineMarkdown></span>
             </>
           )}
-          
+
           {/* 4. Version (Only rendered if it exists) */}
           {e.version && (
             <>
               {' '}
-              <span className="version">({e.version})</span>
+              <span className="version">(<InlineMarkdown>{e.version}</InlineMarkdown>)</span>
             </>
           )}
         </li>
