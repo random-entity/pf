@@ -36,8 +36,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - **Format**
   - Approximately 1-hour robot dance live performance featuring 13 Ahe[^1]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data.
 - **Credits**
-  - Presented by: Robot Theater Company[^2] (Byungjun Kwon[^3], LEE Yujin, LEE Jumi, random-entity)
-  - Director, Hardware Design, Music: Byungjun Kwon
+  - Presented by: Robot Theater Company[^2] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)
+  - Director, Hardware Design, Music: KWON Byungjun
   - Assistant Director, Robot Choreography: LEE Yujin
   - Robot Design, Robot Maintenance: LEE Jumi
   - Software Development, Robot Operation: random-entity
@@ -141,9 +141,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
   - The choreographer's role was to construct a sequence of actions that the Ahes would perform during the 1-hour performance. The choreography is composed by saving combinations of action algorithm types and parameters of the corresponding pivot sequences as "movement presets," and saving "movement sequence presets" (which arrange the saved "movement presets" over time) as patterns in the aforementioned commander drum machine.
   - Here, to facilitate communication between the programmer and the choreographer, a programmer-choreographer protocol was designated and used so that the 5-digit preset number of the movement itself could be decoded into the type or parameters of the movement.
 - Music and Lighting:
-  - The music was improvised during the performance by Byungjun Kwon[^3], the general director of this project, using software synthesizers and glove-type data signal manipulation interfaces he developed as a sound artist, musician, and electronic instrument researcher.
+  - The music was improvised during the performance by KWON Byungjun[^3], the general director of this project, using software synthesizers and glove-type data signal manipulation interfaces he developed as a sound artist, musician, and electronic instrument researcher.
     - The sounds caused by attachment/detachment and friction between the Ahes and the steel plate floor were picked up by contact mics, processed in real-time via granular synthesis, and used for the improvisation.
-  - The lighting was directed by lighting director Hyun Kim to match the dance and music.
+  - The lighting was directed by lighting director KIM Hyeon to match the dance and music.
 - **Real-time Robot Operation**:
   - Because some actions, like 'walking to a specific position while avoiding other units,' do not have a predetermined execution time, the entire sequence of actions cannot be programmed in advance. Moreover, unexpected variables occur during actual performances, requiring improvised responses. Therefore, human operators were needed behind the audience to control the robots in real-time according to the pre-agreed flow of the performance.
 
@@ -155,13 +155,13 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 ## External links
 
 - [Performance Recording Video](https://youtube.com/playlist?list=PLHd0nQV4yFCuMWlChPpwjZxNmRSKD8dgT)
-- [Artist Byungjun Kwon's Website - On The Birds' Day (SPAF) - Work Introduction](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
-- [Artist Byungjun Kwon's Website - On The Birds' Day (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
+- [Artist KWON Byungjun's Website - On The Birds' Day (SPAF) - Work Introduction](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
+- [Artist KWON Byungjun's Website - On The Birds' Day (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive Article](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 
 [^1]: A bipedal robot that reinterprets the character "Ahe" from the poem ⟨Crow's Eye View Poem No. 1⟩ by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
 
-[^2]: A robot theater company (robot dance production team) founded in 2024 by artist Byungjun Kwon with the support of Art Korea Lab.
+[^2]: A robot theater company (robot dance production team) founded in 2024 by artist KWON Byungjun with the support of Art Korea Lab.
 
 [^3]: (1971–) A contemporary Korean artist whose media include sound, robots, and performance. Winner of the "Korea Artist Prize 2023" by the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist's Website](https://byungjun.pe.kr/))
 
@@ -319,8 +319,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
   - ロボットデザイン、ロボットメンテナンス: LEE Jumi
   - ソフトウェア開発、ロボットオペレーション: 任意存在
   - 照明: KIM Hyeon
-  - スタッフ: YUN Suhi、LEE Minho、CHOI Garam
-  - プロデューサー: Producer Group DOT (PARK Jiseon、CHOI Bongmin)
+  - スタッフ: YOON Suhui、LEE Minho、CHOI Garam
+  - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
   - コミッション: ソウル国際舞台芸術祭 (SPAF)、Arts Korea Lab
 - **公開**
   - 公演: [2024 ソウル国際舞台芸術祭(SPAF) - PLATFORM-L (韓国)](http://spaf.or.kr/2024/program/program_view06.php)、[Forum IMPACT 2024 - Théâtre de Liège (ベルギー)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]

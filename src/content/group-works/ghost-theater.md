@@ -21,9 +21,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
   - Genre: Interactive sound installation
   - Composition: An interactive sound installation consisting of GLPS headphones[^1] worn by the listener, and 3D audio scenes placed in each of the "zones" marked by spotlights in the exhibition space.
 - **Creators**
-  - Exhibitor: Seoul Open Media[^2] (Byungjun Kwon[^3], Juhong Baek, random-entity)
-  - General Director, Hardware Design, Sound: Byungjun Kwon
-  - Hardware Design: Juhong Baek
+  - Exhibitor: Seoul Open Media[^2] (KWON Byungjun[^3], BAEK Juhong, random-entity)
+  - General Director, Hardware Design, Sound: KWON Byungjun
+  - Hardware Design: BAEK Juhong
   - Software Development: random-entity
 - **Release**
   - Exhibition: [Seoul National University Museum of Art ⟨Turing Test: AI's Declaration of Love⟩](http://www.snumoa.org/exhibitions_view.php?exh_id=151) (2022)
@@ -33,7 +33,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
 
 - Visitors entering the exhibition space wear GLPS headphones[^1].
 - When a listener enters a "zone" marked by a spotlight on the floor of the exhibition space, AR (augmented reality) 3D audio is played, making them feel as if they have entered a scene in a virtual acoustic space surrounding that zone. A different "play" unfolds in each "zone".
-- The sound sources include voice narrations by voice actors performing a play written by artist Byungjun Kwon together with an AI, as well as sounds and music composed by artist Byungjun Kwon as a sound artist, musician, and electronic musical instrument researcher.
+- The sound sources include voice narrations by voice actors performing a play written by artist KWON Byungjun together with an AI, as well as sounds and music composed by artist KWON Byungjun as a sound artist, musician, and electronic musical instrument researcher.
 - When the listener is not inside a "zone," a bell sound rings from the nearest "zone" to guide them toward it.
 - The listener appreciates the songs of the "Ghost Theater," which are invisible in the physical exhibition space, within the AR acoustic zones unfolded by the GLPS headphones.
 
@@ -51,7 +51,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
 
 ## Commentary
 
-- This work is an indoor version of the piece [⟨Ghost Theater "We Will Have a Serious Night"⟩](https://byungjun.pe.kr/works/we-will-have-a-serious-night), which artist Byungjun Kwon had previously directed as an outdoor work, compressed and exhibited inside the Seoul National University Museum of Art. In order to reconstruct the plays and songs of the robots that unfolded in various outdoor locations—such as Hanok villages or farming communities—within an indoor museum exhibition space, a real-time 3D audio effect function was added to the GLPS headphone[^1] version developed for this indoor port. This function makes listeners perceive themselves as being inside a virtual acoustic space. By doing so, it overlays another "ghost-like" acoustic space layer that hides within the real space where other works in the same exhibition are displayed.
+- This work is an indoor version of the piece [⟨Ghost Theater "We Will Have a Serious Night"⟩](https://byungjun.pe.kr/works/we-will-have-a-serious-night), which artist KWON Byungjun had previously directed as an outdoor work, compressed and exhibited inside the Seoul National University Museum of Art. In order to reconstruct the plays and songs of the robots that unfolded in various outdoor locations—such as Hanok villages or farming communities—within an indoor museum exhibition space, a real-time 3D audio effect function was added to the GLPS headphone[^1] version developed for this indoor port. This function makes listeners perceive themselves as being inside a virtual acoustic space. By doing so, it overlays another "ghost-like" acoustic space layer that hides within the real space where other works in the same exhibition are displayed.
 
 ## Technology
 
@@ -79,11 +79,11 @@ source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
 ## External links
 
 - [YouTube - Seoul Council of Art Museums - Exhibition Introduction Video](https://youtu.be/euUhxTG8qOQ)
-- [Artist Byungjun Kwon's Website - Ghost Theater "We Will Have a Serious Night" (Hongdong Reservoir)](https://byungjun.pe.kr/works/we-will-have-a-serious-night)
+- [Artist KWON Byungjun's Website - Ghost Theater "We Will Have a Serious Night" (Hongdong Reservoir)](https://byungjun.pe.kr/works/we-will-have-a-serious-night)
 
-[^1]: Specially modified headphones used in many works by Byungjun Kwon/Seoul Open Media. They operate using a PJRC Teensy microcontroller and a GPS or LPS (local positioning system) module within the embedded system, with parts added and software programmed to suit the purpose of each work.
+[^1]: Specially modified headphones used in many works by KWON Byungjun/Seoul Open Media. They operate using a PJRC Teensy microcontroller and a GPS or LPS (local positioning system) module within the embedded system, with parts added and software programmed to suit the purpose of each work.
 
-[^2]: A media art production team led by artist Byungjun Kwon.
+[^2]: A media art production team led by artist KWON Byungjun.
 
 [^3]: (1971–) A Korean contemporary artist who uses sound, robots, performances, etc., as media. Winner of the "Korea Artist Prize 2023" from the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist Website](https://byungjun.pe.kr/))
 :::

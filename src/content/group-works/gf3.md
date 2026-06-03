@@ -22,12 +22,12 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
   - Genre: Robot dance, Robot performance
   - Composition: 1 GF3[^1] unit, real-time wired robot control system, robot choreography data, voice interview and musical sound recording of Shin Myung-sook[^2], video projection, and an approx. 10-minute robot performance based on video feedback
 - **Creators**
-  - Exhibitor: Byungjun Kwon[^3]
-  - General Director, Hardware Design, Sound: Byungjun Kwon
-  - Robot Choreography: Yoojin Lee
-  - Robot Design, Robot Maintenance: Jumi Lee
+  - Exhibitor: KWON Byungjun[^3]
+  - General Director, Hardware Design, Sound: KWON Byungjun
+  - Robot Choreography: LEE Yoojin
+  - Robot Design, Robot Maintenance: LEE Jumi
   - Software Development, Robot Operation: random-entity
-  - Staff: Minho Lee, Garam Choi
+  - Staff: LEE Minho, CHOI Garam
 - **Release**
   - Performance: [2024 Gwangju Biennale Symposium ⟨New Echoes: Art and Technology in the Anthropocene Epoch⟩](https://www.gwangjubiennale.org/gb/Board/11766/detailView.do)
   - Exhibition: [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day-2/)[^4]
@@ -47,7 +47,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### Forum IMPACT 2024 Exhibition
 
-- Excluding the "shutdown due to breakdown and deadlock" segment, GF3's dance movements were exhibited at the ⟨On The Birds' Day / Byungjun Kwon Solo Exhibition⟩ during Forum IMPACT 2024, alongside various other dancing robot works created by artist Byungjun Kwon.
+- Excluding the "shutdown due to breakdown and deadlock" segment, GF3's dance movements were exhibited at the ⟨On The Birds' Day / KWON Byungjun Solo Exhibition⟩ during Forum IMPACT 2024, alongside various other dancing robot works created by artist KWON Byungjun.
 
 ![](images/works/gf3/live-stills/IMG_2964.jpeg)
 *Forum IMPACT exhibition installation in progress*
@@ -57,7 +57,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ## Commentary
 
-- Artist Byungjun Kwon has been creating handmade robot works that reflect the social role of robots as human companions or as alienated beings. The unstable, trembling movements that emerge precisely because these robots are made by human hands—rather than being precise industrial robots—hold the power to subvert conventional ideas about the relationship between humans and robots.
+- Artist KWON Byungjun has been creating handmade robot works that reflect the social role of robots as human companions or as alienated beings. The unstable, trembling movements that emerge precisely because these robots are made by human hands—rather than being precise industrial robots—hold the power to subvert conventional ideas about the relationship between humans and robots.
 - GF3[^1] is the most human-like among the robots developed by Kwon's team. Its role in this work was as a medium for a traditional music master, someone who is being forgotten in modern society due to technological advancement and globalization. The status of the handmade robot GF3, an alienated existence in a society of modern robots boasting high technology, mirrors that of the traditional music master. For a brief moment, GF3 becomes Master Shin Myung-sook[^2], regurgitating the critique that the original sound and spirit of Gayageum Sanjo are disappearing due to the universalization of Western musical notation, and then dances to her playing and singing.
 - Unlike industrial robots that remain intact even after repeating the same movement tens of thousands of times, GF3, which contains many 3D-printed parts, is not robust and wears out easily. However, that non-mechanical nature is GF3's essence. Even so, the production team did not intend for GF3 to break down during the performance at the Gwangju Biennale Symposium. On the contrary, numerous tests and improvements were made beforehand to ensure GF3 would finish the performance without breaking down. When GF3 broke down during the performance, the author (random-entity) was personally disappointed, but it also became a positive outcome in that it could be interpreted as expressing the mechanical limitations of the mediumship meant to revive a traditional music master through a machine. At Forum IMPACT about two months later, an upgraded version with improved mechanical stability was operated, allowing GF3's movements to be exhibited for over a week without major breakdowns.
 
@@ -74,7 +74,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ### Details
 
 - GF3's[^1] mechanical engineering structure:
-  - For the joints mounted on GF3's neck, shoulders, and elbows, gears succeeding the "differential joint" previously developed and used by Byungjun Kwon's team were used. A "differential joint" is an application of a [differential structure](<https://en.wikipedia.org/wiki/Differential_(mechanical_device)>) that implements a 2-DOF joint through a combination of two opposing servomotors. In addition to the differential joint, a separate servomotor and standard gear were added to the shoulder to enable 3-DOF movement. [mjbots mj5208](https://mjbots.com/products/mj5208) and [mjbots moteus](https://mjbots.com/products/moteus-r4-11) were used as the servomotors and controllers to move the above joints.
+  - For the joints mounted on GF3's neck, shoulders, and elbows, gears succeeding the "differential joint" previously developed and used by KWON Byungjun's team were used. A "differential joint" is an application of a [differential structure](<https://en.wikipedia.org/wiki/Differential_(mechanical_device)>) that implements a 2-DOF joint through a combination of two opposing servomotors. In addition to the differential joint, a separate servomotor and standard gear were added to the shoulder to enable 3-DOF movement. [mjbots mj5208](https://mjbots.com/products/mj5208) and [mjbots moteus](https://mjbots.com/products/moteus-r4-11) were used as the servomotors and controllers to move the above joints.
   - A standard gear was used for the wrist joint to implement a 1-DOF joint with one servomotor.
   - The fingers are moved by winding or unwinding wires connected between each fingertip of the 3D-printed hand and five small servomotors mounted on the back of the hand, allowing the joints to bend flexibly.
   - The entire body of GF3 was designed to be assembled from 3D-printed parts as well as metal/electrical/electronic components.
@@ -106,9 +106,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ## External links
 
-- [Artist Byungjun Kwon's Homepage - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
+- [Artist KWON Byungjun's Homepage - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
 
-[^1]: A robot imitating the upper human body, developed through multiple version upgrades over a long period under the leadership of artist Byungjun Kwon. It moves by controlling servomotors mounted on the joints of the neck, shoulders, elbows, wrists, and fingers.
+[^1]: A robot imitating the upper human body, developed through multiple version upgrades over a long period under the leadership of artist KWON Byungjun. It moves by controlling servomotors mounted on the joints of the neck, shoulders, elbows, wrists, and fingers.
 
 [^2]: (1940–2018) Holder of Busan Intangible Cultural Heritage No. 8 ⟨Kang Tae-hong Style Gayageum Sanjo⟩. She studied gayageum under Master Kang Tae-hong from the age of 14. As Kang Tae-hong's last disciple, she dedicated her entire life to carrying on and promoting the techniques and spirit of the Kang Tae-hong style Gayageum Sanjo. [(Reference: Busan Ilbo)](https://www.busan.com/view/busan/view.php?code=20180323000141)
 
@@ -150,7 +150,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### Forum IMPACT 2024 전시
 
-- GF3의 춤동작은 '파손과 교착에 의한 종료' 부분을 제외하고 Forum IMPACT 2024의 ⟨On The Birds' Day / Byungjun Kwon Solo Exhibition⟩ 전에서, 권병준 작가가 만들어 온 다양한 무용 로봇 작품들과 함께 전시되었다.
+- GF3의 춤동작은 '파손과 교착에 의한 종료' 부분을 제외하고 Forum IMPACT 2024의 ⟨On The Birds' Day / KWON Byungjun Solo Exhibition⟩ 전에서, 권병준 작가가 만들어 온 다양한 무용 로봇 작품들과 함께 전시되었다.
 
 ![](images/works/gf3/live-stills/IMG_2964.jpeg)
 *Forum IMPACT 전시 설치 중*
@@ -253,7 +253,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### Forum IMPACT 2024 展示
 
-- GF3のダンスの動きは、「破損と膠着による終了」部分を除き、Forum IMPACT 2024の⟨On The Birds' Day / Byungjun Kwon Solo Exhibition⟩展にて、KWON Byungjun作家が制作してきた多様な舞踊ロボット作品とともに展示された。
+- GF3のダンスの動きは、「破損と膠着による終了」部分を除き、Forum IMPACT 2024の⟨On The Birds' Day / KWON Byungjun Solo Exhibition⟩展にて、KWON Byungjun作家が制作してきた多様な舞踊ロボット作品とともに展示された。
 
 ![](images/works/gf3/live-stills/IMG_2964.jpeg)
 *Forum IMPACT 展示設営中*

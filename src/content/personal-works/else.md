@@ -37,7 +37,7 @@ tools: ["Unity", "Arduino", "Blender", "Processing"]
 *Processing · 2019*
 
 - Children are scattered around the playground, playing in groups. When a (real-world) whistle blows, the children align into neat rows and columns. If you blow the whistle at regular intervals, the children perform gymnastics to that rhythm. When the gymnastics end, the children scatter and play again.
-- Graphic Design: Haein Kim; Programming: random-entity
+- Graphic Design: KIM Haein; Programming: random-entity
 - Developed using Processing, [toxiclibs](https://github.com/postspectacular/toxiclibs), and the Sound library.
 - [(Source Code)](https://github.com/random-entity/o.des.horuragi)
 

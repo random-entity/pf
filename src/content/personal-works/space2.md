@@ -21,7 +21,7 @@ tools: ["Unity", "Kinect"]
   - Composition: Interactive CG rendering system reflecting motion/depth sensor data and interactive video projection on the darkroom floor by a projector
 - **Creators**
   - Direction, Programming: random-entity
-  - Staff: Junyoung Kim, Hojeong Lee
+  - Staff: KIM Junyoung, LEE Hojeong
 - **Release**
   - Exhibition: [SNU Design Week](https://snudesignweek.com/)[^1] 2021 (Seoul National University College of Fine Arts, Department of Design Graduation Exhibition)
   - Web
@@ -52,7 +52,7 @@ tools: ["Unity", "Kinect"]
 *Collection of stills from the demo video above*
 
 ![](images/works/space2/space2_diagram_fixed-symmetry.png)
-*Concept diagram (Illustration: Hojeong Lee)*
+*Concept diagram (Illustration: LEE Hojeong)*
 
 ## Commentary
 

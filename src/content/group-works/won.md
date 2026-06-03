@@ -21,9 +21,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
   - Genre: Public video game, Art game
   - Composition: A video game installed in a public space where anyone can participate; operated with a PC, monitor, keyboard, and mouse.
 - **Creators**
-  - Exhibitor: Hojeong Lee
-  - Direction, Graphic Design: Hojeong Lee
-  - Programming: random-entity, Minki Cho
+  - Exhibitor: LEE Hojeong
+  - Direction, Graphic Design: LEE Hojeong
+  - Programming: random-entity, CHO Minki
 - **Release**
   - Exhibition: [2021 Seoul National University Art Week: ArtSpace@SNU 2021](https://art.snu.ac.kr/notice/2021-%EC%98%88%EC%88%A0%EC%A3%BC%EA%B0%84-art-spacesnu-%ED%96%89%EC%82%AC-%EC%95%8C%EB%A6%BC/)
 - **Source code**: [GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibition-end)
@@ -49,7 +49,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
 ## Commentary
 
 - We live our lives hoping for and achieving big and small things. To a person wishing for something, someone who has already achieved it can be an object of envy or a teacher who shares their experiences. This connection between people, mediated by wishes, is the force that keeps us living and unites the community.
-- Artist Hojeong Lee's thoughts are projected into a virtual world of stones that float like living organisms and gather like a community, and "stone towers" that are commonly built in our culture while making a wish.
+- Artist LEE Hojeong's thoughts are projected into a virtual world of stones that float like living organisms and gather like a community, and "stone towers" that are commonly built in our culture while making a wish.
 
 [ArtSpace@SNU — artwork introduction](https://youtu.be/zFeyxBnuzAI)
 

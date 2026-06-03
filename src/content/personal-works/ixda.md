@@ -21,9 +21,9 @@ tools: ["After Effects", "Premiere Pro", "Unity", "TouchDesigner"]
   - Composition: 14-minute 33-second video composed of 1-channel digital video and stereo audio; uses live-action footage, CG video, CG effects, and appropriated footage
 - **Creators**
   - Screenplay/Direction/Editing, Programming: random-entity
-  - Director of Photography: Seungwoo Nam, Changsoo Maeng
-  - Cast: Soohyun Kwon, Soobin Kim, Jonghwan Seol, Youngeun Joo
-  - Staff: Junyoung Kim, Yerim Shin, Yumin Ahn, Jaeuk Yoo, Myungwon Lee, Hojeong Lee, Sangwon Jung, Chaehoon Jung, Soyoung Cho
+  - Director of Photography: NAM Seungwoo, MAENG Changsoo
+  - Cast: KWON Soohyun, KIM Soobin, SEOL Jonghwan, JU Youngeun
+  - Staff: KIM Junyoung, SHIN Yerim, AHN Yumin, YOO Jaeuk, LEE Myungwon, LEE Hojeong, JUNG Sangwon, JUNG Chaehoon, CHO Soyoung
 - **Release**
   - Exhibition: [SNU Design Week](https://snudesignweek.com/)[^2] 2021 (Seoul National University College of Fine Arts, Department of Design Graduation Exhibition)
   - Web: [YouTube](https://youtu.be/7BlzhoJArZI)

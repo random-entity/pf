@@ -21,9 +21,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.time3)"
   - Genre: Interactive video installation
   - Composition: Interactive video projection created by feedback between the projection and a CG system that processes real-time image input from a camera
 - **Creators**
-  - Exhibitor: Random Entity (team) (random-entity, Hojeong Lee, Minki Cho)
+  - Exhibitor: Random Entity (team) (random-entity, LEE Hojeong, CHO Minki)
   - Direction, Programming: random-entity
-  - Staff: Hojeong Lee, Minki Cho
+  - Staff: LEE Hojeong, CHO Minki
 - **Release**
   - Exhibition: [2021 Seoul National University Art Week: ArtSpace@SNU 2021](https://art.snu.ac.kr/notice/2021-%EC%98%88%EC%88%A0%EC%A3%BC%EA%B0%84-art-spacesnu-%ED%96%89%EC%82%AC-%EC%95%8C%EB%A6%BC/)
   - Web
