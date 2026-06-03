@@ -312,6 +312,7 @@ input, select {
   letter-spacing: 0.05em;
   margin: 4px 0;
 }
+.filters-title-active { color: var(--fg); font-weight: 700; }
 /* .collapse-all replaced by .filters-action-btn */
 .filter-tree { list-style: none; margin: 0; padding-left: 14px; }
 .filter-tree > .filter-node > .facet-head,

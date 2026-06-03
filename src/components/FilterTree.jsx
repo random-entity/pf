@@ -173,8 +173,8 @@ function GroupIcon({ path }) {
 
 function EnumIcon({ path, onToggle }) {
   const { t } = useLang()
-  const { enums } = useFilters()
-  const active = (enums[path]?.ids.length ?? 0) > 0
+  const { enums, ranges } = useFilters()
+  const active = (enums[path]?.ids.length ?? 0) > 0 || !!ranges[path]
   return (
     <button
       className={`facet-icon enum-icon${active ? ' icon-on' : ' icon-off'}`}
@@ -295,7 +295,7 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
   return (
     <div className="filters">
       <div className="filters-title">
-        <span>{t('filters')}</span>
+        <span className={isAnyActive ? 'filters-title-active' : ''}>{t('filters')}</span>
         <div className="filters-title-actions">
           <button
             className="filters-action-btn"
