@@ -83,18 +83,19 @@ function parseDateRange(value) {
 function parseRelease(item) {
   if (item instanceof Date) {
     const ms = item.getTime()
-    return [{ start: ms, end: ms, event: 'Independent release' }]
+    return [{ start: ms, end: ms, event: 'Release' }]
   }
+  
   if (item && typeof item === 'object' && !Array.isArray(item)) {
-    // NEW FORMAT: { event: "XXX", date: "20XX-XX-XX ~ 20XX-XX-XX", version: "v1.x.x" }
-    if ('date' in item && 'event' in item) {
+    // NEW FORMAT: { event: "XXX", date: "...", version: "...", venue: "YYY" }
+    if ('event' in item && 'date' in item) {
       const range = parseDateRange(item.date)
       if (!range) return []
-      return [{
-        ...range,
-        event: item.event.trim() || 'Release',
+      return [{ 
+        ...range, 
+        event: item.event.trim() || 'Release', 
         version: item.version,
-        rawDate: item.date // Preserved for the frontmatter display
+        venue: item.venue // <-- Add this line
       }]
     }
 
@@ -106,12 +107,13 @@ function parseRelease(item) {
       })
       .filter(Boolean)
   }
+  
   const m = EVENT_RE.exec(String(item))
   if (!m) return []
   const start = toMs(m[1])
   if (start == null) return []
   const end = m[2] ? toMs(m[2]) : start
-  return [{ start, end, event: m[3] ? m[3].trim() : 'Independent release' }]
+  return [{ start, end, event: m[3] ? m[3].trim() : 'Release' }]
 }
 
 // Normalize an artwork's `releases` field into { start, end, event } entries.

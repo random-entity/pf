@@ -37,14 +37,22 @@ function EnumPill({ path, value }) {
 
 // The `releases` property: each release/event name is paired with its parsed
 // date or inclusive date range.
+// The `releases` property: renders as {Event} -- {Venue} -- {Date range} -- {Version}
 function ReleasesValue({ value }) {
   const evs = releaseEvents(value)
   if (evs.length === 0) return <span className="muted">—</span>
-
+  
   return (
     <ul className="release-events">
       {evs.map((e, i) => (
         <li key={i}>
+          {/* 3. Date or Date Range */}
+          <span className="date-range">
+            {formatDate(e.start)}
+            {e.end !== e.start ? ` → ${formatDate(e.end)}` : ''}
+          </span>
+          {' : '}
+
           {/* 1. Event (Clickable EnumPill) */}
           {e.event ? (
             <EnumPill path={RELEASES_PATH} value={e.event} />
@@ -52,19 +60,19 @@ function ReleasesValue({ value }) {
             <span>* Release</span>
           )}
           
-          {' – '}
+		  {/* 2. Venue (Only rendered if it exists) */}
+          {e.venue && (
+            <>
+              {'@'}
+              <span className="venue">{e.venue}</span>
+            </>
+          )}
           
-          {/* 2. Date or Date Range */}
-          <span className="date-range">
-            {formatDate(e.start)}
-            {e.end !== e.start ? ` ~ ${formatDate(e.end)}` : ''}
-          </span>
-          
-          {/* 3. Version (Only rendered if it exists) */}
+          {/* 4. Version (Only rendered if it exists) */}
           {e.version && (
             <>
-              {' – '}
-              <span className="version">{e.version}</span>
+              {' '}
+              <span className="version" style={{ fontFamily: 'monospace' }}>({e.version})</span>
             </>
           )}
         </li>

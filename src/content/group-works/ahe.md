@@ -1,35 +1,33 @@
 ---
-title: { en: "⟨On the Bird’s Day⟩ First Episode – Fear of the 13 Ahae", ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안", ja: "「鳥たちの日に」第一話：13人のアヘの不安" }
+title: { en: "\"On the Bird’s Day\" First Episode – Fear of the 13 Ahae", ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안", ja: "「鳥たちの日に」第一話：13人のアヘの不安" }
 tagline:
   en: "The anxiety of our time reflected in the toddling of machines."
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
 releases:
-  - { "2024 Seoul Performing Arts Festival (SPAF)": "2024-10-12" }
-  - { "Forum IMPACT 2024 – Théâtre de Liège": "2024-11-03" }
+  - { event: "Seoul Performing Arts Festival (SPAF)", venue: "PLATFORM-L", date: "2024-10-11 ~ 2024-10-13", version: "v.SPAF_DayN" }
+  - { event: "Forum IMPACT", venue: "Théâtre de Liège", date: "2024-11-02 ~ 2024-11-03", version: "v.IMPACT_DayN" }
 type: Group work
-genre: ["Robot dance", "Mechanical theater", "Stage performance"]
+genre: ["Robot dance", "Mechanical theater", "Electroacoustic music", "Live performance" ]
 tags: ["Physical computing", "Automata", "Artificial life", "Embedded system", "Microcontroller", "Printed circuit board", "Servomotor", "Local positioning system", "IMU sensor", "Wireless network", "3D printing"]
-tools: ["mjbots moteus", "PJRC Teensy", "Digi XBee", "C++", "Pure Data", "Processing"]
-source: https://github.com/random-entity/o.art.ahe
+tools: ["mjbots moteus", "PJRC Teensy", "C++", "Pure Data", "C", "Digi XBee", "Processing"]
+source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 ---
-::: en
 ![](images/works/ahe/live-stills/main.png)
-
+::: en
 ## Basic information
 
 - **Format**
-  - Genre: Robot dance, Robot theater, Stage performance
-  - Composition: Approximately 1-hour robot dance performance piece featuring 13 Ahes[^1] on a steel-plated stage, controlled by a real-time wireless robot control system, robot choreography algorithms, and data.
+  - Approximately 1-hour robot dance live performance featuring 13 Ahe[^1]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data.
 - **Credits**
-  - Presented by: Robot Theater Company[^2] (Byungjun Kwon[^3], Yujin Lee, Jumi Lee, random-entity)
-  - General Director, Hardware Design, Music: Byungjun Kwon
-  - Assistant Director, Robot Choreography: Yujin Lee
-  - Robot Design, Robot Maintenance: Jumi Lee
+  - Presented by: Robot Theater Company[^2] (Byungjun Kwon[^3], LEE Yujin, LEE Jumi, random-entity)
+  - Director, Hardware Design, Music: Byungjun Kwon
+  - Assistant Director, Robot Choreography: LEE Yujin
+  - Robot Design, Robot Maintenance: LEE Jumi
   - Software Development, Robot Operation: random-entity
-  - Lighting: Hyun Kim
-  - Staff: Soohee Yoon, Minho Lee, Garam Choi
-  - Producer: Producer Group DOT (Jisun Park, Bongmin Choi)
+  - Lighting: KIM Hyeon
+  - Staff: YOON Suhui, LEE Minho, CHOI Garam
+  - Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
   - Commissioned by: Seoul Performing Arts Festival (SPAF), Art Korea Lab
 - **Release**
   - Performance: [2024 Seoul Performing Arts Festival (SPAF) - PLATFORM-L (Korea)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]
@@ -153,9 +151,8 @@ source: https://github.com/random-entity/o.art.ahe
 
 [^4]: An international contemporary dance festival focused on the relationship between stage arts and new technologies, held by the Théâtre de Liège in Belgium, against the backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
-::: ko
-![](images/works/ahe/live-stills/main.png)
 
+::: ko
 ## 기본 정보
 
 - **형식**
@@ -294,8 +291,6 @@ source: https://github.com/random-entity/o.art.ahe
 [^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
 ::: ja
-![](images/works/ahe/live-stills/main.png)
-
 ## 基本情報
 
 - **形式**

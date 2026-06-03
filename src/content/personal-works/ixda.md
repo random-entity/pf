@@ -5,7 +5,7 @@ tagline:
   ko: "시간을 초월해서라도 치유해 주고픈 상처."
   ja: "時間を超えてでも癒してあげたい傷。"
 releases:
-  - { "SNU Design Week 2021": "2021-12-15" }
+  - { event: "SNU Design Week", date: "2021-12-15", version: "v20211215" }
 type: Personal work
 genre: ["Short film", "Art film", "Experimental film", "Video art"]
 tags: ["Movie camera", "CG", "Fractal video", "Mesh transformation"]
