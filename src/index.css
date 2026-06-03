@@ -834,11 +834,30 @@ select {
 }
 .article li > .md-collapse-toggle {
   position: absolute;
-  left: -1.4em; /* sits at roughly the same x as the normal disc bullet */
+  left: -1.4em;
   top: 0.25em;
   width: 1.2em;
   height: 1.2em;
   margin: 0;
+}
+/* Non-foldable siblings in a mixed list: replace native bullet with a pseudo-element
+   at the same position as the toggle button so all bullets align vertically. */
+.article ul:has(> li > .md-collapse-toggle) > li:not(:has(> .md-collapse-toggle)) {
+  list-style: none;
+  position: relative;
+}
+.article ul:has(> li > .md-collapse-toggle) > li:not(:has(> .md-collapse-toggle))::before {
+  content: '•';
+  position: absolute;
+  left: -1.4em;
+  top: 0.25em;
+  width: 1.2em;
+  height: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  color: var(--fg);
 }
 .article img {
   max-width: 100%;
