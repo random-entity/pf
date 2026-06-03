@@ -121,7 +121,7 @@ function ReleasesValue({ value }) {
           {e.version && (
             <>
               {' '}
-              <span className="version" style={{ fontFamily: 'monospace' }}>({e.version})</span>
+              <span className="version">({e.version})</span>
             </>
           )}
         </li>

@@ -1,14 +1,27 @@
 ---
-title: { en: "\"On the Bird’s Day\" First Episode – Fear of the 13 Ahae", ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안", ja: "「鳥たちの日に」第一話：13人のアヘの不安" }
+title:
+  en: "\"On the Bird’s Day\" First Episode – Fear of the 13 Ahae"
+  ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안"
+  ja: "「鳥たちの日に」第一話：13人のアヘの不安"
 tagline:
   en: "The anxiety of our time reflected in the toddling of machines."
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
 releases:
-  - { event: "Seoul Performing Arts Festival (SPAF)", venue: "PLATFORM-L", date: "2024-10-11 ~ 2024-10-13", version: "v.SPAF_DayN" }
-  - { event: "Forum IMPACT", venue: "Théâtre de Liège", date: "2024-11-02 ~ 2024-11-03", version: "v.IMPACT_DayN" }
+  - event: "Seoul Performing Arts Festival (SPAF)"
+    venue: "PLATFORM-L"
+    date: "2024-10-11 ~ 2024-10-13"
+    version: "v.SPAF_DayN"
+  - event: "Forum IMPACT"
+    venue: "Théâtre de Liège"
+    date: "2024-11-02 ~ 2024-11-03"
+    version: "v.IMPACT_DayN"
 type: Group work
-genre: ["Robot dance", "Mechanical theater", "Electroacoustic music", "Live performance" ]
+genre:
+  - "Robot dance"
+  - "Mechanical theater"
+  - "Electroacoustic music"
+  - "Live performance"
 tags: ["Physical computing", "Automata", "Artificial life", "Embedded system", "Microcontroller", "Printed circuit board", "Servomotor", "Local positioning system", "IMU sensor", "Wireless network", "3D printing"]
 tools: ["mjbots moteus", "PJRC Teensy", "C++", "Pure Data", "C", "Digi XBee", "Processing"]
 source: "[GitHub](https://github.com/random-entity/o.art.ahe)"

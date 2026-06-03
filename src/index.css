@@ -25,7 +25,11 @@
 html, body, #root { height: 100%; margin: 0; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR",
+    "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP",
+    sans-serif;
   font-size: 15px;
   line-height: 1.6;
   color: var(--fg);
@@ -123,7 +127,7 @@ input, select {
   font-weight: 600;
 }
 .langswitch { display: inline-flex; }
-.langswitch button { border-radius: 0; }
+.langswitch button { border-radius: 0; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; }
 .langswitch button + button { border-left: none; }
 .langswitch button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
 
@@ -391,6 +395,7 @@ input, select {
 }
 .release-events li { display: list-item; margin: 1px 0; }
 .release-events .date-range { font-variant-numeric: tabular-nums; }
+.release-events .version { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
 
 /* Accordion list of artworks with a Markdown heading outline */
 .db-list .acc-item { border-top: 1px solid var(--border); }
@@ -442,21 +447,21 @@ input, select {
   border-right: 1px solid var(--border);
   word-break: break-word;
 }
-.properties .val { padding: 6px 10px; }
+.properties .val { padding: 6px 10px; display: flex; align-items: center; flex-wrap: wrap; }
 .properties .val ul { margin: 0; padding-left: 18px; }
 .properties .nested { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; }
 .properties .nested .nkey { color: var(--muted); }
 
-.taglist { display: flex; flex-wrap: wrap; gap: 6px; }
-/* No padding/background on the button itself — zones handle their own styling */
-.tag { border: 1px solid var(--border); padding: 0; font-size: 12px; text-align: left; display: inline-flex; align-items: stretch; overflow: hidden; }
+.taglist { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tag { border: 1px solid var(--border); padding: 0 6px; font-size: 12px; display: inline-flex; align-items: center; overflow: hidden; height: fit-content; }
+.tag > .tag-label { padding: 0; }
 .tag[aria-pressed="true"] { border-color: var(--fg); }
 .tag-label { padding: 0 6px; line-height: 1.4; }
 .tag-label:hover { background: var(--hover); }
 .tag[aria-pressed="true"] .tag-label { background: var(--fg); color: var(--bg); }
-.tag-link-sep { display: inline-block; width: 1px; background: currentColor; opacity: 0.25; flex-shrink: 0; }
+.tag-link-sep { width: 1px; height: 1em; background: currentColor; opacity: 0.25; flex-shrink: 0; }
 .tag[aria-pressed="true"] .tag-link-sep { background: var(--bg); }
-.tag-ext-link { color: inherit; text-decoration: none; padding: 0 5px; display: flex; align-items: center; }
+.tag-ext-link { color: inherit; text-decoration: none; padding: 0 5px; display: flex; align-items: center; justify-content: center; }
 .tag-ext-link:hover { background: var(--hover); }
 .tag[aria-pressed="true"] .tag-ext-link { color: var(--fg); }
 .tag[aria-pressed="true"] .tag-ext-link:hover { background: rgba(0,0,0,0.15); }
