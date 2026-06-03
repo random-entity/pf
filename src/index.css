@@ -6,7 +6,7 @@
   --border: #e2e2e2;
   --hover: #f4f4f4;
   --max: 760px;
-  --sidebar: 280px;
+  --sidebar: 290px;
   --topbar-height: 40px;
   color-scheme: light dark;
 }
@@ -82,7 +82,7 @@ select {
 .sidebar {
   width: var(--sidebar);
   flex: 0 0 var(--sidebar);
-  min-width: 320px;
+  min-width: 290px;
   border-right: 1px solid var(--border);
   padding: 16px;
   overflow-y: auto;
