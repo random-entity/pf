@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { useLang, loc, isLocalized } from '../i18n.jsx'
+import { useLang, isLocalized } from '../i18n.jsx'
 import { wikiLinks } from '../lib/markdown.js'
 import {
   isEnumFacet,
@@ -169,8 +169,11 @@ function Value({ value, path }) {
     return <span>{formatDuration(durationSeconds(value))}</span>
   }
 
-  // localized object -> single string (inline markdown)
-  if (isLocalized(value)) return <InlineMarkdown>{loc(value, lang)}</InlineMarkdown>
+  // localized object → pick current language's value, then render whatever type it is
+  if (isLocalized(value)) {
+    const picked = value[lang] ?? value.en ?? Object.values(value).find(v => v != null)
+    return <Value value={picked ?? ''} path={path} />
+  }
 
   // arrays -> list
   if (Array.isArray(value)) {

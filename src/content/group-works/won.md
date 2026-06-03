@@ -7,11 +7,16 @@ tagline:
 format:
   - A video game installed in a public space where anyone can participate.
   - Operated with a PC, a monitor, a keyboard, and a mouse.
-goo:
-  - asdf
-Credit:
-  - presented by, director, graphic design: LEE Hojeong
-  - programming: random-entity, CHO Minki
+credit:
+  en:
+    presented by, director, graphic design: LEE Hojeong
+    programming: random-entity, CHO Minki
+  ko:
+    출품, 연출, 그래픽 디자인: 이호정
+    프로그래밍: 임의존재, 조민기
+  ja:
+    出品者、演出、グラフィックデザイン: LEE Hojeong
+    プログラミング: 任意存在、CHO Minki
 releases:
   - event: "[ArtSpace@SNU](https://www.youtube.com/playlist?list=PLgNFPgW62NTpf5pz3uc8G5gad4CtXSaFN)"
     date: "2021-10-25 ~ 2021-10-29"
@@ -26,9 +31,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
 ::: en
 ## Synopsis
 
-- A PC (including a monitor, a keyboard, and a mouse) is installed in a plaza, allowing passersby to use the keyboard to enter a nickname and the mouse to select an emoji for their current wish and a wish they have already achieved. Once the selection is complete, a stone with the current wish attached to its head, the nickname in the center, and the achieved wish attached to its tail floats in the sky.
-- Among the increasing number of stones as people participate, if the head emoji of one stone matches the tail emoji of another, they are attracted to each other and stick together. As this repeats, the stones form a chain.
-- In this way, when the very first head and the very last tail of a chain match, the chain sinks to the ground and a stone tower is completed.
+- A PC (including a monitor, a keyboard, and a mouse) is installed in a plaza, allowing passersby to use the keyboard to enter a nickname and the mouse to select an emoji for their current wish and another for a wish they have already achieved. Once the selection is complete, a stone with the current wish attached to its head, the nickname in the center, and the achieved wish attached to its tail spawns and floats in the sky.
+- Among the increasing number of stones as people participate, if the head emoji of one stone matches the tail emoji of another, they are attracted to each other and stick together. As this repeats, the stones form chains.
+- During this process, when the very first head and the very last tail of a chain match, the chain sinks to the ground and becomes a stone tower.
 
 ![](images/works/won/exh/IMG_9388.jpeg)
 *Nickname and wish input screen*
@@ -45,7 +50,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.won/tree/after-exhibiti
 ## Commentary
 
 - We live our lives hoping for and achieving big and small things. To a person wishing for something, someone who has already achieved it can be an object of envy or a teacher who shares their experiences. This connection between people, mediated by wishes, is the force that keeps us living and unites the community.
-- Artist LEE Hojeong's thoughts are projected into a virtual world of stones that float like living organisms and gather like a community, and "stone towers" that are commonly built in our culture while making a wish.
+- These thoughts of artist LEE Hojeong's are projected into a virtual space where stones drift like living organisms, assemble into communities, eventually forming stone towers (cairns), which are commonly built by hikers in Korean mountain trails while making wishes.
 
 [ArtSpace@SNU — artwork introduction](https://youtu.be/zFeyxBnuzAI)
 
