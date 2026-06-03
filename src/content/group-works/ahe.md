@@ -12,22 +12,71 @@ releases:
     - en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/program/program_view06.php)"
     - ko: "[서울국제공연예술제](http://spaf.or.kr/2024/program/program_view06.php#)"
     - ja: "[ソウル国際公演芸術祭](http://spaf.or.kr/2024_eng/program/program_view06.php)"
-    venue: "[PLATFORM-L](https://platform-l.org/)"
+    venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
     date: "2024-10-11 ~ 2024-10-13"
-    version: "v.SPAF_DayN"
-  - event: "Forum IMPACT"
-    venue: "Théâtre de Liège"
+    version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
+  - event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)"
+    venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
     date: "2024-11-02 ~ 2024-11-03"
-    version: "v.IMPACT_DayN"
-type: Group work
+    version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
+type: "Group work"
 genre:
-  - "[Robot dance](http://spaf.or.kr/2024/program/program_view06.php#)"
+  - "Robot dance"
   - "Mechanical theater"
   - "Electroacoustic music"
   - "Live performance"
-tags: ["Physical computing", "Automata", "Artificial life", "Embedded system", "Microcontroller", "Printed circuit board", "Servomotor", "Local positioning system", "IMU sensor", "Wireless network", "3D printing"]
-tools: ["mjbots moteus", "PJRC Teensy", "C++", "Pure Data", "C", "Digi XBee", "Processing"]
+tags:
+  - "Physical computing"
+  - "Automata"
+  - "Artificial life"
+  - "Embedded system"
+  - "Microcontroller"
+  - "Printed circuit board"
+  - "Servomotor"
+  - "Local positioning system"
+  - "IMU sensor"
+  - "Wireless network"
+  - "3D printing"
+tools:
+  - "PJRC Teensy"
+  - "mjbots moteus"
+  - "C++"
+  - "Pure Data"
+  - "C"
+  - "Digi XBee"
+  - "Processing"
 source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
+credits:
+  en:
+    - Presented by: "Robot Theater Company[^2] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)"
+    - Director, Hardware Design, Music: KWON Byungjun
+    - Assistant Director, Robot Choreography: LEE Yujin
+    - Robot Design, Robot Maintenance: LEE Jumi
+    - Software Development, Robot Operation: random-entity
+    - Lighting: KIM Hyeon
+    - Staff: YOON Suhui, LEE Minho, CHOI Garam
+    - Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
+    - Commissioned by: Seoul Performing Arts Festival, Art Korea Lab
+  ko:
+    - 출품자: Robot Theater Company[^2] (권병준[^3], 이유진, 이주미, 임의존재)
+    - 총괄 디렉터, 하드웨어 설계, 음악: 권병준
+    - 조감독, 로봇 안무: 이유진
+    - 로봇 디자인, 로봇 메인터넌스: 이주미
+    - 소프트웨어 개발, 로봇 오퍼레이션: 임의존재
+    - 조명: 김현
+    - 스태프: 윤수희, 이민호, 최가람
+    - 프로듀서: 프로듀서 그룹 도트 (박지선, 최봉민)
+    - 커미션: 서울국제공연예술제, 아트코리아랩
+  ja:
+    - 出品者: Robot Theater Company[^2] (KWON Byungjun[^3]、LEE Yujin、LEE Jumi、任意存在)
+    - 総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
+    - 助監督、ロボット振付: LEE Yujin
+    - ロボットデザイン、ロボットメンテナンス: LEE Jumi
+    - ソフトウェア開発、ロボットオペレーション: 任意存在
+    - 照明: KIM Hyeon
+    - スタッフ: YOON Suhui、LEE Minho、CHOI Garam
+    - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
+    - コミッション: ソウル国際舞台芸術祭 (SPAF)、Arts Korea Lab
 ---
 ![](images/works/ahe/live-stills/main.png)
 ::: en
