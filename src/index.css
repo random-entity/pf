@@ -286,11 +286,6 @@ input, select {
 /* value selection: bordered square pills */
 .tagfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .tagfilter .tag { cursor: pointer; line-height: 1.4; }
-.tagfilter .tag[aria-pressed="true"] {
-  background: var(--fg);
-  color: var(--bg);
-  border-color: var(--fg);
-}
 /* filters-title header actions (Collapse/Expand + Reset) */
 .filters-title-actions { display: flex; gap: 6px; align-items: center; }
 .filters-action-btn {
@@ -453,6 +448,7 @@ input, select {
 
 .taglist { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag { border: 1px solid var(--border); padding: 0 6px; font-size: 12px; text-align: left; }
+.tag[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
 /* ---------- Markdown article ---------- */
 .article { line-height: 1.7; }

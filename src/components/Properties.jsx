@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
 import {
   isEnumFacet,
@@ -14,11 +13,10 @@ import {
 import { useFilters } from '../filters.jsx'
 
 // A single enum value rendered as a pill that toggles its facet filter and
-// jumps to the (filtered) home list.
+// expands the corresponding accordion in the sidebar.
 function EnumPill({ path, value }) {
   const { lang } = useLang()
-  const { enums, toggleEnum } = useFilters()
-  const navigate = useNavigate()
+  const { enums, toggleEnum, requestExpand } = useFilters()
   const id = canonicalOf(value)
   const active = enums[path]?.ids.includes(id)
   return (
@@ -27,7 +25,7 @@ function EnumPill({ path, value }) {
       aria-pressed={!!active}
       onClick={() => {
         toggleEnum(path, id)
-        navigate('/')
+        requestExpand(path)
       }}
     >
       {labelOf(value, lang)}

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { artworks } from '../lib/content.js'
 import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
@@ -252,8 +252,22 @@ function collectFacetPaths(facets) {
 // isAnyActive and onReset come from DatabaseBrowser (include q state).
 export default function FilterTree({ schema, isAnyActive, onReset }) {
   const { t } = useLang()
+  const { expandPath, clearExpand } = useFilters()
   const [openPaths, setOpenPaths] = useState(() => new Set())
   const prevOpen = useRef(null)
+
+  useEffect(() => {
+    if (!expandPath) return
+    // Expand the target path and any ancestor paths (for nested facets).
+    const parts = expandPath.split('.')
+    const pathsToOpen = parts.map((_, i) => parts.slice(0, i + 1).join('.'))
+    setOpenPaths((s) => {
+      const next = new Set(s)
+      for (const p of pathsToOpen) next.add(p)
+      return next
+    })
+    clearExpand()
+  }, [expandPath, clearExpand])
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
   const allFacets = [titleFacet, ...schema]
   const allPaths = collectFacetPaths(allFacets)

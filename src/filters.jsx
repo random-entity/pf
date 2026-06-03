@@ -22,6 +22,7 @@ export function FilterProvider({ children }) {
   const [group, setGroupState] = useState('none') // 'none' | facet path
   const [q, setQ] = useState('')       // main full-text search
   const [titleQ, setTitleQ] = useState('') // title-only search (Title accordion)
+  const [expandPath, setExpandPath] = useState(null) // path to expand in FilterTree
 
   const toggleEnum = (path, id) =>
     setEnums((prev) => {
@@ -73,6 +74,9 @@ export function FilterProvider({ children }) {
 
   const setGroup = (path) => setGroupState(path)
 
+  const requestExpand = (path) => setExpandPath(path)
+  const clearExpand = () => setExpandPath(null)
+
   const reset = () => {
     setEnums({})
     setRanges({})
@@ -102,6 +106,7 @@ export function FilterProvider({ children }) {
     group,
     q,
     titleQ,
+    expandPath,
     toggleEnum,
     setEnumMode,
     clearEnum,
@@ -113,6 +118,8 @@ export function FilterProvider({ children }) {
     setQ,
     setTitleQ,
     reset,
+    requestExpand,
+    clearExpand,
     activeCount,
     isDefaultSort,
     isAnyActive,

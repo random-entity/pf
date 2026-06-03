@@ -283,7 +283,6 @@ export default function DatabaseBrowser() {
 
   return (
     <div className="database">
-      <div className="section-label">{t('searchLabel')}</div>
       <input
         className="main-search"
         type="search"
