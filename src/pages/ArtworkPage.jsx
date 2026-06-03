@@ -79,24 +79,29 @@ export default function ArtworkPage() {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [hash, slug, lang, state?.jumpTo])
 
-  // Snippet jump. state = { jumpTo?, jumpOcc?, jumpLang?, _t }.
-  // `_t` is a nonce so repeated clicks (even on the same text) re-run this.
+  // Snippet jump. state = { jumpTo?, jumpOcc?, jumpLang?, jumpPropTo?, jumpPropOcc?, _t }.
+  // jumpTo/jumpOcc target the article body; jumpPropTo/jumpPropOcc target the
+  // properties block. `_t` is a nonce so repeated clicks re-run this.
   useEffect(() => {
-    const { jumpTo, jumpLang, jumpOcc } = state || {}
-    if (!jumpTo && !jumpLang) return
+    const { jumpTo, jumpPropTo, jumpLang, jumpOcc, jumpPropOcc } = state || {}
+    if (!jumpTo && !jumpPropTo && !jumpLang) return
 
     // Switch language first; the effect re-runs after the re-render.
     if (jumpLang && jumpLang !== lang) { setLang(jumpLang); return }
-    if (!jumpTo) return
+    if (!jumpTo && !jumpPropTo) return
+
+    const isProp = !!jumpPropTo
+    const term = isProp ? jumpPropTo : jumpTo
+    const occ = (isProp ? jumpPropOcc : jumpOcc) ?? 0
 
     let raf1
     let raf2
     let imgCleanup
 
     const jump = () => {
-      const container = document.querySelector('.article')
+      const container = document.querySelector(isProp ? '.properties' : '.article')
       if (!container) return
-      const built = buildRange(container, jumpTo, jumpOcc ?? 0)
+      const built = buildRange(container, term, occ)
       if (!built) return
       const { range, el } = built
 
@@ -113,25 +118,26 @@ export default function ArtworkPage() {
         el?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' })
       scroll(true)
 
-      // Images above the target may still be loading and shift layout; re-center
-      // (instantly) as each finishes, for a few seconds.
-      const pending = [...container.querySelectorAll('img')].filter((im) => !im.complete)
-      if (pending.length) {
-        const onLoad = () => scroll(false)
-        pending.forEach((im) => im.addEventListener('load', onLoad))
-        const stop = setTimeout(() => pending.forEach((im) => im.removeEventListener('load', onLoad)), 5000)
-        imgCleanup = () => { clearTimeout(stop); pending.forEach((im) => im.removeEventListener('load', onLoad)) }
+      // Images may shift layout in the article body; not relevant for props.
+      if (!isProp) {
+        const pending = [...container.querySelectorAll('img')].filter((im) => !im.complete)
+        if (pending.length) {
+          const onLoad = () => scroll(false)
+          pending.forEach((im) => im.addEventListener('load', onLoad))
+          const stop = setTimeout(() => pending.forEach((im) => im.removeEventListener('load', onLoad)), 5000)
+          imgCleanup = () => { clearTimeout(stop); pending.forEach((im) => im.removeEventListener('load', onLoad)) }
+        }
       }
     }
 
-    // Two frames so React has painted the (possibly re-rendered) article.
+    // Two frames so React has painted the (possibly re-rendered) content.
     raf1 = requestAnimationFrame(() => { raf2 = requestAnimationFrame(jump) })
     return () => {
       cancelAnimationFrame(raf1)
       cancelAnimationFrame(raf2)
       if (imgCleanup) imgCleanup()
     }
-  }, [state?._t, state?.jumpTo, state?.jumpOcc, state?.jumpLang, lang, slug])
+  }, [state?._t, state?.jumpTo, state?.jumpPropTo, state?.jumpOcc, state?.jumpPropOcc, state?.jumpLang, lang, slug])
 
   // Wire frontmatter footnote refs ([^N] in property values) into the article's
   // footnote definition backlinks. Stamps a unique id on each frontmatter <sup>

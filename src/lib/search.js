@@ -1,5 +1,57 @@
 import { LANGS } from '../i18n.jsx';
 import { pickLanguage } from './markdown.js';
+import { releaseEvents } from './properties.js';
+
+// Detect a localized object {en?, ko?, ja?} — all keys must be language codes.
+function isLocalizedObj(v) {
+  if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date) return false;
+  const keys = Object.keys(v);
+  return keys.length > 0 && keys.every((k) => LANGS.includes(k));
+}
+
+// Detect a duration object {hours?, minutes?, seconds?}.
+const DURATION_KEYS = new Set(['hours', 'minutes', 'seconds']);
+function isDurationObj(v) {
+  if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date) return false;
+  const keys = Object.keys(v);
+  return keys.length > 0 && keys.every((k) => DURATION_KEYS.has(k));
+}
+
+// Flatten all user-visible string values from a frontmatter data object into
+// a single searchable text for the given language. Mirrors the rendering order
+// of the Properties block closely enough for occurrence-based jump to work.
+function extractPropText(data, lang) {
+  const parts = [];
+
+  function walk(value) {
+    if (value == null || value instanceof Date) return;
+    if (typeof value === 'number' || typeof value === 'boolean') return;
+    if (isDurationObj(value)) return;
+    if (isLocalizedObj(value)) {
+      const v = value[lang] ?? value.en ?? Object.values(value).find((x) => x != null) ?? '';
+      if (v) parts.push(stripMd(String(v)));
+      return;
+    }
+    if (Array.isArray(value)) { value.forEach(walk); return; }
+    if (typeof value === 'object') { Object.values(value).forEach(walk); return; }
+    if (typeof value === 'string') parts.push(stripMd(value));
+  }
+
+  for (const [key, val] of Object.entries(data)) {
+    if (key === 'title') continue; // searched via the title mechanism
+    if (key === 'releases') {
+      // releaseEvents() normalizes both new and old (key-as-name) formats
+      for (const ev of releaseEvents(val)) {
+        walk(ev.event);
+        if (ev.venue) walk(ev.venue);
+        if (ev.version) walk(ev.version);
+      }
+      continue;
+    }
+    walk(val);
+  }
+  return parts.filter(Boolean).join(' ');
+}
 
 function stripMd(text) {
   return text
@@ -77,6 +129,35 @@ function snippetsForText(text, query) {
   return results;
 }
 
+// Search all frontmatter property values (except title) across all languages.
+// Returns snippets in the same { lang, snippet, mStart, mEnd, matchText, occ }
+// format as bodyMatchAll. `occ` is the occurrence rank within that language's
+// concatenated prop text, used by ArtworkPage to jump to the right occurrence
+// inside the rendered .properties block.
+export function propMatchAll(data, query, currentLang) {
+  if (!query.trim()) return [];
+  const langs = currentLang
+    ? [currentLang, ...LANGS.filter((l) => l !== currentLang)]
+    : LANGS;
+
+  const seen = new Set();
+  const out = [];
+  for (const lang of langs) {
+    const text = extractPropText(data, lang);
+    for (const hit of snippetsForText(text, query)) {
+      if (seen.has(hit.snippet)) continue;
+      seen.add(hit.snippet);
+      out.push({ lang, ...hit });
+    }
+  }
+  return out;
+}
+
+// YouTube links in body markdown render as <iframe> with no text children
+// (see Markdown.jsx youTubeId / components.a). Strip them before building the
+// searchable text so occurrence counts stay in sync with the DOM.
+const YOUTUBE_LINK_RE = /\[[^\]]*\]\(https?:\/\/(?:youtu\.be|(?:www\.)?youtube\.com)\/[^)]*\)/g;
+
 // Search body content across all languages. The current language is searched
 // first so that, when text is shared across languages (outside ::: fences),
 // the kept (deduped) snippet belongs to the current language and needs no
@@ -90,7 +171,7 @@ export function bodyMatchAll(body, query, currentLang) {
   const seen = new Set(); // dedup identical snippet text (shared content)
   const out = [];
   for (const lang of langs) {
-    const text = stripMd(pickLanguage(body, lang));
+    const text = stripMd(pickLanguage(body, lang).replace(YOUTUBE_LINK_RE, ''));
     for (const hit of snippetsForText(text, query)) {
       if (seen.has(hit.snippet)) continue;
       seen.add(hit.snippet);

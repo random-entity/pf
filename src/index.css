@@ -299,6 +299,9 @@ select {
   border-radius: 2px;
   vertical-align: middle;
 }
+.snippet-prop {
+  border-style: dashed;
+}
 .snippet-mark {
   background: none;
   color: var(--fg);

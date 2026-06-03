@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useLang, LANGS } from '../i18n.jsx'
 import { artworks, titleOf } from '../lib/content.js'
 import { extractHeadings, buildHeadingTree } from '../lib/markdown.js'
-import { bodyMatchAll } from '../lib/search.js'
+import { bodyMatchAll, propMatchAll } from '../lib/search.js'
 import {
   schema,
   facetByPath,
@@ -45,23 +45,32 @@ function Snippet({ snippet, mStart, mEnd }) {
 // Max snippets shown before "show more" is required.
 const SNIPPET_DEFAULT_SHOW = 3
 
-function ArtworkItem({ artwork, bodyHits, titleHits }) {
+function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
   const { lang, t, setLang } = useLang()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
-  const [expanded, setExpanded] = useState(false)
+  const [bodyExpanded, setBodyExpanded] = useState(false)
+  const [propExpanded, setPropExpanded] = useState(false)
 
   const tree = useMemo(
     () => buildHeadingTree(extractHeadings(artwork.body, lang)),
     [artwork, lang],
   )
   const hasHeadings = tree.length > 0
-  const hits = bodyHits ?? []
-  const shown = expanded ? hits : hits.slice(0, SNIPPET_DEFAULT_SHOW)
+  const bodyHitList = bodyHits ?? []
+  const propHitList = propHits ?? []
+  const shownBody = bodyExpanded ? bodyHitList : bodyHitList.slice(0, SNIPPET_DEFAULT_SHOW)
+  const shownProp = propExpanded ? propHitList : propHitList.slice(0, SNIPPET_DEFAULT_SHOW)
 
   const handleBodySnippetClick = (hit) => {
     navigate(`/${artwork.slug}`, {
       state: { jumpTo: hit.matchText, jumpOcc: hit.occ, jumpLang: hit.lang, _t: Date.now() },
+    })
+  }
+
+  const handlePropSnippetClick = (hit) => {
+    navigate(`/${artwork.slug}`, {
+      state: { jumpPropTo: hit.matchText, jumpPropOcc: hit.occ, jumpLang: hit.lang, _t: Date.now() },
     })
   }
 
@@ -103,18 +112,36 @@ function ArtworkItem({ artwork, bodyHits, titleHits }) {
         </div>
       )}
 
-      {/* Body content matches */}
-      {hits.length > 0 && (
+      {/* Frontmatter property value matches */}
+      {propHitList.length > 0 && (
         <div className="search-snippets">
-          {shown.map((hit, i) => (
+          {shownProp.map((hit, i) => (
+            <button key={i} className="snippet-item" onClick={() => handlePropSnippetClick(hit)}>
+              {hit.lang !== lang && <span className="snippet-lang">{hit.lang}</span>}
+              <span className="snippet-lang snippet-prop">prop</span>
+              <Snippet snippet={hit.snippet} mStart={hit.mStart} mEnd={hit.mEnd} />
+            </button>
+          ))}
+          {propHitList.length > SNIPPET_DEFAULT_SHOW && (
+            <button className="snippet-more" onClick={() => setPropExpanded((v) => !v)}>
+              {propExpanded ? t('showLess') : `+${propHitList.length - SNIPPET_DEFAULT_SHOW} ${t('more')}`}
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Body content matches */}
+      {bodyHitList.length > 0 && (
+        <div className="search-snippets">
+          {shownBody.map((hit, i) => (
             <button key={i} className="snippet-item" onClick={() => handleBodySnippetClick(hit)}>
               {hit.lang !== lang && <span className="snippet-lang">{hit.lang}</span>}
               <Snippet snippet={hit.snippet} mStart={hit.mStart} mEnd={hit.mEnd} />
             </button>
           ))}
-          {hits.length > SNIPPET_DEFAULT_SHOW && (
-            <button className="snippet-more" onClick={() => setExpanded((v) => !v)}>
-              {expanded ? t('showLess') : `+${hits.length - SNIPPET_DEFAULT_SHOW} ${t('more')}`}
+          {bodyHitList.length > SNIPPET_DEFAULT_SHOW && (
+            <button className="snippet-more" onClick={() => setBodyExpanded((v) => !v)}>
+              {bodyExpanded ? t('showLess') : `+${bodyHitList.length - SNIPPET_DEFAULT_SHOW} ${t('more')}`}
             </button>
           )}
         </div>
@@ -186,8 +213,9 @@ export default function DatabaseBrowser() {
     return numberAtPath(a.data, sort.path, facet)
   }
 
-  const { results, matchMap, titleMatchMap } = useMemo(() => {
+  const { results, matchMap, propMatchMap, titleMatchMap } = useMemo(() => {
     const matchMap = new Map()
+    const propMatchMap = new Map()
     const titleMatchMap = new Map()
     const constrainedPaths = new Set([
       ...Object.keys(enums).filter((p) => enums[p].ids.length),
@@ -200,9 +228,11 @@ export default function DatabaseBrowser() {
       // positives with partial CJK characters like "ㅇ".
       if (q.trim()) {
         const bodyHits = bodyMatchAll(a.body, q, lang)
+        const propHits = propMatchAll(a.data, q, lang)
         const metaHit = exactMetaMatch(a, q)
-        if (bodyHits.length === 0 && !metaHit) return false
+        if (bodyHits.length === 0 && propHits.length === 0 && !metaHit) return false
         if (bodyHits.length > 0) matchMap.set(a.slug, bodyHits)
+        if (propHits.length > 0) propMatchMap.set(a.slug, propHits)
       }
 
       // Title-only filter: exact case-insensitive substring across all languages.
@@ -260,7 +290,7 @@ export default function DatabaseBrowser() {
       const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb
       return cmp * dir
     })
-    return { results: list, matchMap, titleMatchMap }
+    return { results: list, matchMap, propMatchMap, titleMatchMap }
   }, [q, titleQ, lang, enums, ranges, showMissing, sort])
 
   const groups = useMemo(() => {
@@ -304,7 +334,7 @@ export default function DatabaseBrowser() {
           {group !== 'none' && <div className="db-group-title">{name}</div>}
           <ul className="db-list">
             {items.map((a) => (
-              <ArtworkItem key={a.slug} artwork={a} bodyHits={matchMap.get(a.slug)} titleHits={titleMatchMap.get(a.slug)} />
+              <ArtworkItem key={a.slug} artwork={a} bodyHits={matchMap.get(a.slug)} propHits={propMatchMap.get(a.slug)} titleHits={titleMatchMap.get(a.slug)} />
             ))}
           </ul>
         </div>
