@@ -157,7 +157,9 @@ function exactMetaMatch(artwork, q) {
   for (const f of facetByPath.values()) {
     if (f.kind !== 'stringList' && f.kind !== 'enumSingle' && f.kind !== 'releases') continue
     if (f.kind === 'releases') {
-      if (idsAtPath(artwork.data, f.path).some((id) => id.toLowerCase().includes(qLo))) return true
+      for (const ev of releaseEvents(artwork.data.releases)) {
+        if (ev.event && LANGS.some((l) => labelOf(ev.event, l).toLowerCase().includes(qLo))) return true
+      }
       continue
     }
     const v = getValueAtPath(artwork.data, f.path)

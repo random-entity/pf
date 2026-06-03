@@ -87,20 +87,38 @@ function parseDateRange(value) {
   return { start, end }
 }
 
+// Normalize the `event` field: accepts a plain string, a localized object
+// { en, ko, ja }, or a YAML block-sequence of single-key objects
+// (- en: "..." / - ko: "..." / - ja: "...") which YAML parses as an array.
+function normalizeEvent(ev) {
+  if (!ev) return null
+  if (typeof ev === 'string') return ev.trim() || null
+  if (Array.isArray(ev)) {
+    // Merge [{en: "..."}, {ko: "..."}, ...] → {en: "...", ko: "...", ...}
+    const merged = {}
+    for (const item of ev) {
+      if (item && typeof item === 'object' && !Array.isArray(item)) Object.assign(merged, item)
+    }
+    return Object.keys(merged).length ? merged : null
+  }
+  if (typeof ev === 'object') return ev // already {en, ko, ja}
+  return null
+}
+
 function parseRelease(item) {
   if (item instanceof Date) {
     const ms = item.getTime()
     return [{ start: ms, end: ms, event: 'Release' }]
   }
-  
+
   if (item && typeof item === 'object' && !Array.isArray(item)) {
-    // NEW FORMAT: { event: "XXX", date: "...", version: "...", venue: "YYY" }
+    // NEW FORMAT: { event: "...", date: "...", version: "...", venue: "..." }
     if ('event' in item && 'date' in item) {
       const range = parseDateRange(item.date)
       if (!range) return []
       return [{
         ...range,
-        event: item.event.trim() || 'Release',
+        event: normalizeEvent(item.event) ?? 'Release',
         version: item.version,
         venue: item.venue,
       }]
@@ -114,7 +132,7 @@ function parseRelease(item) {
       })
       .filter(Boolean)
   }
-  
+
   const m = EVENT_RE.exec(String(item))
   if (!m) return []
   const start = toMs(m[1])
@@ -131,7 +149,7 @@ export function releaseEvents(v) {
 }
 
 export function releaseNamesOf(data) {
-  return releaseEvents(data?.releases).map((e) => e.event).filter(Boolean)
+  return releaseEvents(data?.releases).map((e) => canonicalOf(e.event)).filter(Boolean)
 }
 
 // Canonical ids an artwork carries at a facet path (handles lists, single
@@ -228,11 +246,20 @@ function facetsFrom(objs, base, depth) {
       if (evs.length) {
         const starts = [...new Set(evs.map((e) => e.start))].sort((a, b) => a - b)
         const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b)
-        const names = [...new Set(evs.map((e) => e.event).filter(Boolean))].sort((a, b) => a.localeCompare(b))
+        // Deduplicate by canonical ID; keep original (possibly localized) as raw for display.
+        const eventMap = new Map()
+        for (const e of evs) {
+          if (!e.event) continue
+          const id = canonicalOf(e.event)
+          if (!id) continue
+          if (!eventMap.has(id)) eventMap.set(id, { id, raw: e.event, count: 0 })
+          eventMap.get(id).count++
+        }
+        const values = [...eventMap.values()].sort((a, b) => a.id.localeCompare(b.id))
         facets.push({
           path: RELEASES_PATH, key: RELEASES_PATH, kind: 'releases', depth, isDate: true,
           minOptions: starts, maxOptions: ends, min: starts[0], max: ends[ends.length - 1],
-          values: names.map((n) => ({ id: n, raw: n, count: 0 })),
+          values,
         })
       }
       continue

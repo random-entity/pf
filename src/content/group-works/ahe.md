@@ -8,7 +8,10 @@ tagline:
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
 releases:
-  - event: "Seoul Performing Arts Festival (SPAF)"
+  - event:
+      - en: "Seoul Performing Arts Festival"
+      - ko: "서울국제공연예술제"
+      - ja: "ソウル国際公演芸術祭"
     venue: "PLATFORM-L"
     date: "2024-10-11 ~ 2024-10-13"
     version: "v.SPAF_DayN"
