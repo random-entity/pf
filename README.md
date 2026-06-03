@@ -9,10 +9,12 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
 - **Three languages** (English / 한국어 / 日本語) via an always-visible switcher.
 - **Schema-driven sidebar**: the filter/sort tree is built automatically from
   whatever frontmatter keys exist — numeric/date keys get sort + range, enum
-  keys get OR/AND multi-select, nested objects expand. Plus fuzzy search,
+  keys get OR/AND multi-select, nested objects expand. Plus a search box,
   group-by, and a resizable panel.
 - **Properties block** (like Obsidian) rendered from frontmatter, supporting
-  scalars, localized values, lists, and nested JSON objects.
+  scalars, localized values, lists, nested objects, and inline markdown (links,
+  wikilinks, bold, etc.). Enum values are clickable filter pills that expand the
+  corresponding sidebar accordion without navigating away.
 - **Markdown** with GFM, footnotes, `[[wikilinks]]`, and a heading outline that
   deep-links into each artwork.
 
@@ -42,11 +44,11 @@ the slug used by `[[wikilinks]]`.
 
 ```markdown
 ---
-title: { en: Sunset Study, ko: 노을 습작, ja: 夕焼けの習作 }
+title: { en: "Sunset Study", ko: "노을 습작", ja: "夕焼けの習作" }
 date: 2023-09-14
-genre: { en: Painting, ko: 회화, ja: 絵画 }
+genre: { en: "Painting", ko: "회화", ja: "絵画" }
 dimensions: { width: 60, height: 90, unit: cm }   # normalized to meters; unit dropped
-tags: [oil, landscape]                            # arrays show as a list / tag pills
+tags: ["oil", "landscape"]                        # arrays show as a list / tag pills
 ---
 ::: en
 English prose. Footnotes[^1] and links to [[still-life-pears]] work.
@@ -67,6 +69,10 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   raw key name (add labels in `src/i18n.jsx`).
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
   a **list** `[a, b]`, or a **nested object** `{ k: v }` — all render automatically.
+- String values support inline markdown: `[text](url)` renders as a link (external
+  links open in a new tab), `[[wikilink]]` links to another artwork, `**bold**`,
+  `_italic_`, `` `code` `` work inline. On enum pills, an inline `[text](url)` value
+  shows the text as the pill label and appends a `↗` icon that opens the URL.
 - `title` is used as the page heading and is not repeated in the block.
 - **Quote all string values inside inline `{ ... }` objects and `[ ... ]`
   arrays.** This keeps frontmatter consistent and avoids YAML treating commas,
@@ -75,31 +81,50 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - Plain top-level string values like `type: Personal work` may stay unquoted
   unless they contain `:`, `,`, brackets, or quote marks.
 - `releases` is used for release/event sorting, grouping, name filtering, and
-  date-range filtering. It is an array of single-key objects: the object key is
-  the release/event name, and the value is a date or inclusive date range.
+  date-range filtering. Each entry is an object with an `event` name, a `date`
+  (single date or inclusive range), and optional `venue` and `version`:
 
   ```yaml
   releases:
-    - { "Premiere online": "2024-08-31" }
-    - { "Seoul Performing Arts Festival": "2024-11-01 ~ 2024-11-05" }
+    - event: "Premiere online"
+      date: "2024-08-31"
+    - event: "Seoul Performing Arts Festival (SPAF)"
+      date: "2024-11-01 ~ 2024-11-05"
+      venue: "Arko Arts Theater"
+      version: "v2"
   ```
 
-  The Properties block links each date/date range to its release/event name. In
-  the Releases range filter, **Min** lists all start dates and **Max** all end
-  dates; the match is an inclusive overlap.
+  The `event` field supports localized objects, including the YAML block-sequence
+  form (each language on its own line):
+
+  ```yaml
+  releases:
+    - date: "2024-11-01 ~ 2024-11-05"
+      event:
+        - en: "Seoul Performing Arts Festival (SPAF)"
+        - ko: "서울국제공연예술제"
+        - ja: "ソウル国際公演芸術祭"
+      venue: "Arko Arts Theater"
+  ```
+
+  The Properties block renders each release as `DATE : EVENT @VENUE (VERSION)`.
+  In the Releases range filter, **Min** lists all start dates and **Max** all end
+  dates; the match is an inclusive overlap. The old single-key object format
+  (`{ "Event name": "YYYY-MM-DD" }`) is still accepted as a fallback.
+
 - Enum-like values (`tags`, `tools`, `genre`, `medium`, …) become clickable
   filters with **OR / AND** modes. Any categorical key may hold a single value
   or a **list** (e.g. two genres) — AND becomes meaningful once values co-occur.
 - A `{ hours, minutes, seconds }` object is treated as a single duration value
   (sorted/ranged as one number, shown as `HH:MM:SS`).
 
-### Filtering & sorting
+### Filtering, sorting & search
 
 The sidebar builds a **filter/sort tree** automatically from your frontmatter —
 every property is scanned and classified, no configuration needed:
 
-- **Numbers & dates** (incl. nested ones like `dimensions.width`, `duration.minutes`)
-  get an ascending/descending **sort** and a **min/max range** selector. Sorting is
+- **Numbers & dates** (incl. nested ones like `dimensions.width`) get an
+  ascending/descending **sort** and a **min/max range** selector. Sorting is
   single-key: picking a sort replaces the previous one.
 - **Lists of strings** (`tags`, `tools`) get a multi-select filter with an
   **Any / All** (OR / AND) toggle.
@@ -110,10 +135,14 @@ every property is scanned and classified, no configuration needed:
 Each key has a **"Show items without a value"** toggle (off by default). When a
 key is in use — sorted by, ranged, or multi-selected — artworks lacking that
 value are dropped unless this is checked; checking it keeps them and shows an
-`∅` marker. Multi-select keys use **OR / AND** radios, with a **Clear** button.
+`∅` marker.
 
-A fuzzy search box (typo- and gap-tolerant) sits on top, plus group-by and a
-reset. Clicking a value in an artwork's Properties block toggles that filter.
+The **search box** does a case-insensitive substring match across titles (all
+languages), enum values, and body text. Body matches surface as inline snippets
+with the matched text highlighted; clicking a snippet jumps to that location in
+the article and highlights it. Each enum value pill in a Properties block is
+also clickable: it toggles the filter for that value and expands the relevant
+sidebar accordion.
 
 ### Renaming an enum value
 

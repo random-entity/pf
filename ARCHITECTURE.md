@@ -33,16 +33,17 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/main.jsx` | Mounts providers (`LanguageProvider` → `FilterProvider`) and the `HashRouter` routes. |
 | `src/App.jsx` | Layout shell: sidebar + resizer + topbar + `<Outlet/>`. Owns the resizable-sidebar logic. |
 | `src/i18n.jsx` | Language context, UI strings, and the localized-value helpers `loc` / `isLocalized`. |
-| `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. |
+| `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. Includes `requestExpand` / `expandPath` for cross-page accordion expansion. |
 | `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `artworks`, `bySlug`, `titleOf`, `resolveSlug`. |
-| `src/lib/properties.js` | **Schema engine** — classifies frontmatter keys into facets; value helpers (dates, durations, enums, units). |
-| `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, and heading-outline extraction. |
-| `src/lib/fuzzy.js` | Dependency-free fuzzy match for the search box. |
+| `src/lib/properties.js` | **Schema engine** — classifies frontmatter keys into facets; value helpers (dates, durations, enums, units, releases). |
+| `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
+| `src/lib/search.js` | Body search: exact case-insensitive substring match with snippet extraction, occurrence ranking, and cross-language deduplication. |
+| `src/lib/remarkGallery.js` | remark plugin: wraps consecutive images in a `<gallery>` block for grid display. |
 | `src/components/Sidebar.jsx` | Thin wrapper that renders `DatabaseBrowser`. |
-| `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list (accordion rows with heading outlines). Owns the filter/sort/group **pipeline**. |
+| `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
 | `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
-| `src/components/Properties.jsx` | Obsidian-style properties block for one artwork; enum values are clickable filters. |
-| `src/components/Markdown.jsx` | `react-markdown` + `remark-gfm` + `rehype-slug` (heading ids for deep-links). |
+| `src/components/Properties.jsx` | Obsidian-style properties block for one artwork. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
+| `src/components/Markdown.jsx` | `react-markdown` + `remark-gfm` + `rehype-slug`; collapsible headings/lists injected via DOM in a `useEffect`. |
 | `src/pages/Home.jsx`, `src/pages/ArtworkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
@@ -96,8 +97,7 @@ Two keys are handled specially, before the generic classifier:
   as a `nested` object of numeric children (`width`, `height`).
 - **`releases`** is intercepted entirely: it becomes a `releases` facet with
   date behavior (Min = all release **start** dates, Max = all **end** dates) and
-  enum behavior (the object keys become release/event names for filtering and
-  grouping).
+  enum behavior (the event names become filterable values).
 
 `title` is excluded from the schema and re-added by `FilterTree` as a synthetic
 sort-only facet (`kind: 'text'`).
@@ -115,6 +115,34 @@ identity for an enum value), `labelOf` (localized display), `getValueAtPath`,
 `idsAtPath`, `valuesCanCoexist`, `releaseEvents` / `releaseSortValue`,
 `durationSeconds` / `formatDuration`, `formatDate`, `unitForPath`.
 
+## Releases (`properties.js` — `parseRelease`, `normalizeEvent`)
+
+The `releases` field uses a structured object format:
+
+```yaml
+releases:
+  - event: "Seoul Performing Arts Festival (SPAF)"
+    date: "2024-11-01 ~ 2024-11-05"
+    venue: "Arko Arts Theater"
+    version: "v2"
+```
+
+The `event` field accepts a plain string, a localized object `{ en, ko, ja }`,
+or the YAML block-sequence form (`- en: "..." / - ko: "..."`) which YAML parses
+as an array of single-key objects. `normalizeEvent()` merges the array form into
+a single `{ en, ko, ja }` object so the rest of the system can treat all three
+cases uniformly.
+
+`facetsFrom()` deduplicates events by **canonical ID** (the English name via
+`canonicalOf`) while keeping the raw localized value for display. This means the
+sidebar filter pills show the current language's event name, while filter state
+tracks the canonical ID. `releaseNamesOf()` returns canonical strings so
+`idsAtPath()` and the filter pipeline's `includes()` check work regardless of
+the underlying value type.
+
+The old single-key object format (`{ "Event name": "YYYY-MM-DD" }`) is still
+parsed as a fallback.
+
 ## Filter/sort state (`filters.jsx`)
 
 `FilterProvider` is mounted **above the router**, so selections survive
@@ -125,6 +153,8 @@ holds:
 - `ranges`: `path → { min, max }`
 - `showMissing`: `path → true` to *include* items lacking the value (default off)
 - `sort`: `{ path, dir }` — a **single** active sort key
+- `expandPath` / `requestExpand(path)`: one-shot signal that causes `FilterTree`
+  to open the accordion for `path` on the next render, then clears itself
 
 …plus the actions to mutate them and `reset()`.
 
@@ -132,8 +162,15 @@ holds:
 
 For the current state, results are computed (memoized) as:
 
-1. **Fuzzy search** — `fuzzyScore(query, haystack)` over title, slug, and every
-   enum value label + event names; score 0 ⇒ filtered out.
+1. **Search** — Two independent search passes:
+   - *Meta match* (`exactMetaMatch`): case-insensitive substring over title (all
+     languages), enum label values (via `labelOf` for all languages), and release
+     event names (all language variants). Any hit keeps the artwork.
+   - *Body match* (`bodyMatchAll` from `search.js`): exact substring match in the
+     stripped body text for all languages; yields positioned snippets with
+     occurrence rank so the jump target in the article is precise. Snippets from
+     different languages that share identical text are deduplicated, with the
+     current language kept.
 2. **Per-key constraints** — for each key that is *in use* (has a multi-select,
    a range, **or** is the active sort key):
    - if the artwork has **no value** for the key: keep it only if
@@ -163,8 +200,30 @@ One accordion row per facet. The body renders the controls the kind allows:
   artwork (`valuesCanCoexist`) — so single-valued keys read clearly.
 - **Markers** on each row reflect what's *active*: `↑/↓` sort, `↔` range,
   `✓` multi-select, `∅` including empties (aggregated from descendants).
-- Open/closed state is lifted into `FilterTree` so the header button can collapse
-  every row and then revert to the previous expansion.
+- Open/closed state is lifted into `FilterTree`. The component also listens to
+  `expandPath` from `FilterProvider`: when set, it opens the corresponding
+  accordion (and any ancestors for nested paths) — this is triggered when a user
+  clicks an enum pill in a Properties block on the artwork page.
+
+## Properties block (`Properties.jsx`)
+
+`Value` dispatches on the type of the frontmatter value:
+
+- **`releases` path** → `ReleasesValue`: renders `DATE : EVENT @VENUE (VERSION)`,
+  with the event name as an `EnumPill`.
+- **Enum facet path** → `EnumPill`: a `<button>` with an inner `.tag-label` span
+  that owns the padding. Clicking toggles the filter *and* calls `requestExpand`
+  to open the sidebar accordion. If the value is a markdown link `[text](url)`,
+  the link text becomes the pill label and a `↗` icon (with a vertical separator)
+  appends an external link. Selection is indicated by stroke highlight only
+  (`border-color: var(--fg)`).
+- **Localized object** → `InlineMarkdown` on `loc(value, lang)`.
+- **Plain string** → `InlineMarkdown`: renders `[text](url)` links (external
+  opens new tab), `[[wikilinks]]`, bold, italic, inline code.
+- **Date object** → `formatDate`.
+- **Duration object** → `formatDuration`.
+- **Array** → `<ul>` of `Value` children.
+- **Nested object** → key/value grid (CSS `display: contents`).
 
 ## Markdown, headings & deep-links
 
@@ -173,6 +232,12 @@ fence) then `wikiLinks` (rewrites `[[slug]]` to hash routes). `Markdown.jsx`
 renders it with `rehype-slug`, which stamps an `id` on each heading. The sidebar
 outline (`extractHeadings` + `buildHeadingTree`) links to those ids using the
 same `github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
+
+Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
+`useEffect` that prepends toggle buttons after each render. Clicking a search
+snippet in the sidebar uses `router.navigate` state (`jumpTo`, `jumpOcc`,
+`jumpLang`) to scroll `ArtworkPage` to the precise occurrence and highlight it
+with a brief CSS animation.
 
 ## Routing & deploy
 
