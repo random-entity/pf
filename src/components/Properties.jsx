@@ -40,18 +40,31 @@ function EnumPill({ path, value }) {
 function ReleasesValue({ value }) {
   const evs = releaseEvents(value)
   if (evs.length === 0) return <span className="muted">—</span>
+
   return (
     <ul className="release-events">
       {evs.map((e, i) => (
         <li key={i}>
+          {/* 1. Event (Clickable EnumPill) */}
+          {e.event ? (
+            <EnumPill path={RELEASES_PATH} value={e.event} />
+          ) : (
+            <span>* Release</span>
+          )}
+          
+          {' – '}
+          
+          {/* 2. Date or Date Range */}
           <span className="date-range">
             {formatDate(e.start)}
             {e.end !== e.start ? ` ~ ${formatDate(e.end)}` : ''}
           </span>
-          {e.event && (
+          
+          {/* 3. Version (Only rendered if it exists) */}
+          {e.version && (
             <>
               {' – '}
-              <EnumPill path={RELEASES_PATH} value={e.event} />
+              <span className="version">{e.version}</span>
             </>
           )}
         </li>
