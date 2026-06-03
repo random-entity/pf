@@ -91,11 +91,11 @@ function parseRelease(item) {
     if ('event' in item && 'date' in item) {
       const range = parseDateRange(item.date)
       if (!range) return []
-      return [{ 
-        ...range, 
-        event: item.event.trim() || 'Release', 
+      return [{
+        ...range,
+        event: item.event.trim() || 'Release',
         version: item.version,
-        venue: item.venue // <-- Add this line
+        venue: item.venue,
       }]
     }
 

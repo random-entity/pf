@@ -1,8 +1,8 @@
 ---
 title: { en: "Flocking sound", ko: "새떼의 소리", ja: "群れの音" }
 releases:
-  - { "GitHub": "2025-09-29" }
-  - { "YouTube Live": "2025-09-29" }
+  - { event: "GitHub public repository", date: "2025-09-29", version: "v.0" }
+  - { event: "YouTube Live", date: "2025-09-29", version: "v.0" }
 type: Module
 genre: ["Synthesizer", "Generative music"]
 tags: ["Additive synthesis", "Boids", "Artificial life", "Automata"]

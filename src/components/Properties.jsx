@@ -35,9 +35,7 @@ function EnumPill({ path, value }) {
   )
 }
 
-// The `releases` property: each release/event name is paired with its parsed
-// date or inclusive date range.
-// The `releases` property: renders as {Event} -- {Venue} -- {Date range} -- {Version}
+// The `releases` property: renders each release as {Date} : {Event} @{Venue} ({Version}).
 function ReleasesValue({ value }) {
   const evs = releaseEvents(value)
   if (evs.length === 0) return <span className="muted">—</span>

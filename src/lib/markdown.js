@@ -67,7 +67,7 @@ export function stripFirstH1(body) {
 }
 
 // Strip inline markdown so a heading reads cleanly in an outline.
-function plainText(s) {
+export function plainText(s) {
   return s
     .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, t, a) => (a ?? t)) // wikilinks
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1') // [label](url) -> label
