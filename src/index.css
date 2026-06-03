@@ -59,15 +59,16 @@ input, select {
 .layout { display: flex; min-height: 100%; }
 
 .sidebar {
-  width: var(--sidebar);
-  flex: 0 0 var(--sidebar);
-  min-width: 280px;
-  border-right: 1px solid var(--border);
-  padding: 16px;
-  overflow-y: auto;
-  height: 100vh;
-  position: sticky;
-  top: 0;
+    width: var(--sidebar);
+    flex: 0 0 var(--sidebar);
+    min-width: 320px;
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    scrollbar-width: none;
 }
 
 /* Drag handle between the sidebar and content, to resize the sidebar. */
@@ -340,7 +341,7 @@ input, select {
 }
 .facet-expand:hover { background: none; }
 .facet-expand .caret { width: 12px; flex: 0 0 12px; color: var(--muted); }
-.facet-expand .facet-label { flex: 1; min-width: 0; }
+.facet-expand .facet-label { flex: 1; min-width: 0; font-size: 13px; }
 
 /* Right-side icon cluster */
 .facet-icons {
@@ -372,8 +373,8 @@ input, select {
 .sort-row button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
 
 .range-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.range-row label { font-size: 12px; color: var(--muted); }
-.range-row select { width: auto; flex: 1; min-width: 0; }
+.range-row label { font-size: 10px; color: var(--muted); }
+.range-row select { width: auto; flex: 1; min-width: 0; font-size: 12px; text-align: left; text-align-last: left; }
 
 .missing-toggle {
   border: none;
