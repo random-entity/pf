@@ -43,7 +43,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
 | `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
 | `src/components/Properties.jsx` | Obsidian-style properties block for one artwork. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
-| `src/components/Markdown.jsx` | `react-markdown` + `remark-gfm` + `rehype-slug`; collapsible headings/lists injected via DOM in a `useEffect`. |
+| `src/components/Markdown.jsx` | `react-markdown` + `remark-gfm` + `rehype-slug` + `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML); collapsible headings/lists injected via DOM in a `useEffect`. |
 | `src/pages/Home.jsx`, `src/pages/ArtworkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
@@ -229,7 +229,10 @@ One accordion row per facet. The body renders the controls the kind allows:
 
 `prepare(body, lang)` runs `pickLanguage` (keeps only the active `::: lang`
 fence) then `wikiLinks` (rewrites `[[slug]]` to hash routes). `Markdown.jsx`
-renders it with `rehype-slug`, which stamps an `id` on each heading. The sidebar
+renders it with `rehype-slug` (heading `id` attributes) and `rehype-raw` (raw
+HTML in Markdown is allowed; `<canvas id="...">` tags are intercepted by a
+custom component and run animation logic in a `useEffect`). `rehype-slug`
+stamps an `id` on each heading. The sidebar
 outline (`extractHeadings` + `buildHeadingTree`) links to those ids using the
 same `github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
 

@@ -455,7 +455,6 @@ select {
   color: var(--fg);
   font-weight: 700;
 }
-/* .collapse-all replaced by .filters-action-btn */
 .filter-tree {
   list-style: none;
   margin: 0;
@@ -985,16 +984,6 @@ select {
   color: var(--muted);
   border-top: 1px solid var(--border);
   margin-top: 32px;
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0 0 4px;
-}
-.page-sub {
-  color: var(--muted);
-  margin: 0 0 24px;
 }
 
 /* ---------- Mobile ---------- */

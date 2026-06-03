@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
-import { Link, useOutletContext } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
-import { artworks, titleOf } from '../lib/content.js'
-import { releaseSortValue } from '../lib/properties.js'
 import { firstH1Text, prepare, stripFirstH1 } from '../lib/markdown.js'
 import Markdown from '../components/Markdown.jsx'
 
@@ -19,7 +17,6 @@ export default function Home() {
   const { setPageTitle } = useOutletContext()
   const preparedIntro = intro ? prepare(intro, lang) : ''
   const bodyIntro = stripFirstH1(preparedIntro)
-  const recent = [...artworks].sort((a, b) => (releaseSortValue(b.data) ?? 0) - (releaseSortValue(a.data) ?? 0))
 
   useEffect(() => {
     setPageTitle(firstH1Text(preparedIntro))
