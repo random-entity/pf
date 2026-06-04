@@ -40,7 +40,7 @@ export function pickLanguage(body, lang) {
 }
 
 // Rewrite [[target]] and [[target|alias]] into standard markdown links
-// pointing at the hash route for the resolved artwork. Unresolved links are
+// pointing at the hash route for the resolved work. Unresolved links are
 // rendered as plain text so dead links are visible but not broken anchors.
 const WIKILINK = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
 

@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // Property schema — the single source of truth for how each frontmatter
 // property behaves. This REPLACES the old dynamic classification (which guessed
-// a property's role from the shape/frequency of its values across artworks).
+// a property's role from the shape/frequency of its values across works).
 //
 // Each entry maps a property PATH to a config object:
 //

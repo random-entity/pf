@@ -17,7 +17,7 @@ import { useFilters } from '../filters.jsx'
 
 // Inline markdown components. Defined at module scope (stable identities) so a
 // re-render of the Properties block reconciles rather than remounts these nodes
-// — important because ArtworkPage mutates the footnote <sup> elements (id, index,
+// — important because WorkPage mutates the footnote <sup> elements (id, index,
 // backlinks) directly in the DOM, and a remount would discard those mutations.
 const INLINE_COMPONENTS = {
   a: ({ href, children: linkChildren }) => (
@@ -31,7 +31,7 @@ const INLINE_COMPONENTS = {
     </a>
   ),
   // Footnote reference. The displayed number, a unique backref id, and the ↩
-  // backlinks are all assigned by ArtworkPage once both the frontmatter and the
+  // backlinks are all assigned by WorkPage once both the frontmatter and the
   // body have rendered, so numbering reflects order of appearance across the
   // whole page (frontmatter first). Here we only mark it and wire the forward
   // jump to the definition.
@@ -84,7 +84,7 @@ const FN_REF = /\[\^([A-Za-z0-9_-]+)\]/g
 // markdown-link URLs (e.g. "[text](url)(url)") as ↗ icons — both after a
 // separator, in that order: [ label | ¹ | ↗ ↗ ]. Footnote superscripts get the
 // same appearance-order numbering + backlink wiring as body footnotes (handled
-// by ArtworkPage, which finds every `.properties sup[data-fn-ref]`).
+// by WorkPage, which finds every `.properties sup[data-fn-ref]`).
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()

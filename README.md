@@ -17,7 +17,7 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
   corresponding sidebar accordion without navigating away.
 - **Markdown** with GFM, footnotes, `[[wikilinks]]`, math (KaTeX), image
   galleries, embedded YouTube, collapsible headings/lists, and a heading outline
-  that deep-links into each artwork.
+  that deep-links into each work.
 
 > Changing the code? See [ARCHITECTURE.md](ARCHITECTURE.md) for how content is
 > loaded, how the property schema (`src/lib/schema.js`) drives the filter/sort
@@ -36,16 +36,20 @@ Requires [Node.js](https://nodejs.org) (LTS / v20+). Open the printed local URL.
 that build locally. These are the only three scripts (`dev` / `build` /
 `preview`), all thin wrappers over Vite.
 
-## Add or edit an artwork
+## Add or edit a work
 
-Create a Markdown file under the folder matching its `type`:
+A **work** is anything in the portfolio — an artwork, a module, a toy, and so on.
+What kind it is comes from its `type` frontmatter property, **not** from where the
+file lives. Create a Markdown file anywhere under `src/content/` (every `*.md`
+below it is loaded, at any depth):
 
-- `src/content/personal-works/`
-- `src/content/group-works/`
-- `src/content/modules/`
+- `src/content/personal-works/`, `src/content/group-works/`,
+  `src/content/modules/`, `src/content/toys/`, … — these subfolders are just a
+  loose authoring convenience; add or rename them freely.
 
-The folder path becomes the tree structure; the file name (minus `.md`) becomes
-the slug used by `[[wikilinks]]`.
+The folder path becomes the slug used by `[[wikilinks]]` and the URL, so the file
+name (minus `.md`) should be unique. (`src/content/home.md` is the site intro,
+not a work, and is the one file excluded from the glob.)
 
 ```markdown
 ---
@@ -80,7 +84,7 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   items, nested object values, and release sub-fields like `venue` and `version`):
   - `[text](url)` → clickable link (external opens in a new tab)
   - `[text](url1)(url2)` → plain text with one `↗` icon per URL (multi-link)
-  - `[[wikilink]]` → link to another artwork by slug
+  - `[[wikilink]]` → link to another work by slug
   - `**bold**`, `_italic_`, `` `code` `` → inline formatting
   - On **enum pills**, the link text becomes the pill label and a `↗` icon is
     appended after a separator; multi-link values add one `↗` per URL.
@@ -149,13 +153,13 @@ The sidebar builds a **filter/sort tree** from the property schema
 - **`group`** (`releases`) expands into its typed sub-facets.
 - **`text`** is search-only — never a facet.
 
-**Sorting only orders items — it never hides them.** An artwork that lacks the
+**Sorting only orders items — it never hides them.** A work that lacks the
 sort value (e.g. one with no `releases.date` under the default newest-first sort)
-simply sinks to the bottom of the list, so every artwork stays visible by
+simply sinks to the bottom of the list, so every work stays visible by
 default.
 
 Each key has a **"Show items without a value"** toggle (off by default). When a
-key is **filtered** — ranged or multi-selected — artworks lacking that value are
+key is **filtered** — ranged or multi-selected — works lacking that value are
 dropped unless this is checked; checking it keeps them and shows an `∅` marker.
 
 The **search box** does a case-insensitive substring match across titles (all
@@ -188,7 +192,7 @@ every language.
 
 ### Wikilinks
 
-`[[slug]]` or `[[slug|Custom label]]` links to another artwork. Targets resolve by
+`[[slug]]` or `[[slug|Custom label]]` links to another work. Targets resolve by
 slug, trailing path segment, or file basename. Unresolved links render as plain
 text.
 

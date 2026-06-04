@@ -1,9 +1,9 @@
-import { artworks } from './content.js';
+import { works } from './content.js';
 import { loc, isLocalized } from '../i18n.jsx';
 import { PROPERTY_SCHEMA, typeForPath } from './schema.js';
 
 // `releases` is kept as a named constant for the few call sites that special-case
-// it (e.g. ArtworkPage skips its enum pills when seeding footnotes).
+// it (e.g. WorkPage skips its enum pills when seeding footnotes).
 export const RELEASES_PATH = 'releases';
 
 // Read a (possibly nested) value out of a frontmatter object by a dotted path.
@@ -37,7 +37,7 @@ const FN_REF_RE = /\[\^[A-Za-z0-9_-]+\]/g;
 const stripFootnotes = (s) => String(s).replace(FN_REF_RE, '');
 
 // Language-independent identity for an enum value, so the same value groups
-// across artworks and survives language switches.
+// across works and survives language switches.
 export function canonicalOf(v) {
   if (v == null) return '';
   if (v instanceof Date) return v.toISOString();
@@ -134,7 +134,7 @@ function numbersAtPath(data, path, isDuration) {
     : vals.filter((v) => typeof v === 'number');
 }
 
-// Does an artwork carry any value at this facet's path?
+// Does a work carry any value at this facet's path?
 export function hasValueAtPath(data, facet) {
   if (facet.kind === 'enum') return idsAtPath(data, facet.path).length > 0;
   if (facet.kind === 'date') return rangesAtPath(data, facet.path).length > 0;
@@ -144,7 +144,7 @@ export function hasValueAtPath(data, facet) {
 }
 
 // Sort key for a facet: dates -> earliest start; numbers/durations -> minimum.
-// null when the artwork has no value at the path.
+// null when the work has no value at the path.
 export function sortValueForFacet(facet, data) {
   if (facet.kind === 'date') {
     const rs = rangesAtPath(data, facet.path);
@@ -168,11 +168,11 @@ export function rangeMatchesFacet(facet, data, r) {
   return ns.some((n) => n >= r.min && n <= r.max);
 }
 
-// Could any artwork carry every one of these enum ids at `path` at once? If not,
+// Could any work carry every one of these enum ids at `path` at once? If not,
 // the values are mutually exclusive and an AND ("All") filter is meaningless.
-export function valuesCanCoexist(artworks, path, ids) {
+export function valuesCanCoexist(works, path, ids) {
   if (ids.length < 2) return true;
-  return artworks.some((a) => {
+  return works.some((a) => {
     const own = idsAtPath(a.data, path);
     return ids.every((id) => own.includes(id));
   });
@@ -263,7 +263,7 @@ function buildFacet(path, depth, objs) {
 // Built once: content is static and loaded eagerly at build time. Root facets
 // are the depth-0 schema keys (title is excluded — it has a dedicated sort row).
 export const schema = (() => {
-  const objs = artworks.map((a) => a.data);
+  const objs = works.map((a) => a.data);
   const rootKeys = Object.keys(PROPERTY_SCHEMA).filter(
     (p) => !p.includes('.') && p !== 'title',
   );

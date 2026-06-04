@@ -616,7 +616,7 @@ select {
   font-size: 0.9em;
 }
 
-/* Accordion list of artworks with a Markdown heading outline */
+/* Accordion list of works with a Markdown heading outline */
 .db-list .acc-item {
   border-top: 1px solid var(--border);
 }
@@ -787,7 +787,7 @@ select {
   background: var(--hover);
 }
 /* Footnote superscript inside a frontmatter pill — sits in the link zone (right
-   side) and gets its number from ArtworkPage's appearance-order numbering. */
+   side) and gets its number from WorkPage's appearance-order numbering. */
 .tag-fn-ref {
   color: inherit;
   text-decoration: none;
@@ -1033,7 +1033,7 @@ sup {
   border-top: 1px solid var(--border);
   margin-top: 32px;
 }
-/* Hidden seed footnote references (see footnotePlan in ArtworkPage): they exist
+/* Hidden seed footnote references (see footnotePlan in WorkPage): they exist
    only so remark-gfm numbers/orders footnotes frontmatter-first. */
 .fn-seeds {
   display: none;

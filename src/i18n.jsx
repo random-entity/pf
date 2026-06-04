@@ -58,7 +58,7 @@ const UI = {
     noResults: 'No results.',
     noHeadings: 'No headings.',
     home: 'Home',
-    notFound: 'Artwork not found.',
+    notFound: 'Work not found.',
     menu: 'Menu',
     items: 'items',
   },

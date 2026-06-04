@@ -3,7 +3,7 @@ import { useLang } from '../i18n.jsx'
 import DatabaseBrowser from './DatabaseBrowser.jsx'
 import LangSwitch from './LangSwitch.jsx'
 
-// Navigation panel: a single searchable database of all artworks.
+// Navigation panel: a single searchable database of all works.
 export default function Sidebar() {
   const { t } = useLang()
   return (

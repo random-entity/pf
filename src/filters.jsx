@@ -12,7 +12,7 @@ export const DEFAULT_SORT = facetByPath.has('releases.date')
 const Ctx = createContext(null);
 
 // Holds the whole search/sort/filter selection. Lives above the router so it
-// survives navigation and is reachable from both the sidebar and the artwork
+// survives navigation and is reachable from both the sidebar and the work
 // page's Properties block.
 export function FilterProvider({ children }) {
   const [enums, setEnums] = useState({}); // path -> { ids: string[], mode: 'any'|'all' }

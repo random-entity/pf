@@ -2,19 +2,17 @@ import yaml from 'js-yaml';
 import { loc } from '../i18n.jsx';
 import { pickLanguage, plainText } from './markdown.js';
 
-// Eagerly load every artwork/module markdown file as a raw string at build time.
-// Content is organized by the `type` frontmatter value:
-//   src/content/personal-works/
-//   src/content/group-works/
-//   src/content/modules/
-const files = import.meta.glob(
-  '../content/{personal-works,group-works,modules}/**/*.md',
-  {
-    query: '?raw',
-    import: 'default',
-    eager: true,
-  },
-);
+// Eagerly load every work's markdown file as a raw string at build time.
+// A "work" is anything in the portfolio — an artwork, a module, a toy, etc.;
+// its kind is the `type` frontmatter property, NOT its folder. The subdirectories
+// under src/content/ (personal-works/, modules/, toys/, …) are just a loose
+// authoring convenience, so we glob ALL of them (home.md is the site intro, not a
+// work, and is loaded separately by Home.jsx — exclude it here).
+const files = import.meta.glob(['../content/**/*.md', '!../content/home.md'], {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
 
 const FM = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 
@@ -59,7 +57,7 @@ function dimensionsToMeters(dim) {
   return out;
 }
 
-export const artworks = Object.entries(files)
+export const works = Object.entries(files)
   .map(([path, raw]) => {
     const slug = path.replace('../content/', '').replace(/\.md$/, '');
     const { data, body } = parse(raw);
@@ -75,32 +73,32 @@ export const artworks = Object.entries(files)
   .sort((a, b) => a.slug.localeCompare(b.slug));
 
 export const bySlug = Object.fromEntries(
-  artworks.flatMap((a) => {
-    const legacyDir = a.data.type === 'Module' ? 'modules' : 'works';
+  works.flatMap((w) => {
+    const legacyDir = w.data.type === 'Module' ? 'modules' : 'works';
     return [
-      [a.slug, a],
+      [w.slug, w],
       // Backward compatibility for routes from the pre-refactor structure.
-      [`${legacyDir}/${a.name}`, a],
+      [`${legacyDir}/${w.name}`, w],
     ];
   }),
 );
 
-// Resolve a wikilink target to an artwork slug. Matches by exact slug,
+// Resolve a wikilink target to a work's slug. Matches by exact slug,
 // by trailing path segment, or by basename (case-insensitive).
 export function resolveSlug(target) {
   const t = target.trim();
   if (bySlug[t]) return t;
   const lower = t.toLowerCase();
-  const hit = artworks.find(
-    (a) =>
-      a.slug.toLowerCase() === lower ||
-      a.slug.toLowerCase().endsWith('/' + lower) ||
-      a.name.toLowerCase() === lower,
+  const hit = works.find(
+    (w) =>
+      w.slug.toLowerCase() === lower ||
+      w.slug.toLowerCase().endsWith('/' + lower) ||
+      w.name.toLowerCase() === lower,
   );
   return hit ? hit.slug : null;
 }
 
-// Display title for an artwork in the given language.
-export function titleOf(a, lang) {
-  return loc(a.data.title, lang) || firstH1Text(a.body, lang) || a.name;
+// Display title for a work in the given language.
+export function titleOf(w, lang) {
+  return loc(w.data.title, lang) || firstH1Text(w.body, lang) || w.name;
 }

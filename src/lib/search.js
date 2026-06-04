@@ -125,7 +125,7 @@ function snippetsForText(text, query) {
 // Search all frontmatter property values (except title) across all languages.
 // Returns snippets in the same { lang, snippet, mStart, mEnd, matchText, occ }
 // format as bodyMatchAll. `occ` is the occurrence rank within that language's
-// concatenated prop text, used by ArtworkPage to jump to the right occurrence
+// concatenated prop text, used by WorkPage to jump to the right occurrence
 // inside the rendered .properties block.
 export function propMatchAll(data, query, currentLang) {
   if (!query.trim()) return [];

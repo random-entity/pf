@@ -12,10 +12,10 @@ import { LanguageProvider } from './i18n.jsx';
 import { FilterProvider } from './filters.jsx';
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
-import ArtworkPage from './pages/ArtworkPage.jsx';
+import WorkPage from './pages/WorkPage.jsx';
 import './index.css';
 
-function LegacyArtworkRedirect() {
+function LegacyWorkRedirect() {
   const params = useParams();
   const location = useLocation();
   return (
@@ -40,8 +40,9 @@ createRoot(document.getElementById('root')).render(
           <Routes>
             <Route element={<App />}>
               <Route index element={<Home />} />
-              <Route path="artwork/*" element={<LegacyArtworkRedirect />} />
-              <Route path="*" element={<ArtworkPage />} />
+              {/* Back-compat for old #/artwork/* bookmarks. */}
+              <Route path="artwork/*" element={<LegacyWorkRedirect />} />
+              <Route path="*" element={<WorkPage />} />
             </Route>
           </Routes>
         </HashRouter>

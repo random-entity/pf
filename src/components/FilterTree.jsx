@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
-import { artworks } from '../lib/content.js'
+import { works } from '../lib/content.js'
 import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
 import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
@@ -52,7 +52,7 @@ function EnumFilter({ facet }) {
   const { lang, t } = useLang()
   const { enums, toggleEnum, setEnumMode, clearEnum } = useFilters()
   const sel = enums[facet.path] || { ids: [], mode: 'any' }
-  const andMeaningless = !valuesCanCoexist(artworks, facet.path, sel.ids)
+  const andMeaningless = !valuesCanCoexist(works, facet.path, sel.ids)
 
   return (
     <div>

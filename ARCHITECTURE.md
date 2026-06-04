@@ -5,22 +5,26 @@ How this site works under the hood. For authoring content, see the
 
 ## TL;DR
 
-It's a **static single-page app**. Every artwork is a Markdown file with YAML
-frontmatter. At build time Vite inlines all of them; at runtime the app parses
-the frontmatter and renders an Obsidian-like sidebar over it. How each property
-behaves — plain text, filter pills, date sort, … — is declared **explicitly** in
-one config file (`src/lib/schema.js`); the facet engine and the renderers are a
-pure function of that config plus the content. There is no server or database.
+It's a **static single-page app**. Every **work** (an artwork, a module, a toy,
+… — whatever the portfolio holds) is a Markdown file with YAML frontmatter. A
+work's kind is its `type` frontmatter property, **not** its folder: the
+subdirectories under `src/content/` are just loose authoring buckets, so the
+loader globs all of them. At build time Vite inlines all of them; at runtime the
+app parses the frontmatter and renders an Obsidian-like sidebar over it. How each
+property behaves — plain text, filter pills, date sort, … — is declared
+**explicitly** in one config file (`src/lib/schema.js`); the facet engine and the
+renderers are a pure function of that config plus the content. There is no server
+or database.
 
 ```
-Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──▶ artworks[]
+Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──▶ works[]
                                                                 │
    src/lib/schema.js ─ property types + labels ─┐              │
                                                 ▼              │
                                        ┌─────── build facets ──┼─────────────────────┐
                                        ▼     (properties.js)   ▼                     ▼
                                  facet tree              Properties block        Home / pages
-                                       │                  (per artwork)
+                                       │                  (per work)
                                        ▼
                             FilterTree  +  FilterProvider state
                                        │
@@ -37,7 +41,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/i18n.jsx` | Language context, UI-chrome strings, and the localized-value helpers `loc` / `isLocalized`. `propLabel` delegates to `schema.js`. |
 | `src/lib/schema.js` | **Property schema** — the single source of truth for each property's `type` (root + nested dotted paths) and its editable en/ko/ja `label`. Exports `PROPERTY_SCHEMA`, `typeForPath`, `labelForPath`. |
 | `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. Includes `requestExpand` / `expandPath` for cross-page accordion expansion. |
-| `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `artworks`, `bySlug`, `titleOf`, `resolveSlug`. |
+| `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `works`, `bySlug`, `titleOf`, `resolveSlug`. |
 | `src/lib/properties.js` | **Facet engine** — builds the facet tree from `schema.js` + content; value helpers (dates, durations, enums, units) and path-typed collectors (`valuesAtPath`, `idsAtPath`, `sortValueForFacet`, `rangeMatchesFacet`). |
 | `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
 | `src/lib/search.js` | Body search: exact case-insensitive substring match with snippet extraction, occurrence ranking, and cross-language deduplication. |
@@ -46,21 +50,23 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/components/LangSwitch.jsx` | Always-visible en/ko/ja selector wired to `useLang()`. |
 | `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
 | `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
-| `src/components/Properties.jsx` | Obsidian-style properties block for one artwork. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
+| `src/components/Properties.jsx` | Obsidian-style properties block for one work. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
 | `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`. |
-| `src/pages/Home.jsx`, `src/pages/ArtworkPage.jsx` | The two routes. |
+| `src/pages/Home.jsx`, `src/pages/WorkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
 ## Content pipeline (`content.js`)
 
-1. `import.meta.glob('../content/{personal-works,group-works,modules}/**/*.md', { eager: true, query: '?raw' })`
-   pulls every file in as a raw string at build time.
+1. `import.meta.glob(['../content/**/*.md', '!../content/home.md'], { eager: true, query: '?raw' })`
+   pulls every work's file in as a raw string at build time — at any depth and in
+   any subfolder, since the folder is not the source of truth (`type` is). Only
+   `home.md` (the site intro, not a work) is excluded.
 2. Frontmatter is split with a regex and parsed with `js-yaml`. A parse error is
    caught and logged, never thrown — malformed frontmatter degrades, it doesn't
    blank the page.
 3. `dimensions` is normalized to **meters** (`dimensionsToMeters`) and its `unit`
    is dropped, so width/height are comparable numbers downstream.
-4. The result is `artworks[]` — `{ slug, name, dirs, data, body }` — plus a
+4. The result is `works[]` — `{ slug, name, dirs, data, body }` — plus a
    `bySlug` index. `slug` comes from the file path; the folder structure is only
    used for the slug, not for navigation. `bySlug` also registers a
    backward-compatible alias for each item (`works/<name>` or `modules/<name>`
@@ -109,7 +115,7 @@ each element (enum ⇒ one pill each); a plain object becomes a nested grid.
 `properties.js` turns the schema into a usable facet tree:
 
 1. **Build** (`buildFacet`, run once into `schema`): for each schema path it
-   scans all artworks via `valuesAtPath` (the array-aware path collector) and
+   scans all works via `valuesAtPath` (the array-aware path collector) and
    produces a facet — `enum` (distinct values + counts), `date`/`number`/
    `duration` (option/min/max), or `group` (a `nested` node whose children are
    the facet-bearing sub-paths). Facets carrying no variation are dropped
@@ -154,7 +160,7 @@ language-stable id used for filtering while pills display the current language.
 ## Filter/sort state (`filters.jsx`)
 
 `FilterProvider` is mounted **above the router**, so selections survive
-navigation and the artwork page's Properties pills can feed the same state. It
+navigation and the work page's Properties pills can feed the same state. It
 holds:
 
 - `enums`: `path → { ids: string[], mode: 'any' | 'all' }`
@@ -173,7 +179,7 @@ For the current state, results are computed (memoized) as:
 1. **Search** — Two independent search passes:
    - *Meta match* (`exactMetaMatch`): case-insensitive substring over title (all
      languages) and every **enum** facet's values (via `labelOf` for all
-     languages, which covers release event names). Any hit keeps the artwork.
+     languages, which covers release event names). Any hit keeps the work.
    - *Body match* (`bodyMatchAll` from `search.js`): exact substring match in the
      stripped body text for all languages; yields positioned snippets with
      occurrence rank so the jump target in the article is precise. Snippets from
@@ -181,14 +187,14 @@ For the current state, results are computed (memoized) as:
      current language kept.
 2. **Per-key constraints** — for each key that is *in use* (has a multi-select,
    a range, **or** is the active sort key):
-   - if the artwork has **no value** for the key: keep it only if
+   - if the work has **no value** for the key: keep it only if
      `showMissing[path]` is true, else drop it;
    - else apply the multi-select (`idsAtPath` + `every` for AND / `some` for OR)
      and/or the range (`rangeMatchesFacet`: numeric in `[min,max]`; date facets
      match when any interval overlaps `[min,max]`).
 3. **Sort** — by the single sort key (`titleOf` for title, else
    `sortValueForFacet`); missing values sort last.
-4. **Group-by** — optional, over a categorical key; a multi-valued artwork lands
+4. **Group-by** — optional, over a categorical key; a multi-valued work lands
    in each of its groups.
 
 ## The tree UI (`FilterTree.jsx`)
@@ -204,13 +210,13 @@ One accordion row per facet. The body renders the controls the kind allows:
 
 - **OR/AND** is a borderless radio control (distinct from the bordered value
   pills). AND strikes through when the selected values can't co-occur on any one
-  artwork (`valuesCanCoexist`) — so single-valued keys read clearly.
+  work (`valuesCanCoexist`) — so single-valued keys read clearly.
 - **Markers** on each row reflect what's *active*: `↑/↓` sort, `↔` range,
   `✓` multi-select, `∅` including empties (aggregated from descendants).
 - Open/closed state is lifted into `FilterTree`. The component also listens to
   `expandPath` from `FilterProvider`: when set, it opens the corresponding
   accordion (and any ancestors for nested paths) — this is triggered when a user
-  clicks an enum pill in a Properties block on the artwork page.
+  clicks an enum pill in a Properties block on the work page.
 
 ## Properties block (`Properties.jsx`)
 
@@ -270,7 +276,7 @@ renders it through this plugin chain (order matters):
 Custom `components` also turn a YouTube-link paragraph into a responsive embed and
 rewrite image `src` against `import.meta.env.BASE_URL`. The sidebar outline
 (`extractHeadings` + `buildHeadingTree`) links to the heading ids using the same
-`github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
+`github-slugger` algorithm, and `WorkPage` scrolls to the hash on change.
 
 **Footnotes** are authored as named GFM footnotes (`[^label]`, `[^label]: …`),
 but they are renumbered by **order of appearance, frontmatter-first** rather than
@@ -280,7 +286,7 @@ rebuilt the `↩` anchors in a layout effect corrupted React's tree and crashed
 (`removeChild … not a child of this node`) on the next render/unmount. **Never
 structurally mutate React-rendered DOM; only attributes are safe.**
 
-`footnotePlan()` in `ArtworkPage` rewrites the body markdown before it is
+`footnotePlan()` in `WorkPage` rewrites the body markdown before it is
 rendered:
 
 - **Cross-language definitions.** Definitions live inside `::: lang` sections, so
@@ -298,7 +304,7 @@ rendered:
   footnotes frontmatter-first, emits the definitions (so a frontmatter-only
   footnote isn't dropped), and gives each seed a backref.
 
-The `useLayoutEffect` in `ArtworkPage` then makes only **attribute** changes:
+The `useLayoutEffect` in `WorkPage` then makes only **attribute** changes:
 it reads each definition's list position as its number, writes that number onto
 the frontmatter `<sup data-fn-ref>` (emitted by `Properties.jsx`'s
 `InlineMarkdown`) and gives it an `fnref-fm-<label>-<n>` id, then retargets each
@@ -311,7 +317,7 @@ frontmatter `<sup>` even though it lives outside the markdown root); frontmatter
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render. Clicking a search
 snippet in the sidebar uses `router.navigate` state (`jumpTo`, `jumpOcc`,
-`jumpLang`) to scroll `ArtworkPage` to the precise occurrence and highlight it
+`jumpLang`) to scroll `WorkPage` to the precise occurrence and highlight it
 with a brief CSS animation.
 
 ## Routing & deploy

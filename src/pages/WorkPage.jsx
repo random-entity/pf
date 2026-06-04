@@ -75,7 +75,7 @@ function collectFrontmatterRefs(value, lang, path, out) {
 //    orders footnotes by first reference in the body, and emits one backref per
 //    reference. So we PREPEND one hidden "seed" reference per frontmatter citation
 //    (in render order) inside a `.fn-seeds` wrapper (display:none). remark then
-//    numbers them frontmatter-first and gives each a backref; ArtworkPage's effect
+//    numbers them frontmatter-first and gives each a backref; WorkPage's effect
 //    only retargets those leading backrefs at the real frontmatter citations
 //    (an attribute change — safe for React).
 function footnotePlan(data, body, lang) {
@@ -170,23 +170,23 @@ function buildRange(container, query, occ) {
   return { range, el: startSeg.node.parentElement }
 }
 
-export default function ArtworkPage() {
+export default function WorkPage() {
   const { lang, t, setLang } = useLang()
   const { setPageTitle } = useOutletContext()
   const params = useParams()
   const slug = decodeURI(params['*'] || '')
-  const artwork = bySlug[slug]
+  const work = bySlug[slug]
   const { hash, state } = useLocation()
   const hlTimer = useRef(null)
   const plan = useMemo(
-    () => footnotePlan(artwork?.data, artwork?.body, lang),
-    [artwork, lang],
+    () => footnotePlan(work?.data, work?.body, lang),
+    [work, lang],
   )
 
   useEffect(() => {
-    setPageTitle(artwork ? titleOf(artwork, lang) : '')
+    setPageTitle(work ? titleOf(work, lang) : '')
     return () => setPageTitle('')
-  }, [artwork, lang, setPageTitle])
+  }, [work, lang, setPageTitle])
 
   // Heading deep-link via URL hash.
   useEffect(() => {
@@ -303,12 +303,12 @@ export default function ArtworkPage() {
         if (backs[i]) backs[i].setAttribute('href', `#${id}`)
       })
     }
-  }, [artwork, lang])
+  }, [work, lang])
 
   // Drop the highlight on unmount.
   useEffect(() => () => { clearHighlight(); if (hlTimer.current) clearTimeout(hlTimer.current) }, [])
 
-  if (!artwork) {
+  if (!work) {
     return (
       <p className="muted">
         {t('notFound')} <Link to="/">{t('home')}</Link>
@@ -318,7 +318,7 @@ export default function ArtworkPage() {
 
   return (
     <article>
-      <Properties data={artwork.data} />
+      <Properties data={work.data} />
       <div className="article">
         <Markdown>{plan.body}</Markdown>
       </div>

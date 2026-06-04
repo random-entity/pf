@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useLang, LANGS } from '../i18n.jsx'
-import { artworks, titleOf } from '../lib/content.js'
+import { works, titleOf } from '../lib/content.js'
 import { extractHeadings, buildHeadingTree } from '../lib/markdown.js'
 import { bodyMatchAll, propMatchAll } from '../lib/search.js'
 import {
@@ -45,7 +45,7 @@ function Snippet({ snippet, mStart, mEnd }) {
 // Max snippets shown before "show more" is required.
 const SNIPPET_DEFAULT_SHOW = 3
 
-function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
+function WorkItem({ work, bodyHits, titleHits, propHits }) {
   const { lang, t, setLang } = useLang()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -53,8 +53,8 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
   const [propExpanded, setPropExpanded] = useState(false)
 
   const tree = useMemo(
-    () => buildHeadingTree(extractHeadings(artwork.body, lang)),
-    [artwork, lang],
+    () => buildHeadingTree(extractHeadings(work.body, lang)),
+    [work, lang],
   )
   const hasHeadings = tree.length > 0
   const bodyHitList = bodyHits ?? []
@@ -63,19 +63,19 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
   const shownProp = propExpanded ? propHitList : propHitList.slice(0, SNIPPET_DEFAULT_SHOW)
 
   const handleBodySnippetClick = (hit) => {
-    navigate(`/${artwork.slug}`, {
+    navigate(`/${work.slug}`, {
       state: { jumpTo: hit.matchText, jumpOcc: hit.occ, jumpLang: hit.lang, _t: Date.now() },
     })
   }
 
   const handlePropSnippetClick = (hit) => {
-    navigate(`/${artwork.slug}`, {
+    navigate(`/${work.slug}`, {
       state: { jumpPropTo: hit.matchText, jumpPropOcc: hit.occ, jumpLang: hit.lang, _t: Date.now() },
     })
   }
 
   const handleTitleSnippetClick = (hit) => {
-    navigate(`/${artwork.slug}`, {
+    navigate(`/${work.slug}`, {
       state: { jumpLang: hit.lang, _t: Date.now() },
     })
   }
@@ -86,17 +86,17 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
         <button
           className="acc-toggle"
           aria-expanded={open}
-          aria-label={titleOf(artwork, lang)}
+          aria-label={titleOf(work, lang)}
           disabled={!hasHeadings}
           onClick={() => setOpen((v) => !v)}
         >
           {hasHeadings ? (open ? '▾' : '▸') : '·'}
         </button>
         <NavLink
-          to={`/${artwork.slug}`}
+          to={`/${work.slug}`}
           className={({ isActive }) => (isActive ? 'active' : undefined)}
         >
-          {titleOf(artwork, lang)}
+          {titleOf(work, lang)}
         </NavLink>
       </div>
 
@@ -150,7 +150,7 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
       {open && (
         <div className="outline">
           {hasHeadings ? (
-            <HeadingTree nodes={tree} slug={artwork.slug} />
+            <HeadingTree nodes={tree} slug={work.slug} />
           ) : (
             <span className="muted">{t('noHeadings')}</span>
           )}
@@ -163,14 +163,14 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
 // Exact case-insensitive substring match against title (all langs) and enum
 // labels. Used for the main search bar — no fuzzy, so "ㅇ" only matches text
 // that literally contains "ㅇ".
-function exactMetaMatch(artwork, q) {
+function exactMetaMatch(work, q) {
   const qLo = q.toLowerCase()
   for (const l of LANGS) {
-    if (titleOf(artwork, l).toLowerCase().includes(qLo)) return true
+    if (titleOf(work, l).toLowerCase().includes(qLo)) return true
   }
   for (const f of facetByPath.values()) {
     if (f.kind !== 'enum') continue
-    for (const val of valuesAtPath(artwork.data, f.path)) {
+    for (const val of valuesAtPath(work.data, f.path)) {
       for (const l of LANGS) {
         if (String(labelOf(val, l) ?? '').toLowerCase().includes(qLo)) return true
       }
@@ -195,7 +195,7 @@ export default function DatabaseBrowser() {
     const propMatchMap = new Map()
     const titleMatchMap = new Map()
     // Only real filters constrain the list: active enum selections and ranges.
-    // Sorting must NOT drop items — an artwork lacking the sort value simply
+    // Sorting must NOT drop items — a work lacking the sort value simply
     // sinks to the bottom (null-handling in the comparator below). This is what
     // keeps items without `releases` visible under the default releases.date sort.
     const constrainedPaths = new Set([
@@ -203,7 +203,7 @@ export default function DatabaseBrowser() {
       ...Object.keys(ranges),
     ])
 
-    let list = artworks.filter((a) => {
+    let list = works.filter((a) => {
       // Main search: exact substring across all text. No fuzzy — avoids false
       // positives with partial CJK characters like "ㅇ".
       if (q.trim()) {
@@ -301,7 +301,7 @@ export default function DatabaseBrowser() {
           {group !== 'none' && <div className="db-group-title">{name}</div>}
           <ul className="db-list">
             {items.map((a) => (
-              <ArtworkItem key={a.slug} artwork={a} bodyHits={matchMap.get(a.slug)} propHits={propMatchMap.get(a.slug)} titleHits={titleMatchMap.get(a.slug)} />
+              <WorkItem key={a.slug} work={a} bodyHits={matchMap.get(a.slug)} propHits={propMatchMap.get(a.slug)} titleHits={titleMatchMap.get(a.slug)} />
             ))}
           </ul>
         </div>
