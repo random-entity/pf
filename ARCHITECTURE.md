@@ -264,6 +264,26 @@ rewrite image `src` against `import.meta.env.BASE_URL`. The sidebar outline
 (`extractHeadings` + `buildHeadingTree`) links to the heading ids using the same
 `github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
 
+**Footnotes** are authored as named GFM footnotes (`[^label]`, `[^label]: …`),
+but their displayed numbers are *not* GFM's. `remark-gfm` still renders the
+definition list (so definition markdown works), and footnote references in
+frontmatter property values are emitted by `Properties.jsx`'s `InlineMarkdown` as
+`<sup data-fn-ref>` markers. A single `useLayoutEffect` in `ArtworkPage` then
+takes over: it walks every reference in **document order** (the Properties block
+precedes `.article`, so frontmatter citations come first), renumbers each
+reference by first appearance, reorders the definition `<li>`s to match, and
+rebuilds each definition's `↩` backlinks in appearance order (assigning unique
+`fnback-<label>-<n>` ids). This is why `InlineMarkdown`'s components live at
+module scope — stable identities let that DOM mutation survive re-renders instead
+of being remounted away.
+
+`remark-gfm` only emits a definition that is referenced *in the body*, so a
+footnote cited only in the frontmatter would be dropped. `footnotePlan()` in
+`ArtworkPage` detects those labels (cited in a frontmatter value, defined in the
+body, never referenced in body prose) and appends a hidden "seed" reference to
+the body so the definition is emitted; the footnote effect then hides the seed
+and keeps the frontmatter citation as the real backlink target.
+
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render. Clicking a search
 snippet in the sidebar uses `router.navigate` state (`jumpTo`, `jumpOcc`,

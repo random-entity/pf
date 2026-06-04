@@ -182,6 +182,25 @@ every language.
 slug, trailing path segment, or file basename. Unresolved links render as plain
 text.
 
+### Footnotes
+
+Use named footnotes: `[^label]` for a reference and `[^label]: …` for its
+definition, where `label` is any string of letters, digits, `-`, or `_`
+(`[^ahe]`, `[^kwon-2024]`, …). The label is just an identifier — **the displayed
+number is assigned automatically by order of appearance on the page**, so you
+never hand-number footnotes. Definitions live in the body; references may also
+appear in **frontmatter** property values (e.g. inside `credits`). Frontmatter
+renders above the body, so a footnote first cited in the frontmatter becomes `1`.
+A footnote cited several times gets one `↩` backlink per citation, ordered by
+appearance. (Plain numeric labels like `[^1]` still work — they're just labels,
+and are renumbered like everything else.)
+
+A footnote cited **only** in the frontmatter still works, as long as its
+definition exists in the body. Because definitions live in the body, that
+definition must be inside the matching language section (`::: en` / `ko` / `ja`)
+for the footnote to resolve in that language — otherwise the reference shows its
+literal label and doesn't jump.
+
 ### Images & galleries
 
 Put images in `public/` and reference them by relative path, e.g.

@@ -16,39 +16,51 @@ import {
 } from '../lib/properties.js'
 import { useFilters } from '../filters.jsx'
 
+// Inline markdown components. Defined at module scope (stable identities) so a
+// re-render of the Properties block reconciles rather than remounts these nodes
+// — important because ArtworkPage mutates the footnote <sup> elements (id, index,
+// backlinks) directly in the DOM, and a remount would discard those mutations.
+const INLINE_COMPONENTS = {
+  a: ({ href, children: linkChildren }) => (
+    <a
+      href={href}
+      target={href?.startsWith('#') ? undefined : '_blank'}
+      rel={href?.startsWith('#') ? undefined : 'noopener noreferrer'}
+      style={{ textDecoration: 'underline' }}
+    >
+      {linkChildren}
+    </a>
+  ),
+  // Footnote reference. The displayed number, a unique backref id, and the ↩
+  // backlinks are all assigned by ArtworkPage once both the frontmatter and the
+  // body have rendered, so numbering reflects order of appearance across the
+  // whole page (frontmatter first). Here we only mark it and wire the forward
+  // jump to the definition.
+  sup: ({ 'data-fn-ref': fnRef, children: supChildren }) => (
+    <sup
+      className="fn-ref"
+      data-fn-ref={fnRef || undefined}
+      style={{ cursor: fnRef ? 'pointer' : undefined }}
+      onClick={fnRef ? () => {
+        document.getElementById(`user-content-fn-${fnRef}`)
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } : undefined}
+    >
+      {supChildren}
+    </sup>
+  ),
+}
+
 // Renders a string value with inline markdown (links, bold, italic, code,
 // wikilinks, footnote refs). Always returns a single <span> so it is safe
 // inside grid/flex contexts (avoids sibling bleed in display:contents grids).
-// Footnote references [^N] scroll to the definition in the article body.
+// Footnote references [^xxx] scroll to the definition in the article body.
 function InlineMarkdown({ children }) {
   if (!children) return null
-  const components = {
-    a: ({ href, children: linkChildren }) => (
-      <a
-        href={href}
-        target={href?.startsWith('#') ? undefined : '_blank'}
-        rel={href?.startsWith('#') ? undefined : 'noopener noreferrer'}
-        style={{ textDecoration: 'underline' }}
-      >
-        {linkChildren}
-      </a>
-    ),
-    sup: ({ 'data-fn-ref': fnRef, children: supChildren }) => (
-      <sup
-        id={fnRef ? `user-content-fnref-${fnRef}-fm` : undefined}
-        data-fn-ref={fnRef || undefined}
-        style={{ cursor: fnRef ? 'pointer' : undefined }}
-        onClick={fnRef ? () => {
-          document.getElementById(`user-content-fn-${fnRef}`)
-            ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        } : undefined}
-      >
-        {supChildren}
-      </sup>
-    ),
-  }
+  // Footnote labels are [^xxx] where xxx is [A-Za-z0-9_-]+ (the literal value is
+  // just an identifier — the displayed index is assigned by order of appearance).
   const content = expandMultiLinks(wikiLinks(String(children)))
-    .replace(/\[\^([^\]]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
+    .replace(/\[\^([A-Za-z0-9_-]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
   return (
     <span>
       <ReactMarkdown
@@ -56,7 +68,7 @@ function InlineMarkdown({ children }) {
         rehypePlugins={[rehypeRaw]}
         allowedElements={['a', 'strong', 'em', 'code', 'del', 'sup']}
         unwrapDisallowed
-        components={components}
+        components={INLINE_COMPONENTS}
       >
         {content}
       </ReactMarkdown>
