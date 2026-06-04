@@ -1,16 +1,72 @@
 ---
-title: { en: "The Lessons of Shin Myung-Sook", ko: "신명숙의 가르침", ja: "シン・ミョンスクの教え" }
+title:
+  en: "The Lessons of Shin Myung-Sook"
+  ko: "신명숙의 가르침"
+  ja: "シン・ミョンスクの教え"
 tagline:
   en: "The gestures of a traditional music master revived through humanoid mediumship, and its mechanical limitations."
   ko: "휴머노이드 영매술로 되살린 전통 음악 명인의 몸짓과 그 기계적 한계."
   ja: "ヒューマノイドの降霊術で蘇らせた伝統音楽の名人の身振りと、その機械的限界。"
+format:
+  en: "1 GF3[^gf3] unit, real-time wired robot control system, robot choreography data, voice interview and musical sound recording of Shin Myung-sook[^shin], video projection, and an approx. 10-minute robot performance based on video feedback"
+  ko: "GF3[^gf3] 1대, 실시간 유선 로봇 제어 시스템, 로봇 안무 데이터, 신명숙[^shin]의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품"
+  ja: "GF3[^gf3] 1台、リアルタイム有線ロボット制御システム、ロボット振付データ、シン・ミョンスク[^shin]のインタビュー音声および演奏音源記録、映像プロジェクションおよびフィードバックによる約10分間のロボットパフォーマンス作品"
+genre:
+  - Robot dance
+  - Robot performance
+  - Mechanical theater
+tools:
+  - mjbots moteus
+  - Raspberry Pi
+  - C++
+  - Pure Data
+  - C
+  - UDP
+tags:
+  - Physical computing
+  - Servomotor
+  - Differential joint
+  - UDP network
+  - 3D printing
+  - Video feedback
 releases:
-  - { event: "2024 Gwangju Biennale Symposium", date: "2024-09-07" }
-  - { event: "Forum IMPACT 2024 – Théâtre de Liège", date: "2024-11-14" }
+  - date: "2024-09-07"
+    event:
+      en: "Gwangju Biennale Symposium"
+      ko: "광주비엔날레 심포지움"
+      ja: "広州ビエンナーレ・シンポジウム"
+    venue:
+      en: "Asian Culture Center (ACC)"
+      ko: "국립아시아문화전당 (ACC)"
+      ja: "国立アジア文化殿堂 (ACC)"
+    version: ""
+  - date: "2024-11-14"
+    event: "Forum IMPACT"
+    venue: "Théâtre de Liège"
+    version: ""
 type: Group work
-genre: ["Robot dance", "Mechanical theater", "Stage performance"]
-tags: ["Physical computing", "Servomotor", "Differential joint", "UDP network", "3D printing", "Video feedback"]
-tools: ["mjbots moteus", "Raspberry Pi", "C++", "Pure Data"]
+credits:
+  en:
+    Exhibitor: KWON Byungjun[^kwon]
+    General Director, Hardware Design, Sound: KWON Byungjun
+    Robot Choreography: LEE Yoojin
+    Robot Design, Robot Maintenance: LEE Jumi
+    Software Development, Robot Operation: random-entity
+    Staff: LEE Minho, CHOI Garam
+  ko:
+    출품자: 권병준[^kwon]
+    총괄 디렉터, 하드웨어 설계, 음향: 권병준
+    로봇 안무: 이유진
+    로봇 디자인, 로봇 메인터넌스: 이주미
+    소프트웨어 개발, 로봇 오퍼레이션: 임의존재
+    스태프: 이민호, 최가람
+  ja:
+    出品者: KWON Byungjun[^kwon]
+    総括ディレクター、ハードウェア設計、音響: KWON Byungjun
+    ロボット振付: LEE Yujin
+    ロボットデザイン、ロボットメンテナンス: LEE Jumi
+    ソフトウェア開発、ロボットオペレーション: 任意存在
+    スタッフ: LEE Minho、CHOI Garam
 source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ---
 ::: en
@@ -18,16 +74,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ## Basic information
 
-- **Format**
-  - Genre: Robot dance, Robot performance
-  - Composition: 1 GF3[^1] unit, real-time wired robot control system, robot choreography data, voice interview and musical sound recording of Shin Myung-sook[^2], video projection, and an approx. 10-minute robot performance based on video feedback
 - **Creators**
-  - Exhibitor: KWON Byungjun[^3]
-  - General Director, Hardware Design, Sound: KWON Byungjun
-  - Robot Choreography: LEE Yoojin
-  - Robot Design, Robot Maintenance: LEE Jumi
-  - Software Development, Robot Operation: random-entity
-  - Staff: LEE Minho, CHOI Garam
+
 - **Release**
   - Performance: [2024 Gwangju Biennale Symposium ⟨New Echoes: Art and Technology in the Anthropocene Epoch⟩](https://www.gwangjubiennale.org/gb/Board/11766/detailView.do)
   - Exhibition: [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day-2/)[^4]
@@ -38,8 +86,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### Gwangju Biennale Symposium Performance
 
-- A 2002 voice interview recording of the late Gayageum Sanjo master Shin Myung-sook[^2], who passed away in 2018, plays through the auditorium speakers. The interview details how she learned to play the gayageum from her master as a child, the differences between Western musical notation and traditional oral/aural transmission methods, and the negative impact this difference has on modern performers.
-- Standing on the auditorium stage, the upper-body humanoid GF3[^1] makes gestures as if it were speaking the interview, acting as if it has become Master Shin Myung-sook herself.
+- A 2002 voice interview recording of the late Gayageum Sanjo master Shin Myung-sook[^shin], who passed away in 2018, plays through the auditorium speakers. The interview details how she learned to play the gayageum from her master as a child, the differences between Western musical notation and traditional oral/aural transmission methods, and the negative impact this difference has on modern performers.
+- Standing on the auditorium stage, the upper-body humanoid GF3[^gf3] makes gestures as if it were speaking the interview, acting as if it has become Master Shin Myung-sook herself.
 - After the interview scene ends, GF3 begins to dance to the gayageum music played and sung by Master Shin Myung-sook. Video feedback of the scene is projected onto the auditorium screen in real-time.
 - As the dance progresses into intense movements, GF3's internal parts break down, and its body movements become tangled and deadlocked. Eventually, the power turns off, and the performance concludes.
 
@@ -58,7 +106,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ## Commentary
 
 - Artist KWON Byungjun has been creating handmade robot works that reflect the social role of robots as human companions or as alienated beings. The unstable, trembling movements that emerge precisely because these robots are made by human hands—rather than being precise industrial robots—hold the power to subvert conventional ideas about the relationship between humans and robots.
-- GF3[^1] is the most human-like among the robots developed by Kwon's team. Its role in this work was as a medium for a traditional music master, someone who is being forgotten in modern society due to technological advancement and globalization. The status of the handmade robot GF3, an alienated existence in a society of modern robots boasting high technology, mirrors that of the traditional music master. For a brief moment, GF3 becomes Master Shin Myung-sook[^2], regurgitating the critique that the original sound and spirit of Gayageum Sanjo are disappearing due to the universalization of Western musical notation, and then dances to her playing and singing.
+- GF3[^gf3] is the most human-like among the robots developed by Kwon's team. Its role in this work was as a medium for a traditional music master, someone who is being forgotten in modern society due to technological advancement and globalization. The status of the handmade robot GF3, an alienated existence in a society of modern robots boasting high technology, mirrors that of the traditional music master. For a brief moment, GF3 becomes Master Shin Myung-sook[^shin], regurgitating the critique that the original sound and spirit of Gayageum Sanjo are disappearing due to the universalization of Western musical notation, and then dances to her playing and singing.
 - Unlike industrial robots that remain intact even after repeating the same movement tens of thousands of times, GF3, which contains many 3D-printed parts, is not robust and wears out easily. However, that non-mechanical nature is GF3's essence. Even so, the production team did not intend for GF3 to break down during the performance at the Gwangju Biennale Symposium. On the contrary, numerous tests and improvements were made beforehand to ensure GF3 would finish the performance without breaking down. When GF3 broke down during the performance, the author (random-entity) was personally disappointed, but it also became a positive outcome in that it could be interpreted as expressing the mechanical limitations of the mediumship meant to revive a traditional music master through a machine. At Forum IMPACT about two months later, an upgraded version with improved mechanical stability was operated, allowing GF3's movements to be exhibited for over a week without major breakdowns.
 
 ## Technology
@@ -73,7 +121,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### Details
 
-- GF3's[^1] mechanical engineering structure:
+- GF3's[^gf3] mechanical engineering structure:
   - For the joints mounted on GF3's neck, shoulders, and elbows, gears succeeding the "differential joint" previously developed and used by KWON Byungjun's team were used. A "differential joint" is an application of a [differential structure](<https://en.wikipedia.org/wiki/Differential_(mechanical_device)>) that implements a 2-DOF joint through a combination of two opposing servomotors. In addition to the differential joint, a separate servomotor and standard gear were added to the shoulder to enable 3-DOF movement. [mjbots mj5208](https://mjbots.com/products/mj5208) and [mjbots moteus](https://mjbots.com/products/moteus-r4-11) were used as the servomotors and controllers to move the above joints.
   - A standard gear was used for the wrist joint to implement a 1-DOF joint with one servomotor.
   - The fingers are moved by winding or unwinding wires connected between each fingertip of the 3D-printed hand and five small servomotors mounted on the back of the hand, allowing the joints to bend flexibly.
@@ -108,11 +156,11 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 - [Artist KWON Byungjun's Homepage - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
 
-[^1]: A robot imitating the upper human body, developed through multiple version upgrades over a long period under the leadership of artist KWON Byungjun. It moves by controlling servomotors mounted on the joints of the neck, shoulders, elbows, wrists, and fingers.
+[^gf3]: A robot imitating the upper human body, developed through multiple version upgrades over a long period under the leadership of artist KWON Byungjun. It moves by controlling servomotors mounted on the joints of the neck, shoulders, elbows, wrists, and fingers.
 
-[^2]: (1940–2018) Holder of Busan Intangible Cultural Heritage No. 8 ⟨Kang Tae-hong Style Gayageum Sanjo⟩. She studied gayageum under Master Kang Tae-hong from the age of 14. As Kang Tae-hong's last disciple, she dedicated her entire life to carrying on and promoting the techniques and spirit of the Kang Tae-hong style Gayageum Sanjo. [(Reference: Busan Ilbo)](https://www.busan.com/view/busan/view.php?code=20180323000141)
+[^shin]: (1940–2018) Holder of Busan Intangible Cultural Heritage No. 8 ⟨Kang Tae-hong Style Gayageum Sanjo⟩. She studied gayageum under Master Kang Tae-hong from the age of 14. As Kang Tae-hong's last disciple, she dedicated her entire life to carrying on and promoting the techniques and spirit of the Kang Tae-hong style Gayageum Sanjo. [(Reference: Busan Ilbo)](https://www.busan.com/view/busan/view.php?code=20180323000141)
 
-[^3]: (1971–) A Korean contemporary artist who uses sound, robots, performances, etc., as media. Winner of the "Korea Artist Prize 2023" from the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist Website](https://byungjun.pe.kr/))
+[^kwon]: (1971–) A Korean contemporary artist who uses sound, robots, performances, etc., as media. Winner of the "Korea Artist Prize 2023" from the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist Website](https://byungjun.pe.kr/))
 
 [^4]: An international contemporary dance festival focused on the relationship between performing arts and new technologies, hosted by Théâtre de Liège in Belgium, against a backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
@@ -121,16 +169,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ## 기본 정보
 
-- **형식**
-  - 장르: 로봇 무용, 로봇 퍼포먼스
-  - 구성: GF3[^1] 1대, 실시간 유선 로봇 제어 시스템, 로봇 안무 데이터, 신명숙[^2]의 인터뷰 음성 및 연주 음향 기록, 영상 프로젝션 및 피드백에 의한 약 10분 간의 로봇 퍼포먼스 작품
-- **만든 사람들**
-  - 출품자: 권병준[^3]
-  - 총괄 디렉터, 하드웨어 설계, 음향: 권병준
-  - 로봇 안무: 이유진
-  - 로봇 디자인, 로봇 메인터넌스: 이주미
-  - 소프트웨어 개발, 로봇 오퍼레이션: 임의존재
-  - 스태프: 이민호, 최가람
 - **공개**
   - 공연: [2024년 광주비엔날레 심포지엄 ⟨새로운 울림: 인류세 시대의 예술과 기술⟩](https://www.gwangjubiennale.org/gb/Board/11766/detailView.do)
   - 전시: [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day-2/)[^4]
@@ -141,8 +179,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### 광주비엔날레 심포지엄 퍼포먼스
 
-- 2018년 별세한 가야금산조 명인 신명숙[^2] 선생의 2002년 인터뷰 음성 기록이 오디토리움 스피커를 통해 재생된다. 인터뷰에는 어린 시절 스승으로부터 가야금 연주를 어떻게 전수받았는지, 그리고 서양의 기보법과 전통적인 구전/구술 중심의 전승 방식이 어떻게 다른지, 그 차이가 현대 연주자들에게 어떠한 악영향을 미치고 있는지에 대한 내용이 담겨 있다.
-- 오디토리움 무대 위에 서 있는 상반신 휴머노이드 GF3[^1]는 마치 자신이 신명숙 선생이 된 것처럼 인터뷰를 말하는 제스처를 취한다.
+- 2018년 별세한 가야금산조 명인 신명숙[^shin] 선생의 2002년 인터뷰 음성 기록이 오디토리움 스피커를 통해 재생된다. 인터뷰에는 어린 시절 스승으로부터 가야금 연주를 어떻게 전수받았는지, 그리고 서양의 기보법과 전통적인 구전/구술 중심의 전승 방식이 어떻게 다른지, 그 차이가 현대 연주자들에게 어떠한 악영향을 미치고 있는지에 대한 내용이 담겨 있다.
+- 오디토리움 무대 위에 서 있는 상반신 휴머노이드 GF3[^gf3]는 마치 자신이 신명숙 선생이 된 것처럼 인터뷰를 말하는 제스처를 취한다.
 - 인터뷰 씬이 끝나면, 신명숙 선생이 연주하며 노래하는 가야금 음악에 맞추어 GF3는 춤을 추기 시작한다. 오디토리움 스크린에는 그 장면의 영상 피드백이 실시간으로 투사된다.
 - 춤사위가 격렬한 움직임으로 진행됨에 따라, GF3의 내부 부품은 파손되고, 몸동작은 엉켜 교착된다. 결국 전원이 꺼지며 퍼포먼스는 종료된다.
 
@@ -161,7 +199,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ## 해설
 
 - 권병준 작가는 인간의 동료로서의, 혹은 소외된 존재로서의 로봇의 사회적 역할을 비추어 보는 수제 로봇 작품을 만들어 왔다. 정밀한 공업용 로봇이 아닌 사람의 손으로 만든 로봇이기에야말로 나타나는 불안정하고 덜덜 떨리는 움직임은, 인간과 로봇의 관계에 대한 기성 관념을 전복하는 힘을 갖고 있다.
-- GF3[^1]는 권병준 작가 팀이 개발한 로봇들 중 가장 인간과 가까운 형태다. 그러한 GF3의 본작에서의 역할은, 기술 발달과 글로벌화에 의해 현대 사회에서 잊혀져 가고 있는 전통 음악 명인의 영매였다. 고도의 기술력을 자랑하는 현대 로봇들의 사회 속에서 소외된 존재인 수제 로봇 GF3의 지위는, 전통 음악 명인의 그것과 닮아 있다. GF3는 잠시 동안이나마 신명숙[^2] 선생이 되어, 서양식 기보법의 보편화에 의해 가야금산조 본래의 소리와 정신이 사라져 가고 있다는 비판을 다시금 토해내고는, 그의 연주와 노래에 맞춰 춤을 춘다.
+- GF3[^gf3]는 권병준 작가 팀이 개발한 로봇들 중 가장 인간과 가까운 형태다. 그러한 GF3의 본작에서의 역할은, 기술 발달과 글로벌화에 의해 현대 사회에서 잊혀져 가고 있는 전통 음악 명인의 영매였다. 고도의 기술력을 자랑하는 현대 로봇들의 사회 속에서 소외된 존재인 수제 로봇 GF3의 지위는, 전통 음악 명인의 그것과 닮아 있다. GF3는 잠시 동안이나마 신명숙[^shin] 선생이 되어, 서양식 기보법의 보편화에 의해 가야금산조 본래의 소리와 정신이 사라져 가고 있다는 비판을 다시금 토해내고는, 그의 연주와 노래에 맞춰 춤을 춘다.
 - 수 만 번 같은 동작을 반복해도 끄떡 없는 공업용 로봇과 달리, 3D 프린트한 부품을 다량 포함하는 GF3는 견고하지 않고 쉽게 마모된다. 그러나 그 비-기계성이 GF3의 본질이다. 그러나 그렇다고 하더라도, 광주비엔날레 심포지엄에서 GF3가 퍼포먼스 도중에 고장나는 것은 제작 팀이 의도하지 않은 일이었다. 오히려 GF3가 고장 없이 퍼포먼스를 마치게끔 사전에 수많은 테스트와 개선 작업을 거쳤다. GF3가 퍼포먼스 도중에 고장을 일으켰을 당시 필자(임의존재)는 개인적으로 실망했지만, 기계로 전통 음악 명인을 되살리는 영매술의 기계적 한계를 표현한 것으로도 해석할 수 있다는 점에서 좋은 일이 되기도 했다. 약 두 달 뒤의 Forum IMPACT에서는 기계적 안정성을 개선한 버전을 구동하여 별다른 고장 없이 일주일 이상의 기간 동안 GF3의 움직임을 전시할 수 있었다.
 
 ## 기술
@@ -176,7 +214,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### 상세
 
-- GF3[^1]의 기계공학적 구조:
+- GF3[^gf3]의 기계공학적 구조:
   - GF3의 목, 어깨, 팔꿈치에 장착된 관절로서는, 이전부터 권병준 작가 팀이 개발하고 사용해 온 "디퍼렌셜 관절"을 계승한 기어를 사용했다. "디퍼렌셜 관절"이란 [디퍼렌셜 구조](<https://en.wikipedia.org/wiki/Differential_(mechanical_device)>)를 응용하여 마주보는 2대의 서보모터의 조합으로 2-DOF 관절을 구현한 것이다. 어깨에는 디퍼렌셜 관절 외에 별도의 서보모터 및 일반 기어를 추가해 3-DOF 움직임을 가능케 했다. 이상의 관절을 움직이는 서보모터 및 컨트롤러로는 [mjbots mj5208](https://mjbots.com/products/mj5208) 및 [mjbots moteus](https://mjbots.com/products/moteus-r4-11)를 사용했다.
   - 손목 관절에는 일반 기어를 사용해 1대의 서보모터로 1-DOF 관절을 구현했다.
   - 손가락은, 관절부가 유연하게 꺾일 수 있도록 3D 프린트 된 손의 각 손가락 끝과 손등에 장착된 5대의 소형 서보모터 사이에 연결된 와이어를 감거나 풂으로써 움직인다.
@@ -211,11 +249,11 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 - [권병준 작가 홈페이지 - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
 
-[^1]: 권병준 작가의 주도 하에 장기간 여러 버전 업그레이드를 거치며 개발되어 온, 인체 상반신을 모방한 로봇. 목, 어깨, 팔꿈치, 손목, 손가락의 관절에 장착된 서보모터를 제어함으로써 움직인다.
+[^gf3]: 권병준 작가의 주도 하에 장기간 여러 버전 업그레이드를 거치며 개발되어 온, 인체 상반신을 모방한 로봇. 목, 어깨, 팔꿈치, 손목, 손가락의 관절에 장착된 서보모터를 제어함으로써 움직인다.
 
-[^2]: (1940–2018) 부산시 지정 무형문화재 제8호 ⟨강태홍류 가야금산조⟩ 예능보유자. 14세부터 강태홍 선생에게서 가야금을 사사했다. 강태홍의 마지막 제자로서, 전 생애에 걸쳐 강태홍류 가야금산조의 기술과 정신을 이어가고 알리는 데에 매진했다. [(참조: 부산일보)](https://www.busan.com/view/busan/view.php?code=20180323000141)
+[^shin]: (1940–2018) 부산시 지정 무형문화재 제8호 ⟨강태홍류 가야금산조⟩ 예능보유자. 14세부터 강태홍 선생에게서 가야금을 사사했다. 강태홍의 마지막 제자로서, 전 생애에 걸쳐 강태홍류 가야금산조의 기술과 정신을 이어가고 알리는 데에 매진했다. [(참조: 부산일보)](https://www.busan.com/view/busan/view.php?code=20180323000141)
 
-[^3]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
+[^kwon]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
 
 [^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
@@ -224,16 +262,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ## 基本情報
 
-- **形式**
-  - ジャンル: ロボット舞踊、ロボットパフォーマンス
-  - 構成: GF3[^1] 1台、リアルタイム有線ロボット制御システム、ロボット振付データ、シン・ミョンスク[^2]のインタビュー音声および演奏音源記録、映像プロジェクションおよびフィードバックによる約10分間のロボットパフォーマンス作品
-- **制作陣**
-  - 出品者: KWON Byungjun[^3]
-  - 総括ディレクター、ハードウェア設計、音響: KWON Byungjun
-  - ロボット振付: LEE Yujin
-  - ロボットデザイン、ロボットメンテナンス: LEE Jumi
-  - ソフトウェア開発、ロボットオペレーション: 任意存在
-  - スタッフ: LEE Minho、CHOI Garam
 - **公開**
   - 公演: [2024年光州ビエンナーレ・シンポジウム ⟨新しい響き：人新世時代の芸術と技術⟩](https://www.gwangjubiennale.org/gb/Board/11766/detailView.do)
   - 展示: [Forum IMPACT 2024 - Théâtre de Liège (ベルギー)](https://theatredeliege.be/en/evenement/on-the-birds-day-2/)[^4]
@@ -244,8 +272,8 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### 光州ビエンナーレ・シンポジウム パフォーマンス
 
-- 2018年に逝去した伽倻琴散調（カヤグムサンジョ）の名人、シン・ミョンスク[^2]先生の2002年のインタビュー音声記録がオーディトリアムのスピーカーから再生される。インタビューには、幼い頃に師匠から伽倻琴の演奏をどのように伝授されたか、そして西洋の記譜法と伝統的な口伝・口述中心の伝承方式がどのように異なるか、その違いが現代の演奏者たちにどのような悪影響を及ぼしているかについて語られている。
-- オーディトリアムのステージ上に立っている上半身ヒューマノイドGF3[^1]は、まるで自分がシン・ミョンスク先生になったかのように、インタビューを語るジェスチャーをとる。
+- 2018年に逝去した伽倻琴散調（カヤグムサンジョ）の名人、シン・ミョンスク[^shin]先生の2002年のインタビュー音声記録がオーディトリアムのスピーカーから再生される。インタビューには、幼い頃に師匠から伽倻琴の演奏をどのように伝授されたか、そして西洋の記譜法と伝統的な口伝・口述中心の伝承方式がどのように異なるか、その違いが現代の演奏者たちにどのような悪影響を及ぼしているかについて語られている。
+- オーディトリアムのステージ上に立っている上半身ヒューマノイドGF3[^gf3]は、まるで自分がシン・ミョンスク先生になったかのように、インタビューを語るジェスチャーをとる。
 - インタビューのシーンが終わると、シン・ミョンスク先生が演奏し歌う伽倻琴の音楽に合わせて、GF3は踊り始める。オーディトリアムのスクリーンには、そのシーンの映像フィードバックがリアルタイムで投影される。
 - 舞が激しい動きへと進行するにつれて、GF3の内部部品は破損し、体の動きは絡まり膠着する。最終的に電源が切れ、パフォーマンスは終了する。
 
@@ -264,7 +292,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 ## 解説
 
 - KWON Byungjun作家は、人間の仲間としての、あるいは疎外された存在としてのロボットの社会的役割を映し出す手作りロボット作品を制作してきた。精密な工業用ロボットではなく、人間の手で作られたロボットだからこそ現れる不安定で震える動きは、人間とロボットの関係に対する既成観念を転覆させる力を持っている。
-- GF3[^1]は、KWON Byungjun作家チームが開発したロボットの中で最も人間に近い形をしている。そのようなGF3の本作における役割は、技術の発達とグローバル化によって現代社会で忘れ去られつつある伝統音楽の名人の霊媒であった。高度な技術力を誇る現代のロボット社会の中で疎外された存在である手作りロボットGF3の地位は、伝統音楽の名人のそれと似ている。GF3は、一時的ではあるがシン・ミョンスク[^2]先生となり、西洋式記譜法の普遍化によって伽倻琴散調本来の音と精神が消えつつあるという批判を改めて吐き出し、彼女の演奏と歌に合わせて踊る。
+- GF3[^gf3]は、KWON Byungjun作家チームが開発したロボットの中で最も人間に近い形をしている。そのようなGF3の本作における役割は、技術の発達とグローバル化によって現代社会で忘れ去られつつある伝統音楽の名人の霊媒であった。高度な技術力を誇る現代のロボット社会の中で疎外された存在である手作りロボットGF3の地位は、伝統音楽の名人のそれと似ている。GF3は、一時的ではあるがシン・ミョンスク[^shin]先生となり、西洋式記譜法の普遍化によって伽倻琴散調本来の音と精神が消えつつあるという批判を改めて吐き出し、彼女の演奏と歌に合わせて踊る。
 - 何万回同じ動作を繰り返してもびくともしない工業用ロボットとは異なり、3Dプリントされた部品を多量に含むGF3は堅牢ではなく摩耗しやすい。しかし、その非機械性こそがGF3の本質である。とはいえ、光州ビエンナーレ・シンポジウムでGF3がパフォーマンス中に故障することは、制作チームが意図したものではなかった。むしろ、GF3が故障なくパフォーマンスを終えられるよう、事前に数多くのテストと改善作業を経ていた。GF3がパフォーマンス中に故障を起こした当時、私（任意存在）は個人的に失望したが、機械で伝統音楽の名人を蘇らせる降霊術の機械的限界を表現したものとも解釈できるという点で、結果的に良いことにもなった。約2ヶ月後のForum IMPACTでは、機械的安定性を改善したバージョンを稼働させ、特に故障することなく1週間以上の期間、GF3の動きを展示することができた。
 
 ## 技術
@@ -279,7 +307,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 ### 詳細
 
-- GF3[^1]の機械工学的構造:
+- GF3[^gf3]の機械工学的構造:
   - GF3の首、肩、肘に装着された関節としては、以前からKWON Byungjun作家チームが開発し使用してきた「ディファレンシャル関節」を継承したギアを使用した。「ディファレンシャル関節」とは、[ディファレンシャル構造](<https://en.wikipedia.org/wiki/Differential_(mechanical_device)>)を応用し、向かい合う2台のサーボモーターの組み合わせで2-DOF（自由度）関節を実装したものである。肩にはディファレンシャル関節の他に別途サーボモーターおよび一般ギアを追加し、3-DOFの動きを可能にした。以上の関節を動かすサーボモーターおよびコントローラーとしては、[mjbots mj5208](https://mjbots.com/products/mj5208)および[mjbots moteus](https://mjbots.com/products/moteus-r4-11)を使用した。
   - 手首の関節には一般ギアを使用し、1台のサーボモーターで1-DOF関節を実装した。
   - 指は、関節部が柔軟に曲がるよう、3Dプリントされた手の各指先と手の甲に装着された5台の小型サーボモーター間に接続されたワイヤーを巻き取ったり緩めたりすることで動く。
@@ -314,11 +342,11 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 - [KWON Byungjun作家ホームページ - BYUNGJUN KWON SOLO EXHIBITION (Forum IMPACT)](https://byungjun.pe.kr/works/byungjun-kwon-solo-exhibition-2024)
 
-[^1]: KWON Byungjun作家の主導のもと、長期間にわたり複数のバージョンアップグレードを経て開発されてきた、人体の上半身を模倣したロボット。首、肩、肘、手首、指の関節に装着されたサーボモーターを制御することで動く。
+[^gf3]: KWON Byungjun作家の主導のもと、長期間にわたり複数のバージョンアップグレードを経て開発されてきた、人体の上半身を模倣したロボット。首、肩、肘、手首、指の関節に装着されたサーボモーターを制御することで動く。
 
-[^2]: (1940–2018) 釜山市指定無形文化財第8号 ⟨カン・テホン流伽倻琴散調⟩ 技能保持者。14歳からカン・テホン先生に伽倻琴を師事した。カン・テホンの最後の弟子として、生涯にわたりカン・テホン流伽倻琴散調の技術と精神を受け継ぎ、広めることに邁進した。[(参照: 釜山日報)](https://www.busan.com/view/busan/view.php?code=20180323000141)
+[^shin]: (1940–2018) 釜山市指定無形文化財第8号 ⟨カン・テホン流伽倻琴散調⟩ 技能保持者。14歳からカン・テホン先生に伽倻琴を師事した。カン・テホンの最後の弟子として、生涯にわたりカン・テホン流伽倻琴散調の技術と精神を受け継ぎ、広めることに邁進した。[(参照: 釜山日報)](https://www.busan.com/view/busan/view.php?code=20180323000141)
 
-[^3]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
+[^kwon]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
 
 [^4]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊の国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::

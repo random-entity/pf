@@ -8,7 +8,7 @@ export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' };
 // (the single source of truth for property type + label); see `propLabel`.
 const UI = {
   en: {
-    siteTitle: '∀∃portfolio',
+    siteTitle: '∀∃',
     files: 'Files',
     database: 'Database',
     search: 'Search',
@@ -190,7 +190,7 @@ export function LanguageProvider({ children }) {
   }, [lang]);
 
   const t = (key) => {
-    if (key === 'siteTitle') return '∀∃portfolio';
+    if (key === 'siteTitle') return '∀∃';
     if (key === 'filters') return 'SORT/FILTER/GROUP';
     return UI[lang][key] ?? UI.en[key] ?? key;
   };

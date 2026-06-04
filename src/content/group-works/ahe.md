@@ -13,6 +13,7 @@ format:
   ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品"
 genre:
   - "Robot dance"
+  - "Robot performance"
   - "Mechanical theater"
   - "Electroacoustic music"
   - "Live performance"
