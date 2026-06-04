@@ -248,13 +248,19 @@ function numericOptions(values, isDate) {
   return { options: uniq, min: uniq[0], max: uniq[uniq.length - 1], isDate };
 }
 
-// Recursively build facets from a set of objects. `title` is skipped at the top
-// level (it is the page heading and gets a dedicated sort-only facet elsewhere).
+// Top-level keys that are free-text descriptors, not categories, and so are
+// never turned into filter/sort/group facets — even if two artworks happen to
+// share an identical value. `title` is the page heading (it gets a dedicated
+// sort-only facet elsewhere); `tagline` is a one-off sentence per artwork. Both
+// still render as plain text in the Properties block.
+const NON_FACET_KEYS = new Set(['title', 'tagline']);
+
+// Recursively build facets from a set of objects.
 function facetsFrom(objs, base, depth) {
   const keys = new Set();
   for (const o of objs) {
     for (const k of Object.keys(o || {})) {
-      if (depth === 0 && k === 'title') continue;
+      if (depth === 0 && NON_FACET_KEYS.has(k)) continue;
       keys.add(k);
     }
   }

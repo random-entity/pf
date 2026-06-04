@@ -1011,6 +1011,11 @@ select {
   border-top: 1px solid var(--border);
   margin-top: 32px;
 }
+/* Hidden seed footnote references (see footnotePlan in ArtworkPage): they exist
+   only so remark-gfm numbers/orders footnotes frontmatter-first. */
+.fn-seeds {
+  display: none;
+}
 
 /* ---------- Mobile ---------- */
 .menu-toggle {

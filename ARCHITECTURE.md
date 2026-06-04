@@ -103,7 +103,10 @@ Two keys are handled specially, before the generic classifier:
   enum behavior (the event names become filterable values).
 
 `title` is excluded from the schema and re-added by `FilterTree` as a synthetic
-sort-only facet (`kind: 'text'`).
+sort-only facet (`kind: 'text'`). Free-text keys in `NON_FACET_KEYS` (`title`,
+`tagline`) are skipped entirely so they never become filter/sort/group facets —
+even if two artworks happen to share an identical value — and just render as plain
+text in the Properties block.
 
 ### Step 2 — keep only facets that carry variation
 
@@ -265,29 +268,39 @@ rewrite image `src` against `import.meta.env.BASE_URL`. The sidebar outline
 `github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
 
 **Footnotes** are authored as named GFM footnotes (`[^label]`, `[^label]: …`),
-but their displayed numbers are *not* GFM's. `remark-gfm` still renders the
-definition list (so definition markdown works), and footnote references in
-frontmatter property values are emitted by `Properties.jsx`'s `InlineMarkdown` as
-`<sup data-fn-ref>` markers. A single `useLayoutEffect` in `ArtworkPage` then
-takes over: it walks every reference in **document order** (the Properties block
-precedes `.article`, so frontmatter citations come first), renumbers each
-reference by first appearance, reorders the definition `<li>`s to match, and
-rebuilds each definition's `↩` backlinks in appearance order (assigning unique
-`fnback-<label>-<n>` ids). This is why `InlineMarkdown`'s components live at
-module scope — stable identities let that DOM mutation survive re-renders instead
-of being remounted away.
+but they are renumbered by **order of appearance, frontmatter-first** rather than
+by GFM's own scheme. The trick is to feed `remark-gfm` the right input rather than
+to rewrite its output — earlier attempts that reordered the definition `<li>`s and
+rebuilt the `↩` anchors in a layout effect corrupted React's tree and crashed
+(`removeChild … not a child of this node`) on the next render/unmount. **Never
+structurally mutate React-rendered DOM; only attributes are safe.**
 
-`footnotePlan()` in `ArtworkPage` reconciles two gaps before the body is
-rendered. First, `remark-gfm` only emits a definition that is referenced *in the
-body*, so a footnote cited only in the frontmatter would be dropped — for those
-labels it appends a hidden "seed" reference (the footnote effect then hides the
-seed and keeps the frontmatter citation as the real backlink target). Second,
-definitions live inside `::: lang` sections, so once `pickLanguage` strips the
-other fences a footnote defined only in (say) the English section has no
-definition in Korean/Japanese; `footnotePlan()` scans the *raw* body for a
-definition in any fence and injects it as a fallback when the current language
-lacks one. A definition written in the current language always wins over the
-fallback.
+`footnotePlan()` in `ArtworkPage` rewrites the body markdown before it is
+rendered:
+
+- **Cross-language definitions.** Definitions live inside `::: lang` sections, so
+  once `pickLanguage` strips the other fences a footnote defined only in (say) the
+  English section has no definition in Korean/Japanese. `footnotePlan()` scans the
+  *raw* body for a definition in any fence and injects it as a fallback when the
+  current language lacks one (a current-language definition always wins).
+- **Appearance order + frontmatter backlinks.** `remark-gfm` numbers and orders
+  footnotes by first reference in the body and emits one `↩` per reference. So
+  `footnotePlan()` **prepends one hidden seed reference per frontmatter citation**
+  (in the order `Properties` renders them — `collectFrontmatterRefs` mirrors
+  `Value`, skipping enum-pill / `releases` values) wrapped in a `div.fn-seeds`
+  (`display:none`). Because the seeds come first, remark numbers and orders the
+  footnotes frontmatter-first, emits the definitions (so a frontmatter-only
+  footnote isn't dropped), and gives each seed a backref.
+
+The `useLayoutEffect` in `ArtworkPage` then makes only **attribute** changes:
+it reads each definition's list position as its number, writes that number onto
+the frontmatter `<sup data-fn-ref>` (emitted by `Properties.jsx`'s
+`InlineMarkdown`) and gives it an `fnref-fm-<label>-<n>` id, then retargets each
+definition's leading backrefs (the seeds, emitted first) at those ids. Forward
+jumps from the body and the retargeted backlinks are handled by `Markdown.jsx`'s
+existing `#`-anchor click delegation (`getElementById` is global, so it finds the
+frontmatter `<sup>` even though it lives outside the markdown root); frontmatter
+`<sup>`s carry their own `onClick` to scroll to the definition.
 
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render. Clicking a search
