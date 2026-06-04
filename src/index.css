@@ -1005,6 +1005,13 @@ select {
   border-radius: 2px;
   transition: background-color 180ms ease;
 }
+/* Prevent sup elements from expanding the line-box height of the surrounding
+   text. line-height:0 keeps the vertical offset without contributing to the
+   line height, so lines with footnote superscripts don't shift down. */
+sup {
+  line-height: 0;
+}
+
 .footnotes {
   font-size: 13px;
   color: var(--muted);
