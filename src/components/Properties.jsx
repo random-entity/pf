@@ -126,16 +126,13 @@ function Value({ value, path }) {
 
   if (value == null || value === '') return <span className="muted">—</span>
 
-  // Localized leaf {en,ko,ja}: pick the current language, then render at the
-  // same path (its type is unchanged by language selection).
-  if (isLocalized(value)) {
-    const picked = value[lang] ?? value.en ?? Object.values(value).find((v) => v != null)
-    return <Value value={picked ?? ''} path={path} />
-  }
-
   const type = path ? typeForPath(path) : 'text'
 
-  // Enum → clickable filter pill(s). Arrays render one pill per element.
+  // Enum → clickable filter pill(s). Arrays render one pill per element. NB:
+  // this runs BEFORE the localized-leaf pick below so a localized enum value
+  // {en,ko,ja} reaches EnumPill intact — EnumPill derives its canonical id via
+  // canonicalOf (language-stable) so the pill stays in sync with the sidebar
+  // filter in every language.
   if (type === 'enum') {
     const arr = Array.isArray(value) ? value : [value]
     return (
@@ -145,6 +142,13 @@ function Value({ value, path }) {
         ))}
       </span>
     )
+  }
+
+  // Localized leaf {en,ko,ja}: pick the current language, then render at the
+  // same path (its type is unchanged by language selection).
+  if (isLocalized(value)) {
+    const picked = value[lang] ?? value.en ?? Object.values(value).find((v) => v != null)
+    return <Value value={picked ?? ''} path={path} />
   }
 
   // Date → formatted date or "start → end" range.
