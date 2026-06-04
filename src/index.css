@@ -254,6 +254,13 @@ select {
   letter-spacing: 0.05em;
   margin: 0 0 4px 0;
 }
+/* Scale the entire sidebar content area (everything below the sticky topbar)
+   to 85% of its natural size. zoom scales fonts, paddings, borders, and spacing
+   uniformly. The .sidebar-topbar is a sibling and is unaffected. */
+.database {
+  zoom: 0.85;
+}
+
 .main-search {
   width: 100%;
   margin-bottom: 14px;
