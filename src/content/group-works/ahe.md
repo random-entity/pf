@@ -48,21 +48,21 @@ tools:
 source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 credits:
   en:
-    - Presented by: "Robot Theater Company[^2] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)"
+    - Presented by: "Robot Theater Company[^rotc] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)"
     - Director, Hardware Design, Music: KWON Byungjun
     - Assistant Director, Robot Choreography: LEE Yujin
     - Robot Design, Robot Maintenance: LEE Jumi
-    - Software Development, Robot Operation: random-entity
+    - Software Development, Robot Operation: random-entity[^abc]
     - Lighting: KIM Hyeon
     - Staff: YOON Suhui, LEE Minho, CHOI Garam
     - Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
     - Commissioned by: Seoul Performing Arts Festival, Art Korea Lab
   ko:
-    - 출품자: Robot Theater Company[^2] (권병준[^3], 이유진, 이주미, 임의존재)
+    - 출품자: Robot Theater Company[^rotc] (권병준[^3], 이유진, 이주미, 임의존재)
     - 총괄 디렉터, 하드웨어 설계, 음악: 권병준
     - 조감독, 로봇 안무: 이유진
     - 로봇 디자인, 로봇 메인터넌스: 이주미
-    - 소프트웨어 개발, 로봇 오퍼레이션: 임의존재
+    - 소프트웨어 개발, 로봇 오퍼레이션: 임의존재[^abc]
     - 조명: 김현
     - 스태프: 윤수희, 이민호, 최가람
     - 프로듀서: 프로듀서 그룹 도트 (박지선, 최봉민)
@@ -72,11 +72,11 @@ credits:
     - 総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
     - 助監督、ロボット振付: LEE Yujin
     - ロボットデザイン、ロボットメンテナンス: LEE Jumi
-    - ソフトウェア開発、ロボットオペレーション: 任意存在
+    - ソフトウェア開発、ロボットオペレーション: 任意存在[^abc]
     - 照明: KIM Hyeon
     - スタッフ: YOON Suhui、LEE Minho、CHOI Garam
     - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
-    - コミッション: ソウル国際舞台芸術祭、Arts Korea Lab
+    - コミッション: ソウル国際舞台芸術祭、Arts Korea Lab[^abc]
 ---
 ![](images/works/ahe/live-stills/main.png)
 ::: en
@@ -85,7 +85,7 @@ credits:
 - **Format**
   - Approximately 1-hour robot dance live performance featuring 13 Ahe[^1]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data.
 - **Credits**
-  - Presented by: Robot Theater Company[^2] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)
+  - Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)
   - Director, Hardware Design, Music: KWON Byungjun
   - Assistant Director, Robot Choreography: LEE Yujin
   - Robot Design, Robot Maintenance: LEE Jumi
@@ -207,6 +207,10 @@ credits:
 - [Artist KWON Byungjun's Website - On The Birds' Day (SPAF) - Work Introduction](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
 - [Artist KWON Byungjun's Website - On The Birds' Day (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive Article](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
+
+[^rotc]: ROTC
+
+[^abc]: Testing
 
 [^1]: A bipedal robot that reinterprets the character "Ahe" from the poem ⟨Crow's Eye View Poem No. 1⟩ by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
 
@@ -493,3 +497,4 @@ credits:
 
 [^4]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
+
