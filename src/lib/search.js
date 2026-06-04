@@ -1,6 +1,5 @@
 import { LANGS } from '../i18n.jsx';
 import { pickLanguage } from './markdown.js';
-import { releaseEvents } from './properties.js';
 
 // Detect a localized object {en?, ko?, ja?} — all keys must be language codes.
 function isLocalizedObj(v) {
@@ -39,15 +38,9 @@ function extractPropText(data, lang) {
 
   for (const [key, val] of Object.entries(data)) {
     if (key === 'title') continue; // searched via the title mechanism
-    if (key === 'releases') {
-      // releaseEvents() normalizes both new and old (key-as-name) formats
-      for (const ev of releaseEvents(val)) {
-        walk(ev.event);
-        if (ev.venue) walk(ev.venue);
-        if (ev.version) walk(ev.version);
-      }
-      continue;
-    }
+    // Generic walk handles releases too: it descends the array of release
+    // objects and collects event / venue / version strings (Date values for
+    // `date` are skipped). Event names that are localized objects are picked.
     walk(val);
   }
   return parts.filter(Boolean).join(' ');

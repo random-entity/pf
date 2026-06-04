@@ -5,7 +5,7 @@ tagline:
   ko: "앞으로 가고 있는 것인가, 제자리걸음 하고 있는 것인가."
   ja: "前へ進んでいるのか、それとも足踏みをしているのか。"
 releases:
-  - "2021-10-31"
+  - { date: "2021-10-31" }
 type: Personal work
 genre: ["Video game"]
 tags: ["Interactive CG", "Shader programming"]

@@ -5,8 +5,8 @@ tagline:
   ko: "휴머노이드 영매술로 되살린 전통 음악 명인의 몸짓과 그 기계적 한계."
   ja: "ヒューマノイドの降霊術で蘇らせた伝統音楽の名人の身振りと、その機械的限界。"
 releases:
-  - { "2024 Gwangju Biennale Symposium": "2024-09-07" }
-  - { "Forum IMPACT 2024 – Théâtre de Liège": "2024-11-14" }
+  - { event: "2024 Gwangju Biennale Symposium", date: "2024-09-07" }
+  - { event: "Forum IMPACT 2024 – Théâtre de Liège", date: "2024-11-14" }
 type: Group work
 genre: ["Robot dance", "Mechanical theater", "Stage performance"]
 tags: ["Physical computing", "Servomotor", "Differential joint", "UDP network", "3D printing", "Video feedback"]

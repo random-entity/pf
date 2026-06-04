@@ -109,7 +109,7 @@ function TitleSearch() {
 
 // --- Icon buttons ---------------------------------------------------------
 
-function SortIcon({ path }) {
+function SortIcon({ path, isDate }) {
   const { t } = useLang()
   const { sort, setSort } = useFilters()
   const state = sort.path === path ? sort.dir : null
@@ -125,10 +125,10 @@ function SortIcon({ path }) {
 
   let label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
 
-  if (path === 'releases') {
+  if (isDate) {
     label = state === 'asc' ? t('sortByDateAsc') : state === 'desc' ? t('sortByDateDesc') : t('sortByDate')
   }
-  
+
   return (
     <button
       className={`facet-icon sort-icon${state ? ' icon-on' : ''}`}
@@ -191,17 +191,12 @@ function FacetNode({ facet, openPaths, onToggle }) {
   const { propLabel } = useLang()
   const open = openPaths.has(facet.path)
 
-  const label =
-    facet.path === TITLE_SORT
-      ? propLabel('title')
-      : facet.depth === 0
-        ? propLabel(facet.key)
-        : facet.key
-
   const isTitleRow = facet.path === TITLE_SORT
-  const sortable = facet.kind === 'text' || facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'releases'
-  const isRange = facet.kind === 'numeric' || facet.kind === 'date' || facet.kind === 'releases'
-  const isEnum = facet.kind === 'stringList' || facet.kind === 'enumSingle' || facet.kind === 'releases'
+  const label = isTitleRow ? propLabel('title') : propLabel(facet.path)
+
+  const sortable = isTitleRow || facet.kind === 'date' || facet.kind === 'number' || facet.kind === 'duration'
+  const isRange = facet.kind === 'date' || facet.kind === 'number' || facet.kind === 'duration'
+  const isEnum = facet.kind === 'enum'
   const isGroupable = isEnum
   const hasMissing = facet.kind !== 'nested' && facet.kind !== 'text'
 
@@ -213,7 +208,7 @@ function FacetNode({ facet, openPaths, onToggle }) {
           <span className="facet-label">{label}</span>
         </button>
         <div className="facet-icons">
-          {sortable && <SortIcon path={facet.path} />}
+          {sortable && <SortIcon path={facet.path} isDate={facet.kind === 'date'} />}
           {isTitleRow && <TitleSearchIcon path={facet.path} onToggle={onToggle} openPaths={openPaths} />}
           {isEnum && <EnumIcon path={facet.path} onToggle={onToggle} />}
           {isGroupable && <GroupIcon path={facet.path} />}

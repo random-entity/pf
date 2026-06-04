@@ -1,7 +1,7 @@
 ---
 title: { en: "Real-unreal continuum", ko: "현실-비현실 연속체", ja: "現実-非現実連続体" }
 releases:
-  - { "Release": "2019-01-01" }
+  - { event: "Release", date: "2019-01-01" }
 type: Module
 genre: ["Audio effect"]
 tags: ["Spectral warping", "FFT"]

@@ -7,12 +7,12 @@ import { bodyMatchAll, propMatchAll } from '../lib/search.js'
 import {
   schema,
   facetByPath,
-  getValueAtPath,
+  valuesAtPath,
   labelOf,
-  durationSeconds,
-  releaseEvents,
-  releaseSortValue,
   idsAtPath,
+  hasValueAtPath,
+  sortValueForFacet,
+  rangeMatchesFacet,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -160,39 +160,17 @@ function ArtworkItem({ artwork, bodyHits, titleHits, propHits }) {
   )
 }
 
-function numberAtPath(data, path, facet) {
-  const v = getValueAtPath(data, path)
-  if (v == null) return null
-  if (facet?.isDuration) return durationSeconds(v)
-  if (v instanceof Date) return v.getTime()
-  return facet?.isDate ? new Date(v).getTime() : v
-}
-
-function hasValueAtPath(data, facet) {
-  if (facet.kind === 'releases') return releaseEvents(data.releases).length > 0
-  if (facet.kind === 'stringList' || facet.kind === 'enumSingle') return idsAtPath(data, facet.path).length > 0
-  return numberAtPath(data, facet.path, facet) != null
-}
-
-// Exact case-insensitive substring match against title (all langs) and enum labels.
-// Used for the main search bar — no fuzzy, so "ㅇ" only matches text that contains "ㅇ".
+// Exact case-insensitive substring match against title (all langs) and enum
+// labels. Used for the main search bar — no fuzzy, so "ㅇ" only matches text
+// that literally contains "ㅇ".
 function exactMetaMatch(artwork, q) {
   const qLo = q.toLowerCase()
   for (const l of LANGS) {
     if (titleOf(artwork, l).toLowerCase().includes(qLo)) return true
   }
   for (const f of facetByPath.values()) {
-    if (f.kind !== 'stringList' && f.kind !== 'enumSingle' && f.kind !== 'releases') continue
-    if (f.kind === 'releases') {
-      for (const ev of releaseEvents(artwork.data.releases)) {
-        if (ev.event && LANGS.some((l) => labelOf(ev.event, l).toLowerCase().includes(qLo))) return true
-      }
-      continue
-    }
-    const v = getValueAtPath(artwork.data, f.path)
-    if (v == null) continue
-    const vals = Array.isArray(v) ? v : [v]
-    for (const val of vals) {
+    if (f.kind !== 'enum') continue
+    for (const val of valuesAtPath(artwork.data, f.path)) {
       for (const l of LANGS) {
         if (String(labelOf(val, l) ?? '').toLowerCase().includes(qLo)) return true
       }
@@ -209,8 +187,7 @@ export default function DatabaseBrowser() {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)
     const facet = facetByPath.get(sort.path)
     if (!facet) return null
-    if (facet.kind === 'releases') return releaseSortValue(a.data)
-    return numberAtPath(a.data, sort.path, facet)
+    return sortValueForFacet(facet, a.data)
   }
 
   const { results, matchMap, propMatchMap, titleMatchMap } = useMemo(() => {
@@ -267,15 +244,7 @@ export default function DatabaseBrowser() {
           if (!ok) return false
         }
         const r = ranges[path]
-        if (r) {
-          if (facet.kind === 'releases') {
-            const evs = releaseEvents(a.data.releases)
-            if (!evs.some((e) => e.start <= r.max && e.end >= r.min)) return false
-          } else {
-            const num = numberAtPath(a.data, path, facet)
-            if (num < r.min || num > r.max) return false
-          }
-        }
+        if (r && !rangeMatchesFacet(facet, a.data, r)) return false
       }
       return true
     })
@@ -296,14 +265,9 @@ export default function DatabaseBrowser() {
   const groups = useMemo(() => {
     if (group === 'none') return [['', results]]
     const map = new Map()
-    const facet = facetByPath.get(group)
     for (const a of results) {
-      const vals = facet?.kind === 'releases'
-        ? idsAtPath(a.data, group)
-        : (() => {
-            const v = getValueAtPath(a.data, group)
-            return v == null ? [null] : Array.isArray(v) ? v : [v]
-          })()
+      const raws = valuesAtPath(a.data, group)
+      const vals = raws.length ? raws : [null]
       for (const one of vals) {
         const label = one == null ? '—' : labelOf(one, lang)
         if (!map.has(label)) map.set(label, [])

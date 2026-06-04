@@ -4,16 +4,15 @@ import rehypeRaw from 'rehype-raw'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
 import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
 import {
-  isEnumFacet,
   canonicalOf,
   labelOf,
   durationSeconds,
   formatDuration,
-  releaseEvents,
   formatDate,
+  parseDateRange,
   unitForPath,
-  RELEASES_PATH,
 } from '../lib/properties.js'
+import { typeForPath, labelForPath } from '../lib/schema.js'
 import { useFilters } from '../filters.jsx'
 
 // Inline markdown components. Defined at module scope (stable identities) so a
@@ -117,127 +116,100 @@ function EnumPill({ path, value }) {
   )
 }
 
-// The `releases` property: renders each release as {Date} : {Event} @{Venue} ({Version}).
-function ReleasesValue({ value }) {
-  const evs = releaseEvents(value)
-  if (evs.length === 0) return <span className="muted">—</span>
-  
-  return (
-    <ul className="release-events">
-      {evs.map((e, i) => (
-        <li key={i}>
-          {/* 3. Date or Date Range */}
-          <span className="date-range">
-            {formatDate(e.start)}
-            {e.end !== e.start ? ` → ${formatDate(e.end)}` : ''}
-          </span>
-
-          {/* 1. Event (Clickable EnumPill) */}
-          {e.event ? (
-            <EnumPill path={RELEASES_PATH} value={e.event} />
-          ) : (
-            <span>* Release</span>
-          )}
-          
-          {/* 2. Venue (Only rendered if it exists) */}
-          {e.venue && (
-            <>
-              {' @'}
-              <span className="venue"><InlineMarkdown>{e.venue}</InlineMarkdown></span>
-            </>
-          )}
-
-          {/* 4. Version (Only rendered if it exists) */}
-          {e.version && (
-            <>
-              {' '}
-              <span className="version">(<InlineMarkdown>{e.version}</InlineMarkdown>)</span>
-            </>
-          )}
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-// Renders any frontmatter value: localized strings, plain scalars, arrays
-// (as lists), and nested JSON objects (as key/value grids). Values that map to
-// an enum facet become clickable filter pills. `path` is the dotted facet path.
+// Renders any frontmatter value, driven by the property's declared type
+// (src/lib/schema.js) at its dotted `path`. Container shapes (localized objects,
+// arrays, plain objects) are handled structurally and recurse with the extended
+// path, so nested fields like `releases.date` / `releases.event` pick up their
+// own declared types. Unlisted paths default to `text` (inline markdown).
 function Value({ value, path }) {
   const { lang } = useLang()
 
   if (value == null || value === '') return <span className="muted">—</span>
 
-  // `releases` gets dedicated rendering (date/range + release/event name).
-  if (path === RELEASES_PATH) return <ReleasesValue value={value} />
+  // Localized leaf {en,ko,ja}: pick the current language, then render at the
+  // same path (its type is unchanged by language selection).
+  if (isLocalized(value)) {
+    const picked = value[lang] ?? value.en ?? Object.values(value).find((v) => v != null)
+    return <Value value={picked ?? ''} path={path} />
+  }
 
-  // Enum-backed values become clickable filter pills.
-  if (path && isEnumFacet(path)) {
-    if (Array.isArray(value)) {
-      return (
-        <span className="taglist">
-          {value.map((v, i) => (
-            <EnumPill key={i} path={path} value={v} />
-          ))}
-        </span>
-      )
-    }
+  const type = path ? typeForPath(path) : 'text'
+
+  // Enum → clickable filter pill(s). Arrays render one pill per element.
+  if (type === 'enum') {
+    const arr = Array.isArray(value) ? value : [value]
     return (
       <span className="taglist">
-        <EnumPill path={path} value={value} />
+        {arr.map((v, i) => (
+          <EnumPill key={i} path={path} value={v} />
+        ))}
       </span>
     )
   }
 
-  // dates (YAML parses ISO dates into Date objects)
-  if (value instanceof Date) {
-    return <span>{formatDate(value.getTime())}</span>
+  // Date → formatted date or "start → end" range.
+  if (type === 'date') {
+    const r = parseDateRange(value)
+    if (r)
+      return (
+        <span className="date-range">
+          {formatDate(r.start)}
+          {r.end !== r.start ? ` → ${formatDate(r.end)}` : ''}
+        </span>
+      )
+    // fall through to default rendering if unparseable
   }
 
-  // duration objects render as a single HH:MM:SS value
-  if (durationSeconds(value) != null) {
-    return <span>{formatDuration(durationSeconds(value))}</span>
-  }
-
-  // localized object → pick current language's value, then render whatever type it is
-  if (isLocalized(value)) {
-    const picked = value[lang] ?? value.en ?? Object.values(value).find(v => v != null)
-    return <Value value={picked ?? ''} path={path} />
-  }
-
-  // arrays -> list
+  // Non-enum arrays → list, recursing with the SAME path so each element keeps
+  // its declared type (e.g. each release object under `releases`).
   if (Array.isArray(value)) {
     return (
       <ul>
         {value.map((v, i) => (
           <li key={i}>
-            <Value value={v} />
+            <Value value={v} path={path} />
           </li>
         ))}
       </ul>
     )
   }
 
-  // nested object -> key/value grid (descend with extended path)
+  // Raw YAML Date instance always renders formatted.
+  if (value instanceof Date) {
+    return <span className="date-range">{formatDate(value.getTime())}</span>
+  }
+
+  // Duration object → HH:MM:SS.
+  if (type === 'duration' || durationSeconds(value) != null) {
+    const s = durationSeconds(value)
+    if (s != null) return <span>{formatDuration(s)}</span>
+  }
+
+  // Number → value plus optional unit.
+  if (typeof value === 'number') {
+    const unit = unitForPath(path)
+    return <span>{unit ? `${value} ${unit}` : value}</span>
+  }
+
+  // Plain object → key/value grid (descend with the extended path). Keys show
+  // their localized label from the schema (falling back to the raw key).
   if (typeof value === 'object') {
     return (
       <span className="nested">
-        {Object.entries(value).map(([k, v]) => (
-          <span key={k} style={{ display: 'contents' }}>
-            <span className="nkey">{k}</span>
-            <Value value={v} path={path ? `${path}.${k}` : undefined} />
-          </span>
-        ))}
+        {Object.entries(value).map(([k, v]) => {
+          const childPath = path ? `${path}.${k}` : k
+          return (
+            <span key={k} style={{ display: 'contents' }}>
+              <span className="nkey">{labelForPath(childPath, lang)}</span>
+              <Value value={v} path={childPath} />
+            </span>
+          )
+        })}
       </span>
     )
   }
 
-  // scalar number under a unit-bearing key (e.g. dimensions)
-  if (typeof value === 'number' && path) {
-    const unit = unitForPath(path)
-    if (unit) return <span>{value} {unit}</span>
-  }
-  // plain string: render inline markdown (links, wikilinks, bold, etc.)
+  // Text / default: render inline markdown (links, wikilinks, bold, footnotes).
   if (typeof value === 'string') return <InlineMarkdown>{value}</InlineMarkdown>
   return <span>{String(value)}</span>
 }

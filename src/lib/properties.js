@@ -1,9 +1,31 @@
 import { artworks } from './content.js';
 import { loc, isLocalized } from '../i18n.jsx';
+import { PROPERTY_SCHEMA, typeForPath } from './schema.js';
 
-// Read a (possibly nested) value out of a frontmatter object by dotted path.
+// `releases` is kept as a named constant for the few call sites that special-case
+// it (e.g. ArtworkPage skips its enum pills when seeding footnotes).
+export const RELEASES_PATH = 'releases';
+
+// Read a (possibly nested) value out of a frontmatter object by a dotted path.
+// Does NOT traverse arrays — use valuesAtPath for facet/value collection.
 export function getValueAtPath(obj, path) {
   return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
+}
+
+// Collect every leaf value at a dotted path, transparently traversing arrays
+// (so `releases.event` yields the event of every release). A localized object
+// {en,ko,ja} is treated as a leaf — descending past it would hit language keys,
+// not data — so it is only meaningful as the final segment.
+function collectAtPath(obj, segs) {
+  if (obj == null) return [];
+  if (Array.isArray(obj)) return obj.flatMap((o) => collectAtPath(o, segs));
+  if (segs.length === 0) return [obj]; // leaf (a localized object counts as one)
+  if (isLocalized(obj)) return [];
+  return collectAtPath(obj[segs[0]], segs.slice(1));
+}
+
+export function valuesAtPath(data, path) {
+  return collectAtPath(data, path.split('.'));
 }
 
 // Language-independent identity for an enum value, so the same value groups
@@ -31,8 +53,7 @@ export function labelOf(v, lang) {
 }
 
 // A duration is an object whose keys are a subset of {hours, minutes, seconds}
-// with numeric values. Such objects are treated as a single 1-D numeric value
-// (total seconds) rather than as a nested group of sub-properties.
+// with numeric values, treated as a single 1-D numeric value (total seconds).
 const TIME_KEYS = new Set(['hours', 'minutes', 'seconds']);
 export function durationSeconds(v) {
   if (!v || typeof v !== 'object' || Array.isArray(v) || v instanceof Date)
@@ -49,18 +70,11 @@ export function formatDuration(total) {
   return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
 }
 
-// ---- Releases ----------------------------------------------------------
-// `releases` is an array of single-key objects:
-//   [{ "Event name": "YYYY-MM-DD" }]
-//   [{ "Event name": "YYYY-MM-DD ~ YYYY-MM-DD" }]
-// The object key is the release/event name. The value is a date or inclusive
-// date range. The old date string shape is still parsed as a fallback.
-
-export const RELEASES_PATH = 'releases';
+// ---- Dates -------------------------------------------------------------
+// A date value is either a YAML Date, a "YYYY-MM-DD" string, or an inclusive
+// range "YYYY-MM-DD ~ YYYY-MM-DD".
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
-const EVENT_RE =
-  /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*(?::\s*(.+?))?\s*$/;
 const RANGE_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*$/;
 
 function toMs(s) {
@@ -77,7 +91,8 @@ export function formatDate(ms) {
   return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
 }
 
-function parseDateRange(value) {
+// Parse a date value into { start, end } epoch ms, or null if unparseable.
+export function parseDateRange(value) {
   if (value instanceof Date) {
     const ms = value.getTime();
     return { start: ms, end: ms };
@@ -90,86 +105,61 @@ function parseDateRange(value) {
   return { start, end };
 }
 
-// Normalize the `event` field: accepts a plain string, a localized object
-// { en, ko, ja }, or a YAML block-sequence of single-key objects
-// (- en: "..." / - ko: "..." / - ja: "...") which YAML parses as an array.
-function normalizeEvent(ev) {
-  if (!ev) return null;
-  if (typeof ev === 'string') return ev.trim() || null;
-  if (Array.isArray(ev)) {
-    // Merge [{en: "..."}, {ko: "..."}, ...] → {en: "...", ko: "...", ...}
-    const merged = {};
-    for (const item of ev) {
-      if (item && typeof item === 'object' && !Array.isArray(item))
-        Object.assign(merged, item);
-    }
-    return Object.keys(merged).length ? merged : null;
+// ---- Path-typed value collection (used by the facet engine) ------------
+
+// Enum: canonical ids carried at a path (across arrays).
+export function idsAtPath(data, path) {
+  return valuesAtPath(data, path).map(canonicalOf).filter(Boolean);
+}
+
+// Date: every parsed { start, end } range at a path.
+function rangesAtPath(data, path) {
+  return valuesAtPath(data, path).map(parseDateRange).filter(Boolean);
+}
+
+// Number/duration: every numeric value at a path.
+function numbersAtPath(data, path, isDuration) {
+  const vals = valuesAtPath(data, path);
+  return isDuration
+    ? vals.map(durationSeconds).filter((v) => v != null)
+    : vals.filter((v) => typeof v === 'number');
+}
+
+// Does an artwork carry any value at this facet's path?
+export function hasValueAtPath(data, facet) {
+  if (facet.kind === 'enum') return idsAtPath(data, facet.path).length > 0;
+  if (facet.kind === 'date') return rangesAtPath(data, facet.path).length > 0;
+  if (facet.kind === 'number' || facet.kind === 'duration')
+    return numbersAtPath(data, facet.path, facet.isDuration).length > 0;
+  return false;
+}
+
+// Sort key for a facet: dates -> earliest start; numbers/durations -> minimum.
+// null when the artwork has no value at the path.
+export function sortValueForFacet(facet, data) {
+  if (facet.kind === 'date') {
+    const rs = rangesAtPath(data, facet.path);
+    return rs.length ? Math.min(...rs.map((r) => r.start)) : null;
   }
-  if (typeof ev === 'object') return ev; // already {en, ko, ja}
+  if (facet.kind === 'number' || facet.kind === 'duration') {
+    const ns = numbersAtPath(data, facet.path, facet.isDuration);
+    return ns.length ? Math.min(...ns) : null;
+  }
   return null;
 }
 
-function parseRelease(item) {
-  if (item instanceof Date) {
-    const ms = item.getTime();
-    return [{ start: ms, end: ms, event: 'Release' }];
+// Does any value at a facet's path fall inside the [min, max] range filter?
+export function rangeMatchesFacet(facet, data, r) {
+  if (facet.kind === 'date') {
+    return rangesAtPath(data, facet.path).some(
+      (rg) => rg.start <= r.max && rg.end >= r.min,
+    );
   }
-
-  if (item && typeof item === 'object' && !Array.isArray(item)) {
-    // NEW FORMAT: { event: "...", date: "...", version: "...", venue: "..." }
-    if ('event' in item && 'date' in item) {
-      const range = parseDateRange(item.date);
-      if (!range) return [];
-      return [
-        {
-          ...range,
-          event: normalizeEvent(item.event) ?? 'Release',
-          version: item.version,
-          venue: item.venue,
-        },
-      ];
-    }
-
-    // OLD FORMAT FALLBACK: { "Event name": "YYYY-MM-DD" }
-    return Object.entries(item)
-      .map(([event, value]) => {
-        const range = parseDateRange(value);
-        return range ? { ...range, event: event.trim() || 'Release' } : null;
-      })
-      .filter(Boolean);
-  }
-
-  const m = EVENT_RE.exec(String(item));
-  if (!m) return [];
-  const start = toMs(m[1]);
-  if (start == null) return [];
-  const end = m[2] ? toMs(m[2]) : start;
-  return [{ start, end, event: m[3] ? m[3].trim() : 'Release' }];
+  const ns = numbersAtPath(data, facet.path, facet.isDuration);
+  return ns.some((n) => n >= r.min && n <= r.max);
 }
 
-// Normalize an artwork's `releases` field into { start, end, event } entries.
-export function releaseEvents(v) {
-  if (v == null) return [];
-  const items = Array.isArray(v) ? v : [v];
-  return items.flatMap(parseRelease).filter(Boolean);
-}
-
-export function releaseNamesOf(data) {
-  return releaseEvents(data?.releases)
-    .map((e) => canonicalOf(e.event))
-    .filter(Boolean);
-}
-
-// Canonical ids an artwork carries at a facet path (handles lists, single
-// values, and release/event names).
-export function idsAtPath(data, path) {
-  if (path === RELEASES_PATH) return releaseNamesOf(data);
-  const v = getValueAtPath(data, path);
-  if (v == null) return [];
-  return Array.isArray(v) ? v.map(canonicalOf) : [canonicalOf(v)];
-}
-
-// Could any artwork carry every one of these values at `path` at once? If not,
+// Could any artwork carry every one of these enum ids at `path` at once? If not,
 // the values are mutually exclusive and an AND ("All") filter is meaningless.
 export function valuesCanCoexist(artworks, path, ids) {
   if (ids.length < 2) return true;
@@ -179,184 +169,100 @@ export function valuesCanCoexist(artworks, path, ids) {
   });
 }
 
-// Earliest start used as the artwork's sort key; null if it has no release.
-export function releaseSortValue(data) {
-  const evs = releaseEvents(data?.releases);
-  return evs.length ? Math.min(...evs.map((e) => e.start)) : null;
-}
-
-// Decide how a property should behave from the set of values it takes across
-// all artworks. Returns one of: stringList | date | numeric | enumSingle |
-// nested, or null to ignore (e.g. lists of mixed/object values).
-function classify(values) {
-  if (values.length === 0) return null;
-  // A categorical value is a plain string or a localized object. A key counts
-  // as a multi-select list if any artwork carries an array of them (and the
-  // rest are arrays or single categorical values).
-  const categorical = (x) => typeof x === 'string' || isLocalized(x);
-  if (values.some((v) => Array.isArray(v))) {
-    const ok = values.every((v) =>
-      Array.isArray(v) ? v.every(categorical) : categorical(v),
-    );
-    return ok ? 'stringList' : null;
-  }
-  if (values.every((v) => v instanceof Date)) return 'date';
-  if (values.every((v) => typeof v === 'number')) return 'numeric';
-  if (
-    values.every(
-      (v) =>
-        typeof v === 'string' ||
-        typeof v === 'number' ||
-        typeof v === 'boolean' ||
-        isLocalized(v),
-    )
-  ) {
-    return 'enumSingle';
-  }
-  if (values.every((v) => durationSeconds(v) != null)) return 'duration';
-  if (
-    values.every(
-      (v) =>
-        v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date),
-    )
-  ) {
-    return 'nested';
-  }
-  return null;
-}
+// ---- Facet building (from the explicit schema, not inference) ----------
 
 // Distinct enum values (with occurrence counts), sorted by canonical id.
 function enumValues(values) {
   const map = new Map();
-  const add = (v) => {
+  for (const v of values) {
     const id = canonicalOf(v);
-    if (id === '') return;
+    if (id === '') continue;
     if (!map.has(id)) map.set(id, { id, raw: v, count: 0 });
     map.get(id).count++;
-  };
-  for (const v of values) {
-    if (Array.isArray(v)) v.forEach(add);
-    else add(v);
   }
   return [...map.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
-// Sorted distinct numeric options for a numeric/date facet (dates -> epoch ms).
-function numericOptions(values, isDate) {
-  const nums = values.map((v) => (v instanceof Date ? v.getTime() : v));
-  const uniq = [...new Set(nums)].sort((a, b) => a - b);
-  return { options: uniq, min: uniq[0], max: uniq[uniq.length - 1], isDate };
+// Direct child schema paths of a group path (e.g. releases -> releases.event…).
+function childPaths(path) {
+  const prefix = `${path}.`;
+  return Object.keys(PROPERTY_SCHEMA).filter(
+    (p) => p.startsWith(prefix) && !p.slice(prefix.length).includes('.'),
+  );
 }
 
-// Top-level keys that are free-text descriptors, not categories, and so are
-// never turned into filter/sort/group facets — even if two artworks happen to
-// share an identical value. `title` is the page heading (it gets a dedicated
-// sort-only facet elsewhere); `tagline` is a one-off sentence per artwork. Both
-// still render as plain text in the Properties block.
-const NON_FACET_KEYS = new Set(['title', 'tagline']);
+// Build a facet for a single schema path, or null if it carries no values.
+function buildFacet(path, depth, objs) {
+  const type = typeForPath(path);
+  const key = path.split('.').pop();
 
-// Recursively build facets from a set of objects.
-function facetsFrom(objs, base, depth) {
-  const keys = new Set();
-  for (const o of objs) {
-    for (const k of Object.keys(o || {})) {
-      if (depth === 0 && NON_FACET_KEYS.has(k)) continue;
-      keys.add(k);
-    }
+  if (type === 'group') {
+    const children = childPaths(path)
+      .map((c) => buildFacet(c, depth + 1, objs))
+      .filter(Boolean)
+      .sort((a, b) => a.path.localeCompare(b.path));
+    if (!children.length) return null;
+    return { path, key, kind: 'nested', depth, children };
   }
-  const facets = [];
-  for (const key of [...keys].sort()) {
-    const path = base ? `${base}.${key}` : key;
 
-    // Top-level `releases`: date/range sort and filtering, plus release/event
-    // name filtering/grouping, all on one property row.
-    if (depth === 0 && key === RELEASES_PATH) {
-      const evs = objs.flatMap((o) => releaseEvents(o?.releases));
-      if (evs.length) {
-        const starts = [...new Set(evs.map((e) => e.start))].sort(
-          (a, b) => a - b,
-        );
-        const ends = [...new Set(evs.map((e) => e.end))].sort((a, b) => a - b);
-        // Deduplicate by canonical ID; keep original (possibly localized) as raw for display.
-        const eventMap = new Map();
-        for (const e of evs) {
-          if (!e.event) continue;
-          const id = canonicalOf(e.event);
-          if (!id) continue;
-          if (!eventMap.has(id))
-            eventMap.set(id, { id, raw: e.event, count: 0 });
-          eventMap.get(id).count++;
-        }
-        const values = [...eventMap.values()].sort((a, b) =>
-          a.id.localeCompare(b.id),
-        );
-        facets.push({
-          path: RELEASES_PATH,
-          key: RELEASES_PATH,
-          kind: 'releases',
-          depth,
-          isDate: true,
-          minOptions: starts,
-          maxOptions: ends,
-          min: starts[0],
-          max: ends[ends.length - 1],
-          values,
-        });
-      }
-      continue;
-    }
-
-    const values = objs.map((o) => o && o[key]).filter((v) => v != null);
-    const kind = classify(values);
-    if (kind === 'nested') {
-      const children = facetsFrom(values, path, depth + 1);
-      if (children.length) facets.push({ path, key, kind, depth, children });
-    } else if (kind === 'stringList' || kind === 'enumSingle') {
-      const vals = enumValues(values);
-      // Only keep it as a filter facet if some value is shared by 2+ artworks;
-      // all-unique keys (taglines, source URLs, …) can't group anything and are
-      // left to render as plain text in the Properties block.
-      if (vals.some((v) => v.count > 1))
-        facets.push({ path, key, kind, depth, values: vals });
-    } else if (kind === 'numeric' || kind === 'date') {
-      const n = numericOptions(values, kind === 'date');
-      if (n.options.length > 1)
-        facets.push({
-          path,
-          key,
-          kind,
-          depth,
-          minOptions: n.options,
-          maxOptions: n.options,
-          ...n,
-        });
-    } else if (kind === 'duration') {
-      const n = numericOptions(
-        values.map((v) => durationSeconds(v)),
-        false,
-      );
-      if (n.options.length > 1)
-        facets.push({
-          path,
-          key,
-          kind: 'numeric',
-          depth,
-          isDuration: true,
-          minOptions: n.options,
-          maxOptions: n.options,
-          ...n,
-        });
-    }
+  if (type === 'enum') {
+    const values = enumValues(objs.flatMap((o) => valuesAtPath(o, path)));
+    if (!values.length) return null;
+    return { path, key, kind: 'enum', depth, values };
   }
-  return facets;
+
+  if (type === 'date') {
+    const ranges = objs.flatMap((o) => rangesAtPath(o, path));
+    if (!ranges.length) return null;
+    const starts = [...new Set(ranges.map((r) => r.start))].sort((a, b) => a - b);
+    const ends = [...new Set(ranges.map((r) => r.end))].sort((a, b) => a - b);
+    if (starts.length < 2 && ends.length < 2) return null;
+    return {
+      path,
+      key,
+      kind: 'date',
+      depth,
+      isDate: true,
+      minOptions: starts,
+      maxOptions: ends,
+      min: starts[0],
+      max: ends[ends.length - 1],
+    };
+  }
+
+  if (type === 'number' || type === 'duration') {
+    const isDuration = type === 'duration';
+    const nums = objs.flatMap((o) => numbersAtPath(o, path, isDuration));
+    const options = [...new Set(nums)].sort((a, b) => a - b);
+    if (options.length < 2) return null;
+    return {
+      path,
+      key,
+      kind: type === 'duration' ? 'duration' : 'number',
+      depth,
+      isDuration,
+      minOptions: options,
+      maxOptions: options,
+      min: options[0],
+      max: options[options.length - 1],
+    };
+  }
+
+  return null; // text → not a facet
 }
 
-// Built once: content is static and loaded eagerly at build time.
-export const schema = facetsFrom(
-  artworks.map((a) => a.data),
-  '',
-  0,
-);
+// Built once: content is static and loaded eagerly at build time. Root facets
+// are the depth-0 schema keys (title is excluded — it has a dedicated sort row).
+export const schema = (() => {
+  const objs = artworks.map((a) => a.data);
+  const rootKeys = Object.keys(PROPERTY_SCHEMA).filter(
+    (p) => !p.includes('.') && p !== 'title',
+  );
+  return rootKeys
+    .map((p) => buildFacet(p, 0, objs))
+    .filter(Boolean)
+    .sort((a, b) => a.path.localeCompare(b.path));
+})();
 
 // Flat lookup of every facet (including nested children) by its path.
 export const facetByPath = (() => {
@@ -371,18 +277,10 @@ export const facetByPath = (() => {
 })();
 
 export function isEnumFacet(path) {
-  const f = facetByPath.get(path);
-  return (
-    f &&
-    (f.kind === 'stringList' ||
-      f.kind === 'enumSingle' ||
-      f.kind === 'releases')
-  );
+  return typeForPath(path) === 'enum';
 }
 
-// Display unit appended to numeric values under certain keys (dimensions are
-// normalized to meters in content.js).
-const UNIT_BY_KEY = { dimensions: 'm' };
+// Display unit appended to numeric values at a path (from the schema config).
 export function unitForPath(path) {
-  return UNIT_BY_KEY[path.split('.')[0]] || '';
+  return PROPERTY_SCHEMA[path]?.unit || '';
 }

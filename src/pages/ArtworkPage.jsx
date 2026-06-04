@@ -3,7 +3,7 @@ import { useParams, useLocation, Link, useOutletContext } from 'react-router-dom
 import { useLang, isLocalized } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
 import { prepare, stripFirstH1, wikiLinks, expandMultiLinks } from '../lib/markdown.js'
-import { isEnumFacet, RELEASES_PATH } from '../lib/properties.js'
+import { typeForPath } from '../lib/schema.js'
 import Properties from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
 
@@ -15,18 +15,21 @@ const FN_REF = new RegExp(`\\[\\^(${FN_LABEL})\\]`, 'g')
 // Collect footnote labels referenced in a (possibly nested/localized)
 // frontmatter value, in the order Properties renders them, for the given
 // language. Returns an array (with repeats). Mirrors `Value` in Properties:
-// `releases` and enum-facet values render as pills (no footnote markup) and are
-// skipped; array items render without a path; localized objects pick one string.
+// only `text` leaves render inline markdown (footnote refs), so enum/date/
+// number/duration paths are skipped; arrays keep their path (each element keeps
+// its declared type); localized objects pick one string.
 function collectFrontmatterRefs(value, lang, path, out) {
   if (value == null) return
-  if (path === RELEASES_PATH) return
-  if (path && isEnumFacet(path)) return
+  if (path) {
+    const ty = typeForPath(path)
+    if (ty === 'enum' || ty === 'date' || ty === 'number' || ty === 'duration') return
+  }
   if (typeof value === 'string') {
     for (const m of value.matchAll(FN_REF)) out.push(m[1])
     return
   }
   if (Array.isArray(value)) {
-    for (const v of value) collectFrontmatterRefs(v, lang, undefined, out)
+    for (const v of value) collectFrontmatterRefs(v, lang, path, out)
     return
   }
   if (typeof value === 'object' && !(value instanceof Date)) {

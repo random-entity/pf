@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { labelForPath } from './lib/schema.js';
 
 export const LANGS = ['en', 'ko', 'ja'];
 export const LANG_LABELS = { en: 'EN', ko: '한', ja: '日' };
 
-// UI strings. `props` holds localized labels for known frontmatter keys;
-// unknown keys fall back to the raw key name.
+// UI-chrome strings. Frontmatter property labels live in src/lib/schema.js
+// (the single source of truth for property type + label); see `propLabel`.
 const UI = {
   en: {
     siteTitle: '∀∃portfolio',
@@ -60,29 +61,6 @@ const UI = {
     notFound: 'Artwork not found.',
     menu: 'Menu',
     items: 'items',
-    props: {
-      title: 'Title',
-      tagline: 'Tagline',
-      date: 'Releases',
-      releases: 'Releases',
-      events: 'Events',
-      type: 'Type',
-      created: 'Created',
-      genre: 'Genre',
-      medium: 'Medium',
-      dimensions: 'Dimensions',
-      duration: 'Duration',
-      edition: 'Edition',
-      hardware: 'Hardware',
-      tools: 'Tools',
-      tech: 'Tech',
-      source: 'Source',
-      year: 'Year',
-      tags: 'Tags',
-      credits: 'Credits',
-      location: 'Location',
-      status: 'Status',
-    },
   },
   ko: {
     siteTitle: '포트폴리오',
@@ -137,29 +115,6 @@ const UI = {
     notFound: '작품을 찾을 수 없습니다.',
     menu: '메뉴',
     items: '개',
-    props: {
-      title: '제목',
-      tagline: '태그라인',
-      date: '릴리스',
-      releases: '릴리스',
-      events: '이벤트',
-      type: '유형',
-      created: '제작일',
-      genre: '장르',
-      medium: '재료',
-      dimensions: '크기',
-      duration: '재생 시간',
-      edition: '에디션',
-      hardware: '하드웨어',
-      tools: '도구',
-      tech: '기술',
-      source: '소스',
-      year: '연도',
-      tags: '태그',
-      credits: '크레딧',
-      location: '위치',
-      status: '상태',
-    },
   },
   ja: {
     siteTitle: 'ポートフォリオ',
@@ -215,29 +170,6 @@ const UI = {
     notFound: '作品が見つかりません。',
     menu: 'メニュー',
     items: '件',
-    props: {
-      title: 'タイトル',
-      tagline: 'タグライン',
-      date: 'リリース',
-      releases: 'リリース',
-      events: 'イベント',
-      type: 'タイプ',
-      created: '制作日',
-      genre: 'ジャンル',
-      medium: '素材',
-      dimensions: 'サイズ',
-      duration: '長さ',
-      edition: 'エディション',
-      hardware: 'ハードウェア',
-      tools: 'ツール',
-      tech: '技術',
-      source: 'ソース',
-      year: '年',
-      tags: 'タグ',
-      credits: 'クレジット',
-      location: '場所',
-      status: 'ステータス',
-    },
   },
 };
 
@@ -262,7 +194,9 @@ export function LanguageProvider({ children }) {
     if (key === 'filters') return 'SORT/FILTER/GROUP';
     return UI[lang][key] ?? UI.en[key] ?? key;
   };
-  const propLabel = (key) => UI[lang].props[key] ?? UI.en.props[key] ?? (key.charAt(0).toUpperCase() + key.slice(1));
+  // Localized label for a frontmatter property path (root key or dotted nested
+  // path), resolved from the schema config (falls back to the title-cased key).
+  const propLabel = (path) => labelForPath(path, lang);
 
   return (
     <Ctx.Provider value={{ lang, setLang, t, propLabel }}>

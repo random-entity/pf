@@ -7,18 +7,20 @@ How this site works under the hood. For authoring content, see the
 
 It's a **static single-page app**. Every artwork is a Markdown file with YAML
 frontmatter. At build time Vite inlines all of them; at runtime the app parses
-the frontmatter, **derives a filter/sort schema from whatever keys it finds**,
-and renders an Obsidian-like sidebar over it. There is no server, database, or
-config file describing the fields — the UI is a function of the content.
+the frontmatter and renders an Obsidian-like sidebar over it. How each property
+behaves — plain text, filter pills, date sort, … — is declared **explicitly** in
+one config file (`src/lib/schema.js`); the facet engine and the renderers are a
+pure function of that config plus the content. There is no server or database.
 
 ```
 Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──▶ artworks[]
                                                                 │
-                                       ┌────────────────────────┼─────────────────────┐
-                                       ▼                        ▼                     ▼
-                                 derive schema           Properties block        Home / pages
-                                 (properties.js)          (per artwork)
-                                       │
+   src/lib/schema.js ─ property types + labels ─┐              │
+                                                ▼              │
+                                       ┌─────── build facets ──┼─────────────────────┐
+                                       ▼     (properties.js)   ▼                     ▼
+                                 facet tree              Properties block        Home / pages
+                                       │                  (per artwork)
                                        ▼
                             FilterTree  +  FilterProvider state
                                        │
@@ -32,10 +34,11 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 |---|---|
 | `src/main.jsx` | Mounts providers (`LanguageProvider` → `FilterProvider`) and the `HashRouter` routes. A legacy `artwork/*` route redirects to the bare path, preserving hash + state. |
 | `src/App.jsx` | Layout shell: sidebar + resizer + topbar + `<Outlet/>`. Owns the resizable-sidebar logic. |
-| `src/i18n.jsx` | Language context, UI strings, and the localized-value helpers `loc` / `isLocalized`. |
+| `src/i18n.jsx` | Language context, UI-chrome strings, and the localized-value helpers `loc` / `isLocalized`. `propLabel` delegates to `schema.js`. |
+| `src/lib/schema.js` | **Property schema** — the single source of truth for each property's `type` (root + nested dotted paths) and its editable en/ko/ja `label`. Exports `PROPERTY_SCHEMA`, `typeForPath`, `labelForPath`. |
 | `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. Includes `requestExpand` / `expandPath` for cross-page accordion expansion. |
 | `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `artworks`, `bySlug`, `titleOf`, `resolveSlug`. |
-| `src/lib/properties.js` | **Schema engine** — classifies frontmatter keys into facets; value helpers (dates, durations, enums, units, releases). |
+| `src/lib/properties.js` | **Facet engine** — builds the facet tree from `schema.js` + content; value helpers (dates, durations, enums, units) and path-typed collectors (`valuesAtPath`, `idsAtPath`, `sortValueForFacet`, `rangeMatchesFacet`). |
 | `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
 | `src/lib/search.js` | Body search: exact case-insensitive substring match with snippet extraction, occurrence ranking, and cross-language deduplication. |
 | `src/lib/remarkGallery.js` | remark plugin: wraps 2+ consecutive image paragraphs in a `div.gallery` (horizontal scroll); single images stay full-width. |
@@ -68,86 +71,85 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 A value may be a plain scalar or a **localized object** `{ en, ko, ja }`.
 `loc(value, lang)` resolves it and is deliberately crash-proof: current language
 → English → first scalar → `''`. `isLocalized()` returns true only when every
-key is a known language code, which is how the schema tells a "localized string"
-apart from a generic nested object. UI strings live in `UI[lang]`; `propLabel`
-translates known frontmatter keys.
+key is a known language code, which is how the app tells a "localized string"
+apart from a generic nested object. UI-chrome strings live in `UI[lang]`;
+`propLabel(path)` resolves a frontmatter property's display label via
+`labelForPath` in `schema.js`.
 
-## The schema engine (`properties.js`) — the core idea
+## The property schema (`schema.js`) — the core idea
 
-There is **no field configuration**. The schema is computed once from the data:
+Property behavior is **declared, not inferred**. `PROPERTY_SCHEMA` maps a
+property **path** to `{ type, label?, unit? }`:
 
-### Step 1 — classify each key
+- **Paths** are bare keys (`tags`) or dotted nested paths (`releases.event`).
+  Array traversal is implicit: `releases` is a list of objects, so
+  `releases.event` means "the event of every release".
+- **`type`** drives both rendering and facet behavior:
 
-For every top-level key, all of its non-null values across all artworks are
-collected and passed to `classify()`. First match wins, in this order:
-
-| Condition (over the key's values) | Kind | Resulting controls |
+| `type` | renders as | facet |
 |---|---|---|
-| any is an **array** of categoricals (string/localized); the rest categorical | `stringList` | multi-select (OR/AND) |
-| every value is a **Date** | `date` | sort + range |
-| every value is a **number** | `numeric` | sort + range |
-| every value is a **string / number / bool / localized object** | `enumSingle` | multi-select (OR/AND) |
-| every value is an **`{hours?,minutes?,seconds?}`** object | `duration` | sort + range, formatted `HH:MM:SS` |
-| every value is a **plain object** (not Date/array) | `nested` | expands into child facets (recurse) |
-| anything else (e.g. a list mixing objects + numbers) | — | **skipped** |
+| `text` | inline markdown (links/bold/footnotes) | none — search only |
+| `enum` | filter pill(s) | filter + group |
+| `date` | formatted date / `start → end` | sort + range |
+| `number` | number (+ optional `unit`) | sort + range |
+| `duration` | `HH:MM:SS` | sort + range |
+| `group` | nested key/value grid (recurse) | container only |
 
-Order matters: a duration object isn't localized so it falls past `enumSingle`;
-a generic object falls to `nested`.
+- **`label`** is the editable en/ko/ja display label (root keys and any nested
+  key whose label should be localized, e.g. `releases.venue`).
+- Any path **not listed** defaults to `text` (covers dynamic nested keys such as
+  credit roles). Raw YAML `Date` values always render formatted.
 
-Two keys are handled specially, before the generic classifier:
+Container shapes are handled **structurally, independent of type**: a localized
+object `{en,ko,ja}` is picked for the current language; an array renders/collects
+each element (enum ⇒ one pill each); a plain object becomes a nested grid.
 
-- **`dimensions`** is pre-normalized to meters in `content.js`, so it classifies
-  as a `nested` object of numeric children (`width`, `height`).
-- **`releases`** is intercepted entirely: it becomes a `releases` facet with
-  date behavior (Min = all release **start** dates, Max = all **end** dates) and
-  enum behavior (the event names become filterable values).
+## The facet engine (`properties.js`)
 
-`title` is excluded from the schema and re-added by `FilterTree` as a synthetic
-sort-only facet (`kind: 'text'`). Free-text keys in `NON_FACET_KEYS` (`title`,
-`tagline`) are skipped entirely so they never become filter/sort/group facets —
-even if two artworks happen to share an identical value — and just render as plain
-text in the Properties block.
+`properties.js` turns the schema into a usable facet tree:
 
-### Step 2 — keep only facets that carry variation
-
-A numeric/date facet needs **>1 distinct value** (no point ranging a constant);
-enum facets need ≥1 value; nested facets need at least one usable child.
-
-### Step 3 — exports
+1. **Build** (`buildFacet`, run once into `schema`): for each schema path it
+   scans all artworks via `valuesAtPath` (the array-aware path collector) and
+   produces a facet — `enum` (distinct values + counts), `date`/`number`/
+   `duration` (option/min/max), or `group` (a `nested` node whose children are
+   the facet-bearing sub-paths). Facets carrying no variation are dropped
+   (date/number need >1 option). `title` is excluded — `FilterTree` re-adds it as
+   a synthetic sort-only row.
+2. **Query helpers**, all path-typed and array-aware:
+   - `valuesAtPath` / `idsAtPath` — raw values / canonical ids at a path.
+   - `sortValueForFacet` — date: earliest start; number/duration: minimum.
+   - `rangeMatchesFacet` — date: any interval overlaps `[min,max]`; numeric: any
+     value in `[min,max]`.
+   - `hasValueAtPath`, `valuesCanCoexist`.
+   - `canonicalOf` (language-stable id), `labelOf` (localized display, strips
+     `[text](url)`), `parseDateRange`, `formatDate`, `durationSeconds` /
+     `formatDuration`, `unitForPath`.
 
 `schema` is the facet tree; `facetByPath` is a flat lookup (including nested
-children) used by the filter pipeline. Helpers: `canonicalOf` (language-stable
-identity for an enum value), `labelOf` (localized display), `getValueAtPath`,
-`idsAtPath`, `valuesCanCoexist`, `releaseEvents` / `releaseSortValue`,
-`durationSeconds` / `formatDuration`, `formatDate`, `unitForPath`.
+children) used by the pipeline.
 
-## Releases (`properties.js` — `parseRelease`, `normalizeEvent`)
+## Releases
 
-The `releases` field uses a structured object format:
+`releases` is just a `group` of typed sub-fields — no bespoke parser or renderer:
 
 ```yaml
 releases:
-  - event: "Seoul Performing Arts Festival (SPAF)"
-    date: "2024-11-01 ~ 2024-11-05"
-    venue: "Arko Arts Theater"
-    version: "v2"
+  - event: "Seoul Performing Arts Festival (SPAF)"   # releases.event → enum
+    date: "2024-11-01 ~ 2024-11-05"                   # releases.date  → date
+    venue: "Arko Arts Theater"                        # releases.venue → text
+    version: "v2"                                      # releases.version → text
 ```
 
-The `event` field accepts a plain string, a localized object `{ en, ko, ja }`,
-or the YAML block-sequence form (`- en: "..." / - ko: "..."`) which YAML parses
-as an array of single-key objects. `normalizeEvent()` merges the array form into
-a single `{ en, ko, ja }` object so the rest of the system can treat all three
-cases uniformly.
+So the sidebar gets a **Releases** group containing a **Date** sub-facet (sort +
+range; the default sort is `releases.date` descending) and an **Event** sub-facet
+(filter + group). The Properties block renders each release generically as a
+nested grid (Event pill, formatted Date, Venue/Version text). Event names may be
+plain strings or localized objects `{en,ko,ja}`; `canonicalOf` gives the
+language-stable id used for filtering while pills display the current language.
 
-`facetsFrom()` deduplicates events by **canonical ID** (the English name via
-`canonicalOf`) while keeping the raw localized value for display. This means the
-sidebar filter pills show the current language's event name, while filter state
-tracks the canonical ID. `releaseNamesOf()` returns canonical strings so
-`idsAtPath()` and the filter pipeline's `includes()` check work regardless of
-the underlying value type.
-
-The old single-key object format (`{ "Event name": "YYYY-MM-DD" }`) is still
-parsed as a fallback.
+> The legacy single-key shape `{ "Event name": "YYYY-MM-DD" }` and the bare
+> date-string shape are **no longer supported** — all content has been migrated
+> to the `{ event, date, … }` object form.
 
 ## Filter/sort state (`filters.jsx`)
 
@@ -170,8 +172,8 @@ For the current state, results are computed (memoized) as:
 
 1. **Search** — Two independent search passes:
    - *Meta match* (`exactMetaMatch`): case-insensitive substring over title (all
-     languages), enum label values (via `labelOf` for all languages), and release
-     event names (all language variants). Any hit keeps the artwork.
+     languages) and every **enum** facet's values (via `labelOf` for all
+     languages, which covers release event names). Any hit keeps the artwork.
    - *Body match* (`bodyMatchAll` from `search.js`): exact substring match in the
      stripped body text for all languages; yields positioned snippets with
      occurrence rank so the jump target in the article is precise. Snippets from
@@ -181,11 +183,11 @@ For the current state, results are computed (memoized) as:
    a range, **or** is the active sort key):
    - if the artwork has **no value** for the key: keep it only if
      `showMissing[path]` is true, else drop it;
-   - else apply the multi-select (`every` for AND, `some` for OR) and/or the
-     range (numeric in `[min,max]`; for releases, any release interval overlapping
-     `[min,max]`).
-3. **Sort** — by the single sort key (`releaseSortValue` for releases, `titleOf` for
-   title, the numeric value otherwise); missing values sort last.
+   - else apply the multi-select (`idsAtPath` + `every` for AND / `some` for OR)
+     and/or the range (`rangeMatchesFacet`: numeric in `[min,max]`; date facets
+     match when any interval overlaps `[min,max]`).
+3. **Sort** — by the single sort key (`titleOf` for title, else
+   `sortValueForFacet`); missing values sort last.
 4. **Group-by** — optional, over a categorical key; a multi-valued artwork lands
    in each of its groups.
 
@@ -195,11 +197,10 @@ One accordion row per facet. The body renders the controls the kind allows:
 
 | Kind | Sort | Range | Multi-select | "Show without value" |
 |---|---|---|---|---|
-| `text` (Title) | ✓ | | | |
-| `numeric` / `date` | ✓ | ✓ | | ✓ |
-| `releases` | ✓ | ✓ | ✓ | ✓ |
-| `stringList` / `enumSingle` | | | ✓ | ✓ |
-| `nested` | | | | (expands to children) |
+| `text` (Title row only) | ✓ | | | |
+| `date` / `number` / `duration` | ✓ | ✓ | | ✓ |
+| `enum` | | | ✓ | ✓ |
+| `nested` (group, e.g. Releases) | | | | (expands to children) |
 
 - **OR/AND** is a borderless radio control (distinct from the bordered value
   pills). AND strikes through when the selected values can't co-occur on any one
@@ -216,23 +217,27 @@ One accordion row per facet. The body renders the controls the kind allows:
 ### Unified value rendering rules
 
 All frontmatter values — at any depth — follow one consistent pipeline in the
-`Value` component. The rules are applied in priority order:
+`Value` component, driven by the declared `typeForPath(path)`. The rules are
+applied in priority order:
 
 | Condition | Rendering |
 |---|---|
-| `releases` path | `ReleasesValue` — `DATE : EVENT @VENUE (VERSION)` |
-| Enum facet path | `EnumPill` — clickable filter button (see below) |
+| **Localized object** `{en,ko,ja}` | Pick current-language value → re-enter pipeline (same path) |
+| type `enum` | `EnumPill`(s) — clickable filter button(s) (see below) |
+| type `date` | `formatDate` / `start → end` |
+| **Array** (non-enum) | `<ul>` — each item re-enters the pipeline with the **same** path |
 | `Date` object | `formatDate` |
-| `{hours?,minutes?,seconds?}` (duration) | `formatDuration` |
-| **Localized object** `{en,ko,ja}` | Pick current-language value → re-enter pipeline |
-| **Array** | `<ul>` — each item re-enters the pipeline |
-| **Nested object** | Key/value grid — each value re-enters the pipeline |
-| **String** (final rule) | `InlineMarkdown` (see below) |
+| type `duration` (or a duration object) | `formatDuration` |
+| `number` | value + optional `unit` |
+| **Plain object** | Key/value grid — each value re-enters with the extended path; keys use `labelForPath` |
+| **String** / default (`text`) | `InlineMarkdown` (see below) |
 
-**Key principle**: every string value, anywhere in the tree (including inside
-localized objects, arrays, nested objects, and `ReleasesValue` sub-fields like
-`venue` and `version`), is always rendered through `InlineMarkdown`. This means
-`[text](url)` links, wikilinks, and emphasis work uniformly everywhere.
+**Key principle**: every `text` value, anywhere in the tree (including inside
+localized objects, arrays, nested objects, and release sub-fields like `venue`
+and `version`), is rendered through `InlineMarkdown`. This means `[text](url)`
+links, wikilinks, and emphasis work uniformly everywhere. Arrays keep their
+path as they recurse, so nested typed fields (e.g. each `releases.event` /
+`releases.date`) pick up their own declared type.
 
 **`InlineMarkdown`** renders a string with:
 - `[text](url)` → external link (new tab); `[[slug]]` → internal hash-route link
@@ -287,7 +292,8 @@ rendered:
   footnotes by first reference in the body and emits one `↩` per reference. So
   `footnotePlan()` **prepends one hidden seed reference per frontmatter citation**
   (in the order `Properties` renders them — `collectFrontmatterRefs` mirrors
-  `Value`, skipping enum-pill / `releases` values) wrapped in a `div.fn-seeds`
+  `Value`, skipping `enum`/`date`/`number`/`duration` paths since only `text`
+  leaves render footnote refs) wrapped in a `div.fn-seeds`
   (`display:none`). Because the seeds come first, remark numbers and orders the
   footnotes frontmatter-first, emits the definitions (so a frontmatter-only
   footnote isn't dropped), and gives each seed a backref.

@@ -12,6 +12,10 @@ genre:
   - "Mechanical theater"
   - "Electroacoustic music"
   - "Live performance"
+format:
+  en: "Approximately 1-hour robot dance live performance featuring 13 Ahe[^ahe]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data."
+  ko: "철판으로 덮인 무대 위의 아해[^ahe] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품"
+  ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品"
 releases:
   - event:
       en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/program/program_view06.php)"
@@ -20,7 +24,7 @@ releases:
     venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
     date: "2024-10-11 ~ 2024-10-13"
     version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
-  - event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)"
+  - event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)[^impact]"
     venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
     date: "2024-11-02 ~ 2024-11-03"
     version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
@@ -51,7 +55,7 @@ credits:
     Director, Hardware Design, Music: KWON Byungjun
     Assistant Director, Robot Choreography: LEE Yujin
     Robot Design, Robot Maintenance: LEE Jumi
-    Software Development, Robot Operation: random-entity[^abc]
+    Software Development, Robot Operation: "random-entity[^a]"
     Lighting: KIM Hyeon
     Staff: YOON Suhui, LEE Minho, CHOI Garam
     Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
@@ -67,7 +71,7 @@ credits:
     프로듀서: 프로듀서 그룹 도트 (박지선, 최봉민)
     커미션: 서울국제공연예술제, 아트코리아랩
   ja:
-    出品者: Robot Theater Company[^2] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
+    出品者: Robot Theater Company[^rotc] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
     総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
     助監督、ロボット振付: LEE Yujin
     ロボットデザイン、ロボットメンテナンス: LEE Jumi
@@ -82,25 +86,13 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 ::: en
 ## Basic information
 
-- **Format**
-  - Approximately 1-hour robot dance live performance featuring 13 Ahe[^1]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data.
-- **Credits**
-  - Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)
-  - Director, Hardware Design, Music: KWON Byungjun
-  - Assistant Director, Robot Choreography: LEE Yujin
-  - Robot Design, Robot Maintenance: LEE Jumi
-  - Software Development, Robot Operation: random-entity
-  - Lighting: KIM Hyeon
-  - Staff: YOON Suhui, LEE Minho, CHOI Garam
-  - Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
-  - Commissioned by: Seoul Performing Arts Festival (SPAF), Art Korea Lab
 - **Release**
-  - Performance: [2024 Seoul Performing Arts Festival (SPAF) - PLATFORM-L (Korea)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]
+  - Performance: [2024 Seoul Performing Arts Festival (SPAF) - PLATFORM-L (Korea)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day/)
 - **Source code**: [GitHub - Scope handled by the author (random-entity)](https://github.com/random-entity/o.art.ahe)
 
 ## Synopsis
 
-**Scene 1** — Thirteen bipedal robots, "Ahes" [^1], stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
+**Scene 1** — Thirteen bipedal robots, "Ahes" [^ahe], stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
 
 **Scene 2** — One by one, the Ahes begin to break formation with slow, motion-like steps. When six of them are moving, that moving group stops while the remaining seven, who were still, begin to walk. These two groups take turns walking and stopping for a while. The initial neat arrangement gradually falls apart. The lighting, the blinking colors of LEDs indicating communication between the Ahes, the reflected light scattered by the swaying wings, and the improvised electronic music blend together to create a shamanistic mise-en-scène.
 
@@ -129,7 +121,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ## Commentary
 
-- "Ahe"[^1] is a bipedal robot, but its movement method is extremely simple, barely maintaining its balance by relying on the attraction between the steel plates on the floor and the electromagnets on its soles. It looks like a young creature that has just begun to learn the act of walking. We humans are also thrown into the middle of an environment changing at an unpredictable speed, and it is hard to say that we know how to face the modern world on our own.
+- "Ahe"[^ahe] is a bipedal robot, but its movement method is extremely simple, barely maintaining its balance by relying on the attraction between the steel plates on the floor and the electromagnets on its soles. It looks like a young creature that has just begun to learn the act of walking. We humans are also thrown into the middle of an environment changing at an unpredictable speed, and it is hard to say that we know how to face the modern world on our own.
 - The Ahe's wings, soaring toward the sky, yearn for freedom, but if it doesn't move its two legs, the wings won't move either. Their walking in the world on the steel plate and the resulting friction sound with the ground are sensed like the anxiety stemming from the deadlock between gravity and freedom. That anxiety explodes in the frantic Sufi Whirling scene that lasts for the final 10-plus minutes, during which the Ahes clearly reveal their physical limits to the audience.
 
 ## Technology
@@ -144,7 +136,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ### Details
 
-- Ahe[^1] was designed as a character in a stage performance and a robot that walks on two legs. To create a dance performance by multiple bipedal robots, I designed not only the robot's body and choreography but also the stage equipment, various sensor systems, a commander/monitor system to control/monitor the robots remotely from behind the audience, and a wireless communication system so the commander/monitor system and the Ahes could exchange signals.
+- Ahe[^ahe] was designed as a character in a stage performance and a robot that walks on two legs. To create a dance performance by multiple bipedal robots, I designed not only the robot's body and choreography but also the stage equipment, various sensor systems, a commander/monitor system to control/monitor the robots remotely from behind the audience, and a wireless communication system so the commander/monitor system and the Ahes could exchange signals.
 - Ahe's Mechanical Structure:
   - Ahe's walking does not imitate humans but expresses the "toddling of a machine" consisting only of minimal movements based on a primitive mechanical structure.
   - Ahe's skeleton consists of a horizontal pelvic bar and legs and feet extending from both ends.
@@ -208,27 +200,22 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - [Artist KWON Byungjun's Website - On The Birds' Day (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive Article](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 
-[^rotc]: ROTC
+[^ahe]: A bipedal robot that reinterprets the character "Ahe" from the poem ⟨Crow's Eye View Poem No. 1⟩ by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
 
-[^abc]: Testing
-
-[^1]: A bipedal robot that reinterprets the character "Ahe" from the poem ⟨Crow's Eye View Poem No. 1⟩ by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
-
-[^2]: A robot theater company (robot dance production team) founded in 2024 by artist KWON Byungjun with the support of Art Korea Lab.
+[^rotc]: A robot theater company (robot dance production team) founded in 2024 by artist KWON Byungjun with the support of Art Korea Lab.
 
 [^kwon]: (1971–) A contemporary Korean artist whose media include sound, robots, and performance. Winner of the "Korea Artist Prize 2023" by the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist's Website](https://byungjun.pe.kr/))
 
-[^4]: An international contemporary dance festival focused on the relationship between stage arts and new technologies, held by the Théâtre de Liège in Belgium, against the backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
+[^impact]: An international contemporary dance festival focused on the relationship between stage arts and new technologies, held by the Théâtre de Liège in Belgium, against the backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
 
 ::: ko
 ## 기본 정보
 
 - **형식**
-  - 장르: 로봇 무용, 로봇 연극, 무대 공연
-  - 구성: 철판으로 덮인 무대 위의 아해[^1] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품
+  - 구성: 
 - **만든 사람들**
-  - 출품자: Robot Theater Company[^2] (권병준[^kwon], 이유진, 이주미, 임의존재)
+  - 출품자: Robot Theater Company[^rotc] (권병준[^kwon], 이유진, 이주미, 임의존재)
   - 총괄 디렉터, 하드웨어 설계, 음악: 권병준
   - 조감독, 로봇 안무: 이유진
   - 로봇 디자인, 로봇 메인터넌스: 이주미
@@ -238,12 +225,12 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
   - 프로듀서: Producer Group DOT (박지선, 최봉민)
   - 커미션: 서울국제공연예술제, 아트코리아랩
 - **공개**
-  - 공연: [2024 서울국제공연예술제 - PLATFORM-L (한국)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]
+  - 공연: [2024 서울국제공연예술제 - PLATFORM-L (한국)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^impact]
 - **소스 코드**: [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.art.ahe)
 
 ## 줄거리
 
-**씬 1** — 이족보행 로봇 “아해”[^1] 13대가 오와 열을 맞춰 무대에 서 있다. 골반 양끝에서부터 하늘을 향해 높이 솟은 깃대 사이에는 날개처럼 팔랑거리는 기다란 술이 매달려 있다. 아해들은 대열을 유지한 채 제자리에서 발을 앞으로 뻗었다가 뒤로 무르거나 좌우로 발목을 꺾으면서, 전자석이 바닥에 탈부착하는 소리를 구호 삼아 기계적인 군무를 추기 시작한다. 모든 아해가 제자리에서 전자석을 빠른 속도로 바닥에 탈부착시키는 장면에서의 따다닥거리는 소리와 아해들의 요동은 무대를 감싼 긴장감을 증폭시킨다.
+**씬 1** — 이족보행 로봇 “아해”[^ahe] 13대가 오와 열을 맞춰 무대에 서 있다. 골반 양끝에서부터 하늘을 향해 높이 솟은 깃대 사이에는 날개처럼 팔랑거리는 기다란 술이 매달려 있다. 아해들은 대열을 유지한 채 제자리에서 발을 앞으로 뻗었다가 뒤로 무르거나 좌우로 발목을 꺾으면서, 전자석이 바닥에 탈부착하는 소리를 구호 삼아 기계적인 군무를 추기 시작한다. 모든 아해가 제자리에서 전자석을 빠른 속도로 바닥에 탈부착시키는 장면에서의 따다닥거리는 소리와 아해들의 요동은 무대를 감싼 긴장감을 증폭시킨다.
 
 **씬 2** — 아해가 한 대 씩, 슬로모션과 같은 느린 보행으로 대열을 이탈하기 시작한다. 6대가 움직이게 되면, 움직이고 있던 그룹이 멈추는 동시에 멈춰 있던 나머지 7대의 그룹이 걷기 시작한다. 그렇게 이 두 그룹은 한동안 보행과 정지를 교대하기를 반복한다. 공연 시작 시의 배열은 서서히 흐트러지고, 조명, 아해들 간의 통신을 나타내는 LED의 점멸하는 색채, 흔들리는 날개에 산란되는 반사광, 전자음악 즉흥 연주가 뒤섞여 샤머니즘적 미장센을 연출한다.
 
@@ -272,7 +259,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ## 해설
 
-- "아해"[^1]는 이족보행 로봇이지만 그 움직임의 방식은 극히 단순하며, 바닥의 철판과 발바닥의 전자석 사이의 인력에 의존해 가까스로 균형을 유지한다. 그것은 마치 이제 막 걷기라는 행위를 익히기 시작한 어린 생명체처럼 보인다. 우리 인간 또한 예측불가한 속도로 변화하는 환경의 한복판에 내던져져 있으며, 현대 세계에 스스로의 힘으로 맞서는 방법을 알고 있다고는 말하기 어렵다.
+- "아해"[^ahe]는 이족보행 로봇이지만 그 움직임의 방식은 극히 단순하며, 바닥의 철판과 발바닥의 전자석 사이의 인력에 의존해 가까스로 균형을 유지한다. 그것은 마치 이제 막 걷기라는 행위를 익히기 시작한 어린 생명체처럼 보인다. 우리 인간 또한 예측불가한 속도로 변화하는 환경의 한복판에 내던져져 있으며, 현대 세계에 스스로의 힘으로 맞서는 방법을 알고 있다고는 말하기 어렵다.
 - 하늘을 향해 치솟아 있는 아해의 날개는 자유를 갈망하지만, 두 다리를 움직이지 않으면 날개 또한 움직이지 않는다. 철판 위 세계 속 그들의 보행과 그로 인한 지면과의 마찰음은, 중력과 자유 사이의 교착에서 비롯되는 불안처럼 감각된다. 그 불안은 마지막 10분 이상에 걸쳐 지속되는 광적인 수피 댄스 (Sufi Whirling) 씬에서 폭발하고, 이때 아해들은 스스로의 신체적 한계를 관객들에게 여실히 드러낸다.
 
 ## 기술
@@ -287,7 +274,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ### 상세
 
-- 아해[^1]는 무대 공연의 등장 인물이자 두 발로 걷는 로봇으로서 기획되었다. 복수 대의 이족보행 로봇들에 의한 무용 공연을 만들기 위해, 로봇의 본체와 안무는 물론, 무대 장치 및 각종 센서 시스템, 객석 뒤에서 로봇들을 제어/모니터 할 수 있는 커맨더/모니터 시스템, 커맨더/모니터 시스템과 아해들이 서로 신호를 주고받을 수 있는 무선 통신 시스템 등을 설계했다.
+- 아해[^ahe]는 무대 공연의 등장 인물이자 두 발로 걷는 로봇으로서 기획되었다. 복수 대의 이족보행 로봇들에 의한 무용 공연을 만들기 위해, 로봇의 본체와 안무는 물론, 무대 장치 및 각종 센서 시스템, 객석 뒤에서 로봇들을 제어/모니터 할 수 있는 커맨더/모니터 시스템, 커맨더/모니터 시스템과 아해들이 서로 신호를 주고받을 수 있는 무선 통신 시스템 등을 설계했다.
 - 아해의 기계공학적 구조:
   - 아해의 보행은 인간을 모방하기보다는, 원시적인 기계적 구조 상의 최소한의 동작만으로 이루어져 '기계의 걸음마'를 표현한다.
   - 아해의 뼈대는 수평 골반 막대와 그 양끝에서 뻗어나온 다리와 발로 구성된다.
@@ -351,22 +338,22 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 기사](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 
-[^1]: 일제강점기 조선의 문학 작가 이상(1910–1937)의 시 ⟨오감도 제 1호⟩의 등장인물 "아해"를 재해석한 이족보행 로봇. 본체는 두 다리와 골반으로 구성되어, 무대 바닥에 덮인 철판 위에 선다. 관절의 서보모터와 발바닥의 전자석의 제어를 통해 움직인다.
+[^ahe]: 일제강점기 조선의 문학 작가 이상(1910–1937)의 시 ⟨오감도 제 1호⟩의 등장인물 "아해"를 재해석한 이족보행 로봇. 본체는 두 다리와 골반으로 구성되어, 무대 바닥에 덮인 철판 위에 선다. 관절의 서보모터와 발바닥의 전자석의 제어를 통해 움직인다.
 
-[^2]: 권병준 작가가 아트코리아랩의 지원으로 2024년 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
+[^rotc]: 권병준 작가가 아트코리아랩의 지원으로 2024년 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
 
 [^kwon]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
 
-[^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
+[^impact]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
 ::: ja
 ## 基本情報
 
 - **形式**
   - ジャンル: ロボット舞踊、ロボット演劇、舞台公演
-  - 構成: 鉄板で覆われた舞台上のアヘ[^1]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品
+  - 構成: 
 - **制作陣**
-  - 出品者: Robot Theater Company[^2] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
+  - 出品者: Robot Theater Company[^rotc] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
   - 総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
   - 助監督、ロボット振付: LEE Yujin
   - ロボットデザイン、ロボットメンテナンス: LEE Jumi
@@ -376,12 +363,12 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
   - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
   - コミッション: ソウル国際舞台芸術祭 (SPAF)、Arts Korea Lab
 - **公開**
-  - 公演: [2024 ソウル国際舞台芸術祭(SPAF) - PLATFORM-L (韓国)](http://spaf.or.kr/2024/program/program_view06.php)、[Forum IMPACT 2024 - Théâtre de Liège (ベルギー)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^4]
+  - 公演: [2024 ソウル国際舞台芸術祭(SPAF) - PLATFORM-L (韓国)](http://spaf.or.kr/2024/program/program_view06.php)、[Forum IMPACT 2024 - Théâtre de Liège (ベルギー)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^impact]
 - **ソースコード**: [GitHub - 私（任意存在）担当範囲](https://github.com/random-entity/o.art.ahe)
 
 ## あらすじ
 
-**シーン 1** — 二足歩行ロボット「アヘ」[^1] 13台が、整然と隊列を組んで舞台に立っている。骨盤の両端から空に向かって高くそびえる旗竿の間には、翼のようにひらひらと揺れる長い房が吊るされている。アヘたちは隊列を維持したまま、その場で足を前に出したり後ろに引いたり、左右に足首を曲げたりしながら、電磁石が床に着脱する音を掛け声のようにして機械的な群舞を踊り始める。全てのアヘがその場で電磁石を高速で床に着脱させる場面でのカチカチという音とアヘたちの揺れは、舞台を包む緊張感を増幅させる。
+**シーン 1** — 二足歩行ロボット「アヘ」[^ahe] 13台が、整然と隊列を組んで舞台に立っている。骨盤の両端から空に向かって高くそびえる旗竿の間には、翼のようにひらひらと揺れる長い房が吊るされている。アヘたちは隊列を維持したまま、その場で足を前に出したり後ろに引いたり、左右に足首を曲げたりしながら、電磁石が床に着脱する音を掛け声のようにして機械的な群舞を踊り始める。全てのアヘがその場で電磁石を高速で床に着脱させる場面でのカチカチという音とアヘたちの揺れは、舞台を包む緊張感を増幅させる。
 
 **シーン 2** — アヘが1台ずつ、スローモーションのようなゆっくりとした歩行で隊列から離脱し始める。6台が動き出すと、動いていたグループが止まると同時に、止まっていた残り7台のグループが歩き始める。そうしてこの2つのグループは、しばらくの間、歩行と停止を交互に繰り返す。公演開始時の配列は徐々に崩れ、照明、アヘ間の通信を示すLEDの点滅する色彩、揺れる翼に散乱する反射光、即興の電子音楽が混ざり合い、シャーマニズム的なミザンセーヌを演出する。
 
@@ -410,7 +397,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ## 解説
 
-- 「アヘ」[^1]は二足歩行ロボットだが、その動きの仕組みは極めて単純であり、床の鉄板と足の裏の電磁石の間の引力に頼って辛うじてバランスを保っている。それはまるで、歩くという行為を覚え始めたばかりの幼い生命体のように見える。私たち人間もまた、予測不可能な速度で変化する環境の真ん中に放り出されており、現代世界に自らの力で立ち向かう方法を知っているとは言い難い。
+- 「アヘ」[^ahe]は二足歩行ロボットだが、その動きの仕組みは極めて単純であり、床の鉄板と足の裏の電磁石の間の引力に頼って辛うじてバランスを保っている。それはまるで、歩くという行為を覚え始めたばかりの幼い生命体のように見える。私たち人間もまた、予測不可能な速度で変化する環境の真ん中に放り出されており、現代世界に自らの力で立ち向かう方法を知っているとは言い難い。
 - 空に向かってそびえ立つアヘの翼は自由を渇望しているが、両足を動かさなければ翼もまた動かない。鉄板の上の世界での彼らの歩行と、それに伴う地面との摩擦音は、重力と自由の間の膠着から生じる不安のように感覚される。その不安は、最後の10分以上にわたって続く狂乱的なスーフィーダンス（Sufi Whirling）のシーンで爆発し、この時アヘたちは自らの身体的限界を観客に如実に示して見せる。
 
 ## 技術
@@ -425,7 +412,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 
 ### 詳細
 
-- アヘ[^1]は、舞台公演の登場人物であり、二足で歩くロボットとして企画された。複数台の二足歩行ロボットによる舞踊公演を作るため、ロボットの本体と振付はもちろん、舞台装置や各種センサーシステム、客席の後ろからロボットたちを制御・モニターできるコマンダー/モニターシステム、コマンダー/モニターシステムとアヘたちが互いに信号をやり取りできる無線通信システムなどを設計した。
+- アヘ[^ahe]は、舞台公演の登場人物であり、二足で歩くロボットとして企画された。複数台の二足歩行ロボットによる舞踊公演を作るため、ロボットの本体と振付はもちろん、舞台装置や各種センサーシステム、客席の後ろからロボットたちを制御・モニターできるコマンダー/モニターシステム、コマンダー/モニターシステムとアヘたちが互いに信号をやり取りできる無線通信システムなどを設計した。
 - アヘの機械工学的構造：
   - アヘの歩行は人間を模倣するのではなく、原始的な機械的構造上の最小限の動作のみで構成され、「機械のよちよち歩き」を表現する。
   - アヘの骨格は、水平の骨盤バーと、その両端から伸びる脚と足で構成される。
@@ -489,12 +476,11 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - [KWON Byungjun作家ウェブサイト - 鳥たちの日に (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 記事](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 
-[^1]: 日本統治時代の朝鮮の文学作家、李箱(イ・サン、1910–1937)の詩⟨烏瞰図(オガンド) 第1号⟩の登場人物「アヘ(子供)」を再解釈した二足歩行ロボット。本体は両脚と骨盤で構成され、舞台の床に覆われた鉄板の上に立つ。関節のサーボモーターと足の裏の電磁石の制御を通じて動く。
+[^ahe]: 日本統治時代の朝鮮の文学作家、李箱(イ・サン、1910–1937)の詩⟨烏瞰図(オガンド) 第1号⟩の登場人物「アヘ(子供)」を再解釈した二足歩行ロボット。本体は両脚と骨盤で構成され、舞台の床に覆われた鉄板の上に立つ。関節のサーボモーターと足の裏の電磁石の制御を通じて動く。
 
-[^2]: KWON Byungjun作家がアートコリアラボの支援により2024年に創立したロボット劇団(ロボット舞踊作品制作チーム)。
+[^rotc]: KWON Byungjun作家がアートコリアラボの支援により2024年に創立したロボット劇団(ロボット舞踊作品制作チーム)。
 
 [^kwon]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年 国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
 
-[^4]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
+[^impact]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
-

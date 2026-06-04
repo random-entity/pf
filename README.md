@@ -7,10 +7,10 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
 
 - **Minimal, monochrome UI** with automatic light/dark mode. No ornamentation.
 - **Three languages** (English / 한국어 / 日本語) via an always-visible switcher.
-- **Schema-driven sidebar**: the filter/sort tree is built automatically from
-  whatever frontmatter keys exist — numeric/date keys get sort + range, enum
-  keys get OR/AND multi-select, nested objects expand. Plus a search box,
-  group-by, and a resizable panel.
+- **Schema-driven sidebar**: each property's behavior is declared in one config
+  file (`src/lib/schema.js`) — `date`/`number` get sort + range, `enum` gets
+  OR/AND multi-select, `group` expands into nested facets, `text` is search-only.
+  Plus a search box, group-by, and a resizable panel.
 - **Properties block** (like Obsidian) rendered from frontmatter, supporting
   scalars, localized values, lists, nested objects, and inline markdown (links,
   wikilinks, bold, etc.). Enum values are clickable filter pills that expand the
@@ -20,8 +20,8 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
   that deep-links into each artwork.
 
 > Changing the code? See [ARCHITECTURE.md](ARCHITECTURE.md) for how content is
-> loaded, how the filter/sort schema is derived from frontmatter, and how the
-> pieces fit together.
+> loaded, how the property schema (`src/lib/schema.js`) drives the filter/sort
+> tree and rendering, and how the pieces fit together.
 
 ## Develop
 
@@ -69,9 +69,10 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 
 ### Frontmatter / Properties
 
-- Any key is shown in the Properties block. Known keys (`title`, `releases`, `genre`,
-  `medium`, `dimensions`, `tags`, …) get translated labels; unknown keys show the
-  raw key name (add labels in `src/i18n.jsx`).
+- Any key is shown in the Properties block. Each key's **type** and translated
+  **label** are declared in `src/lib/schema.js` (`PROPERTY_SCHEMA`); keys not
+  listed there default to plain `text` and show the title-cased key name. Add a
+  property's type/label there — not in `src/i18n.jsx`.
 - A value may be a plain string/number, a **localized object** `{ en, ko, ja }`,
   a **list** `[a, b]`, or a **nested object** `{ k: v }` — all render automatically.
 - **All string values** support inline markdown — this applies uniformly to every
@@ -90,9 +91,10 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   `{ en: "Harbour, Fog" }`, `tags: ["Interactive CG", "Video feedback"]`.
 - Plain top-level string values like `type: Personal work` may stay unquoted
   unless they contain `:`, `,`, brackets, or quote marks.
-- `releases` is used for release/event sorting, grouping, name filtering, and
-  date-range filtering. Each entry is an object with an `event` name, a `date`
-  (single date or inclusive range), and optional `venue` and `version`:
+- `releases` is a list of objects. Its sub-fields are typed in the schema:
+  `releases.event` is an **enum** (sort/group/filter pills), `releases.date` is a
+  **date** (sort + range; the default sort), and `releases.venue` /
+  `releases.version` are **text**. Each entry needs at least a `date`:
 
   ```yaml
   releases:
@@ -104,44 +106,42 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
       version: "v2"
   ```
 
-  The `event` field supports localized objects, including the YAML block-sequence
-  form (each language on its own line):
+  The `event` field may be a plain string or a localized object `{ en, ko, ja }`:
 
   ```yaml
   releases:
     - date: "2024-11-01 ~ 2024-11-05"
-      event:
-        - en: "Seoul Performing Arts Festival (SPAF)"
-        - ko: "서울국제공연예술제"
-        - ja: "ソウル国際公演芸術祭"
+      event: { en: "SPAF", ko: "서울국제공연예술제", ja: "ソウル国際公演芸術祭" }
       venue: "Arko Arts Theater"
   ```
 
-  The Properties block renders each release as `DATE : EVENT @VENUE (VERSION)`.
-  All string sub-fields (`event`, `venue`, `version`) support inline markdown.
-  In the Releases range filter, **Min** lists all start dates and **Max** all end
-  dates; the match is an inclusive overlap. The old single-key object format
-  (`{ "Event name": "YYYY-MM-DD" }`) is still accepted as a fallback.
+  The Properties block renders each release as a small grid (Event pill,
+  formatted Date / `start → end`, Venue/Version text); all string sub-fields
+  support inline markdown. In the Releases **Date** range filter, **Min** lists
+  all start dates and **Max** all end dates; the match is an inclusive overlap.
+  (The legacy `{ "Event name": "YYYY-MM-DD" }` single-key shape is no longer
+  supported — use the `{ event, date }` object form.)
 
-- Enum-like values (`tags`, `tools`, `genre`, `medium`, …) become clickable
-  filters with **OR / AND** modes. Any categorical key may hold a single value
-  or a **list** (e.g. two genres) — AND becomes meaningful once values co-occur.
-- A `{ hours, minutes, seconds }` object is treated as a single duration value
-  (sorted/ranged as one number, shown as `HH:MM:SS`).
+- Enum properties (`tags`, `tools`, `genre`, `type`, … — whatever is typed
+  `enum` in the schema) become clickable filters with **OR / AND** modes. An
+  enum value may be a single value or a **list** (e.g. two genres) — AND becomes
+  meaningful once values co-occur.
+- A `{ hours, minutes, seconds }` object under a `duration`-typed key is shown as
+  a single `HH:MM:SS` value (sorted/ranged as one number).
 
 ### Filtering, sorting & search
 
-The sidebar builds a **filter/sort tree** automatically from your frontmatter —
-every property is scanned and classified, no configuration needed:
+The sidebar builds a **filter/sort tree** from the property schema
+(`src/lib/schema.js`) — each property's controls follow its declared `type`:
 
-- **Numbers & dates** (incl. nested ones like `dimensions.width`) get an
-  ascending/descending **sort** and a **min/max range** selector. Sorting is
-  single-key: picking a sort replaces the previous one.
-- **Lists of strings** (`tags`, `tools`) get a multi-select filter with an
-  **Any / All** (OR / AND) toggle.
-- **Single categorical values** (`genre`, `medium`, `status`) get a multi-select
-  (OR) filter.
-- **Nested objects** expand into their sub-properties.
+- **`date` / `number` / `duration`** (incl. nested ones like `releases.date`)
+  get an ascending/descending **sort** and a **min/max range** selector. Sorting
+  is single-key: picking a sort replaces the previous one.
+- **`enum`** (`tags`, `tools`, `genre`, `type`, …) gets a multi-select filter
+  with an **Any / All** (OR / AND) toggle, whether the value is a single value or
+  a list.
+- **`group`** (`releases`) expands into its typed sub-facets.
+- **`text`** is search-only — never a facet.
 
 Each key has a **"Show items without a value"** toggle (off by default). When a
 key is in use — sorted by, ranged, or multi-selected — artworks lacking that
