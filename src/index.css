@@ -461,7 +461,7 @@ select {
 .filter-tree {
   list-style: none;
   margin: 0;
-  padding-left: 14px;
+  padding-left: 6px;
 }
 .filter-tree > .filter-node > .facet-head,
 .filters > .filter-tree {
@@ -537,7 +537,7 @@ select {
   text-decoration: none !important;
 }
 .facet-body {
-  padding: 4px 0 6px 16px;
+  padding: 4px 0 6px 10px;
 }
 
 .sort-row {

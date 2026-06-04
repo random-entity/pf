@@ -109,7 +109,7 @@ function TitleSearch() {
 
 // --- Icon buttons ---------------------------------------------------------
 
-function SortIcon({ path, isDate }) {
+function SortIcon({ path }) {
   const { t } = useLang()
   const { sort, setSort } = useFilters()
   const state = sort.path === path ? sort.dir : null
@@ -123,11 +123,7 @@ function SortIcon({ path, isDate }) {
     else setSort(DEFAULT_SORT.path, DEFAULT_SORT.dir)
   }
 
-  let label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
-
-  if (isDate) {
-    label = state === 'asc' ? t('sortByDateAsc') : state === 'desc' ? t('sortByDateDesc') : t('sortByDate')
-  }
+  const label = state === 'asc' ? t('sortAsc') : state === 'desc' ? t('sortDesc') : t('sort')
 
   return (
     <button
@@ -185,6 +181,22 @@ function EnumIcon({ path, onToggle }) {
   )
 }
 
+// Filter icon for range (date/number/duration) facets — opens the accordion to
+// show the min/max selectors; goes icon-on when a range filter is active.
+function RangeIcon({ path, onToggle }) {
+  const { t } = useLang()
+  const { ranges } = useFilters()
+  const active = !!ranges[path]
+  return (
+    <button
+      className={`facet-icon range-icon${active ? ' icon-on' : ' icon-off'}`}
+      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
+    >
+      {t('filter')}
+    </button>
+  )
+}
+
 // --- FacetNode ------------------------------------------------------------
 
 function FacetNode({ facet, openPaths, onToggle }) {
@@ -197,7 +209,8 @@ function FacetNode({ facet, openPaths, onToggle }) {
   const sortable = isTitleRow || facet.kind === 'date' || facet.kind === 'number' || facet.kind === 'duration'
   const isRange = facet.kind === 'date' || facet.kind === 'number' || facet.kind === 'duration'
   const isEnum = facet.kind === 'enum'
-  const isGroupable = isEnum
+  // Date facets are groupable (groups by year). Enum facets group by value.
+  const isGroupable = isEnum || facet.kind === 'date'
   const hasMissing = facet.kind !== 'nested' && facet.kind !== 'text'
 
   return (
@@ -208,8 +221,9 @@ function FacetNode({ facet, openPaths, onToggle }) {
           <span className="facet-label">{label}</span>
         </button>
         <div className="facet-icons">
-          {sortable && <SortIcon path={facet.path} isDate={facet.kind === 'date'} />}
+          {sortable && <SortIcon path={facet.path} />}
           {isTitleRow && <TitleSearchIcon path={facet.path} onToggle={onToggle} openPaths={openPaths} />}
+          {isRange && <RangeIcon path={facet.path} onToggle={onToggle} />}
           {isEnum && <EnumIcon path={facet.path} onToggle={onToggle} />}
           {isGroupable && <GroupIcon path={facet.path} />}
         </div>

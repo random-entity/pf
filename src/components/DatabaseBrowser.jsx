@@ -13,6 +13,7 @@ import {
   hasValueAtPath,
   sortValueForFacet,
   rangeMatchesFacet,
+  parseDateRange,
 } from '../lib/properties.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
@@ -267,17 +268,31 @@ export default function DatabaseBrowser() {
 
   const groups = useMemo(() => {
     if (group === 'none') return [['', results]]
+    const groupFacet = facetByPath.get(group)
+    const isDateGroup = groupFacet?.kind === 'date'
     const map = new Map()
     for (const a of results) {
       const raws = valuesAtPath(a.data, group)
       const vals = raws.length ? raws : [null]
       for (const one of vals) {
-        const label = one == null ? '—' : labelOf(one, lang)
+        let label
+        if (one == null) {
+          label = '—'
+        } else if (isDateGroup) {
+          // Group date facets by year (YYYY) rather than full date string.
+          const r = parseDateRange(one)
+          label = r ? String(new Date(r.start).getUTCFullYear()) : String(one).slice(0, 4) || '—'
+        } else {
+          label = labelOf(one, lang)
+        }
         if (!map.has(label)) map.set(label, [])
         map.get(label).push(a)
       }
     }
-    return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+    // Date groups: sort newest year first. Others: alphabetical.
+    return [...map.entries()].sort((a, b) =>
+      isDateGroup ? b[0].localeCompare(a[0]) : a[0].localeCompare(b[0]),
+    )
   }, [results, group, lang])
 
   return (
