@@ -37,7 +37,7 @@ export const PROPERTY_SCHEMA = {
   title: { type: 'text', label: { en: 'Title', ko: '제목', ja: 'タイトル' } },
 
   tagline: { type: 'text', label: { en: 'Tagline', ko: '태그라인', ja: 'タグライン' } },
-  format: { type: 'text', label: { en: 'Format', ko: '형식', ja: 'フォーマット' } },
+  format: { type: 'text', label: { en: 'Format', ko: '형식', ja: '形式' } },
 
   type: { type: 'enum', label: { en: 'Type', ko: '유형', ja: 'タイプ' } },
   genre: { type: 'enum', label: { en: 'Genre', ko: '장르', ja: 'ジャンル' } },
@@ -56,7 +56,7 @@ export const PROPERTY_SCHEMA = {
   releases: { type: 'group', label: { en: 'Releases', ko: '릴리스', ja: 'リリース' } },
   'releases.event': { type: 'enum', label: { en: 'Event', ko: '이벤트', ja: 'イベント' } },
   'releases.date': { type: 'date', label: { en: 'Date', ko: '날짜', ja: '日付' } },
-  'releases.venue': { type: 'text', label: { en: 'Venue', ko: '장소', ja: '会場' } },
+  'releases.venue': { type: 'enum', label: { en: 'Venue', ko: '장소', ja: '会場' } },
   'releases.version': { type: 'text', label: { en: 'Version', ko: '버전', ja: 'バージョン' } },
 
   // ---- Aspirational keys (not yet used by content) kept as a template. -----
