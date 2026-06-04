@@ -23,7 +23,6 @@ const ROOT = join(
   '..',
   'src',
   'content',
-  'artworks',
 );
 const FM = /^---\r?\n([\s\S]*?)\r?\n---(\r?\n[\s\S]*)?$/;
 
