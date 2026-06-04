@@ -48,7 +48,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 type: "Group work"
 credits:
   en:
-    Presented by: "Robot Theater Company[^rotc] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)"
+    Presented by: "Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)"
     Director, Hardware Design, Music: KWON Byungjun
     Assistant Director, Robot Choreography: LEE Yujin
     Robot Design, Robot Maintenance: LEE Jumi
@@ -58,7 +58,7 @@ credits:
     Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
     Commissioned by: Seoul Performing Arts Festival, Art Korea Lab
   ko:
-    출품자: Robot Theater Company[^rotc] (권병준[^3], 이유진, 이주미, 임의존재)
+    출품자: Robot Theater Company[^rotc] (권병준[^kwon], 이유진, 이주미, 임의존재)
     총괄 디렉터, 하드웨어 설계, 음악: 권병준
     조감독, 로봇 안무: 이유진
     로봇 디자인, 로봇 메인터넌스: 이주미
@@ -68,7 +68,7 @@ credits:
     프로듀서: 프로듀서 그룹 도트 (박지선, 최봉민)
     커미션: 서울국제공연예술제, 아트코리아랩
   ja:
-    出品者: Robot Theater Company[^2] (KWON Byungjun[^3]、LEE Yujin、LEE Jumi、任意存在)
+    出品者: Robot Theater Company[^2] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
     総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
     助監督、ロボット振付: LEE Yujin
     ロボットデザイン、ロボットメンテナンス: LEE Jumi
@@ -85,7 +85,7 @@ credits:
 - **Format**
   - Approximately 1-hour robot dance live performance featuring 13 Ahe[^1]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data.
 - **Credits**
-  - Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^3], LEE Yujin, LEE Jumi, random-entity)
+  - Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)
   - Director, Hardware Design, Music: KWON Byungjun
   - Assistant Director, Robot Choreography: LEE Yujin
   - Robot Design, Robot Maintenance: LEE Jumi
@@ -190,7 +190,7 @@ credits:
   - The choreographer's role was to construct a sequence of actions that the Ahes would perform during the 1-hour performance. The choreography is composed by saving combinations of action algorithm types and parameters of the corresponding pivot sequences as "movement presets," and saving "movement sequence presets" (which arrange the saved "movement presets" over time) as patterns in the aforementioned commander drum machine.
   - Here, to facilitate communication between the programmer and the choreographer, a programmer-choreographer protocol was designated and used so that the 5-digit preset number of the movement itself could be decoded into the type or parameters of the movement.
 - Music and Lighting:
-  - The music was improvised during the performance by KWON Byungjun[^3], the general director of this project, using software synthesizers and glove-type data signal manipulation interfaces he developed as a sound artist, musician, and electronic instrument researcher.
+  - The music was improvised during the performance by KWON Byungjun[^kwon], the general director of this project, using software synthesizers and glove-type data signal manipulation interfaces he developed as a sound artist, musician, and electronic instrument researcher.
     - The sounds caused by attachment/detachment and friction between the Ahes and the steel plate floor were picked up by contact mics, processed in real-time via granular synthesis, and used for the improvisation.
   - The lighting was directed by lighting director KIM Hyeon to match the dance and music.
 - **Real-time Robot Operation**:
@@ -216,7 +216,7 @@ credits:
 
 [^2]: A robot theater company (robot dance production team) founded in 2024 by artist KWON Byungjun with the support of Art Korea Lab.
 
-[^3]: (1971–) A contemporary Korean artist whose media include sound, robots, and performance. Winner of the "Korea Artist Prize 2023" by the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist's Website](https://byungjun.pe.kr/))
+[^kwon]: (1971–) A contemporary Korean artist whose media include sound, robots, and performance. Winner of the "Korea Artist Prize 2023" by the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist's Website](https://byungjun.pe.kr/))
 
 [^4]: An international contemporary dance festival focused on the relationship between stage arts and new technologies, held by the Théâtre de Liège in Belgium, against the backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
@@ -228,7 +228,7 @@ credits:
   - 장르: 로봇 무용, 로봇 연극, 무대 공연
   - 구성: 철판으로 덮인 무대 위의 아해[^1] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품
 - **만든 사람들**
-  - 출품자: Robot Theater Company[^2] (권병준[^3], 이유진, 이주미, 임의존재)
+  - 출품자: Robot Theater Company[^2] (권병준[^kwon], 이유진, 이주미, 임의존재)
   - 총괄 디렉터, 하드웨어 설계, 음악: 권병준
   - 조감독, 로봇 안무: 이유진
   - 로봇 디자인, 로봇 메인터넌스: 이주미
@@ -333,7 +333,7 @@ credits:
   - 안무가의 역할은 공연 시간 1시간 동안 아해들이 수행할 동작의 시퀀스를 구성하는 일이었다. 안무의 구성 작업은 동작 알고리즘의 종류와 해당 피봇 시퀀스의 파라미터 조합을 "동작 프리셋"으로서 저장하고, 저장된 "동작 프리셋"들을 시간에 따라 배열한 "동작 시퀀스 프리셋"들을 상술한 커맨더의 드럼 머신 패턴으로서 저장함으로써 이루어진다.
   - 여기서, 프로그래머와 안무가 사이의 의사소통을 원활하게 하기 위해, 동작의 5자리 프리셋 번호 자체를 동작의 종류 혹은 파라미터로 디코드 할 수 있도록 하는 프로그래머-안무가 프로토콜을 지정해 사용했다.
 - 음악 및 조명:
-  - 음악은 본 프로젝트 총괄 디렉터인 권병준[^3] 작가가 사운드 아티스트, 뮤지션, 전자악기 연구자로서 개발해 온 소프트웨어 신디사이저 및 장갑형 데이터 신호 조작 인터페이스에 의해 공연 시 즉흥으로 연주되었다.
+  - 음악은 본 프로젝트 총괄 디렉터인 권병준[^kwon] 작가가 사운드 아티스트, 뮤지션, 전자악기 연구자로서 개발해 온 소프트웨어 신디사이저 및 장갑형 데이터 신호 조작 인터페이스에 의해 공연 시 즉흥으로 연주되었다.
     - 아해들과 철판 바닥 사이의 탈부착 및 마찰에 의한 소리는 컨택트 마이크에 의해 수음되는데, 이 소리는 실시간으로 그래뉼러 신세시스로 처리되어 즉흥 연주에 사용되었다.
   - 조명은 김현 조명감독에 의해 무용과 음악에 맞춰 연출되었다.
 - **실시간 로봇 오퍼레이션**:
@@ -355,7 +355,7 @@ credits:
 
 [^2]: 권병준 작가가 아트코리아랩의 지원으로 2024년 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
 
-[^3]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
+[^kwon]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
 
 [^4]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
@@ -366,7 +366,7 @@ credits:
   - ジャンル: ロボット舞踊、ロボット演劇、舞台公演
   - 構成: 鉄板で覆われた舞台上のアヘ[^1]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品
 - **制作陣**
-  - 出品者: Robot Theater Company[^2] (KWON Byungjun[^3]、LEE Yujin、LEE Jumi、任意存在)
+  - 出品者: Robot Theater Company[^2] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
   - 総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
   - 助監督、ロボット振付: LEE Yujin
   - ロボットデザイン、ロボットメンテナンス: LEE Jumi
@@ -471,7 +471,7 @@ credits:
   - 振付師の役割は、公演時間1時間の間、アヘたちが実行する動作のシーケンスを構成することであった。振付の構成作業は、動作アルゴリズムの種類と該当するピボットシーケンスのパラメータの組み合わせを「動作プリセット」として保存し、保存された「動作プリセット」たちを時間順に配列した「動作シーケンスプリセット」たちを、前述のコマンダーのドラムマシンパターンとして保存することによって行われる。
   - ここで、プログラマーと振付師の間の意思疎通を円滑にするため、動作の5桁のプリセット番号自体を動作の種類またはパラメータとしてデコードできるようにするプログラマー・振付師間のプロトコルを指定して使用した。
 - 音楽と照明：
-  - 音楽は、本プロジェクトの総括ディレクターであるKWON Byungjun[^3]作家がサウンドアーティスト、ミュージシャン、電子楽器研究者として開発してきたソフトウェアシンセサイザーおよび手袋型のデータ信号操作インターフェースにより、公演時に即興で演奏された。
+  - 音楽は、本プロジェクトの総括ディレクターであるKWON Byungjun[^kwon]作家がサウンドアーティスト、ミュージシャン、電子楽器研究者として開発してきたソフトウェアシンセサイザーおよび手袋型のデータ信号操作インターフェースにより、公演時に即興で演奏された。
     - アヘたちと鉄板の床との間の着脱および摩擦による音はコンタクトマイクによって集音され、この音はリアルタイムでグラニュラーシンセシスによって処理され、即興演奏に使用された。
   - 照明はKIM Hyeon照明監督により、舞踊と音楽に合わせて演出された。
 - **リアルタイムロボットオペレーション**：
@@ -493,7 +493,7 @@ credits:
 
 [^2]: KWON Byungjun作家がアートコリアラボの支援により2024年に創立したロボット劇団(ロボット舞踊作品制作チーム)。
 
-[^3]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年 国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
+[^kwon]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年 国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
 
 [^4]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
