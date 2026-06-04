@@ -76,7 +76,7 @@ credits:
     - 照明: KIM Hyeon
     - スタッフ: YOON Suhui、LEE Minho、CHOI Garam
     - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
-    - コミッション: ソウル国際舞台芸術祭 (SPAF)、Arts Korea Lab
+    - コミッション: ソウル国際舞台芸術祭、Arts Korea Lab
 ---
 ![](images/works/ahe/live-stills/main.png)
 ::: en
