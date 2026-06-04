@@ -143,10 +143,14 @@ The sidebar builds a **filter/sort tree** from the property schema
 - **`group`** (`releases`) expands into its typed sub-facets.
 - **`text`** is search-only — never a facet.
 
+**Sorting only orders items — it never hides them.** An artwork that lacks the
+sort value (e.g. one with no `releases.date` under the default newest-first sort)
+simply sinks to the bottom of the list, so every artwork stays visible by
+default.
+
 Each key has a **"Show items without a value"** toggle (off by default). When a
-key is in use — sorted by, ranged, or multi-selected — artworks lacking that
-value are dropped unless this is checked; checking it keeps them and shows an
-`∅` marker.
+key is **filtered** — ranged or multi-selected — artworks lacking that value are
+dropped unless this is checked; checking it keeps them and shows an `∅` marker.
 
 The **search box** does a case-insensitive substring match across titles (all
 languages), enum values, and body text. Body matches surface as inline snippets

@@ -194,11 +194,14 @@ export default function DatabaseBrowser() {
     const matchMap = new Map()
     const propMatchMap = new Map()
     const titleMatchMap = new Map()
+    // Only real filters constrain the list: active enum selections and ranges.
+    // Sorting must NOT drop items — an artwork lacking the sort value simply
+    // sinks to the bottom (null-handling in the comparator below). This is what
+    // keeps items without `releases` visible under the default releases.date sort.
     const constrainedPaths = new Set([
       ...Object.keys(enums).filter((p) => enums[p].ids.length),
       ...Object.keys(ranges),
     ])
-    if (sort.path !== TITLE_SORT && facetByPath.has(sort.path)) constrainedPaths.add(sort.path)
 
     let list = artworks.filter((a) => {
       // Main search: exact substring across all text. No fuzzy — avoids false
