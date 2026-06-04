@@ -15,8 +15,9 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
   scalars, localized values, lists, nested objects, and inline markdown (links,
   wikilinks, bold, etc.). Enum values are clickable filter pills that expand the
   corresponding sidebar accordion without navigating away.
-- **Markdown** with GFM, footnotes, `[[wikilinks]]`, and a heading outline that
-  deep-links into each artwork.
+- **Markdown** with GFM, footnotes, `[[wikilinks]]`, math (KaTeX), image
+  galleries, embedded YouTube, collapsible headings/lists, and a heading outline
+  that deep-links into each artwork.
 
 > Changing the code? See [ARCHITECTURE.md](ARCHITECTURE.md) for how content is
 > loaded, how the filter/sort schema is derived from frontmatter, and how the
@@ -30,6 +31,10 @@ npm run dev
 ```
 
 Requires [Node.js](https://nodejs.org) (LTS / v20+). Open the printed local URL.
+
+`npm run build` produces the static site in `dist/`; `npm run preview` serves
+that build locally. These are the only three scripts (`dev` / `build` /
+`preview`), all thin wrappers over Vite.
 
 ## Add or edit an artwork
 
@@ -177,11 +182,22 @@ every language.
 slug, trailing path segment, or file basename. Unresolved links render as plain
 text.
 
-### Images
+### Images & galleries
 
 Put images in `public/` and reference them by relative path, e.g.
 `![](images/sunset.jpg)` for `public/images/sunset.jpg`. The site's base path is
 applied automatically.
+
+A single image paragraph renders full-width. **Two or more consecutive image
+paragraphs** are grouped into a horizontal-scroll **gallery** automatically (each
+image's optional emphasis caption is kept). Separate the images with blank lines
+so each is its own paragraph.
+
+### Math
+
+Inline `$a^2 + b^2 = c^2$` and display `$$ \int_0^1 x\,dx $$` math render with
+[KaTeX](https://katex.org). A `$$…$$` block on its own line is promoted to
+display mode automatically.
 
 ### Videos
 

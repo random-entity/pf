@@ -30,7 +30,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 
 | File | Responsibility |
 |---|---|
-| `src/main.jsx` | Mounts providers (`LanguageProvider` → `FilterProvider`) and the `HashRouter` routes. |
+| `src/main.jsx` | Mounts providers (`LanguageProvider` → `FilterProvider`) and the `HashRouter` routes. A legacy `artwork/*` route redirects to the bare path, preserving hash + state. |
 | `src/App.jsx` | Layout shell: sidebar + resizer + topbar + `<Outlet/>`. Owns the resizable-sidebar logic. |
 | `src/i18n.jsx` | Language context, UI strings, and the localized-value helpers `loc` / `isLocalized`. |
 | `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. Includes `requestExpand` / `expandPath` for cross-page accordion expansion. |
@@ -38,12 +38,13 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/lib/properties.js` | **Schema engine** — classifies frontmatter keys into facets; value helpers (dates, durations, enums, units, releases). |
 | `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
 | `src/lib/search.js` | Body search: exact case-insensitive substring match with snippet extraction, occurrence ranking, and cross-language deduplication. |
-| `src/lib/remarkGallery.js` | remark plugin: wraps consecutive images in a `<gallery>` block for grid display. |
-| `src/components/Sidebar.jsx` | Thin wrapper that renders `DatabaseBrowser`. |
+| `src/lib/remarkGallery.js` | remark plugin: wraps 2+ consecutive image paragraphs in a `div.gallery` (horizontal scroll); single images stay full-width. |
+| `src/components/Sidebar.jsx` | Top-bar with the site-title link + `LangSwitch`, then `DatabaseBrowser`. |
+| `src/components/LangSwitch.jsx` | Always-visible en/ko/ja selector wired to `useLang()`. |
 | `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
 | `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
 | `src/components/Properties.jsx` | Obsidian-style properties block for one artwork. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
-| `src/components/Markdown.jsx` | `react-markdown` + `remark-gfm` + `rehype-slug` + `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML); collapsible headings/lists injected via DOM in a `useEffect`. |
+| `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`. |
 | `src/pages/Home.jsx`, `src/pages/ArtworkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
@@ -58,7 +59,9 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
    is dropped, so width/height are comparable numbers downstream.
 4. The result is `artworks[]` — `{ slug, name, dirs, data, body }` — plus a
    `bySlug` index. `slug` comes from the file path; the folder structure is only
-   used for the slug, not for navigation.
+   used for the slug, not for navigation. `bySlug` also registers a
+   backward-compatible alias for each item (`works/<name>` or `modules/<name>`
+   based on `type`) so routes from the pre-refactor structure still resolve.
 
 ## Localization (`i18n.jsx`)
 
@@ -245,12 +248,21 @@ Selection is indicated by stroke highlight (`border-color: var(--fg)`).
 
 `prepare(body, lang)` runs `pickLanguage` (keeps only the active `::: lang`
 fence) then `wikiLinks` (rewrites `[[slug]]` to hash routes). `Markdown.jsx`
-renders it with `rehype-slug` (heading `id` attributes) and `rehype-raw` (raw
-HTML in Markdown is allowed; `<canvas id="...">` tags are intercepted by a
-custom component and run animation logic in a `useEffect`). `rehype-slug`
-stamps an `id` on each heading. The sidebar
-outline (`extractHeadings` + `buildHeadingTree`) links to those ids using the
-same `github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
+renders it through this plugin chain (order matters):
+
+- **remark**: `remark-gfm` (tables, footnotes), `remark-math` ( `$…$` / `$$…$$`),
+  `remarkGallery` (groups 2+ consecutive image paragraphs into a `div.gallery`).
+- **rehype**: `rehypeMathDisplay` (a local plugin that promotes a standalone
+  `$$…$$` paragraph to display mode — `remark-math` v6 otherwise treats a
+  single-line `$$…$$` as inline), `rehype-katex` (renders the math), `rehype-raw`
+  (raw HTML in Markdown is allowed; `<canvas id="...">` tags are intercepted by a
+  custom component that runs animation logic in a `useEffect`), `rehype-slug`
+  (stamps an `id` on each heading).
+
+Custom `components` also turn a YouTube-link paragraph into a responsive embed and
+rewrite image `src` against `import.meta.env.BASE_URL`. The sidebar outline
+(`extractHeadings` + `buildHeadingTree`) links to the heading ids using the same
+`github-slugger` algorithm, and `ArtworkPage` scrolls to the hash on change.
 
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render. Clicking a search
