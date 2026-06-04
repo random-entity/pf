@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { works } from '../lib/content.js'
-import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
+import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath, RELEASES_PATH } from '../lib/properties.js'
 import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
 // Min/max dropdowns for a numeric/date facet.
@@ -278,7 +278,11 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
     clearExpand()
   }, [expandPath, clearExpand])
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
-  const allFacets = [titleFacet, ...schema]
+  // Hoist releases children (Date, Event, Venue) to the root — the "Releases"
+  // group wrapper row is dropped and its children appear at the top level.
+  const allFacets = [titleFacet, ...schema].flatMap((f) =>
+    f.path === RELEASES_PATH && f.kind === 'nested' ? (f.children ?? []) : [f],
+  )
   const allPaths = collectFacetPaths(allFacets)
 
   const toggle = (path) =>
