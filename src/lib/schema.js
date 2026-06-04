@@ -30,6 +30,37 @@
 // the declared type.
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Canonical display orders — edit these to reorder the UI.
+// ---------------------------------------------------------------------------
+
+// Order of paths shown in the sidebar filter/sort/group tree.
+// 'title' refers to the synthetic Title row (TITLE_SORT = '__title__').
+// Paths absent from this list appear after all listed paths, alphabetically.
+export const FACET_ORDER = [
+  'type',
+  'title',
+  'releases.date',
+  'genre',
+  'tags',
+  'tools',
+  'releases.event',
+  'releases.venue',
+]
+
+// Order of root keys shown in the frontmatter properties block.
+// Keys absent from this list appear after all listed keys, alphabetically.
+export const FRONTMATTER_ORDER = [
+  'tagline',
+  'format',
+  'genre',
+  'tags',
+  'tools',
+  'releases',
+  'credits',
+  'source',
+]
+
 export const PROPERTY_SCHEMA = {
   // title is the page heading; it is excluded from the Properties block and its
   // sort is handled by the synthetic TITLE_SORT facet. Listed here only so its

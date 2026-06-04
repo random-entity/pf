@@ -12,7 +12,7 @@ import {
   parseDateRange,
   unitForPath,
 } from '../lib/properties.js'
-import { typeForPath, labelForPath } from '../lib/schema.js'
+import { typeForPath, labelForPath, FRONTMATTER_ORDER } from '../lib/schema.js'
 import { useFilters } from '../filters.jsx'
 
 // Inline markdown components. Defined at module scope (stable identities) so a
@@ -251,7 +251,16 @@ function Value({ value, path }) {
 // `title` is shown as the page heading elsewhere, so it is skipped here.
 export default function Properties({ data }) {
   const { propLabel } = useLang()
-  const entries = Object.entries(data).filter(([k]) => k !== 'title')
+  const entries = Object.entries(data)
+    .filter(([k]) => k !== 'title')
+    .sort(([a], [b]) => {
+      const ia = FRONTMATTER_ORDER.indexOf(a)
+      const ib = FRONTMATTER_ORDER.indexOf(b)
+      const ra = ia === -1 ? Infinity : ia
+      const rb = ib === -1 ? Infinity : ib
+      if (ra !== rb) return ra - rb
+      return a.localeCompare(b)
+    })
   if (entries.length === 0) return null
 
   return (

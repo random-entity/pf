@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { works } from '../lib/content.js'
 import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath, RELEASES_PATH } from '../lib/properties.js'
+import { FACET_ORDER } from '../lib/schema.js'
 import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
 // Min/max dropdowns for a numeric/date facet.
@@ -280,9 +281,21 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
   const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
   // Hoist releases children (Date, Event, Venue) to the root — the "Releases"
   // group wrapper row is dropped and its children appear at the top level.
-  const allFacets = [titleFacet, ...schema].flatMap((f) =>
-    f.path === RELEASES_PATH && f.kind === 'nested' ? (f.children ?? []) : [f],
-  )
+  // Then sort the flat list by FACET_ORDER ('title' maps to TITLE_SORT).
+  const allFacets = [titleFacet, ...schema]
+    .flatMap((f) =>
+      f.path === RELEASES_PATH && f.kind === 'nested' ? (f.children ?? []) : [f],
+    )
+    .sort((a, b) => {
+      const keyA = a.path === TITLE_SORT ? 'title' : a.path
+      const keyB = b.path === TITLE_SORT ? 'title' : b.path
+      const ia = FACET_ORDER.indexOf(keyA)
+      const ib = FACET_ORDER.indexOf(keyB)
+      const ra = ia === -1 ? Infinity : ia
+      const rb = ib === -1 ? Infinity : ib
+      if (ra !== rb) return ra - rb
+      return keyA.localeCompare(keyB)
+    })
   const allPaths = collectFacetPaths(allFacets)
 
   const toggle = (path) =>
