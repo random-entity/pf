@@ -7,27 +7,23 @@ tagline:
   en: "The anxiety of our time reflected in the toddling of machines."
   ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
   ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
+format:
+  en: "Approximately 1-hour robot dance live performance featuring 13 Ahe[^ahe]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data."
+  ko: "철판으로 덮인 무대 위의 아해[^ahe] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품"
+  ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品"
 genre:
   - "Robot dance"
   - "Mechanical theater"
   - "Electroacoustic music"
   - "Live performance"
-format:
-  en: "Approximately 1-hour robot dance live performance featuring 13 Ahe[^ahe]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data."
-  ko: "철판으로 덮인 무대 위의 아해[^ahe] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품"
-  ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品"
-releases:
-  - event:
-      en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/program/program_view06.php)"
-      ko: "[서울국제공연예술제](http://spaf.or.kr/2024/program/program_view06.php#)"
-      ja: "[ソウル国際公演芸術祭](http://spaf.or.kr/2024_eng/program/program_view06.php)"
-    venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
-    date: "2024-10-11 ~ 2024-10-13"
-    version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
-  - event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)[^impact]"
-    venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
-    date: "2024-11-02 ~ 2024-11-03"
-    version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
+tools:
+  - "PJRC Teensy"
+  - "mjbots moteus"
+  - "C++"
+  - "Pure Data"
+  - "C"
+  - "Digi XBee"
+  - "Processing"
 tags:
   - "Physical computing"
   - "Automata"
@@ -40,22 +36,26 @@ tags:
   - "IMU sensor"
   - "Wireless network"
   - "3D printing"
-tools:
-  - "PJRC Teensy"
-  - "mjbots moteus"
-  - "C++"
-  - "Pure Data"
-  - "C"
-  - "Digi XBee"
-  - "Processing"
+releases:
+  - date: "2024-10-11 ~ 2024-10-13"
+    event:
+      en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
+      ko: "[서울국제공연예술제](http://spaf.or.kr/2024/)(http://spaf.or.kr/2024/program/program_view06.php#)"
+      ja: "[ソウル国際公演芸術祭](http://spaf.or.kr/2024_eng/)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
+    venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
+    version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
+  - date: "2024-11-02 ~ 2024-11-03"
+    event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
+    venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
+    version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
 type: "Group work"
 credits:
   en:
-    Presented by: "Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)"
+    Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)
     Director, Hardware Design, Music: KWON Byungjun
     Assistant Director, Robot Choreography: LEE Yujin
     Robot Design, Robot Maintenance: LEE Jumi
-    Software Development, Robot Operation: "random-entity[^a]"
+    Software Development, Robot Operation: random-entity
     Lighting: KIM Hyeon
     Staff: YOON Suhui, LEE Minho, CHOI Garam
     Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
@@ -80,27 +80,22 @@ credits:
     スタッフ: YOON Suhui、LEE Minho、CHOI Garam
     プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
     コミッション: ソウル国際舞台芸術祭、Arts Korea Lab[^abc]
-source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
+source: "[GitHub (scope handled by random-entity)](https://github.com/random-entity/o.art.ahe)"
 ---
 ![](images/works/ahe/live-stills/main.png)
 ::: en
-## Basic information
-
-- **Release**
-  - Performance: [2024 Seoul Performing Arts Festival (SPAF) - PLATFORM-L (Korea)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (Belgium)](https://theatredeliege.be/en/evenement/on-the-birds-day/)
-- **Source code**: [GitHub - Scope handled by the author (random-entity)](https://github.com/random-entity/o.art.ahe)
-
 ## Synopsis
 
-**Scene 1** — Thirteen bipedal robots, "Ahes" [^ahe], stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
-
-**Scene 2** — One by one, the Ahes begin to break formation with slow, motion-like steps. When six of them are moving, that moving group stops while the remaining seven, who were still, begin to walk. These two groups take turns walking and stopping for a while. The initial neat arrangement gradually falls apart. The lighting, the blinking colors of LEDs indicating communication between the Ahes, the reflected light scattered by the swaying wings, and the improvised electronic music blend together to create a shamanistic mise-en-scène.
-
-**Scene 3** — One Ahe walks to the front center of the stage and stops, and a spotlight shines on it. All the other Ahes turn in place to face it and watch quietly. The Ahe in the spotlight soon begins a light and agile solo dance.
-
-**Scene 4** — When the solo dance ends, they all scatter in random directions as if dispersing, changing paths when they bump into another Ahe. Their constantly shifting arrangement and the changing colors of the lighting sometimes depict a garden, sometimes a forest. Slowly, a circular formation is created to begin the next scene.
-
-**Scene 5** — Everyone stops briefly, turns in place, and looks toward the center of the stage. Then, every unit slowly begins the Sufi Whirling dance, spinning round and round in place. As the music reaches its climax, their spinning speed accelerates. When the rotation reaches its peak, their wings flap violently as if caught in a storm. The Ahes, supported only by the magnetic attraction between their soles and the floor, cannot withstand the high-speed rotation that reaches their mechanical limits and fall over one by one. Even after falling, their legs continue to move. This state of chaos, marking the climax of the performance, lasts for over 10 minutes, inducing a trance-like state. Gradually, along with the slowing music, the Ahes also decelerate, the stage lighting dims, and they finally come to a complete stop.
+- Scene 1
+  - Thirteen bipedal robots, "Ahes" [^ahe], stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
+- Scene 2
+  - One by one, the Ahes begin to break formation with slow, motion-like steps. When six of them are moving, that moving group stops while the remaining seven, who were still, begin to walk. These two groups take turns walking and stopping for a while. The initial neat arrangement gradually falls apart. The lighting, the blinking colors of LEDs indicating communication between the Ahes, the reflected light scattered by the swaying wings, and the improvised electronic music blend together to create a shamanistic mise-en-scène.
+- Scene 3
+  - One Ahe walks to the front center of the stage and stops, and a spotlight shines on it. All the other Ahes turn in place to face it and watch quietly. The Ahe in the spotlight soon begins a light and agile solo dance.
+- Scene 4
+  - When the solo dance ends, they all scatter in random directions as if dispersing, changing paths when they bump into another Ahe. Their constantly shifting arrangement and the changing colors of the lighting sometimes depict a garden, sometimes a forest. Slowly, a circular formation is created to begin the next scene.
+- Scene 5
+  - Everyone stops briefly, turns in place, and looks toward the center of the stage. Then, every unit slowly begins the Sufi Whirling dance, spinning round and round in place. As the music reaches its climax, their spinning speed accelerates. When the rotation reaches its peak, their wings flap violently as if caught in a storm. The Ahes, supported only by the magnetic attraction between their soles and the floor, cannot withstand the high-speed rotation that reaches their mechanical limits and fall over one by one. Even after falling, their legs continue to move. This state of chaos, marking the climax of the performance, lasts for over 10 minutes, inducing a trance-like state. Gradually, along with the slowing music, the Ahes also decelerate, the stage lighting dims, and they finally come to a complete stop.
 
 [Performance video](https://youtu.be/5EO3pT3txQk)
 
@@ -188,7 +183,7 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - **Real-time Robot Operation**:
   - Because some actions, like 'walking to a specific position while avoiding other units,' do not have a predetermined execution time, the entire sequence of actions cannot be programmed in advance. Moreover, unexpected variables occur during actual performances, requiring improvised responses. Therefore, human operators were needed behind the audience to control the robots in real-time according to the pre-agreed flow of the performance.
 
-### Scope Handled by the Author (random-entity)
+### Scope Handled by random-entity
 
 - The parts handled by the author (random-entity) are the logic for Ahe's movement algorithms, the software development for all the aforementioned electronic systems (sensor system, wireless communication system, commander/monitor system (excluding the drum machine-style movement sequencer), and Ahe's embedded system) [(Source Code)](https://github.com/random-entity/o.art.ahe), and real-time robot operation during the performance.
 - The items handled by the author listed in the Details section are in **bold text**.
@@ -210,24 +205,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 :::
 
 ::: ko
-## 기본 정보
-
-- **형식**
-  - 구성: 
-- **만든 사람들**
-  - 출품자: Robot Theater Company[^rotc] (권병준[^kwon], 이유진, 이주미, 임의존재)
-  - 총괄 디렉터, 하드웨어 설계, 음악: 권병준
-  - 조감독, 로봇 안무: 이유진
-  - 로봇 디자인, 로봇 메인터넌스: 이주미
-  - 소프트웨어 개발, 로봇 오퍼레이션: 임의존재
-  - 조명: 김현
-  - 스태프: 윤수희, 이민호, 최가람
-  - 프로듀서: Producer Group DOT (박지선, 최봉민)
-  - 커미션: 서울국제공연예술제, 아트코리아랩
-- **공개**
-  - 공연: [2024 서울국제공연예술제 - PLATFORM-L (한국)](http://spaf.or.kr/2024/program/program_view06.php); [Forum IMPACT 2024 - Théâtre de Liège (벨기에)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^impact]
-- **소스 코드**: [GitHub - 필자(임의존재) 담당 범위](https://github.com/random-entity/o.art.ahe)
-
 ## 줄거리
 
 **씬 1** — 이족보행 로봇 “아해”[^ahe] 13대가 오와 열을 맞춰 무대에 서 있다. 골반 양끝에서부터 하늘을 향해 높이 솟은 깃대 사이에는 날개처럼 팔랑거리는 기다란 술이 매달려 있다. 아해들은 대열을 유지한 채 제자리에서 발을 앞으로 뻗었다가 뒤로 무르거나 좌우로 발목을 꺾으면서, 전자석이 바닥에 탈부착하는 소리를 구호 삼아 기계적인 군무를 추기 시작한다. 모든 아해가 제자리에서 전자석을 빠른 속도로 바닥에 탈부착시키는 장면에서의 따다닥거리는 소리와 아해들의 요동은 무대를 감싼 긴장감을 증폭시킨다.
@@ -326,9 +303,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - **실시간 로봇 오퍼레이션**:
   - '타 개체를 회피하며 특정 위치로 걸어가기' 등, 수행에 걸리는 시간이 결정되어 있지 않은 동작도 있기 때문에, 동작 시퀀스 전체를 사전에 프로그래밍해 둘 수는 없다. 또한 실제 공연 시에는 예상치 못 한 변수가 발생하고, 그에 대해서는 즉흥적으로 대처할 필요가 있다. 그래서 사전에 합의된 공연의 흐름에 맞춰, 객석 뒤에서 실시간으로 로봇을 제어할 수 있는 오퍼레이터 인력이 필요했다.
 
-### 필자(임의존재)가 담당한 범위
+### 임의존재가 담당한 범위
 
-- 필자(임의존재)가 담당한 부분은 아해의 동작 알고리즘 로직 및 상기한 모든 전자 시스템(센서 시스템, 무선 통신 시스템, 커맨더/모니터 시스템 (드럼 머신형 동작 시퀀서 제외), 아해의 임베디드 시스템)의 소프트웨어 개발 [(소스 코드)](https://github.com/random-entity/o.art.ahe), 그리고 공연 시의 실시간 로봇 오퍼레이션이다.
+- 임의존재가 담당한 부분은 아해의 동작 알고리즘 로직 및 상기한 모든 전자 시스템(센서 시스템, 무선 통신 시스템, 커맨더/모니터 시스템 (드럼 머신형 동작 시퀀서 제외), 아해의 임베디드 시스템)의 소프트웨어 개발 [(소스 코드)](https://github.com/random-entity/o.art.ahe), 그리고 공연 시의 실시간 로봇 오퍼레이션이다.
 - 상세 섹션에 작성한 리스트의 필자 담당 항목 루트는 **볼드체 문자**로 되어 있다.
 
 ## 외부 링크
@@ -347,25 +324,6 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 [^impact]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
 ::: ja
-## 基本情報
-
-- **形式**
-  - ジャンル: ロボット舞踊、ロボット演劇、舞台公演
-  - 構成: 
-- **制作陣**
-  - 出品者: Robot Theater Company[^rotc] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
-  - 総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
-  - 助監督、ロボット振付: LEE Yujin
-  - ロボットデザイン、ロボットメンテナンス: LEE Jumi
-  - ソフトウェア開発、ロボットオペレーション: 任意存在
-  - 照明: KIM Hyeon
-  - スタッフ: YOON Suhui、LEE Minho、CHOI Garam
-  - プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
-  - コミッション: ソウル国際舞台芸術祭 (SPAF)、Arts Korea Lab
-- **公開**
-  - 公演: [2024 ソウル国際舞台芸術祭(SPAF) - PLATFORM-L (韓国)](http://spaf.or.kr/2024/program/program_view06.php)、[Forum IMPACT 2024 - Théâtre de Liège (ベルギー)](https://theatredeliege.be/en/evenement/on-the-birds-day/)[^impact]
-- **ソースコード**: [GitHub - 私（任意存在）担当範囲](https://github.com/random-entity/o.art.ahe)
-
 ## あらすじ
 
 **シーン 1** — 二足歩行ロボット「アヘ」[^ahe] 13台が、整然と隊列を組んで舞台に立っている。骨盤の両端から空に向かって高くそびえる旗竿の間には、翼のようにひらひらと揺れる長い房が吊るされている。アヘたちは隊列を維持したまま、その場で足を前に出したり後ろに引いたり、左右に足首を曲げたりしながら、電磁石が床に着脱する音を掛け声のようにして機械的な群舞を踊り始める。全てのアヘがその場で電磁石を高速で床に着脱させる場面でのカチカチという音とアヘたちの揺れは、舞台を包む緊張感を増幅させる。
@@ -464,9 +422,9 @@ source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 - **リアルタイムロボットオペレーション**：
   - 「他個体を回避しながら特定の位置に歩いていく」など、実行にかかる時間が決まっていない動作もあるため、動作シーケンス全体を事前にプログラミングしておくことはできない。また、実際の公演時には予期せぬ変数が生じ、それに対しては即興で対処する必要がある。そのため、事前に合意された公演の流れに合わせて、客席の後ろからリアルタイムでロボットを制御できるオペレーター人員が必要であった。
 
-### 私(任意存在)が担当した範囲
+### 任意存在が担当した範囲
 
-- 私(任意存在)が担当した部分は、アヘの動作アルゴリズムのロジックおよび上記の全ての電子システム（センサーシステム、無線通信システム、コマンダー/モニターシステム（ドラムマシン型動作シーケンサーを除く）、アヘの組み込みシステム）のソフトウェア開発 [(ソースコード)](https://github.com/random-entity/o.art.ahe)、そして公演時のリアルタイムロボットオペレーションである。
+- 任意存在が担当した部分は、アヘの動作アルゴリズムのロジックおよび上記の全ての電子システム（センサーシステム、無線通信システム、コマンダー/モニターシステム（ドラムマシン型動作シーケンサーを除く）、アヘの組み込みシステム）のソフトウェア開発 [(ソースコード)](https://github.com/random-entity/o.art.ahe)、そして公演時のリアルタイムロボットオペレーションである。
 - 詳細セクションに作成したリストの私担当項目のルートは**太字**になっている。
 
 ## 外部リンク
