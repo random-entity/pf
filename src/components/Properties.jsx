@@ -75,9 +75,16 @@ function InlineMarkdown({ children }) {
   )
 }
 
+// Footnote reference marker inside a value, e.g. "[^label]".
+const FN_REF = /\[\^([A-Za-z0-9_-]+)\]/g
+
 // A single enum value rendered as a pill that toggles its facet filter and
-// expands the corresponding accordion in the sidebar. If the value is a markdown
-// link (or multi-link), external link ↗ icons are appended after a separator.
+// expands the corresponding accordion in the sidebar. Footnote refs in the value
+// (e.g. "Forum IMPACT[^1]") render as superscripts on the right of the pill, and
+// markdown-link URLs (e.g. "[text](url)(url)") as ↗ icons — both after a
+// separator, in that order: [ label | ¹ | ↗ ↗ ]. Footnote superscripts get the
+// same appearance-order numbering + backlink wiring as body footnotes (handled
+// by ArtworkPage, which finds every `.properties sup[data-fn-ref]`).
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()
@@ -85,7 +92,10 @@ function EnumPill({ path, value }) {
   const active = enums[path]?.ids.includes(id)
   const displayText = String(labelOf(value, lang) ?? '')
   const valueStr = isLocalized(value) ? loc(value, lang) : String(value ?? '')
-  const externalUrls = mdLinkUrls(valueStr)
+  const fnLabels = [...valueStr.matchAll(FN_REF)].map((m) => m[1])
+  // Strip footnote markers before parsing link URLs — a [^label] inside the link
+  // text contains a "]" that would otherwise break the [text](url) matcher.
+  const externalUrls = mdLinkUrls(valueStr.replace(FN_REF, ''))
 
   return (
     <button
@@ -94,6 +104,25 @@ function EnumPill({ path, value }) {
       onClick={() => { toggleEnum(path, id); requestExpand(path) }}
     >
       <span className="tag-label">{displayText}</span>
+      {fnLabels.length > 0 && (
+        <>
+          <span className="tag-link-sep" aria-hidden="true" />
+          {fnLabels.map((label, i) => (
+            <sup
+              key={`fn-${i}`}
+              className="fn-ref tag-fn-ref"
+              data-fn-ref={label}
+              onClick={(e) => {
+                e.stopPropagation()
+                document.getElementById(`user-content-fn-${label}`)
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
+            >
+              {label}
+            </sup>
+          ))}
+        </>
+      )}
       {externalUrls.length > 0 && (
         <>
           <span className="tag-link-sep" aria-hidden="true" />

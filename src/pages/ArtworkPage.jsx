@@ -12,17 +12,34 @@ const HL_NAME = 'search-jump'
 const FN_LABEL = '[A-Za-z0-9_-]+'
 const FN_REF = new RegExp(`\\[\\^(${FN_LABEL})\\]`, 'g')
 
+// Collect footnote labels in an enum value (string, array, or localized
+// object), in pill render order, for the given language. Enum pills render their
+// label text — including footnote refs as superscripts — so these must be seeded
+// and numbered too, just like text leaves.
+function collectEnumRefs(value, lang, out) {
+  if (value == null) return
+  if (Array.isArray(value)) {
+    for (const v of value) collectEnumRefs(v, lang, out)
+    return
+  }
+  const str = isLocalized(value)
+    ? value[lang] ?? value.en ?? Object.values(value).find((v) => v != null) ?? ''
+    : String(value)
+  for (const m of String(str).matchAll(FN_REF)) out.push(m[1])
+}
+
 // Collect footnote labels referenced in a (possibly nested/localized)
 // frontmatter value, in the order Properties renders them, for the given
 // language. Returns an array (with repeats). Mirrors `Value` in Properties:
-// only `text` leaves render inline markdown (footnote refs), so enum/date/
-// number/duration paths are skipped; arrays keep their path (each element keeps
-// its declared type); localized objects pick one string.
+// `text` leaves and `enum` pills render footnote refs (text via inline markdown,
+// enum via the pill superscript), so both are collected; date/number/duration
+// paths are skipped; arrays keep their path; localized objects pick one string.
 function collectFrontmatterRefs(value, lang, path, out) {
   if (value == null) return
   if (path) {
     const ty = typeForPath(path)
-    if (ty === 'enum' || ty === 'date' || ty === 'number' || ty === 'duration') return
+    if (ty === 'enum') { collectEnumRefs(value, lang, out); return }
+    if (ty === 'date' || ty === 'number' || ty === 'duration') return
   }
   if (typeof value === 'string') {
     for (const m of value.matchAll(FN_REF)) out.push(m[1])

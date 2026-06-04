@@ -84,6 +84,12 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   - `**bold**`, `_italic_`, `` `code` `` → inline formatting
   - On **enum pills**, the link text becomes the pill label and a `↗` icon is
     appended after a separator; multi-link values add one `↗` per URL.
+  - **Footnote refs** `[^label]` also work inside an enum value (e.g.
+    `event: "Forum IMPACT[^liege]"`): the marker is lifted out of the label and
+    shown as a numbered superscript on the right of the pill — `[ label | ¹ | ↗ ]`
+    — sharing the same appearance-order numbering and return-link as body
+    footnotes. The marker is hidden from the sidebar filter pills and from the
+    value's filter/group identity.
 - `title` is used as the page heading and is not repeated in the block.
 - **Quote all string values inside inline `{ ... }` objects and `[ ... ]`
   arrays.** This keeps frontmatter consistent and avoids YAML treating commas,

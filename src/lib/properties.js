@@ -28,13 +28,21 @@ export function valuesAtPath(data, path) {
   return collectAtPath(data, path.split('.'));
 }
 
+// Strip footnote reference markers "[^label]" from a string. They are an
+// annotation, not part of the value's identity or its sidebar label — only the
+// frontmatter pill renders them (as a superscript). Stripping must run before
+// any [text](url) link parsing, since a [^label] inside link text contains a
+// "]" that would otherwise break the link matcher.
+const FN_REF_RE = /\[\^[A-Za-z0-9_-]+\]/g;
+const stripFootnotes = (s) => String(s).replace(FN_REF_RE, '');
+
 // Language-independent identity for an enum value, so the same value groups
 // across artworks and survives language switches.
 export function canonicalOf(v) {
   if (v == null) return '';
   if (v instanceof Date) return v.toISOString();
-  if (isLocalized(v)) return loc(v, 'en') || '';
-  return String(v);
+  if (isLocalized(v)) return stripFootnotes(loc(v, 'en') || '');
+  return stripFootnotes(String(v));
 }
 
 // Strip markdown link syntax from a string, returning just the display text.
@@ -44,12 +52,13 @@ function stripMdLink(s) {
   return m ? m[1] : s;
 }
 
-// Human-facing label for an enum value in the active language.
-// Markdown link syntax "[text](url)" is stripped to just "text".
+// Human-facing label for an enum value in the active language. Markdown link
+// syntax "[text](url)" and footnote markers "[^label]" are stripped to just
+// "text" (footnotes are rendered separately, only on the frontmatter pill).
 export function labelOf(v, lang) {
   if (v == null) return '';
-  if (isLocalized(v)) return stripMdLink(loc(v, lang));
-  return stripMdLink(String(v));
+  const s = isLocalized(v) ? loc(v, lang) : String(v);
+  return stripMdLink(stripFootnotes(s));
 }
 
 // A duration is an object whose keys are a subset of {hours, minutes, seconds}

@@ -46,7 +46,7 @@ releases:
     venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
     version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
   - date: "2024-11-02 ~ 2024-11-03"
-    event: "[Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
+    event: "[Forum IMPACT[^impact]](https://theatredeliege.be/en/festival-archives/forum-impact/)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
     venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
     version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
 type: "Group work"
