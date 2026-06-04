@@ -277,12 +277,17 @@ rebuilds each definition's `↩` backlinks in appearance order (assigning unique
 module scope — stable identities let that DOM mutation survive re-renders instead
 of being remounted away.
 
-`remark-gfm` only emits a definition that is referenced *in the body*, so a
-footnote cited only in the frontmatter would be dropped. `footnotePlan()` in
-`ArtworkPage` detects those labels (cited in a frontmatter value, defined in the
-body, never referenced in body prose) and appends a hidden "seed" reference to
-the body so the definition is emitted; the footnote effect then hides the seed
-and keeps the frontmatter citation as the real backlink target.
+`footnotePlan()` in `ArtworkPage` reconciles two gaps before the body is
+rendered. First, `remark-gfm` only emits a definition that is referenced *in the
+body*, so a footnote cited only in the frontmatter would be dropped — for those
+labels it appends a hidden "seed" reference (the footnote effect then hides the
+seed and keeps the frontmatter citation as the real backlink target). Second,
+definitions live inside `::: lang` sections, so once `pickLanguage` strips the
+other fences a footnote defined only in (say) the English section has no
+definition in Korean/Japanese; `footnotePlan()` scans the *raw* body for a
+definition in any fence and injects it as a fallback when the current language
+lacks one. A definition written in the current language always wins over the
+fallback.
 
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render. Clicking a search

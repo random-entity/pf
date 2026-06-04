@@ -196,10 +196,12 @@ appearance. (Plain numeric labels like `[^1]` still work — they're just labels
 and are renumbered like everything else.)
 
 A footnote cited **only** in the frontmatter still works, as long as its
-definition exists in the body. Because definitions live in the body, that
-definition must be inside the matching language section (`::: en` / `ko` / `ja`)
-for the footnote to resolve in that language — otherwise the reference shows its
-literal label and doesn't jump.
+definition exists somewhere in the body. Definitions are usually written inside a
+language section (`::: en` / `ko` / `ja`) so each language reads in its own words,
+but a footnote defined in only one section still resolves in every language: when
+the current language lacks a definition, the one from another section is used as a
+fallback. (To share a single definition across all languages on purpose, put it
+outside any `:::` fence.)
 
 ### Images & galleries
 
