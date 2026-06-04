@@ -13,6 +13,7 @@ import { FilterProvider } from './filters.jsx';
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
 import WorkPage from './pages/WorkPage.jsx';
+import FootnotePreview from './components/FootnotePreview.jsx';
 import './index.css';
 
 function LegacyWorkRedirect() {
@@ -36,6 +37,7 @@ createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <LanguageProvider>
       <FilterProvider>
+        <FootnotePreview />
         <HashRouter>
           <Routes>
             <Route element={<App />}>

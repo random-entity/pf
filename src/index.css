@@ -805,8 +805,40 @@ select {
   /* Raise to the top of the pill so the number reads as a superscript. */
   align-self: flex-start;
 }
+.fn-ref:hover {
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
 .tag-fn-ref:hover {
   background: var(--hover);
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+/* ---------- Footnote hover preview popup ---------- */
+.fn-preview {
+  position: fixed;
+  z-index: 200;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--fg);
+  /* Width is dynamic (set inline via maxWidth), but never wider than 300px. */
+  width: max-content;
+  pointer-events: auto;
+}
+/* Strip the outer <p> margin so the popup is flush with its padding. */
+.fn-preview p {
+  margin: 0;
+}
+/* Links inside the preview are readable without extra decoration. */
+.fn-preview a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ---------- Markdown article ---------- */
