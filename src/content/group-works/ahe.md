@@ -44,7 +44,6 @@ tools:
   - "C"
   - "Digi XBee"
   - "Processing"
-source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 type: "Group work"
 credits:
   en:
@@ -77,6 +76,7 @@ credits:
     スタッフ: YOON Suhui、LEE Minho、CHOI Garam
     プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
     コミッション: ソウル国際舞台芸術祭、Arts Korea Lab[^abc]
+source: "[GitHub](https://github.com/random-entity/o.art.ahe)"
 ---
 ![](images/works/ahe/live-stills/main.png)
 ::: en
