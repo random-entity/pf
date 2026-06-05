@@ -1,5 +1,6 @@
 import { LANGS } from '../i18n.jsx';
 import { pickLanguage } from './markdown.js';
+import { labelForPath } from './schema.js';
 
 // Detect a localized object {en?, ko?, ja?} — all keys must be language codes.
 function isLocalizedObj(v) {
@@ -22,17 +23,31 @@ function isDurationObj(v) {
 function extractPropText(data, lang) {
   const parts = [];
 
-  function walk(value) {
+  function walk(value, path) {
     if (value == null || value instanceof Date) return;
     if (typeof value === 'number' || typeof value === 'boolean') return;
     if (isDurationObj(value)) return;
     if (isLocalizedObj(value)) {
       const v = value[lang] ?? value.en ?? Object.values(value).find((x) => x != null) ?? '';
-      if (v) parts.push(stripMd(String(v)));
+      // The picked language value may itself be a nested object/array — e.g.
+      // `credits: { en: { "Presented by": "..." }, ... }` — so recurse instead
+      // of stringifying (String({...}) → "[object Object]" used to drop it).
+      walk(v, path);
       return;
     }
-    if (Array.isArray(value)) { value.forEach(walk); return; }
-    if (typeof value === 'object') { Object.values(value).forEach(walk); return; }
+    if (Array.isArray(value)) { value.forEach((v) => walk(v, path)); return; }
+    if (typeof value === 'object') {
+      // Nested object: the keys render as labels in the Properties block (e.g.
+      // credit roles like "Presented by"), so make them searchable too, then
+      // descend into each value.
+      for (const [k, v] of Object.entries(value)) {
+        const childPath = path ? `${path}.${k}` : k;
+        const label = labelForPath(childPath, lang);
+        if (label) parts.push(stripMd(String(label)));
+        walk(v, childPath);
+      }
+      return;
+    }
     if (typeof value === 'string') parts.push(stripMd(value));
   }
 
@@ -40,8 +55,9 @@ function extractPropText(data, lang) {
     if (key === 'title') continue; // searched via the title mechanism
     // Generic walk handles releases too: it descends the array of release
     // objects and collects event / venue / version strings (Date values for
-    // `date` are skipped). Event names that are localized objects are picked.
-    walk(val);
+    // `date` are skipped). Localized objects are picked for the language and
+    // recursed into, so nested role → name maps (credits) are searchable.
+    walk(val, key);
   }
   return parts.filter(Boolean).join(' ');
 }
