@@ -4,6 +4,7 @@ import { useLang, isLocalized } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
 import { prepare, stripFirstH1, wikiLinks, expandMultiLinks } from '../lib/markdown.js'
 import { typeForPath } from '../lib/schema.js'
+import { hasGlobalFootnote, globalFootnoteDef } from '../lib/glossary.js'
 import Properties from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { scrollToElement, highlightRange, clearJumpHighlights } from '../lib/jump.js'
@@ -91,7 +92,6 @@ function footnotePlan(data, body, lang) {
   for (const m of body.matchAll(defRe)) {
     if (!allDefs.has(m[1])) allDefs.set(m[1], m[2])
   }
-  const hasDef = (l) => presentDefs.has(l) || allDefs.has(l)
 
   // Footnote citations in the frontmatter, in render order.
   const fmRefs = []
@@ -104,9 +104,27 @@ function footnotePlan(data, body, lang) {
   const prose = prepared.replace(new RegExp(`^\\[\\^${FN_LABEL}\\]:.*$`, 'gm'), '')
   const bodyRefs = new Set([...prose.matchAll(FN_REF)].map((m) => m[1]))
 
-  // Inject fallback definitions for footnotes the current language lacks.
+  // --- Global glossary fallback ---------------------------------------------
+  // Any referenced footnote the page does NOT define locally (in any fence) but
+  // the shared glossary (glossary/glossary.md) does. A page-local definition
+  // always wins, so a page can override a glossary term just by defining it.
+  const globalLabels = new Set(
+    [...fmRefs, ...bodyRefs].filter((l) => !allDefs.has(l) && hasGlobalFootnote(l)),
+  )
+
+  const hasDef = (l) =>
+    globalLabels.has(l) || presentDefs.has(l) || allDefs.has(l)
+
   const injected = []
+  // Glossary definitions for labels with no page-local definition.
+  for (const label of globalLabels) {
+    const def = globalFootnoteDef(label, lang)
+    if (def != null) injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(def))}`)
+  }
+  // Cross-language fallback definitions for page-local footnotes the current
+  // language lacks (skipping anything resolved from the glossary above).
   for (const label of new Set([...fmRefs, ...bodyRefs])) {
+    if (globalLabels.has(label)) continue
     if (!presentDefs.has(label) && allDefs.has(label)) {
       injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(allDefs.get(label)))}`)
     }
