@@ -811,6 +811,25 @@ select {
 .tag-ext-link:hover {
   background: var(--hover);
 }
+/* Wikilink page-icon inside a frontmatter pill — internal link to another work. */
+.tag-wiki-link {
+  color: inherit;
+  text-decoration: none;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tag-wiki-link svg {
+  display: block;
+}
+.tag-wiki-link:hover {
+  background: var(--hover);
+}
+.tag-wiki-broken {
+  opacity: 0.4;
+  cursor: default;
+}
 /* Footnote superscript inside a frontmatter pill — sits in the link zone (right
    side) and gets its number from WorkPage's appearance-order numbering. */
 .tag-fn-ref {

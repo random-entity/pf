@@ -65,6 +65,7 @@ function extractPropText(data, lang) {
 function stripMd(text) {
   return text
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, t, a) => a ?? t) // wikilinks → text
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/\*\*(.+?)\*\*/gs, '$1')
     .replace(/\*(.+?)\*/gs, '$1')

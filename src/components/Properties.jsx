@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
-import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
+import { wikiLinks, expandMultiLinks, mdLinkUrls, mdWikiLinks } from '../lib/markdown.js'
 import { resolveUrlRefs } from '../lib/urlmap.js'
 
 // Resolver for `[text](^label)` URL-map refs in frontmatter values. Supplied by
@@ -89,14 +89,38 @@ function InlineMarkdown({ children }) {
 
 // Footnote reference marker inside a value, e.g. "[^label]".
 const FN_REF = /\[\^([A-Za-z0-9_-]+)\]/g
+// Wikilink marker inside a value, e.g. "[[target]]" / "[[target|alias]]".
+const WIKI_REF = /\[\[[^\]]*\]\]/g
+
+// A small page/document glyph for wikilinks attached to a pill (monochrome,
+// inherits the current text color).
+const PageIcon = () => (
+  <svg
+    viewBox="0 0 14 16"
+    width="10"
+    height="11"
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.3"
+    strokeLinejoin="round"
+    strokeLinecap="round"
+  >
+    <path d="M2.5 1.5 h6 l3 3 v10 h-9 z" />
+    <path d="M8.5 1.5 v3 h3" />
+  </svg>
+)
 
 // A single enum value rendered as a pill that toggles its facet filter and
-// expands the corresponding accordion in the sidebar. Footnote refs in the value
-// (e.g. "Forum IMPACT[^1]") render as superscripts on the right of the pill, and
-// markdown-link URLs (e.g. "[text](url)(url)") as ↗ icons — both after a
-// separator, in that order: [ label | ¹ | ↗ ↗ ]. Footnote superscripts get the
-// same appearance-order numbering + backlink wiring as body footnotes (handled
-// by WorkPage, which finds every `.properties sup[data-fn-ref]`).
+// expands the corresponding accordion in the sidebar. Attachments in the value
+// render to the right of the label, each in its own separated zone, in this
+// order: wikilinks "[[target|alias]]" as page-icon links, footnote refs
+// (e.g. "Forum IMPACT[^1]") as superscripts, and markdown-link URLs
+// (e.g. "[text](url)(url)") as ↗ icons — [ label | 🗎 | ¹ | ↗ ↗ ]. A wikilink's
+// visible text (alias, else target) stays in the label (via labelOf); only the
+// page-icon is the marker. Footnote superscripts get the same appearance-order
+// numbering + backlink wiring as body footnotes (handled by WorkPage, which finds
+// every `.properties sup[data-fn-ref]`).
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()
@@ -105,11 +129,15 @@ function EnumPill({ path, value }) {
   const active = enums[path]?.ids.includes(id)
   const displayText = String(labelOf(value, lang) ?? '')
   const valueStr = isLocalized(value) ? loc(value, lang) : String(value ?? '')
-  const fnLabels = [...valueStr.matchAll(FN_REF)].map((m) => m[1])
+  // Wikilinks attached to the pill (rendered as page-icon links). Strip them out
+  // before the footnote/link parsers so their brackets don't confuse the matchers.
+  const wikis = mdWikiLinks(valueStr)
+  const rest = valueStr.replace(WIKI_REF, '')
+  const fnLabels = [...rest.matchAll(FN_REF)].map((m) => m[1])
   // Strip footnote markers before parsing link URLs — a [^label] inside the link
   // text contains a "]" that would otherwise break the [text](url) matcher — and
   // resolve `[text](^label)` URL-map refs so the ↗ links point at real URLs.
-  const externalUrls = mdLinkUrls(resolveUrlRefs(valueStr.replace(FN_REF, ''), resolveUrl))
+  const externalUrls = mdLinkUrls(resolveUrlRefs(rest.replace(FN_REF, ''), resolveUrl))
 
   return (
     <button
@@ -118,6 +146,32 @@ function EnumPill({ path, value }) {
       onClick={() => { toggleEnum(path, id); requestExpand(path) }}
     >
       <span className="tag-label">{displayText}</span>
+      {wikis.length > 0 && (
+        <>
+          <span className="tag-link-sep" aria-hidden="true" />
+          {wikis.map((w, i) =>
+            w.slug ? (
+              <a
+                key={`w-${i}`}
+                href={`#/${encodeURI(w.slug)}`}
+                onClick={(e) => e.stopPropagation()}
+                className="tag-wiki-link"
+                title={w.alias ?? w.target}
+              >
+                <PageIcon />
+              </a>
+            ) : (
+              <span
+                key={`w-${i}`}
+                className="tag-wiki-link tag-wiki-broken"
+                title={`Unresolved wikilink: ${w.target}`}
+              >
+                <PageIcon />
+              </span>
+            ),
+          )}
+        </>
+      )}
       {fnLabels.length > 0 && (
         <>
           <span className="tag-link-sep" aria-hidden="true" />

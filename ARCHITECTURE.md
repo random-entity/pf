@@ -289,12 +289,22 @@ path as they recurse, so nested typed fields (e.g. each `releases.event` /
 - `**bold**`, `*italic*`, `` `code` `` → inline formatting
 
 **`EnumPill`**: a `<button>` whose click toggles the filter and expands the
-sidebar accordion. The label is the display text (markdown link syntax is
-stripped). If the value is `[text](url)` or `[text](url1)(url2)`, a vertical
-separator and one `↗` icon per URL are appended. Localized enum values (`{en,
-ko, ja}` where each language string may itself be a markdown link) are supported:
-the label and URLs are resolved from the current language's string.
-Selection is indicated by stroke highlight (`border-color: var(--fg)`).
+sidebar accordion. The label is the display text (markdown-link and footnote
+markers stripped; wikilink markers replaced by their visible text — `labelOf`).
+Attachments render to the right of the label, each in its own separated zone, in
+this order: `[ label | 🗎 wikilinks | ¹ footnotes | ↗ external URLs ]`.
+- **Wikilinks** `[[target]]` / `[[target|alias]]` (`mdWikiLinks`) → the visible
+  text (alias, else target) stays in the label, plus a page-icon link to the
+  resolved work's hash route (unresolved → muted inert icon). `labelOf`/
+  `canonicalOf` replace the marker with that text (via `wikiLinkText`), so the
+  sidebar and filter id show the clean text without `[[ ]]`.
+- **Footnotes** `[^label]` → numbered superscript (same appearance-order
+  numbering/backlink wiring as body footnotes).
+- **External URLs** — when the value is `[text](url)` / `[text](url1)(url2)` (incl.
+  `(^urlmap)` refs) → one `↗` per URL.
+Localized enum values (`{en,ko,ja}`) resolve the label, wikilinks, and URLs from
+the current language's string. Selection is a stroke highlight (`border-color:
+var(--fg)`).
 
 ## Markdown, headings & deep-links
 

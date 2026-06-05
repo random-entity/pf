@@ -10,7 +10,7 @@ genre: ["Video game", "Interactive design"]
 tags: ["Interactive CG", "Sound interaction", "Automata"]
 tools: ["Processing"]
 ---
-[Video](https://youtu.be/KQD3Gy9JC18)
+[Video](https://youtu.be/aV8YZL5PcKA)
 
 ::: en
 - Children are scattered around the playground, playing in groups. When a (real-world) whistle blows, the children align into neat rows and columns. If you blow the whistle at regular intervals, the children perform gymnastics to that rhythm. When the gymnastics end, the children scatter and play again.
@@ -31,4 +31,4 @@ tools: ["Processing"]
 - [(ソースコード)](https://github.com/random-entity/o.des.horuragi)
 :::
 
-[Video](https://youtu.be/aV8YZL5PcKA)
+[Video](https://youtu.be/KQD3Gy9JC18)

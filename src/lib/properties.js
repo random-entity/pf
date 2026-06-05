@@ -36,13 +36,20 @@ export function valuesAtPath(data, path) {
 const FN_REF_RE = /\[\^[A-Za-z0-9_-]+\]/g;
 const stripFootnotes = (s) => String(s).replace(FN_REF_RE, '');
 
+// Replace [[wikilink]] / [[wikilink|alias]] markers with their visible text
+// (alias if present, else target) — like body wikilinks. The page-icon link is
+// rendered separately on the pill; the text stays in the label and the value's
+// identity (unlike footnotes, whose markers are removed entirely).
+const WIKILINK_RE = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
+const wikiLinkText = (s) => String(s).replace(WIKILINK_RE, (_, t, a) => (a ?? t).trim());
+
 // Language-independent identity for an enum value, so the same value groups
 // across works and survives language switches.
 export function canonicalOf(v) {
   if (v == null) return '';
   if (v instanceof Date) return v.toISOString();
-  if (isLocalized(v)) return stripFootnotes(loc(v, 'en') || '');
-  return stripFootnotes(String(v));
+  if (isLocalized(v)) return wikiLinkText(stripFootnotes(loc(v, 'en') || ''));
+  return wikiLinkText(stripFootnotes(String(v)));
 }
 
 // Strip markdown link syntax from a string, returning just the display text.
@@ -53,12 +60,14 @@ function stripMdLink(s) {
 }
 
 // Human-facing label for an enum value in the active language. Markdown link
-// syntax "[text](url)" and footnote markers "[^label]" are stripped to just
-// "text" (footnotes are rendered separately, only on the frontmatter pill).
+// syntax "[text](url)" and footnote markers "[^label]" are stripped to just the
+// plain text; wikilink markers "[[target|alias]]" are replaced by their visible
+// text (alias/target) since that text is the label (the page icon is a separate
+// marker on the frontmatter pill).
 export function labelOf(v, lang) {
   if (v == null) return '';
   const s = isLocalized(v) ? loc(v, lang) : String(v);
-  return stripMdLink(stripFootnotes(s));
+  return stripMdLink(wikiLinkText(stripFootnotes(s)));
 }
 
 // A duration is an object whose keys are a subset of {hours, minutes, seconds}

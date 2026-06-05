@@ -72,6 +72,18 @@ export function mdLinkUrls(s) {
   return [...m[2].matchAll(/\(([^)]+)\)/g)].map((g) => g[1]);
 }
 
+// Extract every [[target]] / [[target|alias]] wikilink from a string, resolving
+// each to its work slug. Returns [{ target, alias, slug }] in order of
+// appearance; `slug` is null when the target doesn't resolve. Used to render
+// wikilinks attached to enum pills as page-icon links.
+export function mdWikiLinks(s) {
+  const out = [];
+  for (const m of String(s ?? '').matchAll(WIKILINK)) {
+    out.push({ target: m[1].trim(), alias: m[2]?.trim() || null, slug: resolveSlug(m[1]) });
+  }
+  return out;
+}
+
 export function prepare(body, lang) {
   return expandMultiLinks(wikiLinks(pickLanguage(body, lang)));
 }
