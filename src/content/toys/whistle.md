@@ -5,7 +5,7 @@ releases:
     event: "Public upload"
     venue: "GitHub public repository"
     version: ""
-type: [Group Work, Toy]
+type: [Group work, Toy]
 genre: ["Video game", "Interactive design"]
 tags: ["Interactive CG", "Sound interaction", "Automata"]
 tools: ["Processing"]
