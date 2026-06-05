@@ -121,6 +121,25 @@ function footnotePlan(data, body, lang) {
   return { body: out }
 }
 
+// Markdown image `![alt](src)` or a raw HTML <img …> tag.
+const IMG_RE = /!\[[^\]]*\]\([^)]*\)|<img\b[^>]*>/g
+
+// Hoist any image that appears BEFORE the first markdown heading out of the body
+// so it can render above the frontmatter table (lead/"hero" images). Only images
+// in that pre-heading region move; surrounding text stays in place. If the body
+// has no heading at all there is no boundary, so nothing is hoisted (avoids
+// pulling scattered images out of a heading-less page).
+function splitLeadImages(body) {
+  if (!body) return { leadImages: '', body }
+  const heading = body.match(/^#{1,6}\s.*$/m)
+  if (!heading) return { leadImages: '', body }
+  const lead = body.slice(0, heading.index)
+  const rest = body.slice(heading.index)
+  const images = lead.match(IMG_RE)
+  if (!images || !images.length) return { leadImages: '', body }
+  return { leadImages: images.join('\n\n'), body: lead.replace(IMG_RE, '') + rest }
+}
+
 // Build a DOM Range over the `occ`-th occurrence of `query` inside `container`,
 // by concatenating every text node (so a match spanning element boundaries,
 // e.g. across a bold span or footnote ref, is still found) and mapping the
@@ -176,6 +195,11 @@ export default function WorkPage() {
     () => footnotePlan(work?.data, work?.body, lang),
     [work, lang],
   )
+  // Images before the first heading render above the frontmatter table.
+  const { leadImages, body: articleBody } = useMemo(
+    () => splitLeadImages(plan.body),
+    [plan.body],
+  )
 
   useEffect(() => {
     setPageTitle(work ? titleOf(work, lang) : '')
@@ -211,7 +235,7 @@ export default function WorkPage() {
     let imgCleanup
 
     const jump = () => {
-      const container = document.querySelector(isProp ? '.properties' : '.article')
+      const container = document.querySelector(isProp ? '.properties' : '.article:not(.lead-media)')
       if (!container) return
       const built = buildRange(container, term, occ)
       if (!built) return
@@ -307,6 +331,11 @@ export default function WorkPage() {
 
   return (
     <article>
+      {leadImages && (
+        <div className="article lead-media">
+          <Markdown key={`${slug}|${lang}|lead`}>{leadImages}</Markdown>
+        </div>
+      )}
       <Properties data={work.data} />
       <div className="article">
         {/* Key by slug+lang so the body remounts on navigation. Without this,
@@ -314,7 +343,7 @@ export default function WorkPage() {
             previous page's image stays painted until the new one finishes
             downloading (very visible over the network on GitHub Pages). Fresh
             nodes start empty instead of showing the stale image. */}
-        <Markdown key={`${slug}|${lang}`}>{plan.body}</Markdown>
+        <Markdown key={`${slug}|${lang}`}>{articleBody}</Markdown>
       </div>
     </article>
   )

@@ -962,6 +962,14 @@ select {
   display: block;
   margin: 16px 0;
 }
+/* Lead/"hero" images hoisted above the frontmatter table: sit flush at the top
+   and leave a gap before the table. */
+.lead-media {
+  margin-bottom: 20px;
+}
+.lead-media img:first-child {
+  margin-top: 0;
+}
 .article img + em {
   display: block;
   text-align: center;
