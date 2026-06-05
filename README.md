@@ -138,14 +138,16 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   meaningful once values co-occur.
 - A `{ hours, minutes, seconds }` object under a `duration`-typed key is shown as
   a single `HH:MM:SS` value (sorted/ranged as one number).
-- **Wildcard dates.** A `date` value may mask a trailing run of fields with `XX`
-  (case-insensitive) when only part of the date is known: `2022-XX-XX` (some day
-  in 2022) or `2022-06-XX` (some day in June 2022). It renders masked as
-  `2022-??-??`, but for sorting/filtering it expands to the full span it could
-  represent (`2022-XX-XX` → `2022-01-01 … 2022-12-31`), sorting by its earliest
-  possible date and contributing both bounds to the range filter's Min/Max lists.
-  Wildcards must form a trailing run — a masked field followed by a concrete one
-  (`2022-XX-06`) is rejected and falls back to plain text.
+- **Wildcard dates.** A `date` value may mask a **trailing run of digits** with
+  `x`/`X` when only part of the date is known — across the year, month, and day:
+  `2022-XX-XX` (some day in 2022), `2022-06-XX` (some day in June 2022), or even a
+  partial year like `205x-XX-XX` (some day in the 2050s) or `20XX-XX-XX` (the 21st
+  century). It renders masked as `205?-??-??`, but for sorting/filtering it
+  expands to the full span it could represent (`205x-XX-XX` → `2050-01-01 …
+  2059-12-31`), sorting by its earliest possible date and contributing both
+  bounds to the range filter's Min/Max lists. Wildcards must form a trailing run
+  — a masked digit followed by a concrete one (`2022-XX-06`, `20x4-XX-XX`) is
+  rejected and falls back to plain text.
 
 ### Forcing display order
 

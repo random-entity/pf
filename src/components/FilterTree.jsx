@@ -15,8 +15,7 @@ function RangeSelect({ facet }) {
   const active = !!ranges[facet.path]
   const cur = ranges[facet.path] || { min: facet.min, max: facet.max }
 
-  function update(min, max) {
-    if (min > max) [min, max] = [max, min]
+  function commit(min, max) {
     if (min === facet.min && max === facet.max) clearRange(facet.path)
     else setRange(facet.path, min, max)
   }
@@ -24,11 +23,19 @@ function RangeSelect({ facet }) {
   return (
     <div className="range-row">
       <label>{t('min')}</label>
-      <select value={cur.min} onChange={(e) => update(Number(e.target.value), cur.max)}>
+      <select value={cur.min} onChange={(e) => {
+        const min = Number(e.target.value)
+        // New min > current max → reset max to absolute maximum
+        commit(min, min > cur.max ? facet.max : cur.max)
+      }}>
         {facet.minOptions.map((o) => <option key={o} value={o}>{fmt(o)}</option>)}
       </select>
       <label>{t('max')}</label>
-      <select value={cur.max} onChange={(e) => update(cur.min, Number(e.target.value))}>
+      <select value={cur.max} onChange={(e) => {
+        const max = Number(e.target.value)
+        // New max < current min → reset min to absolute minimum
+        commit(max < cur.min ? facet.min : cur.min, max)
+      }}>
         {facet.maxOptions.map((o) => <option key={o} value={o}>{fmt(o)}</option>)}
       </select>
       {active && <button className="clear-enum" onClick={() => clearRange(facet.path)}>{t('clear')}</button>}

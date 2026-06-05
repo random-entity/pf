@@ -143,13 +143,15 @@ and `Properties` via the same `indexOf`/`Infinity`/`localeCompare` comparator.
      `formatDuration`, `unitForPath`.
 
    `parseDateRange` accepts a YAML `Date`, a `YYYY-MM-DD` string, a `a ~ b`
-   range, **or a wildcard** date that masks a trailing run of fields with `XX`
-   (`2022-XX-XX`, `2022-06-XX`). It returns `{ start, end, display }`: `start`/
-   `end` span the full window the value could represent (so a wildcard sorts by
-   its earliest date and overlaps the range filter across its whole span, and the
-   range filter's Min/Max lists pick up both bounds), while `display` is the
-   masked human form (`2022-??-??`) the Properties block renders. Wildcards must
-   be a trailing run (a masked field before a concrete one is rejected).
+   range, **or a wildcard** date that masks a trailing run of **digits** with
+   `x`/`X` across the year/month/day (`2022-XX-XX`, `2022-06-XX`, `205x-XX-XX`,
+   `20XX-XX-XX`). It returns `{ start, end, display }`: `start`/`end` span the
+   full window the value could represent (`205x-XX-XX` → 2050-01-01 … 2059-12-31,
+   so a wildcard sorts by its earliest date, overlaps the range filter across its
+   whole span, and the Min/Max lists pick up both bounds), while `display` is the
+   masked human form (`205?-??-??`) the Properties block renders. Wildcards must
+   be a trailing run of the `yyyymmdd` digit sequence (a masked digit before a
+   concrete one — `2022-XX-06`, `20x4-XX-XX` — is rejected and falls back to text).
 
 `schema` is the facet tree; `facetByPath` is a flat lookup (including nested
 children) used by the pipeline.

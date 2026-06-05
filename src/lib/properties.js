@@ -81,16 +81,17 @@ export function formatDuration(total) {
 
 // ---- Dates -------------------------------------------------------------
 // A date value is either a YAML Date, a "YYYY-MM-DD" string, an inclusive range
-// "YYYY-MM-DD ~ YYYY-MM-DD", or a WILDCARD date where a trailing run of fields
-// is masked with "XX" — e.g. "2022-XX-XX" (any day of 2022) or "2022-06-XX"
-// (any day of June 2022). A wildcard expands to the full { start, end } span it
-// could represent (2022-XX-XX → 2022-01-01 … 2022-12-31) for sorting/filtering,
-// but renders masked as "2022-??-??".
+// "YYYY-MM-DD ~ YYYY-MM-DD", or a WILDCARD date where a trailing run of digits
+// (across the year, month and day, ignoring the "-" separators) is masked with
+// "x"/"X" — e.g. "2022-XX-XX" (any day of 2022), "2022-06-XX" (any day of June
+// 2022), or "205x-xx-xx" (any day of the 2050s). A wildcard expands to the full
+// { start, end } span it could represent (205x-xx-xx → 2050-01-01 … 2059-12-31)
+// for sorting/filtering, but renders masked as "205?-??-??".
 
-// A single date token: 4-digit year, then month/day each either two digits or
-// "XX" (case-insensitive). Year is always concrete.
-const TOKEN_RE = /^(\d{4})-(\d{2}|[Xx]{2})-(\d{2}|[Xx]{2})$/;
-const isWild = (s) => /^[Xx]+$/.test(s);
+// A single date token: year (4), month (2), day (2), each character a digit or
+// a wildcard "x"/"X". The trailing-run rule is validated in parseDateToken.
+const TOKEN_RE = /^([0-9Xx]{4})-([0-9Xx]{2})-([0-9Xx]{2})$/;
+const isWildChar = (c) => c === 'x' || c === 'X';
 
 // Last calendar day of a 1-based month in a given year (leap-aware).
 const lastDayOfMonth = (year, month) =>
@@ -103,9 +104,9 @@ export function formatDate(ms) {
 }
 
 // Parse one date token into { start, end, display }, or null. Wildcards must
-// form a clean suffix (a wildcard month forces a wildcard day) — a masked field
-// followed by a concrete one (e.g. "2022-XX-06") is rejected. Non-wildcard
-// tokens that don't match the strict shape fall back to generic Date parsing.
+// form a clean suffix of the digit sequence (a masked digit followed by a
+// concrete one, e.g. "2022-XX-06" or "20x4-xx-xx", is rejected). Tokens that
+// don't match the date shape fall back to generic Date parsing.
 function parseDateToken(tok) {
   const s = String(tok).trim();
   const m = TOKEN_RE.exec(s);
@@ -115,18 +116,33 @@ function parseDateToken(tok) {
     return { start: t, end: t, display: formatDate(t) };
   }
   const [, yStr, moStr, dStr] = m;
-  const moWild = isWild(moStr);
-  const dWild = isWild(dStr);
-  if (moWild && !dWild) return null; // wildcards must be a trailing run
-  const year = +yStr;
-  const startMonth = moWild ? 1 : +moStr;
-  const endMonth = moWild ? 12 : +moStr;
-  const startDay = dWild ? 1 : +dStr;
-  const endDay = dWild ? lastDayOfMonth(year, endMonth) : +dStr;
+
+  // Trailing-run check over the 8 digit positions (yyyymmdd): once a wildcard
+  // appears, everything to its right must also be a wildcard.
+  const seq = yStr + moStr + dStr;
+  const firstWild = [...seq].findIndex(isWildChar);
+  if (firstWild !== -1) {
+    for (let i = firstWild + 1; i < seq.length; i++) {
+      if (!isWildChar(seq[i])) return null;
+    }
+  }
+
+  // A field's smallest/largest value: replace its wildcards with 0s / 9s.
+  const minField = (f) => Number(f.replace(/[Xx]/g, '0'));
+  const maxField = (f) => Number(f.replace(/[Xx]/g, '9'));
+  const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
+
+  const startYear = minField(yStr);
+  const endYear = maxField(yStr);
+  const startMonth = clamp(minField(moStr) || 1, 1, 12);
+  const endMonth = clamp(maxField(moStr) || 1, 1, 12);
+  const startDay = clamp(minField(dStr) || 1, 1, lastDayOfMonth(startYear, startMonth));
+  const endDay = clamp(maxField(dStr) || 1, 1, lastDayOfMonth(endYear, endMonth));
+
   return {
-    start: Date.UTC(year, startMonth - 1, startDay),
-    end: Date.UTC(year, endMonth - 1, endDay),
-    display: `${yStr}-${moWild ? '??' : moStr}-${dWild ? '??' : dStr}`,
+    start: Date.UTC(startYear, startMonth - 1, startDay),
+    end: Date.UTC(endYear, endMonth - 1, endDay),
+    display: s.replace(/[Xx]/g, '?'),
   };
 }
 
