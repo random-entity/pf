@@ -25,6 +25,16 @@ into the same per-page footnotes list.
 Translations use the same `::: en|ko|ja` fences as page content. A definition
 written OUTSIDE any fence is shared across all languages.
 
+This file also holds the shared URL MAP. A link whose target starts with `^` is
+a reference resolved by label, page-local first then here:
+
+    [Boids on Wikipedia](^wiki-boids)
+
+    (^wiki-boids): https://en.wikipedia.org/wiki/Boids
+
+A URL ref produces a normal external link (no marker / list entry) and composes
+with the multi-link syntax: [text](^a)(^b) yields one ↗ per resolved URL.
+
 (To later back this with a real external repository, replace the `glossary/`
 directory with a git submodule — the import in src/lib/glossary.js is unchanged.)
 -->
@@ -32,6 +42,8 @@ directory with a git submodule — the import in src/lib/glossary.js is unchange
 ::: en
 [^boids]: An artificial-life program created by Craig Reynolds in 1986 that simulates the flocking behaviour of birds; each "boid" follows only simple local rules (separation, alignment, cohesion).
 :::
+
+(^wiki-boids): https://en.wikipedia.org/wiki/Boids
 
 ::: ko
 [^boids]: 크레이그 레이놀즈가 1986년에 만든 인공 생명 프로그램으로, 새 떼의 군집 행동을 시뮬레이션한다. 각 "보이드"는 단순한 국소 규칙(분리·정렬·응집)만을 따른다.

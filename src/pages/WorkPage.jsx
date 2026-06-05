@@ -5,6 +5,7 @@ import { bySlug, titleOf } from '../lib/content.js'
 import { prepare, stripFirstH1, wikiLinks, expandMultiLinks } from '../lib/markdown.js'
 import { typeForPath } from '../lib/schema.js'
 import { hasGlobalFootnote, globalFootnoteDef } from '../lib/glossary.js'
+import { buildUrlResolver, stripUrlDefs, resolveUrlRefs } from '../lib/urlmap.js'
 import Properties from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { scrollToElement, highlightRange, clearJumpHighlights } from '../lib/jump.js'
@@ -213,10 +214,19 @@ export default function WorkPage() {
     () => footnotePlan(work?.data, work?.body, lang),
     [work, lang],
   )
+  // URL-map resolver (page-local `(^label): url` defs → glossary). Shared with
+  // the frontmatter renderer via a prop so `[text](^label)` works there too.
+  const urlResolve = useMemo(() => buildUrlResolver(work?.body, lang), [work, lang])
+  // Resolve `[text](^label)` link refs and drop their `(^label): url` definition
+  // lines from the rendered body.
+  const resolvedBody = useMemo(
+    () => resolveUrlRefs(stripUrlDefs(plan.body), urlResolve),
+    [plan.body, urlResolve],
+  )
   // Images before the first heading render above the frontmatter table.
   const { leadImages, body: articleBody } = useMemo(
-    () => splitLeadImages(plan.body),
-    [plan.body],
+    () => splitLeadImages(resolvedBody),
+    [resolvedBody],
   )
 
   useEffect(() => {
@@ -354,7 +364,7 @@ export default function WorkPage() {
           <Markdown key={`${slug}|${lang}|lead`}>{leadImages}</Markdown>
         </div>
       )}
-      <Properties data={work.data} />
+      <Properties data={work.data} resolveUrl={urlResolve} />
       <div className="article">
         {/* Key by slug+lang so the body remounts on navigation. Without this,
             React reuses the same <img> nodes and only swaps `src`, so the

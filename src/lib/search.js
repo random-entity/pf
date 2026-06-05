@@ -72,6 +72,7 @@ function stripMd(text) {
     .replace(/^#{1,6}\s+/gm, '')
     .replace(/^[-*]\s+/gm, '')
     .replace(/:::\s*\w*/g, '')
+    .replace(/^\(\^[A-Za-z0-9_-]+\):.*$/gm, '') // URL-map definition lines
     .replace(/\[\^[^\]]+\]:[^\n]*/g, '')
     .replace(/\[\^[^\]]+\]/g, '')
     .replace(/\n{2,}/g, ' ')

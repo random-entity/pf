@@ -15,12 +15,16 @@ import glossaryRaw from '../../glossary/glossary.md?raw';
 
 // A single-line footnote definition: `[^label]: text`.
 const DEF_RE = /^\[\^([A-Za-z0-9_-]+)\]:[ \t]*(.*)$/gm;
+// A single-line URL-map definition: `(^label): https://…`.
+const URL_DEF_RE = /^\(\^([A-Za-z0-9_-]+)\):[ \t]*(.*)$/gm;
 
-function parseDefs(text) {
+function parseMatches(text, re) {
   const map = new Map();
-  for (const m of text.matchAll(DEF_RE)) if (!map.has(m[1])) map.set(m[1], m[2]);
+  for (const m of text.matchAll(re)) if (!map.has(m[1])) map.set(m[1], m[2].trim());
   return map;
 }
+const parseDefs = (text) => parseMatches(text, DEF_RE);
+const parseUrlDefs = (text) => parseMatches(text, URL_DEF_RE);
 
 // Per-language definition maps. The file is static, so build them once at load.
 // `pickLanguage` keeps the requested fence plus any unfenced (shared) text, so a
@@ -43,6 +47,21 @@ export function hasGlobalFootnote(label) {
 export function globalFootnoteDef(label, lang) {
   for (const l of [lang, 'en', ...LANGS]) {
     const v = defsByLang[l]?.get(label);
+    if (v != null) return v;
+  }
+  return null;
+}
+
+// --- URL map ---------------------------------------------------------------
+// Shared `(^label): url` definitions, resolved the same way as footnotes
+// (current language → English → any). Used by the `[text](^label)` link syntax.
+const urlsByLang = Object.fromEntries(
+  LANGS.map((lang) => [lang, parseUrlDefs(pickLanguage(glossaryRaw, lang))]),
+);
+
+export function globalUrl(label, lang) {
+  for (const l of [lang, 'en', ...LANGS]) {
+    const v = urlsByLang[l]?.get(label);
     if (v != null) return v;
   }
   return null;

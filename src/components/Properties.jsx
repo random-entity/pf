@@ -1,8 +1,14 @@
+import { createContext, useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import { useLang, loc, isLocalized } from '../i18n.jsx'
 import { wikiLinks, expandMultiLinks, mdLinkUrls } from '../lib/markdown.js'
+import { resolveUrlRefs } from '../lib/urlmap.js'
+
+// Resolver for `[text](^label)` URL-map refs in frontmatter values. Supplied by
+// WorkPage (built from the page body + glossary); defaults to a no-op resolver.
+const UrlMapContext = createContext(() => null)
 import {
   canonicalOf,
   labelOf,
@@ -56,11 +62,16 @@ const INLINE_COMPONENTS = {
 // inside grid/flex contexts (avoids sibling bleed in display:contents grids).
 // Footnote references [^xxx] scroll to the definition in the article body.
 function InlineMarkdown({ children }) {
+  const resolveUrl = useContext(UrlMapContext)
   if (!children) return null
   // Footnote labels are [^xxx] where xxx is [A-Za-z0-9_-]+ (the literal value is
   // just an identifier — the displayed index is assigned by order of appearance).
-  const content = expandMultiLinks(wikiLinks(String(children)))
-    .replace(/\[\^([A-Za-z0-9_-]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
+  // `[text](^label)` URL-map refs are resolved to real URLs first (after multi-
+  // link expansion, which preserves each `(^label)` group).
+  const content = resolveUrlRefs(
+    expandMultiLinks(wikiLinks(String(children))),
+    resolveUrl,
+  ).replace(/\[\^([A-Za-z0-9_-]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
   return (
     <span>
       <ReactMarkdown
@@ -89,14 +100,16 @@ const FN_REF = /\[\^([A-Za-z0-9_-]+)\]/g
 function EnumPill({ path, value }) {
   const { lang } = useLang()
   const { enums, toggleEnum, requestExpand } = useFilters()
+  const resolveUrl = useContext(UrlMapContext)
   const id = canonicalOf(value)
   const active = enums[path]?.ids.includes(id)
   const displayText = String(labelOf(value, lang) ?? '')
   const valueStr = isLocalized(value) ? loc(value, lang) : String(value ?? '')
   const fnLabels = [...valueStr.matchAll(FN_REF)].map((m) => m[1])
   // Strip footnote markers before parsing link URLs — a [^label] inside the link
-  // text contains a "]" that would otherwise break the [text](url) matcher.
-  const externalUrls = mdLinkUrls(valueStr.replace(FN_REF, ''))
+  // text contains a "]" that would otherwise break the [text](url) matcher — and
+  // resolve `[text](^label)` URL-map refs so the ↗ links point at real URLs.
+  const externalUrls = mdLinkUrls(resolveUrlRefs(valueStr.replace(FN_REF, ''), resolveUrl))
 
   return (
     <button
@@ -243,7 +256,7 @@ function Value({ value, path }) {
 
 // Obsidian-style "Properties" block driven entirely by frontmatter.
 // `title` is shown as the page heading elsewhere, so it is skipped here.
-export default function Properties({ data }) {
+export default function Properties({ data, resolveUrl }) {
   const { propLabel } = useLang()
   const entries = Object.entries(data)
     .filter(([k]) => k !== 'title')
@@ -258,15 +271,17 @@ export default function Properties({ data }) {
   if (entries.length === 0) return null
 
   return (
-    <div className="properties">
-      {entries.map(([key, value]) => (
-        <div className="prop" key={key}>
-          <div className="key">{propLabel(key)}</div>
-          <div className="val">
-            <Value value={value} path={key} />
+    <UrlMapContext.Provider value={resolveUrl || (() => null)}>
+      <div className="properties">
+        {entries.map(([key, value]) => (
+          <div className="prop" key={key}>
+            <div className="key">{propLabel(key)}</div>
+            <div className="val">
+              <Value value={value} path={key} />
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </UrlMapContext.Provider>
   )
 }
