@@ -180,16 +180,10 @@ function Value({ value, path }) {
     return <Value value={picked ?? ''} path={path} />
   }
 
-  // Date → formatted date or "start → end" range.
+  // Date → masked/formatted display ("2022-??-??", "2023-10-06", or "a → b").
   if (type === 'date') {
     const r = parseDateRange(value)
-    if (r)
-      return (
-        <span className="date-range">
-          {formatDate(r.start)}
-          {r.end !== r.start ? ` → ${formatDate(r.end)}` : ''}
-        </span>
-      )
+    if (r) return <span className="date-range">{r.display}</span>
     // fall through to default rendering if unparseable
   }
 

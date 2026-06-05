@@ -80,19 +80,21 @@ export function formatDuration(total) {
 }
 
 // ---- Dates -------------------------------------------------------------
-// A date value is either a YAML Date, a "YYYY-MM-DD" string, or an inclusive
-// range "YYYY-MM-DD ~ YYYY-MM-DD".
+// A date value is either a YAML Date, a "YYYY-MM-DD" string, an inclusive range
+// "YYYY-MM-DD ~ YYYY-MM-DD", or a WILDCARD date where a trailing run of fields
+// is masked with "XX" — e.g. "2022-XX-XX" (any day of 2022) or "2022-06-XX"
+// (any day of June 2022). A wildcard expands to the full { start, end } span it
+// could represent (2022-XX-XX → 2022-01-01 … 2022-12-31) for sorting/filtering,
+// but renders masked as "2022-??-??".
 
-const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
-const RANGE_RE = /^\s*(\d{4}-\d{2}-\d{2})\s*(?:~\s*(\d{4}-\d{2}-\d{2}))?\s*$/;
+// A single date token: 4-digit year, then month/day each either two digits or
+// "XX" (case-insensitive). Year is always concrete.
+const TOKEN_RE = /^(\d{4})-(\d{2}|[Xx]{2})-(\d{2}|[Xx]{2})$/;
+const isWild = (s) => /^[Xx]+$/.test(s);
 
-function toMs(s) {
-  if (s instanceof Date) return s.getTime();
-  const m = DATE_RE.exec(String(s).trim());
-  if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]); // UTC so the calendar date is stable
-  const t = new Date(s).getTime();
-  return Number.isNaN(t) ? null : t;
-}
+// Last calendar day of a 1-based month in a given year (leap-aware).
+const lastDayOfMonth = (year, month) =>
+  new Date(Date.UTC(year, month, 0)).getUTCDate();
 
 export function formatDate(ms) {
   const d = new Date(ms);
@@ -100,18 +102,55 @@ export function formatDate(ms) {
   return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
 }
 
-// Parse a date value into { start, end } epoch ms, or null if unparseable.
+// Parse one date token into { start, end, display }, or null. Wildcards must
+// form a clean suffix (a wildcard month forces a wildcard day) — a masked field
+// followed by a concrete one (e.g. "2022-XX-06") is rejected. Non-wildcard
+// tokens that don't match the strict shape fall back to generic Date parsing.
+function parseDateToken(tok) {
+  const s = String(tok).trim();
+  const m = TOKEN_RE.exec(s);
+  if (!m) {
+    const t = new Date(s).getTime();
+    if (Number.isNaN(t)) return null;
+    return { start: t, end: t, display: formatDate(t) };
+  }
+  const [, yStr, moStr, dStr] = m;
+  const moWild = isWild(moStr);
+  const dWild = isWild(dStr);
+  if (moWild && !dWild) return null; // wildcards must be a trailing run
+  const year = +yStr;
+  const startMonth = moWild ? 1 : +moStr;
+  const endMonth = moWild ? 12 : +moStr;
+  const startDay = dWild ? 1 : +dStr;
+  const endDay = dWild ? lastDayOfMonth(year, endMonth) : +dStr;
+  return {
+    start: Date.UTC(year, startMonth - 1, startDay),
+    end: Date.UTC(year, endMonth - 1, endDay),
+    display: `${yStr}-${moWild ? '??' : moStr}-${dWild ? '??' : dStr}`,
+  };
+}
+
+// Parse a date value into { start, end } epoch ms plus a `display` string, or
+// null if unparseable. `display` masks wildcards ("2022-??-??") and joins a two-
+// token range with " → ". start/end always span the full representable range so
+// sorting, grouping, and range-filtering treat a wildcard as its whole window.
 export function parseDateRange(value) {
   if (value instanceof Date) {
     const ms = value.getTime();
-    return { start: ms, end: ms };
+    return { start: ms, end: ms, display: formatDate(ms) };
   }
-  const m = RANGE_RE.exec(String(value));
-  if (!m) return null;
-  const start = toMs(m[1]);
-  if (start == null) return null;
-  const end = m[2] ? toMs(m[2]) : start;
-  return { start, end };
+  const parts = String(value).split('~').map((p) => p.trim());
+  if (parts.length > 2) return null;
+  const a = parseDateToken(parts[0]);
+  if (!a) return null;
+  if (parts.length === 1) return { start: a.start, end: a.end, display: a.display };
+  const b = parseDateToken(parts[1]);
+  if (!b) return null;
+  return {
+    start: a.start,
+    end: b.end,
+    display: a.display === b.display ? a.display : `${a.display} → ${b.display}`,
+  };
 }
 
 // ---- Path-typed value collection (used by the facet engine) ------------
