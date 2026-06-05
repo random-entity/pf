@@ -44,14 +44,19 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `works`, `bySlug`, `titleOf`, `resolveSlug`. |
 | `src/lib/properties.js` | **Facet engine** — builds the facet tree from `schema.js` + content; value helpers (dates, durations, enums, units) and path-typed collectors (`valuesAtPath`, `idsAtPath`, `sortValueForFacet`, `rangeMatchesFacet`). |
 | `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
-| `src/lib/search.js` | Body search: exact case-insensitive substring match with snippet extraction, occurrence ranking, and cross-language deduplication. |
+| `src/lib/search.js` | Search over **body** and **frontmatter property** text: exact case-insensitive substring match (`bodyMatchAll` / `propMatchAll`) with snippet extraction, occurrence ranking, and cross-language deduplication. `propMatchAll` flattens every property value — descending arrays and nested objects, picking localized strings, and including nested key labels (e.g. `credits` roles). |
 | `src/lib/remarkGallery.js` | remark plugin: wraps 2+ consecutive image paragraphs in a `div.gallery` (horizontal scroll); single images stay full-width. |
+| `src/lib/jump.js` | Shared jump machinery: constant-**time** smooth scroll (fixed duration via rAF, instant fallback when the tab is hidden / reduced-motion), persistent jump highlights (element class + Custom Highlight API for text ranges) that clear on an empty-area click, and footnote forward/return jumps. |
+| `src/lib/glossary.js` | **Global footnotes / glossary**: parses the shared definitions in `glossary/glossary.md` (per-language via `pickLanguage`) and exports `hasGlobalFootnote(label)` + `globalFootnoteDef(label, lang)` (current lang → English → any). |
+| `glossary/glossary.md` | The dedicated glossary source — footnote `[^label]: …` AND URL-map `(^label): url` definitions with `::: en/ko/ja` fences. A separate top-level dir so it can later become a git submodule pointing at a real external repo. |
+| `src/lib/urlmap.js` | **URL map** for the `[text](^label)` link syntax: `buildUrlResolver(body, lang)` (page-local `(^label): url` defs → glossary), `stripUrlDefs`, `resolveUrlRefs`. |
 | `src/components/Sidebar.jsx` | Top-bar with the site-title link + `LangSwitch`, then `DatabaseBrowser`. |
 | `src/components/LangSwitch.jsx` | Always-visible en/ko/ja selector wired to `useLang()`. |
 | `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
 | `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
 | `src/components/Properties.jsx` | Obsidian-style properties block for one work. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
-| `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`. |
+| `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`; footnote/anchor click delegation routed through `jump.js`. |
+| `src/components/FootnotePreview.jsx` | Mounted once (in `main.jsx`); a hover popup that previews a footnote's definition near the cursor when any footnote ref is hovered. Rendered via a portal at `document.body`, dynamically sized and flipped to stay on-screen. |
 | `src/pages/Home.jsx`, `src/pages/WorkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
@@ -110,6 +115,12 @@ Container shapes are handled **structurally, independent of type**: a localized
 object `{en,ko,ja}` is picked for the current language; an array renders/collects
 each element (enum ⇒ one pill each); a plain object becomes a nested grid.
 
+`schema.js` also exports two ordering arrays, the single place to reorder the UI:
+`FACET_ORDER` (sidebar filter/sort/group rows, with `'title'` denoting the
+synthetic Title row) and `FRONTMATTER_ORDER` (Properties block rows). Paths not
+listed sort after the listed ones, alphabetically — applied by both `FilterTree`
+and `Properties` via the same `indexOf`/`Infinity`/`localeCompare` comparator.
+
 ## The facet engine (`properties.js`)
 
 `properties.js` turns the schema into a usable facet tree:
@@ -131,6 +142,15 @@ each element (enum ⇒ one pill each); a plain object becomes a nested grid.
      `[text](url)`), `parseDateRange`, `formatDate`, `durationSeconds` /
      `formatDuration`, `unitForPath`.
 
+   `parseDateRange` accepts a YAML `Date`, a `YYYY-MM-DD` string, a `a ~ b`
+   range, **or a wildcard** date that masks a trailing run of fields with `XX`
+   (`2022-XX-XX`, `2022-06-XX`). It returns `{ start, end, display }`: `start`/
+   `end` span the full window the value could represent (so a wildcard sorts by
+   its earliest date and overlaps the range filter across its whole span, and the
+   range filter's Min/Max lists pick up both bounds), while `display` is the
+   masked human form (`2022-??-??`) the Properties block renders. Wildcards must
+   be a trailing run (a masked field before a concrete one is rejected).
+
 `schema` is the facet tree; `facetByPath` is a flat lookup (including nested
 children) used by the pipeline.
 
@@ -140,18 +160,21 @@ children) used by the pipeline.
 
 ```yaml
 releases:
-  - event: "Seoul Performing Arts Festival (SPAF)"   # releases.event → enum
-    date: "2024-11-01 ~ 2024-11-05"                   # releases.date  → date
-    venue: "Arko Arts Theater"                        # releases.venue → text
+  - event: "Seoul Performing Arts Festival (SPAF)"   # releases.event   → enum
+    date: "2024-11-01 ~ 2024-11-05"                   # releases.date    → date
+    venue: "Arko Arts Theater"                        # releases.venue   → enum
     version: "v2"                                      # releases.version → text
 ```
 
-So the sidebar gets a **Releases** group containing a **Date** sub-facet (sort +
-range; the default sort is `releases.date` descending) and an **Event** sub-facet
-(filter + group). The Properties block renders each release generically as a
-nested grid (Event pill, formatted Date, Venue/Version text). Event names may be
-plain strings or localized objects `{en,ko,ja}`; `canonicalOf` gives the
-language-stable id used for filtering while pills display the current language.
+So `releases` contributes a **Date** facet (sort + range; the default sort is
+`releases.date` descending), an **Event** facet (filter + group), and a **Venue**
+facet (filter + group). `FilterTree` **hoists these sub-facets to the sidebar
+root** — there is no "Releases" wrapper row; Date/Event/Venue appear at the top
+level (then ordered by `FACET_ORDER`). The Properties block still renders each
+release generically as a nested grid (Event pill, formatted Date, Venue pill,
+Version text). Event/venue names may be plain strings or localized objects
+`{en,ko,ja}`; `canonicalOf` gives the language-stable id used for filtering while
+pills display the current language.
 
 > The legacy single-key shape `{ "Event name": "YYYY-MM-DD" }` and the bare
 > date-string shape are **no longer supported** — all content has been migrated
@@ -176,15 +199,21 @@ holds:
 
 For the current state, results are computed (memoized) as:
 
-1. **Search** — Two independent search passes:
+1. **Search** — three independent passes (a work is kept if any matches):
    - *Meta match* (`exactMetaMatch`): case-insensitive substring over title (all
      languages) and every **enum** facet's values (via `labelOf` for all
-     languages, which covers release event names). Any hit keeps the work.
+     languages, which covers release event/venue names).
    - *Body match* (`bodyMatchAll` from `search.js`): exact substring match in the
      stripped body text for all languages; yields positioned snippets with
-     occurrence rank so the jump target in the article is precise. Snippets from
-     different languages that share identical text are deduplicated, with the
-     current language kept.
+     occurrence rank so the jump target in the article is precise.
+   - *Property match* (`propMatchAll` from `search.js`): the same substring +
+     snippet machinery over the flattened frontmatter property text — it descends
+     arrays and nested objects, picks localized strings, and includes nested key
+     labels (so `credits` names *and* roles are searchable). Snippets carry an
+     occurrence rank used to jump into the rendered Properties block.
+
+   Snippets from different languages that share identical text are deduplicated,
+   keeping the current language.
 2. **Per-key constraints** — for each key that is *in use* (has a multi-select,
    a range, **or** is the active sort key):
    - if the work has **no value** for the key: keep it only if
@@ -206,8 +235,15 @@ One accordion row per facet. The body renders the controls the kind allows:
 | `text` (Title row only) | ✓ | | | |
 | `date` / `number` / `duration` | ✓ | ✓ | | ✓ |
 | `enum` | | | ✓ | ✓ |
-| `nested` (group, e.g. Releases) | | | | (expands to children) |
+| `nested` (group) | | | | (expands to children) |
 
+(`date` and `enum` facets also expose a **group-by** icon; date facets group by
+year.)
+
+- **Row order & hoisting.** The flat list is built from `[Title, …schema]`, with
+  the `releases` group's children **hoisted to the root** (no wrapper row), then
+  sorted by `FACET_ORDER` (`schema.js`). A `nested` row is still rendered for any
+  other group, expanding to its children in place.
 - **OR/AND** is a borderless radio control (distinct from the bordered value
   pills). AND strikes through when the selected values can't co-occur on any one
   work (`valuesCanCoexist`) — so single-valued keys read clearly.
@@ -230,7 +266,7 @@ applied in priority order:
 |---|---|
 | **Localized object** `{en,ko,ja}` | Pick current-language value → re-enter pipeline (same path) |
 | type `enum` | `EnumPill`(s) — clickable filter button(s) (see below) |
-| type `date` | `formatDate` / `start → end` |
+| type `date` | `parseDateRange(value).display` — formatted date, `start → end`, or masked wildcard (`2022-??-??`) |
 | **Array** (non-enum) | `<ul>` — each item re-enters the pipeline with the **same** path |
 | `Date` object | `formatDate` |
 | type `duration` (or a duration object) | `formatDuration` |
@@ -298,11 +334,25 @@ rendered:
   footnotes by first reference in the body and emits one `↩` per reference. So
   `footnotePlan()` **prepends one hidden seed reference per frontmatter citation**
   (in the order `Properties` renders them — `collectFrontmatterRefs` mirrors
-  `Value`, skipping `enum`/`date`/`number`/`duration` paths since only `text`
-  leaves render footnote refs) wrapped in a `div.fn-seeds`
+  `Value`: it collects refs from `text` leaves **and** `enum` pill values
+  (`collectEnumRefs`, picking the current-language string), but skips
+  `date`/`number`/`duration` paths) wrapped in a `div.fn-seeds`
   (`display:none`). Because the seeds come first, remark numbers and orders the
   footnotes frontmatter-first, emits the definitions (so a frontmatter-only
   footnote isn't dropped), and gives each seed a backref.
+- **Global glossary fallback.** There is no special reference syntax: a normal
+  `[^label]` (body, frontmatter `text`, or enum pill) falls back to the shared
+  glossary `glossary/glossary.md` (see `glossary.js`). **Resolution is
+  local-first**: `footnotePlan` computes `globalLabels` = every referenced label
+  (frontmatter + body) that the page does **not** define locally in any fence
+  (`!allDefs.has`) but the glossary does (`hasGlobalFootnote`) — so a local
+  `[^label]:` definition always overrides. For each such label the glossary
+  definition (`globalFootnoteDef`, current-language with fallback to English then
+  any) is injected as an ordinary `[^label]: …` def, after which it's
+  indistinguishable from a local footnote — same numbering, seeds, list, jumps,
+  and hover preview. A label defined neither locally nor in the glossary stays an
+  unresolved literal. The decision is text-only (pre-render), so no React DOM is
+  mutated.
 
 The `useLayoutEffect` in `WorkPage` then makes only **attribute** changes:
 it reads each definition's list position as its number, writes that number onto
@@ -315,10 +365,59 @@ frontmatter `<sup>` even though it lives outside the markdown root); frontmatter
 `<sup>`s carry their own `onClick` to scroll to the definition.
 
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
-`useEffect` that prepends toggle buttons after each render. Clicking a search
-snippet in the sidebar uses `router.navigate` state (`jumpTo`, `jumpOcc`,
-`jumpLang`) to scroll `WorkPage` to the precise occurrence and highlight it
-with a brief CSS animation.
+`useEffect` that prepends toggle buttons after each render.
+
+### URL map (`urlmap.js`)
+
+`[text](^label)` is a **reference link**: the target is resolved by `label`,
+**page-local first then the glossary** (`buildUrlResolver`). Because
+`expandMultiLinks` only rewrites 2+ consecutive `(…)` groups and preserves each
+`(^label)` token (a lone `[text](^x)` is left intact; a multi-link becomes
+`[↗](^x) …`), resolution runs as a pure **post-step** on already-prepared text —
+so `prepare`/`markdown.js` are untouched (avoids an import cycle). `WorkPage`
+applies `resolveUrlRefs(stripUrlDefs(plan.body), urlResolve)` to the body (drop
+the `(^label): url` definition lines, swap refs for real URLs), and passes the
+same resolver to `Properties` via a context so `InlineMarkdown` / `EnumPill`
+resolve refs in frontmatter values too. After resolution a ref is an ordinary
+`<a>` — no marker, no list entry. Unresolved labels are left as `(^label)` (a
+visibly broken link). Definitions may sit in `::: lang` fences for
+language-specific URLs; the glossary is the cross-page fallback (`globalUrl`).
+
+### Jumping & highlighting (`jump.js`)
+
+All in-page navigation funnels through `jump.js` so behavior is uniform:
+
+- **Constant-*time* scroll.** `scrollToElement` animates over a fixed duration
+  (rAF + easing) regardless of distance, so short and long jumps feel the same.
+  It falls back to an instant jump when the tab is hidden (rAF is paused there)
+  or under `prefers-reduced-motion`.
+- **Persistent highlights.** A jump highlights its target — an element via a
+  class, or a precise text match via the Custom Highlight API (no DOM mutation) —
+  and the highlight **persists until the user clicks an empty area** (a global
+  click listener that ignores clicks on links).
+- **Footnotes.** A forward jump (`jumpToFootnoteDef`) scrolls to the definition
+  and highlights both it and the specific return arrow that points back to where
+  you came from; a return jump (`jumpToRef`) scrolls back and highlights the
+  original reference's index. Return arrows are unified to a single glyph via CSS.
+- **Search snippets.** Clicking a snippet uses `router.navigate` state — `jumpTo`
+  / `jumpOcc` for the body, `jumpPropTo` / `jumpPropOcc` for the Properties block,
+  plus `jumpLang` — and `WorkPage` builds a DOM `Range` over the `occ`-th
+  occurrence (`buildRange`, concatenating text nodes so a match spanning element
+  boundaries is still found) and highlights it via the Custom Highlight API.
+
+`FootnotePreview.jsx` (mounted once in `main.jsx`) additionally shows a small
+hover popup previewing a footnote's definition when any footnote ref is hovered.
+
+### WorkPage rendering specifics
+
+- **Lead images.** `splitLeadImages` pulls any image appearing before the first
+  body heading out of the body and renders it in a separate `.lead-media` block
+  **above the Properties table** (so a work can open with a banner). Heading-less
+  bodies hoist nothing. The body-jump selector is scoped to `.article:not(.lead-media)`.
+- **Image remount.** The body `<Markdown>` is keyed by `slug|lang`, forcing fresh
+  `<img>` nodes on navigation. Without this, React reuses the same `<img>` and
+  only swaps `src`, so the previous page's image stays painted until the new one
+  finishes downloading — very visible over the network on GitHub Pages.
 
 ## Routing & deploy
 

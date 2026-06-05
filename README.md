@@ -102,9 +102,9 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
 - Plain top-level string values like `type: Personal work` may stay unquoted
   unless they contain `:`, `,`, brackets, or quote marks.
 - `releases` is a list of objects. Its sub-fields are typed in the schema:
-  `releases.event` is an **enum** (sort/group/filter pills), `releases.date` is a
-  **date** (sort + range; the default sort), and `releases.venue` /
-  `releases.version` are **text**. Each entry needs at least a `date`:
+  `releases.event` and `releases.venue` are **enums** (sort/group/filter pills),
+  `releases.date` is a **date** (sort + range; the default sort), and
+  `releases.version` is **text**. Each entry needs at least a `date`:
 
   ```yaml
   releases:
@@ -138,6 +138,24 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   meaningful once values co-occur.
 - A `{ hours, minutes, seconds }` object under a `duration`-typed key is shown as
   a single `HH:MM:SS` value (sorted/ranged as one number).
+- **Wildcard dates.** A `date` value may mask a trailing run of fields with `XX`
+  (case-insensitive) when only part of the date is known: `2022-XX-XX` (some day
+  in 2022) or `2022-06-XX` (some day in June 2022). It renders masked as
+  `2022-??-??`, but for sorting/filtering it expands to the full span it could
+  represent (`2022-XX-XX` → `2022-01-01 … 2022-12-31`), sorting by its earliest
+  possible date and contributing both bounds to the range filter's Min/Max lists.
+  Wildcards must form a trailing run — a masked field followed by a concrete one
+  (`2022-XX-06`) is rejected and falls back to plain text.
+
+### Forcing display order
+
+Two arrays in `src/lib/schema.js` set the display order — edit them to reorder:
+
+- `FACET_ORDER` — the order of rows in the sidebar filter/sort/group tree
+  (`'title'` is the synthetic Title row).
+- `FRONTMATTER_ORDER` — the order of rows in the Properties block.
+
+Any path not listed appears after the listed ones, alphabetically.
 
 ### Filtering, sorting & search
 
@@ -163,11 +181,14 @@ key is **filtered** — ranged or multi-selected — works lacking that value ar
 dropped unless this is checked; checking it keeps them and shows an `∅` marker.
 
 The **search box** does a case-insensitive substring match across titles (all
-languages), enum values, and body text. Body matches surface as inline snippets
-with the matched text highlighted; clicking a snippet jumps to that location in
-the article and highlights it. Each enum value pill in a Properties block is
-also clickable: it toggles the filter for that value and expands the relevant
-sidebar accordion.
+languages), enum values, **all frontmatter property text** (including values
+nested inside localized objects such as `credits`, and the role/field labels
+themselves), and body text — in every language. Body and property matches surface
+as inline snippets with the matched text highlighted; clicking a snippet jumps to
+that exact occurrence in the article (or Properties block) and highlights it. The
+highlight persists until you click an empty area of the page. Each enum value pill
+in a Properties block is also clickable: it toggles the filter for that value and
+expands the relevant sidebar accordion.
 
 ### Renaming an enum value
 
@@ -217,6 +238,52 @@ the current language lacks a definition, the one from another section is used as
 fallback. (To share a single definition across all languages on purpose, put it
 outside any `:::` fence.)
 
+#### Global footnotes / glossary
+
+Footnotes are resolved **local-first, then from a shared glossary** at
+`glossary/glossary.md`. There's no special syntax — a normal `[^label]` reference
+that the current page doesn't define automatically falls back to the glossary, so
+you can write a definition once and reuse it across many works:
+
+```markdown
+Each agent is a boid[^boids] following local rules.
+```
+
+- Resolution order: (1) a page-local `[^label]:` definition wins, so a page can
+  **override** a shared term just by defining it; (2) otherwise the glossary
+  definition; (3) otherwise the reference is left unresolved.
+- A glossary-resolved footnote renders, numbers, and lists **exactly like a local
+  one** (merged into the same per-page footnotes list, frontmatter-first order),
+  and works in frontmatter values too (e.g. `tagline: "…boids[^boids]"`).
+- The glossary file is authored just like page footnotes — `[^label]: text`
+  definitions with the same `::: en|ko|ja` fences (a definition outside any fence
+  is shared across languages; missing languages fall back to English). Markdown
+  links, `[[wikilinks]]`, and emphasis all work in glossary definitions.
+
+#### URL map (reference links)
+
+A link target that starts with `^` is a **URL reference** — the real URL is
+looked up by label, **local-first then from the glossary**, just like footnotes.
+It's handy for URLs reused across works (project repo, an artist's site, …):
+
+```markdown
+The code lives [on GitHub](^repo), and see the [boids page](^wiki-boids).
+
+(^repo): https://github.com/you/your-project
+```
+
+- Define a URL on its own line at the bottom of the page: `(^label): https://…`.
+  Resolution is local-first: a page-local `(^label):` wins; otherwise the shared
+  `glossary/glossary.md` is used; an unresolved label leaves a (visibly broken)
+  link.
+- Unlike a footnote, a URL ref shows **no marker and no list entry** — it simply
+  turns `[text]` into a normal external link.
+- It composes with the multi-link syntax: `[text](^a)(^b)` (and mixes with real
+  URLs, e.g. `[text](^a)(https://…)`) produce one `↗` per resolved URL.
+- Works in frontmatter string values too (e.g. `source: "[repo](^repo)"`).
+- Definitions may live inside `::: en|ko|ja` fences for language-specific URLs;
+  one outside any fence is shared across languages.
+
 ### Images & galleries
 
 Put images in `public/` and reference them by relative path, e.g.
@@ -227,6 +294,12 @@ A single image paragraph renders full-width. **Two or more consecutive image
 paragraphs** are grouped into a horizontal-scroll **gallery** automatically (each
 image's optional emphasis caption is kept). Separate the images with blank lines
 so each is its own paragraph.
+
+**Lead ("hero") images.** Any image that appears **before the first heading** in
+the body is hoisted to render **above the Properties table**, so a work can open
+with a banner image followed by its frontmatter. (If a file has no heading at all
+there is no boundary, so nothing is hoisted.) This works even when the image sits
+inside a `::: lang` fence.
 
 ### Math
 
