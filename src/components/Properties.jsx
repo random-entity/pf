@@ -13,6 +13,7 @@ import {
   unitForPath,
 } from '../lib/properties.js'
 import { typeForPath, labelForPath, FRONTMATTER_ORDER } from '../lib/schema.js'
+import { jumpToFootnoteDef } from '../lib/jump.js'
 import { useFilters } from '../filters.jsx'
 
 // Inline markdown components. Defined at module scope (stable identities) so a
@@ -40,9 +41,9 @@ const INLINE_COMPONENTS = {
       className="fn-ref"
       data-fn-ref={fnRef || undefined}
       style={{ cursor: fnRef ? 'pointer' : undefined }}
-      onClick={fnRef ? () => {
-        document.getElementById(`user-content-fn-${fnRef}`)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      onClick={fnRef ? (e) => {
+        e.stopPropagation()
+        jumpToFootnoteDef(fnRef, e.currentTarget.id)
       } : undefined}
     >
       {supChildren}
@@ -114,8 +115,7 @@ function EnumPill({ path, value }) {
               data-fn-ref={label}
               onClick={(e) => {
                 e.stopPropagation()
-                document.getElementById(`user-content-fn-${label}`)
-                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                jumpToFootnoteDef(label, e.currentTarget.id)
               }}
             >
               {label}

@@ -316,11 +316,26 @@ select {
   text-decoration: underline;
 }
 
-/* Transient highlight for a search-jump target (Custom Highlight API —
-   non-destructive, no DOM mutation). Removed after ~2.6s by the page. */
-::highlight(search-jump) {
-  background-color: rgba(255, 200, 0, 0.85);
-  color: inherit;
+/* Jump highlight (search match, footnote def/arrow/index). Solid bright bg with
+   dark text for strong contrast in both light and dark themes — both the page
+   text and a translucent highlight were otherwise too bright to tell apart.
+   Persists until the user clicks an empty area (see lib/jump.js); not a timeout.
+   Text ranges use the Custom Highlight API (no DOM mutation); elements use the
+   .jump-highlight class. */
+::highlight(jump-highlight) {
+  background-color: #ffd23f;
+  color: #111;
+}
+.jump-highlight {
+  background-color: #ffd23f;
+  color: #111;
+  border-radius: 2px;
+}
+/* A highlighted footnote <li>'s list marker (e.g. "4.") sits OUTSIDE the
+   highlighted content box, so the dark highlight text color would just darken it
+   against the page background. Keep the marker at its normal color. */
+.footnotes li.jump-highlight::marker {
+  color: var(--muted);
 }
 .snippet-more {
   border: none;
@@ -1054,11 +1069,6 @@ select {
   border: 1px solid var(--border);
   padding: 4px 8px;
 }
-.article .md-jump-highlight {
-  background-color: rgba(255, 200, 0, 0.35);
-  border-radius: 2px;
-  transition: background-color 180ms ease;
-}
 /* Prevent sup elements from expanding the line-box height of the surrounding
    text. line-height:0 keeps the vertical offset without contributing to the
    line height, so lines with footnote superscripts don't shift down. */
@@ -1071,6 +1081,24 @@ sup {
   color: var(--muted);
   border-top: 1px solid var(--border);
   margin-top: 32px;
+}
+/* Unify every footnote return link into ONE identical arrow. remark-gfm renders
+   a bare "↩" for the first citation but appends a counter superscript ("↩2",
+   "↩3", …) for each additional one, and the raw ↩ glyph can vary (text vs emoji
+   presentation) between footnotes. We hide the original glyph + counter
+   (font-size:0) and draw a single fixed-size, forced-text-presentation arrow via
+   a pseudo-element, so every return link is pixel-identical. Each <a> still links
+   back to its own citation (only the visible counter is dropped). */
+.footnotes a[data-footnote-backref] {
+  font-size: 0; /* collapse the original "↩" glyph + counter superscript */
+  display: inline-block; /* size to the pseudo-element below (clickable box) */
+  vertical-align: baseline;
+}
+.footnotes a[data-footnote-backref]::before {
+  content: '\21A9\FE0E'; /* ↩ + VS15 (text presentation) */
+  font-size: 13px;
+  line-height: 1.15;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 /* Hidden seed footnote references (see footnotePlan in WorkPage): they exist
    only so remark-gfm numbers/orders footnotes frontmatter-first. */

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo } from 'react'
 import { useParams, useLocation, Link, useOutletContext } from 'react-router-dom'
 import { useLang, isLocalized } from '../i18n.jsx'
 import { bySlug, titleOf } from '../lib/content.js'
@@ -6,8 +6,7 @@ import { prepare, stripFirstH1, wikiLinks, expandMultiLinks } from '../lib/markd
 import { typeForPath } from '../lib/schema.js'
 import Properties from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
-
-const HL_NAME = 'search-jump'
+import { scrollToElement, highlightRange, clearJumpHighlights } from '../lib/jump.js'
 
 const FN_LABEL = '[A-Za-z0-9_-]+'
 const FN_REF = new RegExp(`\\[\\^(${FN_LABEL})\\]`, 'g')
@@ -122,10 +121,6 @@ function footnotePlan(data, body, lang) {
   return { body: out }
 }
 
-function clearHighlight() {
-  if (window.CSS && CSS.highlights) CSS.highlights.delete(HL_NAME)
-}
-
 // Build a DOM Range over the `occ`-th occurrence of `query` inside `container`,
 // by concatenating every text node (so a match spanning element boundaries,
 // e.g. across a bold span or footnote ref, is still found) and mapping the
@@ -177,7 +172,6 @@ export default function WorkPage() {
   const slug = decodeURI(params['*'] || '')
   const work = bySlug[slug]
   const { hash, state } = useLocation()
-  const hlTimer = useRef(null)
   const plan = useMemo(
     () => footnotePlan(work?.data, work?.body, lang),
     [work, lang],
@@ -194,7 +188,7 @@ export default function WorkPage() {
     if (!hash) { window.scrollTo(0, 0); return }
     const id = decodeURIComponent(hash.replace(/^#/, ''))
     const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (el) scrollToElement(el, { block: 'start' })
   }, [hash, slug, lang, state?.jumpTo])
 
   // Snippet jump. state = { jumpTo?, jumpOcc?, jumpLang?, jumpPropTo?, jumpPropOcc?, _t }.
@@ -224,23 +218,18 @@ export default function WorkPage() {
       const { range, el } = built
 
       // Highlight the exact match without mutating the DOM (Custom Highlight API).
-      clearHighlight()
-      if (window.CSS && CSS.highlights && window.Highlight) {
-        CSS.highlights.set(HL_NAME, new Highlight(range))
-        if (hlTimer.current) clearTimeout(hlTimer.current)
-        hlTimer.current = setTimeout(clearHighlight, 2600)
-      }
+      // Persists until the user clicks an empty area (handled by jump.js).
+      highlightRange(range)
 
-      // Scroll the containing element to center.
-      const scroll = (smooth) =>
-        el?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' })
-      scroll(true)
+      // Scroll the containing element to center (constant-time).
+      const scroll = () => scrollToElement(el, { block: 'center' })
+      scroll()
 
       // Images may shift layout in the article body; not relevant for props.
       if (!isProp) {
         const pending = [...container.querySelectorAll('img')].filter((im) => !im.complete)
         if (pending.length) {
-          const onLoad = () => scroll(false)
+          const onLoad = () => scroll()
           pending.forEach((im) => im.addEventListener('load', onLoad))
           const stop = setTimeout(() => pending.forEach((im) => im.removeEventListener('load', onLoad)), 5000)
           imgCleanup = () => { clearTimeout(stop); pending.forEach((im) => im.removeEventListener('load', onLoad)) }
@@ -305,8 +294,8 @@ export default function WorkPage() {
     }
   }, [work, lang])
 
-  // Drop the highlight on unmount.
-  useEffect(() => () => { clearHighlight(); if (hlTimer.current) clearTimeout(hlTimer.current) }, [])
+  // Drop any jump highlight on unmount.
+  useEffect(() => () => clearJumpHighlights(), [])
 
   if (!work) {
     return (

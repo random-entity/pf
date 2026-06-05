@@ -8,6 +8,13 @@ import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import { visit } from 'unist-util-visit'
 import { remarkGallery } from '../lib/remarkGallery.js'
+import {
+  scrollToElement,
+  highlightElements,
+  clearJumpHighlights,
+  jumpToFootnoteDef,
+  jumpToRef,
+} from '../lib/jump.js'
 
 // remark-math v6 treats single-line $$...$$ as inline math even in a standalone
 // paragraph. This rehype plugin runs before rehype-katex and promotes any <p>
@@ -132,7 +139,6 @@ const components = {
 // upstream (see lib/markdown.js).
 export default function Markdown({ children }) {
   const ref = useRef(null)
-  const highlightTimer = useRef(null)
 
   useEffect(() => {
     const root = ref.current
@@ -142,17 +148,6 @@ export default function Markdown({ children }) {
       if (!href?.startsWith('#') || href.startsWith('#/')) return null
       const id = decodeURIComponent(href.slice(1))
       return document.getElementById(id) || document.getElementById(id.replace(/^user-content-/, ''))
-    }
-
-    const highlightTarget = (target) => {
-      const highlight = target.closest('.footnotes li') || target.closest('sup') || target
-      root.querySelectorAll('.md-jump-highlight').forEach((el) => el.classList.remove('md-jump-highlight'))
-      if (highlightTimer.current) clearTimeout(highlightTimer.current)
-      highlight.classList.add('md-jump-highlight')
-      highlightTimer.current = setTimeout(() => {
-        highlight.classList.remove('md-jump-highlight')
-        highlightTimer.current = null
-      }, 2600)
     }
 
     // React StrictMode runs effects twice in development. Remove previously
@@ -215,13 +210,24 @@ export default function Markdown({ children }) {
 
       const localLink = event.target.closest('a[href^="#"]')
       if (localLink && root.contains(localLink) && !localLink.getAttribute('href')?.startsWith('#/')) {
-        const target = findLocalTarget(localLink.getAttribute('href'))
-        if (target) {
-          event.preventDefault()
-          event.stopPropagation()
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          target.focus?.({ preventScroll: true })
-          highlightTarget(target)
+        const href = localLink.getAttribute('href')
+        event.preventDefault()
+        event.stopPropagation()
+        if (localLink.hasAttribute('data-footnote-ref')) {
+          // Forward jump: footnote index → definition (+ matching return arrow).
+          const m = href.match(/^#user-content-fn-(.+)$/)
+          if (m) jumpToFootnoteDef(decodeURIComponent(m[1]), localLink.id)
+        } else if (localLink.hasAttribute('data-footnote-backref')) {
+          // Return jump: arrow → original reference (highlight its index number).
+          jumpToRef(findLocalTarget(href))
+        } else {
+          // Heading / generic anchor.
+          const target = findLocalTarget(href)
+          if (target) {
+            scrollToElement(target, { block: 'start' })
+            target.focus?.({ preventScroll: true })
+            highlightElements([target])
+          }
         }
         return
       }
@@ -267,8 +273,7 @@ export default function Markdown({ children }) {
     root.addEventListener('click', onClick)
     return () => {
       root.removeEventListener('click', onClick)
-      if (highlightTimer.current) clearTimeout(highlightTimer.current)
-      root.querySelectorAll('.md-jump-highlight').forEach((el) => el.classList.remove('md-jump-highlight'))
+      clearJumpHighlights()
       for (const el of root.querySelectorAll('[data-md-collapsed="true"]')) {
         el.hidden = false
         delete el.dataset.mdCollapsed
