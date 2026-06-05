@@ -735,6 +735,9 @@ select {
   margin: 0;
   padding-left: 0;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .properties .val ul:not(.release-events) li {
   display: flex;
@@ -761,7 +764,7 @@ select {
 .taglist {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
 }
 /* Base tag: no padding (zones own their own padding to avoid background gaps) */
