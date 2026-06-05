@@ -84,6 +84,7 @@ credits:
 source: "[GitHub (scope handled by random-entity)](https://github.com/random-entity/o.art.ahe)"
 ---
 ![](images/works/ahe/live-stills/main.png)
+
 ::: en
 ## Synopsis
 

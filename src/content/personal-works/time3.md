@@ -8,7 +8,7 @@ releases:
   - { event: "ArtSpace@SNU", date: "2021-10-25 ~ 2021-10-29" }
 type: Personal work
 genre: ["Interactive video installation"]
-tags: ["Real-time video processing", "Video feedback", "Fractal video", "Video projection"]
+tags: ["Real-time video processing", "Video feedback", "Fractal video", "Video projection", "Philosophy of space and time"]
 tools: ["TouchDesigner", "EOS Camera Utility"]
 source: "[GitHub](https://github.com/random-entity/o.art.time3)"
 ---
