@@ -309,7 +309,12 @@ export default function WorkPage() {
     <article>
       <Properties data={work.data} />
       <div className="article">
-        <Markdown>{plan.body}</Markdown>
+        {/* Key by slug+lang so the body remounts on navigation. Without this,
+            React reuses the same <img> nodes and only swaps `src`, so the
+            previous page's image stays painted until the new one finishes
+            downloading (very visible over the network on GitHub Pages). Fresh
+            nodes start empty instead of showing the stale image. */}
+        <Markdown key={`${slug}|${lang}`}>{plan.body}</Markdown>
       </div>
     </article>
   )
