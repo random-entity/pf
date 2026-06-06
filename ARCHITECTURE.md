@@ -426,6 +426,9 @@ All in-page navigation funnels through `jump.js` so behavior is uniform:
   and highlights both it and the specific return arrow that points back to where
   you came from; a return jump (`jumpToRef`) scrolls back and highlights the
   original reference's index. Return arrows are unified to a single glyph via CSS.
+  For a **title** footnote the reference lives in the sticky topbar (always
+  pinned), so its return jump scrolls to the very top of the page (`scrollToY(0)`)
+  instead of to the element.
 - **Search snippets.** Clicking a snippet uses `router.navigate` state — `jumpTo`
   / `jumpOcc` for the body, `jumpPropTo` / `jumpPropOcc` for the Properties block,
   plus `jumpLang` — and `WorkPage` builds a DOM `Range` over the `occ`-th

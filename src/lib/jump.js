@@ -57,18 +57,10 @@ export function highlightRange(range) {
 // and long jumps feel equally snappy — unlike the browser's constant-speed
 // `scrollIntoView({behavior:'smooth'})`.
 let scrollRaf = null
-export function scrollToElement(el, { block = 'center', duration = 420 } = {}) {
-  if (!el) return
+export function scrollToY(targetY, { duration = 420 } = {}) {
   const scroller = document.scrollingElement || document.documentElement
   const vh = window.innerHeight
-  const rect = el.getBoundingClientRect()
   const startY = scroller.scrollTop
-
-  let targetY
-  if (block === 'start') targetY = startY + rect.top - TOPBAR
-  else if (block === 'end') targetY = startY + rect.bottom - vh + 16
-  else targetY = startY + rect.top - vh / 2 + rect.height / 2
-
   targetY = Math.max(0, Math.min(targetY, scroller.scrollHeight - vh))
   const dist = targetY - startY
   if (Math.abs(dist) < 1) return
@@ -95,6 +87,20 @@ export function scrollToElement(el, { block = 'center', duration = 420 } = {}) {
   scrollRaf = requestAnimationFrame(step)
 }
 
+export function scrollToElement(el, { block = 'center', duration = 420 } = {}) {
+  if (!el) return
+  const vh = window.innerHeight
+  const rect = el.getBoundingClientRect()
+  const startY = (document.scrollingElement || document.documentElement).scrollTop
+
+  let targetY
+  if (block === 'start') targetY = startY + rect.top - TOPBAR
+  else if (block === 'end') targetY = startY + rect.bottom - vh + 16
+  else targetY = startY + rect.top - vh / 2 + rect.height / 2
+
+  scrollToY(targetY, { duration })
+}
+
 // Forward jump: from a footnote reference (body, frontmatter, or enum pill) to
 // its definition. Highlights the definition AND the specific return arrow that
 // points back to where we came from (`fromId`), so the way back is visible.
@@ -112,6 +118,9 @@ export function jumpToFootnoteDef(label, fromId) {
 // reference's index number (the <sup>, which wraps the <a> for body refs).
 export function jumpToRef(refEl) {
   if (!refEl) return
-  scrollToElement(refEl, { block: 'center' })
+  // A title footnote's reference lives in the sticky topbar (always pinned), so
+  // scrolling *to* it is meaningless — scroll to the very top of the page instead.
+  if (refEl.closest('.topbar')) scrollToY(0)
+  else scrollToElement(refEl, { block: 'center' })
   highlightElements([refEl.closest('sup') || refEl])
 }
