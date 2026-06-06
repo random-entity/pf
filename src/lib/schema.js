@@ -53,13 +53,14 @@ export const FACET_ORDER = [
 export const FRONTMATTER_ORDER = [
   'tagline',
   'format',
+  'type',
   'genre',
   'tags',
   'tools',
   'releases',
   'credits',
   'source',
-]
+];
 
 export const PROPERTY_SCHEMA = {
   // title is the page heading; it is excluded from the Properties block and its
@@ -70,7 +71,7 @@ export const PROPERTY_SCHEMA = {
   tagline: { type: 'text', label: { en: 'Tagline', ko: '태그라인', ja: 'タグライン' } },
   format: { type: 'text', label: { en: 'Format', ko: '형식', ja: '形式' } },
 
-  type: { type: 'enum', label: { en: 'Type', ko: '유형', ja: 'タイプ' } },
+  type: { type: 'enum', label: { en: 'Type', ko: '구분', ja: '区分' } },
   genre: { type: 'enum', label: { en: 'Genre', ko: '장르', ja: 'ジャンル' } },
   tags: { type: 'enum', label: { en: 'Tags', ko: '태그', ja: 'タグ' } },
   tools: { type: 'enum', label: { en: 'Tools', ko: '도구', ja: 'ツール' } },
