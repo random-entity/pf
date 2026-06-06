@@ -16,8 +16,11 @@ Pages. Content is plain Markdown with YAML frontmatter — no CMS, no database.
   wikilinks, bold, etc.). Enum values are clickable filter pills that expand the
   corresponding sidebar accordion without navigating away.
 - **Markdown** with GFM, footnotes, `[[wikilinks]]`, math (KaTeX), image
-  galleries, embedded YouTube, collapsible headings/lists, and a heading outline
-  that deep-links into each work.
+  galleries, embedded YouTube (with optional captions), collapsible
+  headings/lists, and a heading outline that deep-links into each work. While
+  reading a work, a pinned overlay shows the **current nested heading path** so
+  you always know where you are; the sidebar's sort/filter/group **Key row** also
+  stays pinned while you scroll its open options.
 
 > Changing the code? See [ARCHITECTURE.md](ARCHITECTURE.md) for how content is
 > loaded, how the property schema (`src/lib/schema.js`) drives the filter/sort

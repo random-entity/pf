@@ -9,6 +9,7 @@ import { hasGlobalFootnote, globalFootnoteDef } from '../lib/glossary.js'
 import { buildUrlResolver, stripUrlDefs, resolveUrlRefs } from '../lib/urlmap.js'
 import Properties, { InlineMarkdown, UrlMapContext } from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
+import HeadingStack from '../components/HeadingStack.jsx'
 import { scrollToElement, highlightRange, clearJumpHighlights } from '../lib/jump.js'
 
 const FN_LABEL = '[A-Za-z0-9_-]+'
@@ -379,6 +380,9 @@ export default function WorkPage() {
           </UrlMapContext.Provider>,
           titleSlot,
         )}
+      {/* Pinned overlay showing the current nested heading path of the body.
+          Keyed so it re-initializes (re-queries headings) on navigation. */}
+      <HeadingStack key={`${slug}|${lang}|stack`} />
       <article>
         {leadImages && (
           <div className="article lead-media">

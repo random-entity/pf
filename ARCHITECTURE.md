@@ -53,10 +53,11 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/components/Sidebar.jsx` | Top-bar with the site-title link + `LangSwitch`, then `DatabaseBrowser`. |
 | `src/components/LangSwitch.jsx` | Always-visible en/ko/ja selector wired to `useLang()`. |
 | `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
-| `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. |
+| `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. Each row's `.facet-head` (the sort/filter/group Key row) is `position:sticky` so it stays pinned while you scroll its open body. |
 | `src/components/Properties.jsx` | Obsidian-style properties block for one work. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
 | `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`; footnote/anchor click delegation routed through `jump.js`. |
 | `src/components/FootnotePreview.jsx` | Mounted once (in `main.jsx`); a hover popup that previews a footnote's definition near the cursor when any footnote ref is hovered. Rendered via a portal at `document.body`, dynamically sized and flipped to stay on-screen. |
+| `src/components/HeadingStack.jsx` | Mounted in `WorkPage`; a pinned overlay (zero-height sticky wrapper + absolute bar, no reflow / no DOM mutation) showing the **current nested heading path** of the article body as you scroll — clickable crumbs, deepest = current. Tracks visible body headings on scroll/resize/click (rAF-throttled), skipping collapsed sections. |
 | `src/pages/Home.jsx`, `src/pages/WorkPage.jsx` | The two routes. |
 | `scripts/rename-value.mjs` | CLI to rename an enum value across all Markdown files. |
 
