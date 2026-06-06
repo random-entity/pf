@@ -5,12 +5,15 @@
 
 // Custom Highlight API name for text-range (search) highlights.
 const RANGE_HL = 'jump-highlight'
-// Class applied to element highlights (footnote def / return arrow / index).
+// Class applied to element highlights (footnote def / index number).
 const EL_CLASS = 'jump-highlight'
+// Distinct highlight for the specific return arrow matching a forward jump, so it
+// reads apart from the (yellow) text highlight it sits inside.
+const ARROW_CLASS = 'jump-highlight-arrow'
 // Height of the sticky topbar, so `block:'start'` targets clear it.
 const TOPBAR = 48
 
-let activeEls = []
+let activeEls = [] // [{ el, cls }]
 let outsideClickInstalled = false
 
 // Clear highlights when the user clicks anywhere that is not a link. Jump
@@ -26,21 +29,24 @@ function installOutsideClickClear() {
 }
 
 export function clearJumpHighlights() {
-  for (const el of activeEls) el.classList.remove(EL_CLASS)
+  for (const { el, cls } of activeEls) el.classList.remove(cls)
   activeEls = []
   if (window.CSS && CSS.highlights) CSS.highlights.delete(RANGE_HL)
 }
 
-// Highlight a set of elements (footnote definition, return arrow, index number).
-// Replaces any previous jump highlight.
+// Add one element highlight with the given class, tracking it for clearing.
+function addElHighlight(el, cls) {
+  if (!el) return
+  el.classList.add(cls)
+  activeEls.push({ el, cls })
+}
+
+// Highlight a set of elements (footnote definition, index number). Replaces any
+// previous jump highlight.
 export function highlightElements(els) {
   installOutsideClickClear()
   clearJumpHighlights()
-  for (const el of els) {
-    if (!el) continue
-    el.classList.add(EL_CLASS)
-    activeEls.push(el)
-  }
+  for (const el of els) addElHighlight(el, EL_CLASS)
 }
 
 // Highlight a text Range (search match) via the Custom Highlight API (no DOM
@@ -111,7 +117,12 @@ export function jumpToFootnoteDef(label, fromId) {
   const arrow = fromId
     ? li.querySelector(`a[data-footnote-backref][href="#${CSS.escape(fromId)}"]`)
     : null
-  highlightElements([li, arrow])
+  // The definition text gets the (yellow) text highlight; the specific return
+  // arrow that points back to where we came from gets a distinct color.
+  installOutsideClickClear()
+  clearJumpHighlights()
+  addElHighlight(li, EL_CLASS)
+  addElHighlight(arrow, ARROW_CLASS)
 }
 
 // Return jump: from a return arrow back to the original reference. Highlights the

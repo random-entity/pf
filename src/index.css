@@ -337,6 +337,14 @@ select {
 .footnotes li.jump-highlight::marker {
   color: var(--muted);
 }
+/* On a forward jump, the specific return arrow that points back to where you
+   came from gets its own color (blue), distinct from the yellow text highlight
+   of the definition it sits inside. Selector beats `.article a`. */
+.footnotes a[data-footnote-backref].jump-highlight-arrow {
+  background-color: #2563eb;
+  color: #fff;
+  border-radius: 2px;
+}
 .snippet-more {
   border: none;
   background: none;
