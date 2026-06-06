@@ -1,5 +1,5 @@
 import GithubSlugger from 'github-slugger';
-import { resolveSlug } from './content.js';
+import { resolveSlug, bySlug, titleOf } from './content.js';
 
 // Extract the body for one language from text that may contain language
 // fences:
@@ -39,16 +39,19 @@ export function pickLanguage(body, lang) {
   return out.join('\n').trim();
 }
 
-// Rewrite [[target]] and [[target|alias]] into standard markdown links
-// pointing at the hash route for the resolved work. Unresolved links are
-// rendered as plain text so dead links are visible but not broken anchors.
+// Rewrite [[target]] and [[target|alias]] into standard markdown links pointing
+// at the hash route for the resolved work. The link text is the alias if given,
+// otherwise the resolved work's title in `lang` (falling back to the target).
+// Unresolved links render as plain text (alias/target) so dead links are visible
+// but not broken anchors.
 const WIKILINK = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
 
-export function wikiLinks(body) {
+export function wikiLinks(body, lang = 'en') {
   return body.replace(WIKILINK, (_, target, alias) => {
-    const label = (alias ?? target).trim();
     const slug = resolveSlug(target);
-    if (!slug) return label;
+    const aliasText = alias?.trim();
+    if (!slug) return aliasText || target.trim();
+    const label = aliasText || titleOf(bySlug[slug], lang);
     return `[${label}](#/${encodeURI(slug)})`;
   });
 }
@@ -85,7 +88,7 @@ export function mdWikiLinks(s) {
 }
 
 export function prepare(body, lang) {
-  return expandMultiLinks(wikiLinks(pickLanguage(body, lang)));
+  return expandMultiLinks(wikiLinks(pickLanguage(body, lang), lang));
 }
 
 export function firstH1Text(body) {

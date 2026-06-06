@@ -62,14 +62,16 @@ const INLINE_COMPONENTS = {
 // inside grid/flex contexts (avoids sibling bleed in display:contents grids).
 // Footnote references [^xxx] scroll to the definition in the article body.
 function InlineMarkdown({ children }) {
+  const { lang } = useLang()
   const resolveUrl = useContext(UrlMapContext)
   if (!children) return null
   // Footnote labels are [^xxx] where xxx is [A-Za-z0-9_-]+ (the literal value is
   // just an identifier — the displayed index is assigned by order of appearance).
   // `[text](^label)` URL-map refs are resolved to real URLs first (after multi-
-  // link expansion, which preserves each `(^label)` group).
+  // link expansion, which preserves each `(^label)` group). Wikilinks without an
+  // alias render the referenced page's title (handled in wikiLinks via `lang`).
   const content = resolveUrlRefs(
-    expandMultiLinks(wikiLinks(String(children))),
+    expandMultiLinks(wikiLinks(String(children), lang)),
     resolveUrl,
   ).replace(/\[\^([A-Za-z0-9_-]+)\]/g, '<sup data-fn-ref="$1">$1</sup>')
   return (

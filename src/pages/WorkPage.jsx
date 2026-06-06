@@ -120,14 +120,14 @@ function footnotePlan(data, body, lang) {
   // Glossary definitions for labels with no page-local definition.
   for (const label of globalLabels) {
     const def = globalFootnoteDef(label, lang)
-    if (def != null) injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(def))}`)
+    if (def != null) injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(def, lang))}`)
   }
   // Cross-language fallback definitions for page-local footnotes the current
   // language lacks (skipping anything resolved from the glossary above).
   for (const label of new Set([...fmRefs, ...bodyRefs])) {
     if (globalLabels.has(label)) continue
     if (!presentDefs.has(label) && allDefs.has(label)) {
-      injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(allDefs.get(label)))}`)
+      injected.push(`[^${label}]: ${expandMultiLinks(wikiLinks(allDefs.get(label), lang))}`)
     }
   }
 

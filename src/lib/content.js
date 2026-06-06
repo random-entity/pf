@@ -102,3 +102,11 @@ export function resolveSlug(target) {
 export function titleOf(w, lang) {
   return loc(w.data.title, lang) || firstH1Text(w.body, lang) || w.name;
 }
+
+// Display text for a wikilink target in `lang`: the referenced work's title, or
+// null if the target doesn't resolve to a work. Used to render `[[target]]`
+// (no alias) as the page's title rather than the raw filename.
+export function titleForTarget(target, lang) {
+  const slug = resolveSlug(target);
+  return slug ? titleOf(bySlug[slug], lang) : null;
+}

@@ -1,6 +1,7 @@
 import { LANGS } from '../i18n.jsx';
 import { pickLanguage } from './markdown.js';
 import { labelForPath } from './schema.js';
+import { titleForTarget } from './content.js';
 
 // Detect a localized object {en?, ko?, ja?} — all keys must be language codes.
 function isLocalizedObj(v) {
@@ -43,12 +44,12 @@ function extractPropText(data, lang) {
       for (const [k, v] of Object.entries(value)) {
         const childPath = path ? `${path}.${k}` : k;
         const label = labelForPath(childPath, lang);
-        if (label) parts.push(stripMd(String(label)));
+        if (label) parts.push(stripMd(String(label), lang));
         walk(v, childPath);
       }
       return;
     }
-    if (typeof value === 'string') parts.push(stripMd(value));
+    if (typeof value === 'string') parts.push(stripMd(value, lang));
   }
 
   for (const [key, val] of Object.entries(data)) {
@@ -62,10 +63,11 @@ function extractPropText(data, lang) {
   return parts.filter(Boolean).join(' ');
 }
 
-function stripMd(text) {
+function stripMd(text, lang = 'en') {
   return text
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-    .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, t, a) => a ?? t) // wikilinks → text
+    // wikilinks → visible text: alias, else the referenced page's title, else target
+    .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, t, a) => a?.trim() || titleForTarget(t, lang) || t)
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/\*\*(.+?)\*\*/gs, '$1')
     .replace(/\*(.+?)\*/gs, '$1')
@@ -182,7 +184,7 @@ export function bodyMatchAll(body, query, currentLang) {
   const seen = new Set(); // dedup identical snippet text (shared content)
   const out = [];
   for (const lang of langs) {
-    const text = stripMd(pickLanguage(body, lang).replace(YOUTUBE_LINK_RE, ''));
+    const text = stripMd(pickLanguage(body, lang).replace(YOUTUBE_LINK_RE, ''), lang);
     for (const hit of snippetsForText(text, query)) {
       if (seen.has(hit.snippet)) continue;
       seen.add(hit.snippet);
