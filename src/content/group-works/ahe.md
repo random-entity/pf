@@ -348,6 +348,7 @@ source code: "[GitHub (scope handled by random-entity)](https://github.com/rando
 - [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 기사](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
 :::
+
 ::: ja
 ## あらすじ
 
