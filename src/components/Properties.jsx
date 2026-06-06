@@ -8,7 +8,7 @@ import { resolveUrlRefs } from '../lib/urlmap.js'
 
 // Resolver for `[text](^label)` URL-map refs in frontmatter values. Supplied by
 // WorkPage (built from the page body + glossary); defaults to a no-op resolver.
-const UrlMapContext = createContext(() => null)
+export const UrlMapContext = createContext(() => null)
 import {
   canonicalOf,
   labelOf,
@@ -61,7 +61,7 @@ const INLINE_COMPONENTS = {
 // wikilinks, footnote refs). Always returns a single <span> so it is safe
 // inside grid/flex contexts (avoids sibling bleed in display:contents grids).
 // Footnote references [^xxx] scroll to the definition in the article body.
-function InlineMarkdown({ children }) {
+export function InlineMarkdown({ children }) {
   const { lang } = useLang()
   const resolveUrl = useContext(UrlMapContext)
   if (!children) return null

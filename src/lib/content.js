@@ -98,9 +98,21 @@ export function resolveSlug(target) {
   return hit ? hit.slug : null;
 }
 
-// Display title for a work in the given language.
-export function titleOf(w, lang) {
+// Raw display title for a work — may contain inline markdown and footnote
+// markers. Used where the title is rendered richly (e.g. the topbar, which turns
+// `[^label]` into a footnote superscript).
+export function rawTitleOf(w, lang) {
   return loc(w.data.title, lang) || firstH1Text(w.body, lang) || w.name;
+}
+
+// Plain display title for lists, labels, search, and wikilink text: footnote
+// markers `[^label]` are stripped (a list item should read "Feature test page",
+// not "Feature test page[^title-footnote]").
+export function titleOf(w, lang) {
+  return rawTitleOf(w, lang)
+    .replace(/\[\^[A-Za-z0-9_-]+\]/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
 // Display text for a wikilink target in `lang`: the referenced work's title, or

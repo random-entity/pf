@@ -9,6 +9,9 @@ const MAX_W = 520;
 export default function App() {
   const { t } = useLang();
   const [pageTitle, setPageTitle] = useState('');
+  // A topbar slot that WorkPage portals its rich title into (so the title can
+  // carry footnote superscripts rendered/numbered by WorkPage's own subtree).
+  const [titleSlot, setTitleSlot] = useState(null);
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState(() => {
     const saved = Number(localStorage.getItem('sidebarWidth'));
@@ -67,11 +70,14 @@ export default function App() {
                 Menu
               </button>
             </div>
-            <div className="topbar-page-title">{pageTitle}</div>
+            <div className="topbar-page-title">
+              {pageTitle}
+              <span ref={setTitleSlot} />
+            </div>
           </div>
         </div>
         <div className="content-inner">
-          <Outlet context={{ setPageTitle }} />
+          <Outlet context={{ setPageTitle, titleSlot }} />
         </div>
       </main>
     </div>

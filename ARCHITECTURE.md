@@ -44,7 +44,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/lib/content.js` | Loads & parses every Markdown file; normalizes dimensions; exports `works`, `bySlug`, `titleOf`, `resolveSlug`. |
 | `src/lib/properties.js` | **Facet engine** — builds the facet tree from `schema.js` + content; value helpers (dates, durations, enums, units) and path-typed collectors (`valuesAtPath`, `idsAtPath`, `sortValueForFacet`, `rangeMatchesFacet`). |
 | `src/lib/markdown.js` | Language fences, `[[wikilinks]]`, heading-outline extraction, `pickLanguage`, `plainText`. |
-| `src/lib/search.js` | Search over **body** and **frontmatter property** text: exact case-insensitive substring match (`bodyMatchAll` / `propMatchAll`) with snippet extraction, occurrence ranking, and cross-language deduplication. `propMatchAll` flattens every property value — descending arrays and nested objects, picking localized strings, and including nested key labels (e.g. `credits` roles). |
+| `src/lib/search.js` | Search over **body** and **frontmatter property** text: exact case-insensitive substring match (`bodyMatchAll` / `propMatchAll`) with snippet extraction, occurrence ranking, and cross-language deduplication. `propMatchAll` flattens every property value — descending arrays and nested objects, picking localized strings, and including nested key labels (e.g. `credits` roles). `stripMd(text, lang)` resolves wikilinks to their visible text (alias → referenced page's title via `titleForTarget` → target), so a page is findable by the title of another work that links to it. |
 | `src/lib/remarkGallery.js` | remark plugin: wraps 2+ consecutive image paragraphs in a `div.gallery` (horizontal scroll); single images stay full-width. |
 | `src/lib/jump.js` | Shared jump machinery: constant-**time** smooth scroll (fixed duration via rAF, instant fallback when the tab is hidden / reduced-motion), persistent jump highlights (element class + Custom Highlight API for text ranges) that clear on an empty-area click, and footnote forward/return jumps. |
 | `src/lib/glossary.js` | **Global footnotes / glossary**: parses the shared definitions in `glossary/glossary.md` (per-language via `pickLanguage`) and exports `hasGlobalFootnote(label)` + `globalFootnoteDef(label, lang)` (current lang → English → any). |
@@ -294,10 +294,12 @@ markers stripped; wikilink markers replaced by their visible text — `labelOf`)
 Attachments render to the right of the label, each in its own separated zone, in
 this order: `[ label | 🗎 wikilinks | ¹ footnotes | ↗ external URLs ]`.
 - **Wikilinks** `[[target]]` / `[[target|alias]]` (`mdWikiLinks`) → the visible
-  text (alias, else target) stays in the label, plus a page-icon link to the
-  resolved work's hash route (unresolved → muted inert icon). `labelOf`/
-  `canonicalOf` replace the marker with that text (via `wikiLinkText`), so the
-  sidebar and filter id show the clean text without `[[ ]]`.
+  text stays in the label, plus a page-icon link to the resolved work's hash route
+  (unresolved → muted inert icon). `labelOf`/`canonicalOf` replace the marker with
+  that text via `wikiLinkText`, whose precedence is: explicit `alias` → the
+  referenced page's localized `title` (`titleOf`, current language with en→ko→ja
+  fallback) → the raw target. `labelOf` uses the current language; `canonicalOf`
+  uses `en` so the filter id stays stable across language switches.
 - **Footnotes** `[^label]` → numbered superscript (same appearance-order
   numbering/backlink wiring as body footnotes).
 - **External URLs** — when the value is `[text](url)` / `[text](url1)(url2)` (incl.
@@ -309,8 +311,10 @@ var(--fg)`).
 ## Markdown, headings & deep-links
 
 `prepare(body, lang)` runs `pickLanguage` (keeps only the active `::: lang`
-fence) then `wikiLinks` (rewrites `[[slug]]` to hash routes). `Markdown.jsx`
-renders it through this plugin chain (order matters):
+fence) then `wikiLinks(…, lang)` (rewrites `[[slug]]` to hash routes; the link
+text is the alias, else the target's localized title via `titleForTarget`, else
+the raw target). `Markdown.jsx` renders it through this plugin chain (order
+matters):
 
 - **remark**: `remark-gfm` (tables, footnotes), `remark-math` ( `$…$` / `$$…$$`),
   `remarkGallery` (groups 2+ consecutive image paragraphs into a `div.gallery`).
@@ -375,6 +379,17 @@ jumps from the body and the retargeted backlinks are handled by `Markdown.jsx`'s
 existing `#`-anchor click delegation (`getElementById` is global, so it finds the
 frontmatter `<sup>` even though it lives outside the markdown root); frontmatter
 `<sup>`s carry their own `onClick` to scroll to the definition.
+
+**Title footnotes.** The work title is not in the Properties block — it renders
+in the sticky topbar (`App.jsx`), a separate React subtree. To let footnotes in
+the title work, `WorkPage` **portals** the title (rendered with the same
+`InlineMarkdown`) into a topbar slot element (`titleSlot`, exposed via the outlet
+context); because portal content commits with `WorkPage`, the title `<sup>`s exist
+when the numbering layout effect runs. `collectFrontmatterRefs` seeds `data.title`
+**first** (so a title footnote is #1), the numbering effect scans
+`.topbar-page-title sup` before `.properties sup` (matching seed order), and the
+effect also depends on `titleSlot` so it re-runs once the slot mounts. The plain
+`setPageTitle` string path remains for `Home` (and is set empty by `WorkPage`).
 
 Collapsible headings and list nesting are injected by `Markdown.jsx` via a DOM
 `useEffect` that prepends toggle buttons after each render.

@@ -1,12 +1,13 @@
 import { useEffect, useLayoutEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import { useParams, useLocation, Link, useOutletContext } from 'react-router-dom'
 import { useLang, isLocalized } from '../i18n.jsx'
-import { bySlug, titleOf } from '../lib/content.js'
+import { bySlug, rawTitleOf } from '../lib/content.js'
 import { prepare, stripFirstH1, wikiLinks, expandMultiLinks } from '../lib/markdown.js'
 import { typeForPath } from '../lib/schema.js'
 import { hasGlobalFootnote, globalFootnoteDef } from '../lib/glossary.js'
 import { buildUrlResolver, stripUrlDefs, resolveUrlRefs } from '../lib/urlmap.js'
-import Properties from '../components/Properties.jsx'
+import Properties, { InlineMarkdown, UrlMapContext } from '../components/Properties.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { scrollToElement, highlightRange, clearJumpHighlights } from '../lib/jump.js'
 
@@ -94,8 +95,10 @@ function footnotePlan(data, body, lang) {
     if (!allDefs.has(m[1])) allDefs.set(m[1], m[2])
   }
 
-  // Footnote citations in the frontmatter, in render order.
+  // Footnote citations in the frontmatter, in render order. The title renders
+  // first (in the topbar), so its refs are collected first → numbered first.
   const fmRefs = []
+  collectFrontmatterRefs(data.title, lang, 'title', fmRefs)
   for (const [k, v] of Object.entries(data)) {
     if (k === 'title') continue
     collectFrontmatterRefs(v, lang, k, fmRefs)
@@ -205,7 +208,7 @@ function buildRange(container, query, occ) {
 
 export default function WorkPage() {
   const { lang, t, setLang } = useLang()
-  const { setPageTitle } = useOutletContext()
+  const { setPageTitle, titleSlot } = useOutletContext()
   const params = useParams()
   const slug = decodeURI(params['*'] || '')
   const work = bySlug[slug]
@@ -229,10 +232,12 @@ export default function WorkPage() {
     [resolvedBody],
   )
 
+  // The title is rendered into the topbar slot via a portal (so it can carry
+  // footnote superscripts owned by this subtree), so keep the plain string empty.
   useEffect(() => {
-    setPageTitle(work ? titleOf(work, lang) : '')
+    setPageTitle('')
     return () => setPageTitle('')
-  }, [work, lang, setPageTitle])
+  }, [setPageTitle])
 
   // Heading deep-link via URL hash.
   useEffect(() => {
@@ -319,9 +324,13 @@ export default function WorkPage() {
       if (m) numByLabel.set(decodeURIComponent(m[1]), i + 1)
     })
 
-    // Frontmatter citations: show the number, expose a backref target id.
+    // Frontmatter citations: show the number, expose a backref target id. The
+    // title (portaled into the topbar) renders first, so its sups are numbered
+    // before the Properties-block sups — matching the seed order in footnotePlan.
     const fmByLabel = new Map()
-    for (const sup of articleEl.querySelectorAll('.properties sup[data-fn-ref]')) {
+    const titleSups = document.querySelectorAll('.topbar-page-title sup[data-fn-ref]')
+    const propSups = articleEl.querySelectorAll('.properties sup[data-fn-ref]')
+    for (const sup of [...titleSups, ...propSups]) {
       const label = sup.getAttribute('data-fn-ref')
       const num = numByLabel.get(label)
       if (num == null) continue // no definition anywhere → leave the literal label
@@ -344,7 +353,7 @@ export default function WorkPage() {
         if (backs[i]) backs[i].setAttribute('href', `#${id}`)
       })
     }
-  }, [work, lang])
+  }, [work, lang, titleSlot])
 
   // Drop any jump highlight on unmount.
   useEffect(() => () => clearJumpHighlights(), [])
@@ -358,21 +367,34 @@ export default function WorkPage() {
   }
 
   return (
-    <article>
-      {leadImages && (
-        <div className="article lead-media">
-          <Markdown key={`${slug}|${lang}|lead`}>{leadImages}</Markdown>
+    <>
+      {/* The title is portaled into the topbar slot, rendered with InlineMarkdown
+          so footnote refs in the title become numbered superscripts (numbered by
+          the layout effect above, which scans `.topbar-page-title` first). Owned
+          by this subtree, so its DOM is present when that layout effect runs. */}
+      {titleSlot &&
+        createPortal(
+          <UrlMapContext.Provider value={urlResolve}>
+            <InlineMarkdown>{rawTitleOf(work, lang)}</InlineMarkdown>
+          </UrlMapContext.Provider>,
+          titleSlot,
+        )}
+      <article>
+        {leadImages && (
+          <div className="article lead-media">
+            <Markdown key={`${slug}|${lang}|lead`}>{leadImages}</Markdown>
+          </div>
+        )}
+        <Properties data={work.data} resolveUrl={urlResolve} />
+        <div className="article">
+          {/* Key by slug+lang so the body remounts on navigation. Without this,
+              React reuses the same <img> nodes and only swaps `src`, so the
+              previous page's image stays painted until the new one finishes
+              downloading (very visible over the network on GitHub Pages). Fresh
+              nodes start empty instead of showing the stale image. */}
+          <Markdown key={`${slug}|${lang}`}>{articleBody}</Markdown>
         </div>
-      )}
-      <Properties data={work.data} resolveUrl={urlResolve} />
-      <div className="article">
-        {/* Key by slug+lang so the body remounts on navigation. Without this,
-            React reuses the same <img> nodes and only swaps `src`, so the
-            previous page's image stays painted until the new one finishes
-            downloading (very visible over the network on GitHub Pages). Fresh
-            nodes start empty instead of showing the stale image. */}
-        <Markdown key={`${slug}|${lang}`}>{articleBody}</Markdown>
-      </div>
-    </article>
+      </article>
+    </>
   )
 }

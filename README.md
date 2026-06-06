@@ -93,14 +93,19 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
     shown as a numbered superscript on the right of the pill, sharing the same
     appearance-order numbering and return-link as body footnotes.
   - **Wikilinks** `[[target]]` / `[[target|alias]]` also work inside an enum value
-    (e.g. `event: "[[liege-2024|Forum IMPACT]]"`): the visible text — the `alias`
-    if present, otherwise the `target` — is rendered as the label, and a **page
-    icon** linking to that work is appended right after the label, *before* any
-    footnote or `↗` icons: `[ label | 🗎 | ¹ | ↗ ]`. An unresolved target shows a
-    muted, inert icon.
+    (e.g. `event: "[[liege-2024]]"`): the visible text is rendered as the label,
+    and a **page icon** linking to that work is appended right after the label,
+    *before* any footnote or `↗` icons: `[ label | 🗎 | ¹ | ↗ ]`. The label text is
+    the `alias` if you give one (`[[target|alias]]`); otherwise the referenced
+    page's **title** (in the current language, falling back en → ko → ja); and if
+    the target doesn't resolve, the raw target (filename) — shown with a muted,
+    inert icon.
   - Footnote markers (and the page-icon, not the wikilink's text) are kept out of
     the sidebar filter pills; the value's filter/group identity is the label text.
-- `title` is used as the page heading and is not repeated in the block.
+- `title` is used as the page heading (shown in the topbar) and is not repeated
+  in the block, but it behaves like any other value: footnote refs `[^label]` in
+  the title render as a superscript on the topbar title (numbered first, since the
+  title comes before everything else) and join the page's footnote list.
 - **Quote all string values inside inline `{ ... }` objects and `[ ... ]`
   arrays.** This keeps frontmatter consistent and avoids YAML treating commas,
   colons, brackets, or quote marks as syntax. For example:
@@ -221,9 +226,13 @@ every language.
 
 ### Wikilinks
 
-`[[slug]]` or `[[slug|Custom label]]` links to another work. Targets resolve by
-slug, trailing path segment, or file basename. Unresolved links render as plain
-text.
+`[[slug]]` or `[[slug|Custom label]]` links to another work — in body text,
+frontmatter values, and enum pills alike. Targets resolve by slug, trailing path
+segment, or file basename. The link text is the `Custom label` if you give one;
+otherwise the **referenced page's title** (in the current language, falling back
+en → ko → ja); an unresolved target renders as plain text (its raw target). The
+resolved title is what search matches, so you can find a page by the title of
+another work that links to it.
 
 ### Footnotes
 
