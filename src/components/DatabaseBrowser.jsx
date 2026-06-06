@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useRef } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useLang, LANGS } from '../i18n.jsx'
 import { works, titleOf } from '../lib/content.js'
@@ -14,9 +14,18 @@ import {
   sortValueForFacet,
   rangeMatchesFacet,
   parseDateRange,
+  RELEASES_PATH,
 } from '../lib/properties.js'
+import { FACET_ORDER } from '../lib/schema.js'
 import { useFilters, TITLE_SORT } from '../filters.jsx'
 import FilterTree from './FilterTree.jsx'
+
+function collectFacetPaths(facets) {
+  return facets.flatMap((facet) => [
+    facet.path,
+    ...(facet.children ? collectFacetPaths(facet.children) : []),
+  ])
+}
 
 function HeadingTree({ nodes, slug }) {
   if (nodes.length === 0) return null
@@ -184,6 +193,43 @@ export default function DatabaseBrowser() {
   const { lang, t } = useLang()
   const { enums, ranges, showMissing, sort, group, q, setQ, titleQ, reset, isAnyActive } = useFilters()
 
+  // Accordion open/close state + header actions lifted from FilterTree so the
+  // sticky search+filters-title block can access anyOpen / collapseOrRevert.
+  const [openPaths, setOpenPaths] = useState(() => new Set())
+  const prevOpen = useRef(null)
+
+  const allFacets = useMemo(() => {
+    const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
+    return [titleFacet, ...schema]
+      .flatMap((f) =>
+        f.path === RELEASES_PATH && f.kind === 'nested' ? (f.children ?? []) : [f],
+      )
+      .sort((a, b) => {
+        const keyA = a.path === TITLE_SORT ? 'title' : a.path
+        const keyB = b.path === TITLE_SORT ? 'title' : b.path
+        const ia = FACET_ORDER.indexOf(keyA)
+        const ib = FACET_ORDER.indexOf(keyB)
+        const ra = ia === -1 ? Infinity : ia
+        const rb = ib === -1 ? Infinity : ib
+        if (ra !== rb) return ra - rb
+        return keyA.localeCompare(keyB)
+      })
+  }, [])
+
+  const allPaths = useMemo(() => collectFacetPaths(allFacets), [allFacets])
+  const anyOpen = openPaths.size > 0
+
+  const collapseOrRevert = () =>
+    setOpenPaths((s) => {
+      if (s.size > 0) {
+        prevOpen.current = new Set(s)
+        return new Set()
+      }
+      return prevOpen.current && prevOpen.current.size
+        ? new Set(prevOpen.current)
+        : new Set(allPaths)
+    })
+
   const sortValue = (a) => {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)
     const facet = facetByPath.get(sort.path)
@@ -297,16 +343,40 @@ export default function DatabaseBrowser() {
 
   return (
     <div className="database">
-      <input
-        className="main-search"
-        type="search"
-        placeholder={t('search')}
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        aria-label={t('search')}
-      />
+      {/* Sticky block: search input + filter-title bar pin together under the
+          sidebar-topbar as a single unit. No cascading top-offset math needed. */}
+      <div className="database-sticky-head">
+        <input
+          className="main-search"
+          type="search"
+          placeholder={t('search')}
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          aria-label={t('search')}
+        />
+        <div className="filters-title">
+          <span className={isAnyActive ? 'filters-title-active' : ''}>{t('filters')}</span>
+          <div className="filters-title-actions">
+            <button
+              className="filters-action-btn"
+              onClick={collapseOrRevert}
+              aria-label={anyOpen ? t('collapse') : t('expand')}
+            >
+              {anyOpen ? t('collapse') : t('expand')}
+            </button>
+            <button
+              className="filters-action-btn"
+              onClick={reset}
+              disabled={!isAnyActive}
+              aria-label={t('resetShort')}
+            >
+              {t('resetShort')}
+            </button>
+          </div>
+        </div>
+      </div>
 
-      <FilterTree schema={schema} isAnyActive={isAnyActive} onReset={reset} />
+      <FilterTree allFacets={allFacets} openPaths={openPaths} setOpenPaths={setOpenPaths} />
 
       <div className="count">{results.length} {t('items')}</div>
       {results.length === 0 && <p className="muted">{t('noResults')}</p>}

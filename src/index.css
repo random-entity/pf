@@ -221,7 +221,7 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin: -16px -16px 16px;
+  margin: -16px -16px 0;
   height: var(--topbar-height);
   padding: 0 16px;
   background: var(--bg);
@@ -306,9 +306,46 @@ select {
   zoom: 0.85;
 }
 
+/* Sticky block containing the search input and the SORT/FILTER/GROUP title bar.
+   Wrapping them together avoids cascading `top` offset math: one sticky unit,
+   one top value. Pins just below the sidebar-topbar (same calculation as
+   .facet-head: 16px sidebar padding + top·0.85 zoom ≈ 40px real). */
+.database-sticky-head {
+  position: sticky;
+  top: 28px;
+  z-index: 4;
+  background: var(--bg);
+  /* Extend to sidebar edges by canceling the 16px sidebar padding (in zoomed
+     space the cancel value is 16/0.85 ≈ 18.82px). The search input and
+     filters-title then add the padding back internally so content aligns with
+     the rest of the sidebar. */
+  margin-left: calc(-16px / 0.85);
+  margin-right: calc(-16px / 0.85);
+  border-bottom: 1px solid var(--border);
+}
+
 .main-search {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
   width: 100%;
-  margin-bottom: 14px;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 8px calc(16px / 0.85);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.main-search:focus {
+  outline: none;
+  background: var(--hover);
+}
+.database-sticky-head .filters-title {
+  padding-left: calc(16px / 0.85);
+  padding-right: calc(16px / 0.85);
 }
 .title-search-input {
   width: 100%;
@@ -551,11 +588,11 @@ select {
   width: 100%;
   /* Pin the current sort/filter/group Key row while scrolling the sidebar, so
      the row stays visible above its (possibly long) open body. The sticky offset
-     resolves (in the zoomed .database, 0.85 space) to sit flush under the
-     sidebar-topbar: pin ≈ 16px (sidebar padding) + top·0.85 ⇒ ~40px real.
-     Opaque bg so scrolling content doesn't show through. */
+     (inside the zoomed .database at 0.85) must clear the .database-sticky-head
+     which pins at ~40px real. Formula: viewport_pin = 16px (sidebar padding)
+     + top·0.85. Set top so facet-head pins flush below the sticky head. */
   position: sticky;
-  top: 28px;
+  top: 97px;
   z-index: 1;
   background: var(--bg);
 }

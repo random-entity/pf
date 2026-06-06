@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { useLang } from '../i18n.jsx'
 import { works } from '../lib/content.js'
-import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath, RELEASES_PATH } from '../lib/properties.js'
-import { FACET_ORDER } from '../lib/schema.js'
+import { labelOf, formatDuration, formatDate, valuesCanCoexist, unitForPath } from '../lib/properties.js'
 import { useFilters, TITLE_SORT, DEFAULT_SORT } from '../filters.jsx'
 
 // Min/max dropdowns for a numeric/date facet.
@@ -255,19 +254,11 @@ function FacetTree({ facets, openPaths, onToggle }) {
   )
 }
 
-function collectFacetPaths(facets) {
-  return facets.flatMap((facet) => [
-    facet.path,
-    ...(facet.children ? collectFacetPaths(facet.children) : []),
-  ])
-}
-
-// isAnyActive and onReset come from DatabaseBrowser (include q state).
-export default function FilterTree({ schema, isAnyActive, onReset }) {
-  const { t } = useLang()
+// openPaths and setOpenPaths are lifted to DatabaseBrowser so the sticky header
+// (search + filters-title) can read anyOpen and call collapseOrRevert.
+// allFacets is also pre-computed there since collapseOrRevert needs allPaths.
+export default function FilterTree({ allFacets, openPaths, setOpenPaths }) {
   const { expandPath, clearExpand } = useFilters()
-  const [openPaths, setOpenPaths] = useState(() => new Set())
-  const prevOpen = useRef(null)
 
   useEffect(() => {
     if (!expandPath) return
@@ -280,26 +271,7 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
       return next
     })
     clearExpand()
-  }, [expandPath, clearExpand])
-  const titleFacet = { path: TITLE_SORT, key: 'title', kind: 'text', depth: 0 }
-  // Hoist releases children (Date, Event, Venue) to the root — the "Releases"
-  // group wrapper row is dropped and its children appear at the top level.
-  // Then sort the flat list by FACET_ORDER ('title' maps to TITLE_SORT).
-  const allFacets = [titleFacet, ...schema]
-    .flatMap((f) =>
-      f.path === RELEASES_PATH && f.kind === 'nested' ? (f.children ?? []) : [f],
-    )
-    .sort((a, b) => {
-      const keyA = a.path === TITLE_SORT ? 'title' : a.path
-      const keyB = b.path === TITLE_SORT ? 'title' : b.path
-      const ia = FACET_ORDER.indexOf(keyA)
-      const ib = FACET_ORDER.indexOf(keyB)
-      const ra = ia === -1 ? Infinity : ia
-      const rb = ib === -1 ? Infinity : ib
-      if (ra !== rb) return ra - rb
-      return keyA.localeCompare(keyB)
-    })
-  const allPaths = collectFacetPaths(allFacets)
+  }, [expandPath, clearExpand, setOpenPaths])
 
   const toggle = (path) =>
     setOpenPaths((s) => {
@@ -308,41 +280,8 @@ export default function FilterTree({ schema, isAnyActive, onReset }) {
       return next
     })
 
-  const collapseOrRevert = () =>
-    setOpenPaths((s) => {
-      if (s.size > 0) {
-        prevOpen.current = new Set(s)
-        return new Set()
-      }
-      return prevOpen.current && prevOpen.current.size
-        ? new Set(prevOpen.current)
-        : new Set(allPaths)
-    })
-
-  const anyOpen = openPaths.size > 0
-
   return (
     <div className="filters">
-      <div className="filters-title">
-        <span className={isAnyActive ? 'filters-title-active' : ''}>{t('filters')}</span>
-        <div className="filters-title-actions">
-          <button
-            className="filters-action-btn"
-            onClick={collapseOrRevert}
-            aria-label={anyOpen ? t('collapse') : t('expand')}
-          >
-            {anyOpen ? t('collapse') : t('expand')}
-          </button>
-          <button
-            className="filters-action-btn"
-            onClick={onReset}
-            disabled={!isAnyActive}
-            aria-label={t('resetShort')}
-          >
-            {t('resetShort')}
-          </button>
-        </div>
-      </div>
       <FacetTree facets={allFacets} openPaths={openPaths} onToggle={toggle} />
     </div>
   )
