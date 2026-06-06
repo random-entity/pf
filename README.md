@@ -329,6 +329,14 @@ display mode automatically.
 A Markdown link to a YouTube URL (`[caption](https://youtu.be/ID)`) renders as an
 embedded, responsive player. Any other link stays a normal link.
 
+To show a **caption** beneath a video, put an emphasis line **directly under** the
+video link (no blank line between them), exactly like an image caption:
+
+```
+[Video](https://youtu.be/ID)
+*A short caption*
+```
+
 The home page intro lives in `src/content/home.md` (also supports `:::` fences).
 
 ## Deploy to GitHub Pages

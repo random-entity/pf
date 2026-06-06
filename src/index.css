@@ -998,12 +998,21 @@ select {
 .lead-media img:first-child {
   margin-top: 0;
 }
-.article img + em {
+.article img + em,
+.article .video + em {
   display: block;
   text-align: center;
   color: var(--muted);
   font-size: 13px;
+  font-style: normal;
   margin-top: -8px;
+}
+/* Video caption: the embed uses an absolute-positioned aspect-ratio box, so the
+   trailing caption needs a touch of breathing room rather than the negative
+   pull used for images. */
+.article .video + em {
+  margin-top: 6px;
+  line-height: 1.2;
 }
 
 /* Horizontal-scroll image gallery (≥2 consecutive image paragraphs). */
