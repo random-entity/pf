@@ -1,30 +1,31 @@
 ---
 title:
-  en: "\"On the Bird’s Day\" First Episode – Fear of the 13 Ahae"
-  ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해의 불안"
+  en: "\"On the Bird’s Day\" First Episode – Fear of the 13 Ahae[^ahe]"
+  ko: "⟨새들의 날에⟩ 첫번째 이야기: 13인의 아해[^ahe]의 불안"
   ja: "「鳥たちの日に」第一話：13人のアヘの不安"
 tagline:
-  en: "The anxiety of our time reflected in the toddling of machines."
-  ko: "기계들의 걸음마에 비추어진 우리 시대의 불안."
-  ja: "機械のよちよち歩きに映し出された私たちの時代の不安。"
+  en: "The anxiety of our time reflected in the toddling of machines"
+  ko: "기계들의 걸음마에 비추어진 우리 시대의 불안"
+  ja: "機械のよちよち歩きに映し出された私たちの時代の不安"
 format:
-  en: "Approximately 1-hour robot dance live performance featuring 13 Ahe[^ahe]'s on a steel-plated stage, controlled by a real-time wireless robot control system, and robot choreography algorithms/data."
-  ko: "철판으로 덮인 무대 위의 아해[^ahe] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘 및 데이터에 의한 약 1시간의 로봇 무용 공연 작품"
-  ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズムおよびデータによる約1時間のロボット舞踊公演作品"
+  en: "Approximately 1-hour robot dance live performance featuring 13 Ahe[^ahe]'s on a steel-plated stage, controlled by a real-time wireless robot control system and choreography algorithms/data."
+  ko: "철판으로 덮인 무대 위의 아해[^ahe] 13대, 실시간 무선 로봇 제어 시스템, 로봇 안무 알고리즘/데이터에 의한 약 1시간의 로봇 무용 공연"
+  ja: "鉄板で覆われた舞台上のアヘ[^ahe]13台、リアルタイム無線ロボット制御システム、ロボット振付アルゴリズム及びデータによる約1時間のロボット舞踊公演"
 genre:
   - "Robot dance"
   - "Robot performance"
   - "Mechanical theater"
   - "Electroacoustic music"
+  - "Electronic music"
   - "Live performance"
 tools:
-  - "PJRC Teensy"
-  - "mjbots moteus"
+  - "[PJRC Teensy](^teensy4)"
+  - "[mjbots moteus](^moteus-r4)"
   - "C++"
-  - "Pure Data"
+  - "[Pure Data](^pure-data)"
   - "C"
-  - "Digi XBee"
-  - "Processing"
+  - "[Digi XBee](^xbee3)"
+  - "[Processing](^processing)"
 tags:
   - "Physical computing"
   - "Automata"
@@ -37,19 +38,23 @@ tags:
   - "IMU sensor"
   - "Wireless network"
   - "3D printing"
+  - "Electromagnet"
+  - "Contact microphone"
+  - "Granular synthesis"
 releases:
   - date: "2024-10-11 ~ 2024-10-13"
     event:
-      en: "[Seoul Performing Arts Festival](http://spaf.or.kr/2024_eng/)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
-      ko: "[서울국제공연예술제](http://spaf.or.kr/2024/)(http://spaf.or.kr/2024/program/program_view06.php#)"
-      ja: "[ソウル国際公演芸術祭](http://spaf.or.kr/2024_eng/)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
-    venue: "[PLATFORM-L](https://platform-l.org/performance/detail?performanceNo=922)"
-    version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
+      en: "[Seoul Performing Arts Festival](^spaf)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
+      ko: "[서울국제공연예술제](^spaf)(http://spaf.or.kr/2024/program/program_view06.php#)"
+      ja: "[ソウル国際公演芸術祭](^spaf)(http://spaf.or.kr/2024_eng/program/program_view06.php)"
+    venue: "[PLATFORM-L](^platform-l)(https://platform-l.org/performance/detail?performanceNo=922)"
+    version: "[v.SPAF_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day1)(https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day2)(https://github.com/random-entity/o.art.ahe/releases/tag/SPAF_Day3)"
   - date: "2024-11-02 ~ 2024-11-03"
-    event: "[Forum IMPACT[^impact]](https://theatredeliege.be/en/festival-archives/forum-impact/)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
-    venue: "[Théâtre de Liège](https://theatredeliege.be/en/evenement/on-the-birds-day/)"
-    version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
-type: "Group work"
+    event: "[Forum IMPACT](^impact)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
+    venue: "[Théâtre de Liège](^theatre-de-liege)(https://theatredeliege.be/en/evenement/on-the-birds-day/)"
+    version: "[v.IMPACT_DayN](https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day1)(https://github.com/random-entity/o.art.ahe/releases/tag/IMPACT_Day2)"
+type:
+  - Group work
 credits:
   en:
     Presented by: Robot Theater Company[^rotc] (KWON Byungjun[^kwon], LEE Yujin, LEE Jumi, random-entity)
@@ -62,7 +67,7 @@ credits:
     Producer: Producer Group DOT (CHOI Bongmin, PARK Jisun)
     Commissioned by: Seoul Performing Arts Festival, Art Korea Lab
   ko:
-    출품자: Robot Theater Company[^rotc] (권병준[^kwon], 이유진, 이주미, 임의존재)
+    출품: Robot Theater Company[^rotc] (권병준[^kwon], 이유진, 이주미, 임의존재)
     총괄 디렉터, 하드웨어 설계, 음악: 권병준
     조감독, 로봇 안무: 이유진
     로봇 디자인, 로봇 메인터넌스: 이주미
@@ -72,7 +77,7 @@ credits:
     프로듀서: 프로듀서 그룹 도트 (박지선, 최봉민)
     커미션: 서울국제공연예술제, 아트코리아랩
   ja:
-    出品者: Robot Theater Company[^rotc] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
+    出品: Robot Theater Company[^rotc] (KWON Byungjun[^kwon]、LEE Yujin、LEE Jumi、任意存在)
     総括ディレクター、ハードウェア設計、音楽: KWON Byungjun
     助監督、ロボット振付: LEE Yujin
     ロボットデザイン、ロボットメンテナンス: LEE Jumi
@@ -81,15 +86,82 @@ credits:
     スタッフ: YOON Suhui、LEE Minho、CHOI Garam
     プロデューサー: Producer Group DOT (PARK Jisun、CHOI Bongmin)
     コミッション: ソウル国際舞台芸術祭、Arts Korea Lab
-source: "[GitHub (scope handled by random-entity)](https://github.com/random-entity/o.art.ahe)"
+source code: "[GitHub (scope handled by random-entity)](https://github.com/random-entity/o.art.ahe)"
 ---
 ![](images/works/ahe/live-stills/main.png)
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+[Performance video](https://youtu.be/5EO3pT3txQk)
+
+![](images/works/ahe/live-stills/2.jpg)
+:::en
+*SPAF PLATFORM-L Performance Rehearsal, Scene 2*
+:::
+:::ko
+*서울국제공연예술제 PLATFORM-L 공연 리허설, 씬 2*
+:::
+:::ja
+*ソウル国際舞台芸術祭(SPAF) PLATFORM-L 公演リハーサル、シーン 2*
+:::
+
+![](images/works/ahe/live-stills/3.jpg)
+:::en
+*Forum IMPACT Théâtre de Liège Performance, Scene 2*
+:::
+:::ko
+*Forum IMPACT Théâtre de Liège 공연, 씬 2*
+:::
+:::ja
+*Forum IMPACT Théâtre de Liège 公演、シーン 2*
+:::
+
+![](images/works/ahe/live-stills/4.jpg)
+:::en
+*Forum IMPACT Théâtre de Liège Performance, Scene 3*
+:::
+:::ko
+*Forum IMPACT Théâtre de Liège 공연, 씬 3*
+:::
+:::ja
+*Forum IMPACT Théâtre de Liège 公演、シーン 3*
+:::
+
+![](images/works/ahe/live-stills/6.jpg)
+:::en
+*Forum IMPACT Théâtre de Liège Performance, Early Scene 5*
+:::
+:::ko
+*Forum IMPACT Théâtre de Liège 공연, 씬 5 초반*
+:::
+:::ja
+*Forum IMPACT Théâtre de Liège 公演、シーン 5 序盤*
+:::
+
+![](images/works/ahe/live-stills/main2.png)
+:::en
+*Forum IMPACT Théâtre de Liège Performance, Late Scene 5*
+:::
+:::ko
+*Forum IMPACT Théâtre de Liège 공연, 씬 5 후반*
+:::
+:::ja
+*Forum IMPACT Théâtre de Liège 公演、シーン 5 終盤*
+:::
 
 ::: en
 ## Synopsis
 
 - Scene 1
-  - Thirteen bipedal robots, "Ahes" [^ahe], stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
+  - Thirteen bipedal robot Ahe[^ahe]s, stand on the stage in neat rows and columns. Between the flagpoles soaring high towards the sky from both ends of their pelvises, long fringes flutter like wings. Maintaining their formation, the Ahes begin a mechanical group dance, stepping forward and backward or bending their ankles left and right in place, using the sound of electromagnets attaching and detaching from the floor as a chant. The rapid clicking sounds and the shaking of the Ahes as they all quickly attach and detach their electromagnets in place amplify the tension enveloping the stage.
 - Scene 2
   - One by one, the Ahes begin to break formation with slow, motion-like steps. When six of them are moving, that moving group stops while the remaining seven, who were still, begin to walk. These two groups take turns walking and stopping for a while. The initial neat arrangement gradually falls apart. The lighting, the blinking colors of LEDs indicating communication between the Ahes, the reflected light scattered by the swaying wings, and the improvised electronic music blend together to create a shamanistic mise-en-scène.
 - Scene 3
@@ -97,24 +169,7 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
 - Scene 4
   - When the solo dance ends, they all scatter in random directions as if dispersing, changing paths when they bump into another Ahe. Their constantly shifting arrangement and the changing colors of the lighting sometimes depict a garden, sometimes a forest. Slowly, a circular formation is created to begin the next scene.
 - Scene 5
-  - Everyone stops briefly, turns in place, and looks toward the center of the stage. Then, every unit slowly begins the Sufi Whirling dance, spinning round and round in place. As the music reaches its climax, their spinning speed accelerates. When the rotation reaches its peak, their wings flap violently as if caught in a storm. The Ahes, supported only by the magnetic attraction between their soles and the floor, cannot withstand the high-speed rotation that reaches their mechanical limits and fall over one by one. Even after falling, their legs continue to move. This state of chaos, marking the climax of the performance, lasts for over 10 minutes, inducing a trance-like state. Gradually, along with the slowing music, the Ahes also decelerate, the stage lighting dims, and they finally come to a complete stop.
-
-[Performance video](https://youtu.be/5EO3pT3txQk)
-
-![](images/works/ahe/live-stills/2.jpg)
-*SPAF PLATFORM-L Performance Rehearsal, Scene 2*
-
-![](images/works/ahe/live-stills/3.jpg)
-*Forum IMPACT Théâtre de Liège Performance, Scene 2*
-
-![](images/works/ahe/live-stills/4.jpg)
-*Forum IMPACT Théâtre de Liège Performance, Scene 3*
-
-![](images/works/ahe/live-stills/6.jpg)
-*Forum IMPACT Théâtre de Liège Performance, Early Scene 5*
-
-![](images/works/ahe/live-stills/main2.png)
-*Forum IMPACT Théâtre de Liège Performance, Late Scene 5*
+  - Everyone halts briefly, turns in place, and looks toward the center of the stage. Then, every unit slowly begins the Sufi Whirling dance, spinning round and round in place. As the music reaches its climax, their spinning speed accelerates. When the rotation reaches its peak, their wings flap violently as if caught in a storm. The Ahes, supported only by the magnetic attraction between their soles and the floor, cannot withstand the high-speed rotation that reaches their mechanical limits and fall over one by one. Even after falling, their legs continue to move. This state of chaos, marking the climax of the performance, lasts for over 10 minutes, inducing a trance-like state. Gradually, along with the slowing music, the Ahes also decelerate, the stage lighting dims, and they finally come to a complete stop.
 
 ## Commentary
 
@@ -192,19 +247,12 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
 
 ## External links
 
-- [Performance Recording Video](https://youtube.com/playlist?list=PLHd0nQV4yFCuMWlChPpwjZxNmRSKD8dgT)
+- [Archival performance footages](https://youtube.com/playlist?list=PLHd0nQV4yFCuMWlChPpwjZxNmRSKD8dgT)
 - [Artist KWON Byungjun's Website - On The Birds' Day (SPAF) - Work Introduction](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
 - [Artist KWON Byungjun's Website - On The Birds' Day (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive Article](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
-
-[^ahe]: A bipedal robot that reinterprets the character "Ahe" from the poem ⟨Crow's Eye View Poem No. 1⟩ by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
-
-[^rotc]: A robot theater company (robot dance production team) founded in 2024 by artist KWON Byungjun with the support of Art Korea Lab.
-
-[^kwon]: (1971–) A contemporary Korean artist whose media include sound, robots, and performance. Winner of the "Korea Artist Prize 2023" by the National Museum of Modern and Contemporary Art, Korea. (Reference: [Artist's Website](https://byungjun.pe.kr/))
-
-[^impact]: An international contemporary dance festival focused on the relationship between stage arts and new technologies, held by the Théâtre de Liège in Belgium, against the backdrop of cooperation in various fields such as culture, research, education, and business. (Reference: [Théâtre de Liège Website - About Forum IMPACT](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
+
 ::: ko
 ## 줄거리
 
@@ -218,23 +266,6 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
   - 솔로 댄스가 끝나자 전원이 해산하듯 각자 임의의 방향으로 나아가며, 다른 아해와 부딪히면 방향을 바꾼다. 계속적으로 변화하는 이들의 배치와 조명의 색은 정원을 그려내기도, 숲을 그려내기도 한다. 그러면서 서서히 다음 씬을 시작하기 위한 원형 배치가 만들어진다.
 - 씬 5
   - 전원이 잠시 멈춰 선 뒤, 제자리에서 회전하며 무대 중앙을 바라본다. 그리고는 모든 개체가 느릿느릿, 제자리에서 빙글빙글 도는 수피 댄스 (Sufi Whirling) 동작을 시작한다. 점점 고조되는 음악에 맞춰, 수피 댄스의 회전 속도도 점점 가속된다. 회전 속도가 최고조에 달하자 날개는 폭풍에 휘몰아치듯 격렬하게 나부낀다. 발바닥과 바닥 사이의 자기적 인력에 의해 지지되던 아해들은, 기계적 한계에 도달한 고속 회전을 견디지 못하고 한 대 씩 쓰러져 간다. 쓰러져도 쓰러진 채로 다리의 움직임은 계속된다. 공연의 클라이맥스를 장식하는 이 혼돈 상태는 10분 이상 지속되어 트랜스 상태를 유도한다. 그러다가 서서히 페이스를 늦추어 가는 음악과 함께 아해들도 감속하고, 무대 조명이 어두워지고, 마침내 완전한 정지에 이른다.
-
-[공연 영상](https://youtu.be/5EO3pT3txQk)
-
-![](images/works/ahe/live-stills/2.jpg)
-*서울국제공연예술제 PLATFORM-L 공연 리허설, 씬 2*
-
-![](images/works/ahe/live-stills/3.jpg)
-*Forum IMPACT Théâtre de Liège 공연, 씬 2*
-
-![](images/works/ahe/live-stills/4.jpg)
-*Forum IMPACT Théâtre de Liège 공연, 씬 3*
-
-![](images/works/ahe/live-stills/6.jpg)
-*Forum IMPACT Théâtre de Liège 공연, 씬 5 초반*
-
-![](images/works/ahe/live-stills/main2.png)
-*Forum IMPACT Théâtre de Liège 공연, 씬 5 후반*
 
 ## 해설
 
@@ -316,14 +347,6 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
 - [권병준 작가 웹사이트 - 새들의 날에 (서울국제공연예술제) - 작품 소개](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
 - [권병준 작가 웹사이트 - 새들의 날에 (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 기사](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
-
-[^ahe]: 일제강점기 조선의 문학 작가 이상(1910–1937)의 시 ⟨오감도 제 1호⟩의 등장인물 "아해"를 재해석한 이족보행 로봇. 본체는 두 다리와 골반으로 구성되어, 무대 바닥에 덮인 철판 위에 선다. 관절의 서보모터와 발바닥의 전자석의 제어를 통해 움직인다.
-
-[^rotc]: 권병준 작가가 아트코리아랩의 지원으로 2024년 창립한 로봇 극단 (로봇 무용 작품 제작 팀).
-
-[^kwon]: (1971–) 사운드, 로봇, 퍼포먼스 등을 미디어로 하는 한국의 현대미술가. 2024년 국립현대미술관 "올해의 작가상 2023" 수상. (참조: [작가 웹사이트](https://byungjun.pe.kr/))
-
-[^impact]: 문화, 연구, 교육, 기업 등 각 분야의 협력을 배경으로, 벨기에 Théâtre de Liège가 개최하는, 무대예술과 새로운 테크놀로지의 관계에 초점을 둔 현대무용 국제예술제. (참조: [Théâtre de Liège 웹사이트 - Forum IMPACT 소개](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
 ::: ja
 ## あらすじ
@@ -338,23 +361,6 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
   - ソロダンスが終わると、全員が解散するように各自ランダムな方向に進み、他のアヘとぶつかると方向を変える。絶えず変化する彼らの配置と照明の色は、庭園を描き出したり、森を描き出したりする。そうしながら、徐々に次のシーンを始めるための円形配置が作られていく。
 - シーン 5
   - 全員が一時停止した後、その場で回転して舞台中央を見つめる。そして、全ての個体がゆっくりと、その場でくるくる回るスーフィーダンス（Sufi Whirling）の動作を始める。次第に盛り上がる音楽に合わせて、スーフィーダンスの回転速度も徐々に加速していく。回転速度が最高潮に達すると、翼は嵐に巻き込まれたように激しくなびく。足の裏と床の間の磁気的引力によって支えられていたアヘたちは、機械的限界に達した高速回転に耐えきれず、1台ずつ倒れていく。倒れても倒れたまま足の動きは続く。公演のクライマックスを飾るこの混沌状態は10分以上続き、トランス状態を誘発する。やがて徐々にペースを落としていく音楽と共にアヘたちも減速し、舞台照明が暗くなり、ついに完全な停止に至る。
-
-[公演映像](https://youtu.be/5EO3pT3txQk)
-
-![](images/works/ahe/live-stills/2.jpg)
-*ソウル国際舞台芸術祭(SPAF) PLATFORM-L 公演リハーサル、シーン 2*
-
-![](images/works/ahe/live-stills/3.jpg)
-*Forum IMPACT Théâtre de Liège 公演、シーン 2*
-
-![](images/works/ahe/live-stills/4.jpg)
-*Forum IMPACT Théâtre de Liège 公演、シーン 3*
-
-![](images/works/ahe/live-stills/6.jpg)
-*Forum IMPACT Théâtre de Liège 公演、シーン 5 序盤*
-
-![](images/works/ahe/live-stills/main2.png)
-*Forum IMPACT Théâtre de Liège 公演、シーン 5 終盤*
 
 ## 解説
 
@@ -436,12 +442,16 @@ source: "[GitHub (scope handled by random-entity)](https://github.com/random-ent
 - [KWON Byungjun作家ウェブサイト - 鳥たちの日に (ソウル国際舞台芸術祭) - 作品紹介](https://byungjun.pe.kr/works/on-the-bird-s-day-2024-10)
 - [KWON Byungjun作家ウェブサイト - 鳥たちの日に (Forum IMPACT)](https://byungjun.pe.kr/works/on-the-bird-s-day-2024)
 - [Fisheye Immersive 記事](https://fisheyeimmersive.com/article/maladroits-deviants-inutiles-les-robots-de-byungjun-kwon-questionnent-notre-rapport-au-monde/)
+:::
 
+<!---Footnotes-->
+
+:::en
+[^ahe]: A bipedal robot that reinterprets the character "Ahe" from the poem "Crow's Eye View Poem No. 1" by Yi Sang (1910–1937), a Korean literary writer during the Japanese colonial period. The main body consists of two legs and a pelvis and stands on a steel plate covering the stage floor. It moves by controlling the servomotors in its joints and the electromagnets on its soles.
+:::
+:::ko
+[^ahe]: 일제강점기 조선의 문학 작가 이상(1910–1937)의 시 ⟨오감도 제 1호⟩의 등장인물 "아해"를 재해석한 이족보행 로봇. 본체는 두 다리와 골반으로 구성되어, 무대 바닥에 덮인 철판 위에 선다. 관절의 서보모터와 발바닥의 전자석의 제어를 통해 움직인다.
+:::
+:::ja
 [^ahe]: 日本統治時代の朝鮮の文学作家、李箱(イ・サン、1910–1937)の詩⟨烏瞰図(オガンド) 第1号⟩の登場人物「アヘ(子供)」を再解釈した二足歩行ロボット。本体は両脚と骨盤で構成され、舞台の床に覆われた鉄板の上に立つ。関節のサーボモーターと足の裏の電磁石の制御を通じて動く。
-
-[^rotc]: KWON Byungjun作家がアートコリアラボの支援により2024年に創立したロボット劇団(ロボット舞踊作品制作チーム)。
-
-[^kwon]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年 国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
-
-[^impact]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
