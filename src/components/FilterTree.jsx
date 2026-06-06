@@ -38,7 +38,6 @@ function RangeSelect({ facet }) {
       }}>
         {facet.maxOptions.map((o) => <option key={o} value={o}>{fmt(o)}</option>)}
       </select>
-      {active && <button className="clear-enum" onClick={() => clearRange(facet.path)}>{t('clear')}</button>}
     </div>
   )
 }
@@ -58,7 +57,7 @@ function MissingToggle({ path }) {
 // OR/AND multi-select enum pills.
 function EnumFilter({ facet }) {
   const { lang, t } = useLang()
-  const { enums, toggleEnum, setEnumMode, clearEnum } = useFilters()
+  const { enums, toggleEnum, setEnumMode } = useFilters()
   const sel = enums[facet.path] || { ids: [], mode: 'any' }
   const andMeaningless = !valuesCanCoexist(works, facet.path, sel.ids)
 
@@ -79,9 +78,6 @@ function EnumFilter({ facet }) {
             <span className="dot">{sel.mode === 'all' ? '◉' : '○'}</span> {t('tagAll')}
           </button>
         </div>
-        {sel.ids.length > 0 && (
-          <button className="clear-enum" onClick={() => clearEnum(facet.path)}>{t('clear')}</button>
-        )}
       </div>
       <div className="tagfilter">
         {facet.values.map((v) => (
@@ -177,12 +173,12 @@ function GroupIcon({ path }) {
 
 function EnumIcon({ path, onToggle }) {
   const { t } = useLang()
-  const { enums, ranges } = useFilters()
+  const { enums, ranges, clearEnum } = useFilters()
   const active = (enums[path]?.ids.length ?? 0) > 0 || !!ranges[path]
   return (
     <button
       className={`facet-icon enum-icon${active ? ' icon-on' : ' icon-off'}`}
-      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
+      onClick={(e) => { e.stopPropagation(); active ? clearEnum(path) : onToggle(path) }}
     >
       {t('filter')}
     </button>
@@ -193,12 +189,12 @@ function EnumIcon({ path, onToggle }) {
 // show the min/max selectors; goes icon-on when a range filter is active.
 function RangeIcon({ path, onToggle }) {
   const { t } = useLang()
-  const { ranges } = useFilters()
+  const { ranges, clearRange } = useFilters()
   const active = !!ranges[path]
   return (
     <button
       className={`facet-icon range-icon${active ? ' icon-on' : ' icon-off'}`}
-      onClick={(e) => { e.stopPropagation(); onToggle(path) }}
+      onClick={(e) => { e.stopPropagation(); active ? clearRange(path) : onToggle(path) }}
     >
       {t('filter')}
     </button>
