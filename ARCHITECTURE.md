@@ -37,7 +37,7 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | File | Responsibility |
 |---|---|
 | `src/main.jsx` | Mounts providers (`LanguageProvider` → `FilterProvider`) and the `HashRouter` routes. A legacy `artwork/*` route redirects to the bare path, preserving hash + state. |
-| `src/App.jsx` | Layout shell: sidebar + resizer + topbar + `<Outlet/>`. Owns the resizable-sidebar logic. |
+| `src/App.jsx` | Layout shell: sidebar + resizer + topbar + `<Outlet/>`. Owns the resizable-sidebar logic. The `.resizer` drag handle uses negative margins to sit flush on the divider (no flow width) and `z-index:100` for a uniform-thickness hover line above all sticky bars. |
 | `src/i18n.jsx` | Language context, UI-chrome strings, and the localized-value helpers `loc` / `isLocalized`. `propLabel` delegates to `schema.js`. |
 | `src/lib/schema.js` | **Property schema** — the single source of truth for each property's `type` (root + nested dotted paths) and its editable en/ko/ja `label`. Exports `PROPERTY_SCHEMA`, `typeForPath`, `labelForPath`. |
 | `src/filters.jsx` | `FilterProvider` — the entire sort/filter selection state, lifted above the router. Includes `requestExpand` / `expandPath` for cross-page accordion expansion. |
@@ -52,8 +52,8 @@ Markdown files ──glob──▶ parse frontmatter ──▶ normalize ──�
 | `src/lib/urlmap.js` | **URL map** for the `[text](^label)` link syntax: `buildUrlResolver(body, lang)` (page-local `(^label): url` defs → glossary), `stripUrlDefs`, `resolveUrlRefs`. |
 | `src/components/Sidebar.jsx` | Top-bar with the site-title link + `LangSwitch`, then `DatabaseBrowser`. |
 | `src/components/LangSwitch.jsx` | Always-visible en/ko/ja selector wired to `useLang()`. |
-| `src/components/DatabaseBrowser.jsx` | The sidebar: search box, `FilterTree`, group-by, reset, and the results list. Owns the filter/sort/group **pipeline** and the `exactMetaMatch` function for title/enum/event search. |
-| `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. Each row's `.facet-head` (the sort/filter/group Key row) is `position:sticky` so it stays pinned while you scroll its open body. |
+| `src/components/DatabaseBrowser.jsx` | The sidebar: the sticky `.database-sticky-head` (search box + SORT/FILTER/GROUP bar), `FilterTree`, and the results list. Owns the filter/sort/group **pipeline**, the `exactMetaMatch` function, the lifted `openPaths` accordion state, and `collapseOrRevert`. |
+| `src/components/FilterTree.jsx` | Renders one accordion row per facet with the controls its type supports + active markers. Root key-rows **sticky-stack** (each `.facet-head` pins one row below the previous via `--stack-i`); clicking a stacked row scrolls back to its section (`handleToggle` / `revealRow` → `revealTargetFor` + `smoothScrollEl`). |
 | `src/components/Properties.jsx` | Obsidian-style properties block for one work. Enum values are clickable `EnumPill` components; plain strings render with `InlineMarkdown` (links, wikilinks, bold, etc.). |
 | `src/components/Markdown.jsx` | `react-markdown` with remark plugins `remark-gfm`, `remark-math`, `remarkGallery` and rehype plugins `rehypeMathDisplay` (local), `rehype-katex`, `rehype-raw` (raw HTML passes through, enabling `<canvas>` and other inline HTML), `rehype-slug`; YouTube/image/canvas custom components; collapsible headings/lists injected via DOM in a `useEffect`; footnote/anchor click delegation routed through `jump.js`. |
 | `src/components/FootnotePreview.jsx` | Mounted once (in `main.jsx`); a hover popup that previews a footnote's definition near the cursor when any footnote ref is hovered. Rendered via a portal at `document.body`, dynamically sized and flipped to stay on-screen. |
@@ -252,10 +252,51 @@ year.)
   work (`valuesCanCoexist`) — so single-valued keys read clearly.
 - **Markers** on each row reflect what's *active*: `↑/↓` sort, `↔` range,
   `✓` multi-select, `∅` including empties (aggregated from descendants).
-- Open/closed state is lifted into `FilterTree`. The component also listens to
-  `expandPath` from `FilterProvider`: when set, it opens the corresponding
-  accordion (and any ancestors for nested paths) — this is triggered when a user
-  clicks an enum pill in a Properties block on the work page.
+- Open/closed state (`openPaths`) is lifted up to **`DatabaseBrowser`** (so the
+  sticky search head can read `anyOpen`/`collapseOrRevert`). `FilterTree` listens
+  to `expandPath` from `FilterProvider`: when set, it opens the corresponding
+  accordion (and any ancestors for nested paths) — triggered when a user clicks
+  an enum pill in a Properties block on the work page.
+
+### Sticky stacking & click-to-reveal
+
+The sidebar scrolls in a 0.85-`zoom`ed `.database`. As you scroll, the **root
+key-rows sticky-stack** at the top — each pins one row-height below the previous,
+so all rows *above* the current scroll position stay visible (the sidebar analog
+of the main-content `HeadingStack`). Mechanism:
+
+- Each root row's `.facet-head` is `position:sticky` with
+  `top: calc(96px + var(--stack-i) * 28px)` (`--stack-i` = row index, inline) and
+  `z-index: calc(20 - var(--stack-i))` (earlier rows on top). Row height is a
+  uniform 28px.
+- `.filters > .filter-tree > .filter-node { display: contents }` so all root
+  heads share `.filter-tree` as one tall sticky containing block — otherwise each
+  is trapped in its own short `<li>` and scrolls away as soon as its body passes.
+- Headers are opaque, so an expanded row's body simply scrolls **under** the
+  stack (hidden when scrolled past, revealed on scroll-up). There is intentionally
+  **no scroll-driven collapse/expand** — the natural sticky+opaque behavior is the
+  whole effect (an earlier auto-collapse-with-scroll-compensation version was
+  removed as too complex).
+
+Click behavior is the sidebar analog of clicking a heading-stack crumb:
+
+- **`handleToggle`** (header click): if the row is *stacked* (you've scrolled
+  past it, `scrollTop > revealTarget + 2`), smooth-scroll back to its section and
+  expand if collapsed — never collapse; otherwise plain toggle, scrolling to
+  reveal on open.
+- The per-row **Filter/Search icons** call **`revealRow`** (open + scroll to the
+  row) so the panel is visible, not opened behind the stack.
+- The header **Collapse/Expand** button (`collapseOrRevert`) resets `scrollTop`
+  to 0 so collapse-all / expand-all land at a predictable top position.
+- Helpers: `revealTargetFor(head)` computes a row's pin-slot scroll position
+  (reads the natural offset at `scrollTop 0`, no paint); `smoothScrollEl` is a
+  constant-time rAF scroll of the sidebar's `scrollTop` (native smooth scroll
+  no-ops on the sticky container; instant when hidden / reduced-motion).
+- `.sidebar { overflow-anchor: none }` keeps a click-expand's body insertion from
+  fighting the scroll-to-section. The sticky search head (`.database-sticky-head`,
+  `z-index 30`) sits above the stack (the topmost pinned row tucks under it); the
+  drag `.resizer` is `z-index 100` (uniform hover line) and `.sidebar-topbar`
+  `z-index 40` (stacked heads don't bleed through it on scroll-off).
 
 ## Properties block (`Properties.jsx`)
 
