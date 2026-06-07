@@ -321,7 +321,12 @@ select {
      the rest of the sidebar. */
   margin-left: calc(-16px / 0.85);
   margin-right: calc(-16px / 0.85);
-  border-bottom: 1px solid var(--border);
+  /* The blank space below the SORT/FILTER/GROUP text must belong to the sticky
+     head's own opaque box (not a collapsing margin on .filters-title), so it is
+     always painted and covers whatever scrolls behind it (z-index 4 > facet-head
+     1). Otherwise a collapsed row scrolling under would butt right against the
+     text, while a pinned expanded row would show a gap. */
+  padding-bottom: 5px;
 }
 
 .main-search {
@@ -564,7 +569,7 @@ select {
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 4px 0;
+  margin: 5px 0 0;
 }
 .filters-title-active {
   color: var(--fg);
@@ -592,7 +597,7 @@ select {
      which pins at ~40px real. Formula: viewport_pin = 16px (sidebar padding)
      + top·0.85. Set top so facet-head pins flush below the sticky head. */
   position: sticky;
-  top: 97px;
+  top: 96px;
   z-index: 1;
   background: var(--bg);
 }
