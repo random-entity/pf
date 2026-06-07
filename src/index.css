@@ -105,7 +105,12 @@ select {
   margin-left: -3px;
   margin-right: -2px;
   cursor: col-resize;
-  z-index: 2;
+  /* Above the sticky title bars (topbar z-index 3) so the hover highlight is a
+     uniform-thickness line top-to-bottom. At z-index 2 the topbars painted over
+     the handle's edge, making the highlighted line thinner across the title-bar
+     band than below it. The handle is transparent until hovered, so sitting on
+     top obscures nothing normally. */
+  z-index: 4;
 }
 .resizer:hover,
 .resizer:active {
