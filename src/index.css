@@ -98,7 +98,12 @@ select {
   position: sticky;
   top: 0;
   height: 100vh;
+  /* The handle straddles the divider (-3px left) but must not consume layout
+     width, or it pushes the content (and its topbar border-line) right of the
+     sidebar divider, leaving a small gap on the left of that line. -2px right
+     cancels the remaining flow width (5 - 3 - 2 = 0) so content sits flush. */
   margin-left: -3px;
+  margin-right: -2px;
   cursor: col-resize;
   z-index: 2;
 }
@@ -134,7 +139,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  padding: 4px 0 6px;
+  padding: 5px 0;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
