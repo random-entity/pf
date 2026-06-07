@@ -219,7 +219,7 @@ export default function DatabaseBrowser() {
   const allPaths = useMemo(() => collectFacetPaths(allFacets), [allFacets])
   const anyOpen = openPaths.size > 0
 
-  const collapseOrRevert = () =>
+  const collapseOrRevert = () => {
     setOpenPaths((s) => {
       if (s.size > 0) {
         prevOpen.current = new Set(s)
@@ -229,6 +229,12 @@ export default function DatabaseBrowser() {
         ? new Set(prevOpen.current)
         : new Set(allPaths)
     })
+    // Reset to the top so the result is predictable (collapse/expand-all changes
+    // the total height; without this the sidebar would land at a clamped, mid-
+    // list scroll position).
+    const sb = document.querySelector('.sidebar')
+    if (sb) sb.scrollTop = 0
+  }
 
   const sortValue = (a) => {
     if (sort.path === TITLE_SORT) return titleOf(a, lang)

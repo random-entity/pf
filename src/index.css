@@ -90,6 +90,11 @@ select {
   position: sticky;
   top: 0;
   scrollbar-width: none;
+  /* Clicking a stacked key-row inserts its (often tall) body above the current
+     scroll position; without this, the browser's scroll anchoring would bump
+     scrollTop to keep content stable, fighting the deliberate scroll-to-its-
+     section motion (revealTargetFor + smoothScrollEl in FilterTree.jsx). */
+  overflow-anchor: none;
 }
 
 /* Drag handle between the sidebar and content, to resize the sidebar. */
@@ -105,12 +110,12 @@ select {
   margin-left: -3px;
   margin-right: -2px;
   cursor: col-resize;
-  /* Above the sticky title bars (topbar z-index 3) so the hover highlight is a
-     uniform-thickness line top-to-bottom. At z-index 2 the topbars painted over
-     the handle's edge, making the highlighted line thinner across the title-bar
-     band than below it. The handle is transparent until hovered, so sitting on
-     top obscures nothing normally. */
-  z-index: 4;
+  /* Above every sticky bar (content topbar z-index 3, sidebar sticky head 30)
+     so the hover highlight is a uniform-thickness line top-to-bottom. At a lower
+     z-index those bars painted over the handle's edge, making the highlighted
+     line thinner across the title-bar band than below it. The handle is
+     transparent until hovered, so sitting on top obscures nothing normally. */
+  z-index: 100;
 }
 .resizer:hover,
 .resizer:active {
@@ -226,7 +231,11 @@ select {
 .sidebar-topbar {
   position: sticky;
   top: -16px;
-  z-index: 2;
+  /* Above the stacked facet key-rows (z-index up to 20). When the filter section
+     scrolls off, the sticky heads clamp to its exiting bottom edge and bunch up
+     into this title/lang-switch band; without a higher z-index they'd show
+     through it. */
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -323,7 +332,9 @@ select {
 .database-sticky-head {
   position: sticky;
   top: 28px;
-  z-index: 4;
+  /* Above the stacked facet key-rows (z-index up to 20) so the topmost pinned
+     row tucks under this bar's opaque padding instead of painting over it. */
+  z-index: 30;
   background: var(--bg);
   /* Extend to sidebar edges by canceling the 16px sidebar padding (in zoomed
      space the cancel value is 16/0.85 ≈ 18.82px). The search input and
@@ -610,6 +621,21 @@ select {
   top: 96px;
   z-index: 1;
   background: var(--bg);
+}
+/* Sticky STACKING for the top-level key-rows: each root .facet-head pins one
+   row-height below the previous, so every key-row above the current scroll
+   position stays stacked at the top (mirrors the main-content HeadingStack).
+   `display: contents` lets all root heads share the .filter-tree as their common
+   (tall) sticky containing block — otherwise each is trapped in its own short
+   .filter-node and scrolls away once its body passes the pin line. Row height is
+   a uniform single-line 28px (pre-zoom). z-index counts down so earlier rows
+   stay on top; bodies (z-index auto) scroll under the accumulating stack. */
+.filters > .filter-tree > .filter-node {
+  display: contents;
+}
+.filters > .filter-tree > .filter-node > .facet-head {
+  top: calc(96px + var(--stack-i, 0) * 28px);
+  z-index: calc(20 - var(--stack-i, 0));
 }
 .facet-head:hover {
   background: var(--hover);
