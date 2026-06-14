@@ -21,14 +21,14 @@ tags:
 type: Personal work
 credits:
   en:
-    Direction, Editing, Sound: KIM Taekmin
-    Cinematography, Art: KIM Daeun, KIM Taekmin
+    Direction, Editing, Sound: random-entity
+    Cinematography, Art: KIM Daeun, random-entity
   ko:
-    연출, 편집, 사운드: KIM Taekmin
-    촬영, 미술: KIM Daeun, KIM Taekmin
+    연출, 편집, 사운드: random-entity
+    촬영, 미술: KIM Daeun, random-entity
   ja:
-    演出・編集・サウンド: KIM Taekmin
-    撮影・美術: KIM Daeun、KIM Taekmin
+    演出・編集・サウンド: random-entity
+    撮影・美術: KIM Daeun、random-entity
 ---
 ![](images/works/self2/main.png)
 

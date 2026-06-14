@@ -23,17 +23,17 @@ tags:
 type: Personal work
 credits:
   en:
-    Screenplay, Direction, Editing: KIM Taekmin
-    Cinematography: KIM Hyojeong, KIM Taekmin, LEE Taeyun
-    Cast: KIM Taekmin, LEE Taeyun, mother, grandmother, grandfather
+    Screenplay, Direction, Editing: random-entity
+    Cinematography: KIM Hyojeong, random-entity, LEE Taeyun
+    Cast: random-entity, LEE Taeyun, mother, grandmother, grandfather
   ko:
-    각본, 연출, 편집: KIM Taekmin
-    촬영: KIM Hyojeong, KIM Taekmin, LEE Taeyun
-    출연: KIM Taekmin, LEE Taeyun, 어머니, 할머니, 할아버지
+    각본, 연출, 편집: random-entity
+    촬영: KIM Hyojeong, random-entity, LEE Taeyun
+    출연: random-entity, LEE Taeyun, 어머니, 할머니, 할아버지
   ja:
-    脚本・演出・編集: KIM Taekmin
-    撮影: KIM Hyojeong、KIM Taekmin、LEE Taeyun
-    出演: KIM Taekmin、LEE Taeyun、母、祖母、祖父
+    脚本・演出・編集: random-entity
+    撮影: KIM Hyojeong、random-entity、LEE Taeyun
+    出演: random-entity、LEE Taeyun、母、祖母、祖父
 ---
 ![](images/works/self1/main.png)
 

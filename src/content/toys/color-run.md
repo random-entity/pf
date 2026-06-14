@@ -19,12 +19,12 @@ type: Toy
 credits:
   en:
     Graphics: KIM Haein
-    Programming: KIM Taekmin
+    Programming: random-entity
   ko:
     그래픽: KIM Haein
-    프로그래밍: KIM Taekmin
+    프로그래밍: random-entity
   ja:
     グラフィック: KIM Haein
-    プログラミング: KIM Taekmin
+    プログラミング: random-entity
 ---
 ![](images/works/color-run/main.jpg)

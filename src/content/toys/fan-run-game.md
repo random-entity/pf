@@ -24,15 +24,15 @@ type: Toy
 credits:
   en:
     Direction, Graphics: JEONG Seonghye
-    Programming: KIM Taekmin
+    Programming: random-entity
     Staff: KIM Minseoug, HONG Intaek
   ko:
     연출, 그래픽: JEONG Seonghye
-    프로그래밍: KIM Taekmin
+    프로그래밍: random-entity
     스태프: KIM Minseoug, HONG Intaek
   ja:
     演出・グラフィック: JEONG Seonghye
-    プログラミング: KIM Taekmin
+    プログラミング: random-entity
     スタッフ: KIM Minseoug、HONG Intaek
 ---
 :::en

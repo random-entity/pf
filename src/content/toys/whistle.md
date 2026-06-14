@@ -38,19 +38,19 @@ tools: ["Processing"]
 :::en
 ## Description
 
-Students who were scattered and playing on a playground line up into neat rows and columns when a whistle (a real one) sounds. If you blow the whistle in a steady rhythm, they begin doing calisthenics in time with that rhythm. (Graphics: KIM Haein. Programming: KIM Taekmin.)
+Students who were scattered and playing on a playground line up into neat rows and columns when a whistle (a real one) sounds. If you blow the whistle in a steady rhythm, they begin doing calisthenics in time with that rhythm. (Graphics: KIM Haein. Programming: random-entity.)
 :::
 
 :::ko
 ## 설명
 
-운동장에 흩어져 놀고 있던 학생들이, 호루라기(현실의 것)가 울리면 가로세로 열을 맞춰 정렬한다. 호루라기를 일정한 리듬으로 불면, 그들은 그 리듬에 맞춰 체조를 시작한다. (그래픽: KIM Haein. 프로그래밍: KIM Taekmin.)
+운동장에 흩어져 놀고 있던 학생들이, 호루라기(현실의 것)가 울리면 가로세로 열을 맞춰 정렬한다. 호루라기를 일정한 리듬으로 불면, 그들은 그 리듬에 맞춰 체조를 시작한다. (그래픽: KIM Haein. 프로그래밍: random-entity.)
 :::
 
 :::ja
 ## 説明
 
-運動場に散らばって遊んでいた生徒たちが、ホイッスル（現実のもの）が鳴ると縦横の列を整えて整列する。ホイッスルを一定のリズムで吹けば、彼らはそのリズムに合わせて体操を始める。（グラフィック：KIM Haein。プログラミング：KIM Taekmin。）
+運動場に散らばって遊んでいた生徒たちが、ホイッスル（現実のもの）が鳴ると縦横の列を整えて整列する。ホイッスルを一定のリズムで吹けば、彼らはそのリズムに合わせて体操を始める。（グラフィック：KIM Haein。プログラミング：random-entity。）
 :::
 
 :::en

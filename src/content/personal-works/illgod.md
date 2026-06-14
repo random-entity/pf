@@ -22,13 +22,13 @@ tags:
 type: Personal work
 credits:
   en:
-    Composition, Lyrics, Vocals: KIM Taekmin
+    Composition, Lyrics, Vocals: random-entity
     Sampling sources: many
   ko:
-    작곡, 작사, 보컬: KIM Taekmin
+    작곡, 작사, 보컬: random-entity
     샘플링 출처: 다수
   ja:
-    作曲・作詞・ボーカル: KIM Taekmin
+    作曲・作詞・ボーカル: random-entity
     サンプリング出所: 多数
 ---
 ![](images/works/illgod/jacket.jpg)

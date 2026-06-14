@@ -20,13 +20,13 @@ tags:
 type: Personal work
 credits:
   en:
-    Cinematography, Editing: KIM Taekmin
+    Cinematography, Editing: random-entity
     Appropriation source: MBN talk show "Sokpuri Show Dongchimi"
   ko:
-    촬영, 편집: KIM Taekmin
+    촬영, 편집: random-entity
     어프로프리에이션 출처: MBN 방송국 토크 프로그램 "속풀이쇼 동치미"
   ja:
-    撮影・編集: KIM Taekmin
+    撮影・編集: random-entity
     アプロプリエーション出所: MBN放送局のトーク番組「Sokpuri Show Dongchimi」
 ---
 :::en
