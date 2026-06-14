@@ -350,3 +350,47 @@ source: "[GitHub](https://github.com/random-entity/o.art.gf3)"
 
 [^4]: 文化、研究、教育、企業など各分野の協力を背景に、ベルギーのThéâtre de Liègeが開催する、舞台芸術と新しいテクノロジーの関係に焦点を当てた現代舞踊の国際芸術祭。(参照: [Théâtre de Liège ウェブサイト - Forum IMPACT 紹介](https://theatredeliege.be/en/festival-archives/forum-impact/))
 :::
+
+---
+
+:::en
+## Description
+
+A robot performance work (approx. 10 min) consisting of the dance of a single GF3, voice and performance recordings of SHIN Myung-Sook, and video feedback.
+
+A voice recording of SHIN Myung-Sook's 2002 interview — about how she learned to play the gayageum from her master since childhood, and about how Western notation differs from the traditional method of transmitting performance, and what influence that difference has on present-day performers — plays through the auditorium. The upper-body humanoid "GF3" standing on stage makes gestures of narrating the interview, as though it had itself become SHIN. When the interview ends, it begins to dance to the gayageum music performed by SHIN. On the screen, video feedback of the scene is projected. As the vigorous dance continues, GF3's parts break and its movement seizes up. Finally the power goes out, and the performance comes to an end.
+:::
+
+:::ko
+## 설명
+
+한 대의 GF3의 무용, SHIN Myung-Sook 선생의 음성·연주 기록, 영상 피드백으로 이루어진 로봇 퍼포먼스 작품(약 10분).
+
+SHIN Myung-Sook 선생의 2002년 인터뷰(어린 시절부터 그가 스승에게 어떻게 가야금 연주를 배웠는지, 서양의 기보법과 전통적인 연주 전수 방식이 어떻게 다르며 그 차이가 현대 연주자들에게 어떤 영향을 주는지에 관한)의 음성 기록이 오디토리엄에 흐른다. 무대에 서 있는 상반신 휴머노이드 "GF3"는, 마치 자신이 SHIN 선생이 된 것처럼 인터뷰를 이야기하는 제스처를 취한다. 인터뷰가 끝나면, SHIN 선생이 연주하는 가야금 음악에 맞춰 춤추기 시작한다. 스크린에는 그 장면의 영상 피드백이 비친다. 격렬한 춤이 계속되는 동안 GF3의 부품은 파손되고, 움직임은 교착된다. 결국 전원이 꺼지고, 이윽고 퍼포먼스는 끝난다.
+:::
+
+:::ja
+## 説明
+
+1台のGF3の舞踊、SHIN Myung-Sook氏の音声・演奏記録、映像フィードバックからなるロボット・パフォーマンス作品（約10分）。
+
+SHIN Myung-Sook氏の2002年インタビュー（子供の頃から彼女が師匠からいかに伽倻琴演奏を習ったのか、西洋の記譜法と伝統的な演奏伝授方法がいかに異なっておりその違いが現代の演奏者たちにいかなる影響を与えているのかについて）の音声記録がオーディトリアムに流れる。ステージに立っている上半身ヒューマノイド「GF3」は、まるで自身がSHIN氏となったようにインタビューを語るジェスチャーを取る。インタビューが終わると、SHIN氏の演奏する伽倻琴音楽に合わせて踊りだす。スクリーンにはその場面の映像フィードバックが映る。激しい踊りが続くうち、GF3の部品は破損し、動きは膠着する。結局電源が消え、やがてパフォーマンスは終わる。
+:::
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+![](images/works/gf3/odt1.jpg)
+
+![](images/works/gf3/odt2.jpg)
+
+![](images/works/gf3/odt3.jpg)
+
+![](images/works/gf3/odt4.jpg)

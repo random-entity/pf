@@ -456,3 +456,57 @@ repo: "[GitHub (scope handled by random-entity)](https://github.com/random-entit
 :::ja
 [^ahe]: 日本統治時代の朝鮮の文学作家、李箱(イ・サン、1910–1937)の詩⟨烏瞰図(オガンド) 第1号⟩の登場人物「アヘ(子供)」を再解釈した二足歩行ロボット。本体は両脚と骨盤で構成され、舞台の床に覆われた鉄板の上に立つ。関節のサーボモーターと足の裏の電磁石の制御を通じて動く。
 :::
+
+---
+
+:::en
+## Portfolio summary
+
+A stage performance work (approx. 60 min) consisting of the dance of thirteen bipedal robots, "Ahe[^ahe]."
+
+**Synopsis.** (Scene 1) Thirteen bipedal robot Ahe stand on stage. Flags bearing long ribbons that flutter like wings soar high toward the sky from both sides of their pelvises. The Ahe, arranged in neat rows, dance in perfect unison in place, or tap-dance using the sound of electromagnets attaching to and detaching from the floor as a rhythm. (Scene 2) One by one, they begin a slow, slow-motion-like walk. When six begin moving, the moving group stops as the remaining group starts to walk; the two groups alternate walking and stopping for a while. The stage lighting, the blinking colors of the LEDs that indicate communication among the Ahe, the reflected light of the wings, and the electronic music improvised by KWON Byungjun mingle together. (Scene 3) One walks to the front center of the stage; the others gaze at it intently. A nimble, light solo dance begins. (Scene 4) Everyone disperses, each heading in a random direction, changing course when bumping into another Ahe. (Scene 5) After all pause briefly, they turn in place and look at the stage center. Slowly, they begin to spin like Sufi Whirling. As the music builds, the spinning accelerates; the wings whip violently as if caught in a storm. Unable to withstand the high-speed rotation that reaches their mechanical limit, they fall one by one. Even fallen, their legs keep moving. As the music draws to a close and the stage lights fade, the Ahe slow down and finally come to a complete halt.
+
+**Commentary.** Though "Ahe" is a bipedal robot, its mechanism of movement is, as a machine, extremely simple, and it barely keeps its balance by relying on the attraction between the steel plate on the ground and the electromagnets on its soles. It looks like a young creature that has just begun to learn the act of walking. We humans, too, are placed in an environment that changes at an unpredictable speed, and cannot be said to know how to confront the modern world by our own power. The wings of the Ahe, thrusting toward the sky, crave freedom, but if it does not move its two legs, the wings will not move either. Their walking in the world atop the steel plate, and the friction and collision sounds with the ground that result, sound like the anxiety arising from a present that has seized up between gravity and freedom. That anxiety explodes in the frenzied Sufi Whirling scene that lasts for over ten minutes at the end, in which the robots expose their physical limit to us, the audience.
+:::
+
+:::ko
+## 포트폴리오 요약
+
+13대의 이족보행 로봇 "아해[^ahe]"의 무용으로 이루어진 무대 공연 작품(약 60분).
+
+**줄거리.** (씬 1) 이족보행 로봇 "아해" 13대가 무대에 서 있다. 날개처럼 팔랑거리는 긴 리본이 달린 깃발이 골반 양옆에서 하늘을 향해 높이 솟아 있다. 열을 맞춰 배치된 아해들은 제자리에서 일사불란한 춤을 추거나, 전자석이 바닥에 붙고 떨어지는 소리를 리듬 삼아 탭댄스를 춘다. (씬 2) 한 대씩 슬로모션 같은 느린 보행을 시작한다. 6대가 움직이게 되면, 움직이던 그룹이 멈추는 동시에 나머지 그룹이 걷기 시작하며, 두 그룹은 한동안 보행과 정지를 교대한다. 무대 조명, 아해들 간 통신을 나타내는 LED의 점멸하는 색채, 날개의 반사광, KWON Byungjun이 즉흥 연주하는 전자음악이 뒤섞인다. (씬 3) 한 대가 무대 전방 중앙으로 걸어 나오고, 다른 아해들은 그를 가만히 바라본다. 민첩한 발놀림의 경쾌한 솔로 댄스가 시작된다. (씬 4) 전원이 해산하듯 각자 임의의 방향으로 나아가며, 다른 아해와 부딪히면 방향을 바꾼다. (씬 5) 전원이 잠시 멈춘 뒤 제자리에서 돌아 무대 중앙을 바라본다. 느릿느릿, 수피 댄스(Sufi Whirling)처럼 빙글빙글 돌기 시작한다. 점점 고조되는 음악에 맞춰 회전 속도도 가속하고, 날개는 폭풍에 휘말리듯 격렬하게 나부낀다. 기계적 한계에 다다른 고속 회전을 견디지 못하고 한 대씩 쓰러져 간다. 쓰러져도 다리의 움직임은 계속된다. 음악이 끝을 향하고 무대 조명도 꺼지며, 아해들의 움직임이 점점 느려져 마침내 완전한 정지에 이른다.
+
+**해설.** "아해"는 이족보행 로봇이지만 그 움직임의 방식은 기계로서 극히 단순하며, 게다가 바닥의 철판과 발바닥의 전자석 사이 인력에 의존해 가까스로 균형을 잡는다. 마치 이제 막 걷기라는 행위를 익히기 시작한 어린 생명체처럼 보인다. 우리 인간 또한 예측 불가능한 속도로 변해 가는 환경에 놓여 있으며, 현대 세계에 스스로의 힘으로 맞서는 방법을 알고 있다고 말하기 어렵다. 하늘을 향해 치솟은 아해의 날개는 자유를 갈망하지만, 두 다리를 움직이지 않으면 날개 또한 움직이지 않는다. 철판 위 세계에서의 그들의 보행과 그로 인한 지면과의 마찰·충돌음은, 중력과 자유 사이에서 교착해 버린 현 상태에서 비롯되는 불안처럼 들린다. 그 불안은 마지막 10분 이상에 걸쳐 지속되는 광적인 수피 댄스 씬에서 폭발하고, 그 로봇들은 스스로의 신체적 한계를 우리 관객에게 드러낸다.
+:::
+
+:::ja
+## ポートフォリオ要約
+
+13台の二足歩行ロボット「アヘ[^ahe]」の舞踊からなる舞台公演作品（約60分）。
+
+**あらすじ。** （シーン1）二足歩行ロボット「アヘ」13台が舞台に立っている。まるで羽のようにひらひらする長いリボンが付いている旗が骨盤の両側から空へ向かって高くそびえ立っている。行列に揃えて配置されているアヘたちはその場で一糸乱れぬ踊りをしたり、電磁石が床に吸着したり離れたりする音をリズムにしてタップダンスを踊る。（シーン2）1台ずつ、スローモーションのようなゆっくりした歩行を始める。6台が動くようになると、動いていたグループが止まる同時に残りのグループが歩き始める。そうしてこの二つのグループはしばらく交互に歩行と停止を繰り返す。舞台の照明、アヘたち同士の通信を表すLEDの点滅する色彩、羽の反射光、KWON Byungjun氏が即興演奏する電子音楽が交じり合う。（シーン3）1台が舞台の前方中央に歩いて行き、他のアヘたちは彼をじっくり見つめる。俊敏な足さばきで軽快なソロ・ダンスが始まる。（シーン4）全員解散するようにそれぞれ任意の方向に進み、他のアヘにぶつかると向きを変える。（シーン5）全員しばらく立ち止まったあと、その場で回り舞台のセンターを眺める。最初はゆっくり、Sufi Whirlingのようにくるくると回り始める。徐々に盛り上がる音楽に合わせて、回る速度も次第に加速していく。羽は嵐に煽られるように激しく靡く。機械的限界に達した高速回転に耐えきれず、1台ずつ倒れていく。倒れても倒れたまま足の動きは続く。音楽が終わりを迎え、舞台照明も消え、アヘたちの動きが段々遅くなり、ついに完全な静止に至る。
+
+**解説。** 「アヘ」は二足歩行ロボットとはいえ、その動きの仕組みは機械として極めて単純であり、しかも地面の鉄板と足裏の電磁石の引力に依存し辛うじてバランスをとる。たった今歩きという行為を身につけ始めた幼い生命体ように見える。我々人間も、予測不可能な速度で変わっていく環境に置かれており、現代の世界に自らの力をもって立ち向かう方法を分かっているとはいえない。空に向けて突き上がっているアヘの羽は自由を渇望するが、両脚を動かさなければ羽も動かない。鉄板の上の世界における彼らの歩行とそれによる地面との摩擦・衝突音は、重力と自由との間に膠着してしまった現状から生じる不安のように聞こえる。その不安は最後の10分間以上にかかって持続する狂的なSufi Whirlingシーンで爆発し、彼らロボットはその身体的限界を我々鑑賞者にむき出す。
+:::
+
+:::en
+### Gallery (portfolio)
+:::
+:::ko
+### 갤러리 (포트폴리오)
+:::
+:::ja
+### ギャラリー（ポートフォリオ）
+:::
+
+![](images/works/ahe/odt1.jpg)
+
+![](images/works/ahe/odt2.jpg)
+
+![](images/works/ahe/odt3.jpg)
+
+![](images/works/ahe/odt4.jpg)
+
+![](images/works/ahe/odt5.jpg)
+
+![](images/works/ahe/odt6.jpg)

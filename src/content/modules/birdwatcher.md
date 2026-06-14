@@ -47,3 +47,25 @@ source: "[GitHub](https://github.com/random-entity/o.mod.birdwatcher)"
 - 似たような音の繰り返しに聴取者が興味を失っても、しばらく待っていれば再び予想外の興味深い音が出てくる。しかし、その音が二度と同じように繰り返されることはない。
 - これはまるで、予測不可能だがいつかの瞬間に現れる神秘的な鳥の姿を捉えるための野鳥観察活動に似ていると考え、「Birdwatcher」という名前を付けた。
 :::
+
+---
+
+:::en
+## Description
+
+A software synthesizer that produces sound through FM synthesis. It periodically emits isolated, single sounds, but as time passes the FM synthesis parameters are automatically and randomly adjusted, so those single sounds change unpredictably. In this way, a momentary and accidental encounter with strange sounds — as if one were having the experience of watching wild birds — comes about.
+:::
+
+:::ko
+## 설명
+
+FM synthesis를 통해 소리를 내는 소프트웨어 신디사이저. 주기적으로 단발적인 소리를 내지만, 시간의 경과에 따라 FM synthesis의 파라미터가 자동으로 랜덤하게 조정되어, 그 단발적인 소리는 예측 불가능하게 변해 간다. 그렇게, 마치 야생 조류 관찰의 경험과 같은 순간적·우연적인 기묘한 소리와의 만남이 이루어진다.
+:::
+
+:::ja
+## 説明
+
+FM synthesisを通じて音を出すソフトウェア・シンセサイザー。周期的に単発的な音を出すが、時間の経過によって自動的にFM synthesisのパラメーターがランダムに調整され、その単発的な音は予測不可能に変わっていく。そうして、あたかも野生鳥類観察の経験のような瞬間的・偶然的な奇妙な音との出会いが成り立つ。
+:::
+
+![](images/works/birdwatcher/odt1.jpg)

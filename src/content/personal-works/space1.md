@@ -183,3 +183,43 @@ source: "[GitHub](https://github.com/random-entity/o.art.space1)"
 - 実際のところ、ゲームワールド内でのプレイヤーの位置は固定されているが、ビルオブジェクトのメッシュが長方形から空を覆う円柱へと連続的に変形していくことによって、プレイヤーはビルに近づいていると知覚することになるのである。メッシュの連続的な変形をはじめ、窓や雲の点滅などはシェーダープログラミングによって実装され、GPUリソースを活用する。
 - 「Unlit」マテリアルによるレンダリングは、ゲームワールド全体がまるで色紙を切り抜いて作られたかのように見える平面的な彩色のために使用された。
 :::
+
+---
+
+:::en
+## Synopsis
+
+The player stands in a generic scene of a first-person video game. However, movement is only possible back and forth along a single straight line. The sky, the ground, and a building ahead are visible. As you advance toward the building's door, the building appears larger in proportion to the shrinking distance, until it eventually covers the entire sky and becomes a new sky. The rectangle that was the door becomes a building, and that building, too, grows a door of its own. Even moving backward only reverses the order; the player is forever trapped inside a fractal world.
+:::
+
+:::ko
+## 줄거리
+
+일인칭 시점 비디오게임의 일반적인 장면에 플레이어가 있다. 그러나 앞뒤 일직선상으로만 이동할 수 있다. 하늘과 땅, 그리고 전방에 빌딩이 보인다. 빌딩의 문으로 들어가려 전진하면, 좁혀지는 거리에 따라 빌딩이 크게 보이고, 이윽고 빌딩이 하늘 전체를 덮어 새로운 하늘이 된다. 문이었던 직사각형은 빌딩이 되고, 그 빌딩에도 또 문이 나타난다. 후진해도 순서가 거꾸로 될 뿐이며, 플레이어는 프랙탈 세계 속에 영원히 갇힌다.
+:::
+
+:::ja
+## あらすじ
+
+一人称視点のビデオゲームの一般的なシーンにプレイヤーがいる。しかし、前後の一直線上にしか移動ができない。空と地面、そうして前方にビルが見える。ビルの扉に入ろうとして前進すると、縮まる距離に応じてビルが大きく見え、やがてビルが空全体を覆い新たな空となる。扉だった長方形はビルになり、そのビルにもまた扉が現れる。後進しても、順序が逆になるだけであり、プレイヤーはフラクタル世界の中に永遠に閉じ込められる。
+:::
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+![](images/works/space1/odt1.png)
+
+![](images/works/space1/odt2.png)
+
+![](images/works/space1/odt3.png)
+
+![](images/works/space1/odt4.png)
+
+![](images/works/space1/odt5.jpg)

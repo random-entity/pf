@@ -237,3 +237,43 @@ source: "[GitHub](https://github.com/random-entity/o.art.ghost-theater-snumoa)"
 
 [^3]: (1971–) サウンド、ロボット、パフォーマンスなどをメディアとする韓国の現代美術家。2024年国立現代美術館「今年の作家賞 2023」受賞。(参照: [作家ウェブサイト](https://byungjun.pe.kr/))
 :::
+
+---
+
+:::en
+## Description
+
+An interactive sound installation work consisting of GLPS Headphones and spotlights. Each circular region brightly lit on the floor is a sound "zone."
+
+Viewers entering the exhibition space receive a pair of GLPS Headphones. Developed over a long period by Seoul Open Media, these headphones can recognize the position and orientation of the wearer's head through an embedded system inside. Combined with Ambisonic technology, they output AR audio that produces the illusion that sound sources are distributed throughout the real space. Entering each "zone" within the exhibition room, the AR audio of the sound sources placed around that zone plays. The sources include voice recordings of Syrian-refugee folk songs, theatrical narration based on an AI-written script, electronic music, and more — letting worlds that tend to be perceived as separate coexist within a single space.
+:::
+
+:::ko
+## 설명
+
+GLPS 헤드폰과 스포트라이트로 이루어진 인터랙티브 사운드 인스톨레이션 작품. 바닥의 조명이 밝은 원형 영역 각각이 사운드의 "존(zone)"이다.
+
+전시 공간에 들어온 관람자는 GLPS 헤드폰을 받는다. Seoul Open Media가 오랜 기간 개발해 온 이 헤드폰은, 내부에 탑재된 임베디드 시스템을 통해 착용자의 머리 위치와 방향을 인식할 수 있다. 거기에 Ambisonic 기술을 사용해, 현실 공간에 음원이 분포해 있는 듯한 착각을 일으키는 AR 음향을 출력한다. 전시실 내의 각 "존"에 들어가면, 해당 존 주위에 배치된 음원에 의한 AR 음향이 흐른다. 음원에는 시리아 난민의 민요 음성 기록이나 AI가 작성한 스크립트에 기반한 극의 내레이션, 전자음악 등이 포함되어 있어, 분리되어 인식되기 쉬운 세계들을 하나의 공간에 공존시킨다.
+:::
+
+:::ja
+## 説明
+
+GLPS Headphonesとスポットライトからなるインタラクティブ・サウンド・インスタレーション作品。床の照明が明るい円形の領域それぞれが、サウンドの「ゾーン」である。
+
+展示空間に入った観覧者はGLPSヘッドホンを受け取る。Seoul Open Mediaが長い間開発してきたこのヘッドホンは、中に搭載された埋め込みシステムを通じて着用者の頭の位置と向きを認識することができる。それにAmbisonic技術を用い、現実空間に音源が分布しているかのような錯覚を起こすAR音響を出力する。展示室内の各「ゾーン」に入ると、当ゾーンの周りに配置されている音源によるAR音響が流れる。音源には、シリア難民の民謡の音声記録やAIが作成したスクリプトに基づいた劇のナレーションや電子音楽などが含まれており、分離されているように認識されがちな世界らを一つの空間に共存させる。
+:::
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+![](images/works/ghost-theater/odt1.jpg)
+
+![](images/works/ghost-theater/odt2.jpg)

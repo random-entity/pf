@@ -1,6 +1,6 @@
 ---
 title:
-  en: "Feature test page"
+  en: "Feature test page[^title-footnote]"
   ko: "기능 테스트 페이지"
   ja: "機能テストページ"
 releases:
@@ -16,11 +16,19 @@ releases:
 genre:
   - hello
   - "[wtf](https://google.com)(https://google.com)[^1][^boids][^boids]"
-  - "[[ahe|ASDF]]"
+  - "hey [[ahe]]"
 tagline: 
   - en:
-      first: "This [[ahe|popop]] actually works!"
+      first: "This [[ahe]] actually works!"
 ---
 
+[Video](https://youtu.be/5EO3pT3txQk)
+*Hello ti*
+
+[[feature-test]]
+
+[[ahe]]
 
 [^1]: foot
+
+[^title-footnote]: Does this work?

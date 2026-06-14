@@ -404,3 +404,85 @@ Three friends performing a memorial service by the river transition to a time di
 
 [^2]: 2021年エディションのウェブサイトは現在アクセス不可である。[Wayback Machineを通じて当時の「オンライン展示ウェブサイト」の表紙画面は見ることができる](https://web.archive.org/web/20220116184406/https://snudesignweek.com/)。
 :::
+
+---
+
+:::en
+## Commentary
+
+This is a short film themed on the longing for the healing of trauma through the non-linear time that exists in nature and in CG. It presents the distortion of footage — understood as "objectified memory" — through various transformations, and the establishment of spatial or topological relationships between video objects, as the cinematic expression of a story about karma and healing. For example, shots in which objects within the frame move as if the left and right edges of the screen were connected, and the Earth deforming into a torus, express anomalies in the topology of the video objects, telling that the space shown in the footage is "a space in which karma cannot be shrunk to a single point." In the cinematography, a "camera that gazes at the past" is realized by following spatial rules regarding the characters' movement: horizontal-axis movement means movement within the same time period, depth-axis movement means receding further into the past the farther it is from the camera, and upward vertical-axis movement is used as a metaphor for what is hard to overcome in reality.
+
+## Synopsis
+
+*(Intro)* Two people (A, B) were trying to take their own lives by jumping from a bridge over the Han River in Seoul. B died, but A fled and tried to go to another world through a tunnel — yet a construction site blocked the tunnel. B was dragged into the river by a yokai that had crossed an uncrossable bridge from "a place where the infinitely distant future and the infinitely distant past are connected."
+
+*(Main)* In lush nature, three people (B, C, D) perform a memorial rite toward the river at its bank, while one person (A) films the scene. Meeting after a long time, the three (B, C, D) chat about how they have been, before the rite table. There, a green yokai that has crossed the river from the opposite side appears. The three throw pebbles at the yokai. A throws a large stone hard at it, but it misses, goes once around the Earth, and returns. The stone breaks the screen, and a screen further back appears. The three (B, C, D) inside that screen gaze at the river.
+
+A's corpse drifts down and is stopped by the stone pagoda; the yokai across the river reels it in with a fishing rod. From there the film folds space and time — frames nest and overlap, the two mountains across the river are joined by a phantom bridge, and past and present scenes merge. The yokai leads the three up the mountain, where they fall behind one by one. B and the yokai reach the summit; the yokai tumbles off the cliff and orbits the Earth endlessly as the Earth deforms into a torus. A, having gone once around time, meets B at the inverted summit. The two pass through a wormhole and emerge from a cave (an actual Paleolithic excavation site). The yokai peels the grass from its face — revealing that the yokai was B — and licks the cut on B's wrist until the scar disappears. The yokai too vanishes; a drop falls on B's arm; the red light of the bridge across the river is covered over in green.
+:::
+
+:::ko
+## 해설
+
+본작은 자연과 CG에 있는 비선형의 시간에 의한 트라우마 치유에 대한 염원을 테마로 한 단편 영화다. "물체화된 기억"으로 파악한 영상을 다양한 변환으로 일그러뜨리고, 영상 오브젝트 간의 공간적 혹은 위상수학적 관계를 세우는 것을, 업(業)과 치유를 둘러싼 이야기의 영상 표현으로 제시한다. 예를 들어, 화면의 좌우가 이어져 있는 듯 영상 속 물체가 움직이는 숏이나, 토러스 형으로 변형되는 지구는, 영상 오브젝트의 위상 이변을 나타내며, 영상에 비치는 공간이 "업이 하나의 점으로 수축될 수 없는 공간"임을 이야기한다. 촬영에서는 인물의 움직임에 관한 공간적 규칙을 따름으로써 "과거를 응시하는 카메라"를 실현한다. 수평축의 움직임은 동일 시간대에서의 이동을, 깊이축의 움직임은 카메라에서 멀어질수록 과거로 거슬러 올라감을 의미하며, 수직축의 상승적 움직임은 현실에서 극복하기 어려운 것의 메타포로 삼는다.
+
+## 줄거리
+
+*(인트로)* 두 사람(A, B)이 서울 한강의 다리에서 투신자살하려 하고 있었다. B는 사망했지만, A는 도망쳐 터널을 통해 다른 세계로 가려 했다. 그러나 공사 현장이 터널을 막고 있었다. B는, "무한히 먼 미래와 무한히 먼 과거가 이어져 있는 곳"에서 건널 수 없는 다리를 건너온 요괴에 의해 강 속으로 끌려 들어갔다.
+
+*(메인)* 푸르른 자연 속, 강가에서 세 사람(B, C, D)이 강을 향해 제사를 지낸다. 그 장면을 한 사람(A)이 촬영하고 있다. 오랜만에 만난 세 사람(B, C, D)은 제사상 앞에서 근황에 대해 이야기한다. 그곳에, 맞은편에서 강을 건너온 초록 요괴가 나타난다. 세 사람(B, C, D)은 요괴에게 자갈을 던진다. A는 요괴에게 큰 돌을 세게 던지지만, 빗나가 지구를 한 바퀴 돌아 되돌아온다. 돌은 화면을 부수고, 안쪽의 화면이 나타난다. 그 화면 속 세 사람(B, C, D)은 강을 바라본다.
+
+A의 시신이 떠내려와 돌탑에 걸려 멈춘다. 강 건너편의 요괴가 낚싯대 릴을 감는다. 거기서부터 영상은 공간과 시간을 접는다 — 프레임이 중첩되고, 강을 사이에 둔 두 산이 환영의 다리로 이어지며, 과거와 현재의 장면이 겹쳐진다. 요괴는 세 사람을 산으로 이끌고, 그들은 한 명씩 낙오한다. B와 요괴는 산정에 다다르고, 요괴는 절벽에서 굴러떨어져 지구를 무한히 공전하며, 지구는 토러스 형으로 변형된다. 시간을 한 바퀴 돈 A가 좌우 반전된 산정에 나타나 B와 처음 만난다. 두 사람은 웜홀을 통과해, 동굴(실제로 구석기 유물이 발견된 장소)을 지나 나온다. 요괴는 얼굴을 가리던 풀을 벗기고 — 요괴가 B였음이 드러난다 — B의 손목 상처를 핥는다. 오래 핥으니 흉터가 사라진다. 요괴 또한 사라지고, B의 팔에 물방울이 떨어지며, 강을 가로지르는 다리의 붉은 조명이 초록으로 뒤덮여 간다.
+:::
+
+:::ja
+## 解説
+
+本作は、自然とCGにある非線形の時間によるトラウマの治癒への念願をテーマとした短編映画である。「物体化された記憶」と捉えた映像を様々な変換をもって歪ませ、映像オブジェクト間の空間的あるいは位相数学的関係を立てることを、業と治癒をめぐる物語の映像表現として提示している。例えば、画面の左右が繋がっているように映像内の物体が動くショットや、トーラス形に変形する地球は、映像オブジェクトの位相の異変を表し、映像に写っている空間が「業が一つの点に縮まることのできない空間」であることを物語る。撮影においては、人物の動きに関する空間的ルールに従うことで「過去を見つめるカメラ」を実現している。水平軸の動きは同一時間帯における移動を、奥行き軸の動きはカメラから離れるほど過去へ遡ることを意味し、垂直軸の上昇的な動きは現実で克服しがたいことのメタファーとしている。
+
+## あらすじ
+
+*（イントロ）* 2人（A, B）が漢江（ソウル・ハンガン）の橋から投身し自殺しようとしていた。Bは死亡したが、Aは逃げて、トンネルを通って別の世界に行こうとした。しかし、工事現場がトンネルを防いでいた。Bは、「無限に遠い未来と無限に遠い過去とが繋がっている所」から渡れない橋を渡ってきた妖怪によって川の中に引き摺り込まれていった。
+
+*（メイン）* 緑豊かな自然の中、川辺で３人（B, C, D）が川に向けて祭祀を行う。その場面を１人（A）が撮影している。久しぶりに会った３人（B, C, D）は祭祀膳の前で、近況についておしゃべりする。そこに、向かい側から川を渡ってきた緑の妖怪が現れる。３人（B, C, D）は妖怪に小石を投げる。Aは妖怪に大きな石を強く投げるが、外れて地球を一回りして戻ってくる。石は画面を壊し、奥の画面が現れる。その画面の中の３人（B, C, D）は川を眺める。
+
+Aの死体が流れてきて石塔にあたって止まる。川の向かい側の妖怪が釣り竿のリールを巻く。そこから映像は空間と時間を折り畳む——フレームが入れ子になり重なり、川を挟んだ二つの山が幻の橋で繋がれ、過去と現在の場面が重なり合う。妖怪は３人を山へ導き、彼らは一人ずつ落伍する。Bと妖怪は山頂に着き、妖怪は崖から転落して地球を無限に空転し、地球はトーラス形に変形する。時間を一周してきたAが左右反転した山頂に現れ、Bと初めて出会う。二人はワームホールを通り抜け、洞窟（実際に旧石器時代の遺物が発見された場所）を通って出てくる。妖怪は顔を隠していた草を剥がし——妖怪がBであったことが分かる——Bの手首の切り傷を舐める。長く舐めると傷跡が消えていく。妖怪も消え、Bの腕に雫が落ち、川を横切る橋の赤い照明が緑色に覆われていく。
+:::
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+![](images/works/ixda/odt1.jpg)
+
+![](images/works/ixda/odt2.png)
+
+![](images/works/ixda/odt3.png)
+
+![](images/works/ixda/odt4.png)
+
+![](images/works/ixda/odt5.png)
+
+![](images/works/ixda/odt6.png)
+
+![](images/works/ixda/odt7.png)
+
+![](images/works/ixda/odt8.png)
+
+![](images/works/ixda/odt9.png)
+
+![](images/works/ixda/odt10.png)
+
+![](images/works/ixda/odt11.png)
+
+![](images/works/ixda/odt12.png)
+
+![](images/works/ixda/odt13.jpg)
+
+![](images/works/ixda/odt14.jpg)

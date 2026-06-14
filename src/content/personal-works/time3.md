@@ -174,3 +174,40 @@ $$c(t) = s(p(t-\epsilon')) \oplus r(t)$$
 - [Instagram - ArtSpace@SNU - 作品紹介](https://www.instagram.com/tv/CV4RdUsMEr2/)
 - [Facebook - ArtSpace@SNU](https://www.facebook.com/snuartspace)
 :::
+
+---
+
+:::en
+## Commentary
+
+This work adds an extra device to a feedback system in which a wall projection is filmed by a camera and projected back onto the wall. That device is to make the image projected on the wall the average of "the image captured now" and "the image captured 10 seconds ago." As a result, the wall projection becomes an image overlaying 1/2 of the present, 1/4 of 10 seconds ago, 1/8 of 20 seconds ago, and so on. This produces an effect as if the reverberation and delay effects of electronic music were working on the image simultaneously.
+
+The installation is placed on a stairwell landing, so that one's own image reappears at the timing when passers-by walk up or down the stairs to the floors above and below.
+:::
+
+:::ko
+## 해설
+
+본작은 벽의 프로젝션을 카메라로 촬영하고, 그것을 다시 벽에 투영하는 피드백 시스템에 추가적인 장치를 더한 것이다. 그 장치란, 벽에 투영되는 영상을 "지금 포착한 영상"과 "10초 전에 포착한 영상"의 평균으로 만드는 것이다. 그 결과 벽의 프로젝션은 현재의 1/2, 10초 전의 1/4, 20초 전의 1/8, …이 겹쳐진 이미지가 된다. 이는 마치 전자음악에서의 reverberation과 delay 이펙트가 동시에 영상에서 작동하는 듯한 효과를 이룬다.
+
+인스톨레이션은 계단참에 위치해, 오가는 사람이 계단을 통해 위층이나 아래층을 걷는 타이밍에 자신의 이미지가 다시 나타나도록 되어 있다.
+:::
+
+:::ja
+## 解説
+
+本作は、壁のプロジェクションをカメラで撮影し、それを再び壁に投影するフィードバックシステムに、追加的な仕掛けを加えたものである。その仕掛けとは、壁に投影される映像を「現在捉えた映像」と「10秒前に捉えた映像」の平均にすることである。その結果、壁のプロジェクションは、現在の2分の1、10秒前の4分1、20秒前の8分の1、…が重なった画像となる。これは、あたかも電子音楽におけるreverberationとdelayエフェクトが同時に映像において働いているような効果を成す。
+
+インスタレーションは踊り場に位置され、行き来する人が階段を通って上や下の階を歩くタイミングに自身の画像が再び現われるようになっている。
+:::
+
+![](images/works/time3/odt1.jpg)
+:::en
+*The person who took this photo, ten-odd seconds earlier*
+:::
+:::ko
+*이 사진을 찍은 사람의 십수 초 전*
+:::
+:::ja
+*この写真を撮った人の十数秒前*
+:::

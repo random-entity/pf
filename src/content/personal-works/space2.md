@@ -242,3 +242,53 @@ tools: ["Unity", "Kinect"]
 
 [^1]: 2021年エディションのウェブサイトは現在アクセス不可である。[Wayback Machineを通じて当時の「オンライン展示ウェブサイト」の表紙画面は見ることができる](https://web.archive.org/web/20220116184406/https://snudesignweek.com/)。
 :::
+
+---
+
+:::en
+## Synopsis
+
+When you enter the dark room, you see a hole about three meters in diameter in the floor. Water has collected inside it, in which the viewer themselves is reflected (from a viewpoint looking down on oneself from the ceiling). The projected image reacts in real time to the position of the viewer's head and distorts, so that from the viewer's vantage the world beneath the floor always appears three-dimensional. When the viewer moves, ripples spread across the water's surface. The closer the viewer approaches the center of the hole, the more the underwater figure of the viewer fragments and transforms into swimming fish.
+
+## Commentary
+
+For me, the sensation of depression resembles the feeling of being submerged underwater. Adopting the motifs of a well and of metamorphosis, and using off-axis projection and point cloud techniques, I created a meditative space in which one gazes from the ground at one's own underwater self. Next, I hope to make works that apply fractal spaces — in which there is, beneath the world below the floor, yet another world-below-the-floor's-world-below-the-floor — and the fact that off-axis projection can produce its illusion of depth for only one viewer at a time.
+:::
+
+:::ko
+## 줄거리
+
+암실에 들어가면, 바닥에 지름 3미터 정도의 구멍이 보인다. 그 안에는 물이 고여 있고, (천장에서 자신을 내려다보는 시점에서의) 관람자 자신이 비친다. 프로젝션 이미지는 관람자의 머리 위치에 반응해 실시간으로 일그러지며, 관람자의 시점에서는 늘 바닥 아래 세계가 입체적으로 보이는 듯한 착각을 일으킨다. 관람자가 움직이면 수면에 파동이 퍼진다. 관람자가 구멍의 중앙에 가까이 갈수록, 물속 관람자의 모습은 파편화되어 헤엄치는 물고기들로 변신해 간다.
+
+## 해설
+
+우울의 감각은 내게 물속에 잠겨 있는 듯한 기분과 닮아 있다. 우물과 변신의 모티프를 채용하고, Off-axis projection 기술과 point cloud 기술을 사용해, 지면에서 물속의 자신을 바라보는 명상적 공간을 제작했다. 다음에는 바닥 아래 세계의 아래에 또 바닥 아래 세계의 바닥 아래 세계가 있기도 한 프랙탈 공간이나, Off-axis projection은 한 명의 관람자에게만 입체감의 착각을 일으킬 수 있다는 점을 응용한 작품을 만들고 싶다.
+:::
+
+:::ja
+## あらすじ
+
+暗室に入ると、床に直径3メートルほどの穴が見える。その中には水が溜まっており、（天井から自身を見下ろす視点での）観覧者自身が映し出される。プロジェクション画像は観覧者の頭の位置に反応しリアルタイムで歪み、鑑賞者の視点からはいつも床下の世界が立体的に見えるような錯覚を起こす。観覧者が動くと水面に波動が広がる。鑑賞者が穴の中央に近づくほど、水中の観覧者の姿は破片化し、泳ぐ魚たちへと変身していく。
+
+## 解説
+
+憂鬱の感覚は私にとって水中に沈んでいるような気持ちに似ているものである。井戸と変身のモチーフを採用し、Off-axis projection技術とpoint cloud技術を用いて、地面から水中の自身を眺める瞑想的空間を制作した。今度は床下の世界の下にさらに床下の世界の床下の世界があったりするフラクタル空間や、Off-axis projectionは一人の鑑賞者にしか立体感の錯覚を起こせないことを応用した作品を作りたいと思っている。
+:::
+
+:::en
+## Gallery
+:::
+:::ko
+## 갤러리
+:::
+:::ja
+## ギャラリー
+:::
+
+![](images/works/space2/odt1.jpg)
+
+![](images/works/space2/odt2.jpg)
+
+![](images/works/space2/odt3.jpg)
+
+![](images/works/space2/odt4.jpg)
