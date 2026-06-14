@@ -37,10 +37,8 @@ npm run dev
 ```
 
 Requires [Node.js](https://nodejs.org) (LTS / v20+). Open the printed local URL.
-
-`npm run build` produces the static site in `dist/`; `npm run preview` serves
-that build locally. These are the only three scripts (`dev` / `build` /
-`preview`), all thin wrappers over Vite.
+`npm run build` writes the static site to `dist/`; `npm run preview` serves that
+build. These three scripts are thin wrappers over Vite.
 
 ## Add or edit a work
 
@@ -90,24 +88,13 @@ English prose. Footnotes[^1] and links to [[still-life-pears]] work.
   items, nested object values, and release sub-fields like `venue` and `version`):
   - `[text](url)` → clickable link (external opens in a new tab)
   - `[text](url1)(url2)` → plain text with one `↗` icon per URL (multi-link)
-  - `[[wikilink]]` → link to another work by slug
+  - `[[wikilink]]` → link to another work by slug (see [Wikilinks](#wikilinks))
+  - `[^label]` → footnote ref (see [Footnotes](#footnotes))
   - `**bold**`, `_italic_`, `` `code` `` → inline formatting
-  - On **enum pills**, the link text becomes the pill label and a `↗` icon is
-    appended after a separator; multi-link values add one `↗` per URL.
-  - **Footnote refs** `[^label]` also work inside an enum value (e.g.
-    `event: "Forum IMPACT[^liege]"`): the marker is lifted out of the label and
-    shown as a numbered superscript on the right of the pill, sharing the same
-    appearance-order numbering and return-link as body footnotes.
-  - **Wikilinks** `[[target]]` / `[[target|alias]]` also work inside an enum value
-    (e.g. `event: "[[liege-2024]]"`): the visible text is rendered as the label,
-    and a **page icon** linking to that work is appended right after the label,
-    *before* any footnote or `↗` icons: `[ label | 🗎 | ¹ | ↗ ]`. The label text is
-    the `alias` if you give one (`[[target|alias]]`); otherwise the referenced
-    page's **title** (in the current language, falling back en → ko → ja); and if
-    the target doesn't resolve, the raw target (filename) — shown with a muted,
-    inert icon.
-  - Footnote markers (and the page-icon, not the wikilink's text) are kept out of
-    the sidebar filter pills; the value's filter/group identity is the label text.
+  - On an **enum pill**, attachments render right of the label, each in its own
+    separated zone: `[ label | 🗎 wikilink | ¹ footnote | ↗ external ]`. The
+    wikilink's visible text and the link text become the label; footnote/page
+    markers stay out of the sidebar filter pill (the label text is its filter id).
 - `title` is used as the page heading (shown in the topbar) and is not repeated
   in the block, but it behaves like any other value: footnote refs `[^label]` in
   the title render as a superscript on the topbar title (numbered first, since the

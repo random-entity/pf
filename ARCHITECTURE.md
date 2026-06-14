@@ -9,7 +9,7 @@ It's a **static single-page app**. Every **work** (an artwork, a module, a toy,
 … — whatever the portfolio holds) is a Markdown file with YAML frontmatter. A
 work's kind is its `type` frontmatter property, **not** its folder: the
 subdirectories under `src/content/` are just loose authoring buckets, so the
-loader globs all of them. At build time Vite inlines all of them; at runtime the
+loader globs all of them. Vite inlines every file at build time; at runtime the
 app parses the frontmatter and renders an Obsidian-like sidebar over it. How each
 property behaves — plain text, filter pills, date sort, … — is declared
 **explicitly** in one config file (`src/lib/schema.js`); the facet engine and the
